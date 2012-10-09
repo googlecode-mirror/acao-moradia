@@ -81,7 +81,7 @@ mysql_query("
 CREATE TABLE IF NOT EXISTS `endereco` (
   `cep` VARCHAR(8),
   `logradouro` VARCHAR(100) NOT NULL,  
-  `numero` INT NOT NULL,
+  `numero` INT UNSIGNED NOT NULL,
   `bairro_nome` VARCHAR(100) NOT NULL,
   `cidade_nome` VARCHAR(100) NOT NULL,
   `cidade_estado` VARCHAR(2) NOT NULL,
