@@ -1,5 +1,5 @@
 <?php /*INSTALA O BANCO DE DADOS*/
-
+echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">";
 ########DADOS PARA CONEXÃO COM O MYSQL
 $server = "localhost";
 $database = "acao_moradia";
@@ -16,6 +16,9 @@ mysql_query('SET character_set_connection=utf8');
 mysql_query('SET character_set_client=utf8');
 mysql_query('SET character_set_results=utf8');
 mysql_query('SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO"');
+
+$charset = mysql_set_charset('utf8');
+$charset = mysql_set_charset('utf8');
 
 ########CRIA O BANCO
 mysql_query('DROP DATABASE IF EXISTS acao_moradia');
@@ -96,7 +99,7 @@ echo "Tabela endereco Instalada com sucesso<br>";
 mysql_query("
 CREATE TABLE IF NOT EXISTS `pessoa` (
   `id` INT AUTO_INCREMENT NOT NULL,
-  `cpf` VARCHAR(14),
+  `cpf` VARCHAR(14) UNIQUE,
   `nome` VARCHAR(100) NOT NULL,			#upper
   `rg` VARCHAR(45),
   `sexo` CHAR CHECK(`sexo`IN('M','F')),	#upper
@@ -267,6 +270,9 @@ mysql_query("
 CREATE TRIGGER insere_endereco BEFORE INSERT ON endereco
   FOR EACH ROW BEGIN    
 	set NEW.logradouro = upper(NEW.logradouro);	
+	set NEW.bairro = upper(NEW.bairro);	
+	set NEW.cidade = upper(NEW.cidade);	
+	set NEW.estado = upper(NEW.estado);	
   END;
 ") or die(mysql_error());
 
@@ -277,6 +283,9 @@ mysql_query("
 CREATE TRIGGER atualiza_endereco BEFORE UPDATE ON endereco
   FOR EACH ROW BEGIN    
 	set NEW.logradouro = upper(NEW.logradouro);	
+	set NEW.bairro = upper(NEW.bairro);	
+	set NEW.cidade = upper(NEW.cidade);	
+	set NEW.estado = upper(NEW.estado);	
   END;
 ") or die(mysql_error());
 
@@ -291,6 +300,7 @@ CREATE TRIGGER insere_pessoa BEFORE INSERT ON pessoa
 	set NEW.nome = upper(NEW.nome);	
 	set NEW.sexo = upper(NEW.sexo);
 	set NEW.data_cadastro = date(now());
+	set NEW.logradouro = upper(NEW.logradouro);
   END;
 ") or die(mysql_error());
 
@@ -302,6 +312,8 @@ CREATE TRIGGER atualiza_pessoa BEFORE UPDATE ON pessoa
   FOR EACH ROW BEGIN    
 	set NEW.nome = upper(NEW.nome);	
 	set NEW.sexo = upper(NEW.sexo);		
+	set NEW.data_cadastro = date(now());
+	set NEW.logradouro = upper(NEW.logradouro);
   END;
 ") or die(mysql_error());
 
@@ -365,12 +377,17 @@ echo "Tabela telefone populada com sucesso<br>";
 
 #PESSOA_HAS_PROGRAMA
 mysql_query("insert into pessoa_has_programa(id_pessoa, id_programa) values (1,1)") or die(mysql_error());
-echo "Tabela pesssoa_has_programa Instalada com sucesso<br>";
+echo "Tabela pesssoa_has_programa populada com sucesso<br>";
 
 #CURSO_HAS_PESSOA
 mysql_query("insert into curso_has_pessoa(id_curso, id_pessoa) values (1,1)") or die(mysql_error());
-echo "Tabela curso_has_pessoa Instalada com sucesso<br>";
+echo "Tabela curso_has_pessoa populada com sucesso<br>";
 
+#LOGIN
+mysql_query("insert into login(usuario, senha, nivel) values ('ADMIN','ADMIN','ADMIN')") or die(mysql_error());
+mysql_query("insert into login(usuario, senha, nivel) values ('ATENDENTE','ATENDENTE','ATENDENTE')") or die(mysql_error());
+mysql_query("insert into login(usuario, senha, nivel) values ('AT','AT','ATENDENTE')") or die(mysql_error());
+echo "Tabela login populada com sucesso<br>";
 
 #PESSOA_HAS_PESSOA
 
