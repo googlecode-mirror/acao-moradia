@@ -98,10 +98,11 @@ mysql_query("
 -- -----------------------------------------------------
 -- Table `pessoa`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `pessoa` (  
+CREATE  TABLE IF NOT EXISTS `pessoa` (
   `id_pessoa` INT NOT NULL AUTO_INCREMENT ,
-  `cpf` VARCHAR(14) NULL ,
+  `id_familia` INT NOT NULL ,
   `nome` VARCHAR(100) NOT NULL ,		#upper
+  `cpf` VARCHAR(14) NULL ,
   `rg` VARCHAR(45) NULL ,
   `sexo` CHAR CHECK(`sexo`IN('M','F')),	#upper
   `data_nascimento` DATE NULL ,
@@ -110,21 +111,27 @@ CREATE  TABLE IF NOT EXISTS `pessoa` (
   `telefone` VARCHAR(15) NULL ,
   `grau_parentesco` VARCHAR(45) NOT NULL CHECK(`grau_parentesco` IN('TITULAR','CÔNJUGE(MARIDO OU ESPOSA)','COMPANHEIRO(A)','FILHO(A)','IRMÃ(O)','PAI/MÃE','CUNHADO(A)','GENRO/NORA','SOGRO(A)','ENTEADO(A)','NETO(A)','PADRASTO/MADRASTA','AGREGADO(A)','AVÔ(Ó)','EX-COMPANHEIRO(A)','EX-MARIDO/EX-ESPOSA','PRIMO(A)','SOBRINHO(A)','TIO(A)')),	#upper
   `estado_civil` VARCHAR(45) NULL CHECK(`estado_civil` IN('SOLTEIRO(A)','CASADO(A)','SEPARADO(A)','DIVORCIADO(A)','VIÚVO(A)')),		#upper  
-  `raca` VARCHAR(45) CHECK(`raca` IN('BRANCO','NEGRO','ÍNDIO','MULATO','CABOCLO','CABRA')) ,						#upper
-  `religiao` VARCHAR(45) NULL ,					#upper
-  `naturalidade` VARCHAR(45) NULL ,				#upper
-  `carteira_profissional` CHAR(1) NOT NULL ,	#upper
-  `titulo_eleitor` VARCHAR(45) NULL ,			
-  `certidao_nascimento` CHAR(1) NOT NULL ,
-  `id_familia` INT NOT NULL ,
-  PRIMARY KEY (`id_pessoa`) ,
+  `raca` VARCHAR(45) CHECK(`raca` IN('BRANCO','NEGRO','ÍNDIO','MULATO','CABOCLO','CABRA')) ,	#upper
+  `religiao` VARCHAR(45) NULL,							#upper
+  `carteira_profissional` CHAR(1) NOT NULL ,			#upper
+  `titulo_eleitor` VARCHAR(12) NULL ,
+  `certidao_nascimento` CHAR(1) NOT NULL ,				#upper
+  `cidade_natal` VARCHAR(100) NOT NULL ,				#upper
+  `estado_natal` VARCHAR(2) NOT NULL ,  				#upper
+  PRIMARY KEY (`id_pessoa`), 
   INDEX `fk_Pessoa_familia1_idx` (`id_familia` ASC) ,
+  INDEX `fk_pessoa_cidade1_idx` (`cidade_natal` ASC, `estado_natal` ASC) ,
   CONSTRAINT `fk_Pessoa_familia1`
     FOREIGN KEY (`id_familia` )
     REFERENCES `familia` (`id_familia` )
     ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_pessoa_cidade1`
+    FOREIGN KEY (`cidade_natal` , `estado_natal` )
+    REFERENCES `cidade` (`nome` , `estado` )
+    ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB;   
 ") or die(mysql_error());
 
 mysql_query("
@@ -152,7 +159,7 @@ mysql_query("
 CREATE  TABLE IF NOT EXISTS `curso_has_pessoa` (
   `id_curso` INT NOT NULL ,
   `id_pessoa` INT NOT NULL ,
-  `situacao_matricula` TINYTEXT NOT NULL ,		#upper
+  `situacao_matricula` TINYTEXT NOT NULL CHECK(`situacao_matricula` IN('MATRICULADO', 'LISTA DE ESPERA', 'CONCLUÍDO', 'DESISTIU')),		#upper
   PRIMARY KEY (`id_curso`, `id_pessoa`) ,
   INDEX `fk_Curso_has_Pessoa_Pessoa1_idx` (`id_pessoa` ASC) ,
   INDEX `fk_Curso_has_Pessoa_Curso1_idx` (`id_curso` ASC) ,
@@ -350,9 +357,11 @@ CREATE TRIGGER insere_pessoa BEFORE INSERT ON pessoa
 	set NEW.grau_parentesco = upper(NEW.grau_parentesco);	
 	set NEW.estado_civil = upper(NEW.estado_civil);	
 	set NEW.raca = upper(NEW.raca);	
-	set NEW.religiao = upper(NEW.religiao);
-	set NEW.naturalidade = upper(NEW.naturalidade);
-	set NEW.carteira_profissional = upper(NEW.carteira_profissional);		   
+	set NEW.religiao = upper(NEW.religiao);	
+	set NEW.carteira_profissional = upper(NEW.carteira_profissional);		   	
+	set NEW.certidao_nascimento = upper(NEW.certidao_nascimento);		   
+	set NEW.cidade_natal = upper(NEW.cidade_natal);		   
+	set NEW.estado_natal = upper(NEW.estado_natal);		   	
   END;
 ") or die(mysql_error());
 
@@ -363,14 +372,17 @@ mysql_query("
 CREATE TRIGGER atualiza_pessoa BEFORE UPDATE ON pessoa
   FOR EACH ROW BEGIN    
 	set NEW.nome = upper(NEW.nome);	
-	set NEW.sexo = upper(NEW.sexo);		
+	set NEW.sexo = upper(NEW.sexo);
 	set NEW.data_cadastro = date(now());	
 	set NEW.grau_parentesco = upper(NEW.grau_parentesco);	
 	set NEW.estado_civil = upper(NEW.estado_civil);	
 	set NEW.raca = upper(NEW.raca);	
-	set NEW.religiao = upper(NEW.religiao);
-	set NEW.naturalidade = upper(NEW.naturalidade);
-	set NEW.carteira_profissional = upper(NEW.carteira_profissional);		   
+	set NEW.religiao = upper(NEW.religiao);	
+	set NEW.carteira_profissional = upper(NEW.carteira_profissional);		   	
+	set NEW.certidao_nascimento = upper(NEW.certidao_nascimento);		   
+	set NEW.cidade_natal = upper(NEW.cidade_natal);		   
+	set NEW.estado_natal = upper(NEW.estado_natal);		   	
+
   END;
 ") or die(mysql_error());
 
@@ -410,7 +422,7 @@ CREATE TRIGGER insere_aluno_em_curso BEFORE INSERT ON curso_has_pessoa
     IF(qtd_vagas_curso > qtd_vagas_ocupadas) THEN
          set NEW.situacao_matricula = 'MATRICULADO';
     ELSE
-         set NEW.situacao_matricula = 'LISTA_ESPERA';
+         set NEW.situacao_matricula = 'LISTA DE ESPERA';
            
     END IF;
   END;
@@ -418,6 +430,17 @@ CREATE TRIGGER insere_aluno_em_curso BEFORE INSERT ON curso_has_pessoa
 
 echo "Trigger para definir situação_matricula em curso_has_pessoa Instalada com sucesso<br>";
 
+
+#-----------LETRAS Maiúsculas em `CURSO_HAS_PESSOA` ------------
+#UPDATE
+mysql_query("
+CREATE TRIGGER atualiza_curso_has_pessoa BEFORE UPDATE ON curso_has_pessoa
+  FOR EACH ROW BEGIN    
+	set NEW.situacao_matricula = upper(NEW.situacao_matricula);
+  END;
+") or die(mysql_error());
+
+echo "Trigger ao atualizar curso_has_pessoa Instalada com sucesso<br>";
 
 
 #---------------------------------------------------POPULAR O BANCO-------------------------------------------------------
@@ -450,9 +473,10 @@ echo "Tabela telefone populada com sucesso<br>";
 
 #PESSOA
 mysql_query("insert into pessoa
-(cpf,nome,rg,sexo,data_nascimento,telefone,grau_parentesco,estado_civil,raca,religiao,naturalidade,carteira_profissional,titulo_eleitor,certidao_nascimento,id_familia) values 
-('101.101.101-00','João da silva', 'SSP-DF 2.573.224','m','1970-10-31','9998-0099','TiTULAR','SoLTEIRO(A)','BrANCO','CATÓlICO','uBERLÂNDIA-MG','s','12.12','s',1)") or die(mysql_error());
+(cpf,nome,rg,sexo,data_nascimento,telefone,grau_parentesco,estado_civil,raca,religiao,cidade_natal,estado_natal,carteira_profissional,titulo_eleitor,certidao_nascimento,id_familia) values 
+('101.101.101-00','João da silva', 'SSP-DF 2.573.224','m','1970-10-31','9998-0099','TiTULAR','SoLTEIRO(A)','BrANCO','CATÓlICO','uBERLÂNDIA','MG','s','000011112222','s',1)") or die(mysql_error());
 echo "Tabela cidade populada com sucesso<br>"; 
+
 
 #PESSOA_HAS_PROGRAMA
 mysql_query("insert into pessoa_has_programa(id_pessoa, id_programa) values (1,1)") or die(mysql_error());
