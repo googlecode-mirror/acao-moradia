@@ -443,6 +443,26 @@ CREATE TRIGGER atualiza_curso_has_pessoa BEFORE UPDATE ON curso_has_pessoa
 echo "Trigger ao atualizar curso_has_pessoa Instalada com sucesso<br>";
 
 
+#-----------ENCRIPTOGRAFAR SENHA NO LOGIN ------------
+#INSERT
+mysql_query("
+CREATE TRIGGER insere_login BEFORE INSERT ON login
+  FOR EACH ROW BEGIN    
+	set NEW.senha = md5(NEW.senha);
+  END;
+") or die(mysql_error());
+
+echo "Trigger ao inserir login Instalada com sucesso<br>";
+
+#UPDATE
+mysql_query("
+CREATE TRIGGER altera_login BEFORE UPDATE ON login
+  FOR EACH ROW BEGIN    
+	set NEW.senha = md5(NEW.senha);
+  END;
+") or die(mysql_error());
+
+
 #---------------------------------------------------POPULAR O BANCO-------------------------------------------------------
 echo "<br>";
 #CURSO
@@ -496,8 +516,6 @@ echo "Tabela login populada com sucesso<br>";
 
 
 echo "<br>BANCO INSTALADO COM SUCESSO<br>";
-
-
 
 
 ?>
