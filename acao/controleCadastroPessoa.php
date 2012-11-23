@@ -1,6 +1,6 @@
 <?php
-include_once 'controleData.php';
-echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />";
+    include_once 'controleData.php';
+    echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />";
 
     include_once 'modelo.php';
     include_once 'bairroDAO.php';
@@ -14,8 +14,8 @@ echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />"
     
     if($sexo === "Masculino")
         $sexo= 'M';
-        elseif ($sexo === "Feminino") 
-            $sexo= 'F';   
+    elseif ($sexo === "Feminino") 
+        $sexo= 'F';   
 
     
     $dataNascimento= $_GET['dataNascimento'];
@@ -72,7 +72,5 @@ echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />"
             header("Location: cCadastraCursos.php");
         }
         
-    }
-    
-    
-    ?>
+    }       
+?>
