@@ -1,11 +1,11 @@
 <?php
-    include_once 'controleData.php';
+    include_once 'cFuncoes.php';
     echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />";
 
-    include_once 'modelo.php';
-    include_once 'bairroDAO.php';
-    include_once 'pessoaDAO.php';
-    include_once 'dBConection.php';
+    include_once 'modelo/Modelo.php';
+    include_once 'bd/BairroDAO.php';
+    include_once 'bd/PessoaDAO.php';
+    include_once 'bd/BDConnection.php';
     
     $nome= $_GET['nome'];
     $cpf= $_GET['cpf'];
@@ -69,7 +69,7 @@
         $pDAO= new PessoaDAO();
         $tep= $pDAO->cadastraPessoa( $cpf, $nome, $rg, $sexo, $dataNascimento, $idConjuge, $cep, $logradouro, $numero);
         if($tep === true){
-            header("Location: cCadastraCursos.php");
+            header("Location: controle/cCadastraCursos.php");
         }
         
     }       

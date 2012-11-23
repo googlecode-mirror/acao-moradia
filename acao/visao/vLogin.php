@@ -6,8 +6,8 @@
     <title>Ação Moradia</title>
     <link type="image/x-icon" href="copy.ico" rel="icon"/>
     <link type="image/x-icon" href="copy.ico" rel="shortcut icon"/>
-    <link href="css/styles.css" rel="stylesheet" type="text/css" />
-    <link href="css/button.css" rel="stylesheet" type="text/css" />
+    <link href="../css/styles.css" rel="stylesheet" type="text/css" />
+    <link href="../css/button.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -15,9 +15,9 @@
         session_start();
         if(isset($_SESSION['nivel']))
             if ($_SESSION['nivel'] === "atendente")
-                header("Location: atendente.php");
+                header("Location: vAtendente.php");
             elseif ($_SESSION['nivel'] === "admin") 
-                 header("Location: admin.php");
+                 header("Location: vAdmin.php");
     ?>
     <div class="wrap">
         <div class="header">
@@ -33,7 +33,7 @@
                 <div class="tit_login"></div>
                 <div class="mn" align="center">
                     <br/><br/>
-                    <form action="controleLogin.php" method="post">
+                    <form action="../controle/cLogin.php" method="post">
                         Usuário:<input style="width:140px; "type="text" id="login" name="log" />
                         Senha:<input style="width:115px;" type="password" id="pass" name="password" />
                         <input type="submit" class="small black" value="Enviar" />

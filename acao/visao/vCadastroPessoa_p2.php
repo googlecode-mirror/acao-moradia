@@ -115,7 +115,7 @@
     session_start();
                        
                         if(isset($_SESSION['nivel'])!= true){
-                            header("Location: login.php");
+                            header("Location: visao/vLogin.php");
                          }*/
                      ?>
                     <div class="wrap">
@@ -123,7 +123,7 @@
                         <div class="header">
 
                             <div class="logo">
-                                <a href="atendente.php"><div class="lg"><h1>Ação Moradia</h1></div></a>
+                                <a href="visao/vAtendente.php"><div class="lg"><h1>Ação Moradia</h1></div></a>
                             </div>
                             <div class="titulo">
                                 <div class="txt">
@@ -133,7 +133,7 @@
 
                             <div class="menu">
                                 <div class="mn">
-                                    <div class="menu_bts"> <a href="" target="_parent"><img src="imagens/menu_cadastros.png" width="94" height="73" /></a> <a href="" target="_parent"><img src="imagens/menu_relatorios.png" width="106" height="73" /></a><a href="" target="_parent"><img src="imagens/menu_sobre.png" width="81" height="73" /></a><a href="" target="_parent"><img src="imagens/menu_ajuda.png" width="76" height="73" /></a><a href="cLogout.php"><img src="imagens/menu_logout.png" width="62" height="73" /></a></div>
+                                    <div class="menu_bts"> <a href="" target="_parent"><img src="imagens/menu_cadastros.png" width="94" height="73" /></a> <a href="" target="_parent"><img src="imagens/menu_relatorios.png" width="106" height="73" /></a><a href="" target="_parent"><img src="imagens/menu_sobre.png" width="81" height="73" /></a><a href="" target="_parent"><img src="imagens/menu_ajuda.png" width="76" height="73" /></a><a href="controle/cLogout.php"><img src="imagens/menu_logout.png" width="62" height="73" /></a></div>
                                 </div>
                             </div>
                         </div>
@@ -178,7 +178,7 @@
                             <div class="tit_sub_cat"></div>
                             <div class="bloco">
 
-                              <form name="cadastro" action="controleCadastroPessoa.php" method="get"/>
+                              <form name="cadastro" action="controle/cCadastraPessoa.php" method="get"/>
 
                               <div style="margin: 10px; border: #b1b1b1 solid 2px;"> 
                                       <div style="margin: 25px; float:left;"> 
@@ -265,7 +265,7 @@
                             </div>
 <!--
                                                                                                                         <div>
-                                                                                                                            <form action="cBuscaParente.php" method="get">
+                                                                                                                            <form action="controle/cBuscaParente.php" method="get">
                                                                                                                             <div>Pesquisar parente: <input type="text" name="parente" value=""/> <input type="submit" value="Pesquisar"/></div>
                                                                                                                             
                                                                                                                                 
