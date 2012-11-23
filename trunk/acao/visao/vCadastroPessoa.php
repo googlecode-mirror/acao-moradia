@@ -5,12 +5,11 @@
     <title>Ação Moradia</title>
     <link type="image/x-icon" href="copy.ico" rel="icon"/>
     <link type="image/x-icon" href="copy.ico" rel="shortcut icon"/>
-    <link href="css/styles.css" rel="stylesheet" type="text/css" />
-    <link href="css/button.css" rel="stylesheet" type="text/css" />
+    <link href="../css/styles.css" rel="stylesheet" type="text/css" />
+    <link href="../css/button.css" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
-    <script type="text/javascript" src="jquery.js"></script>
-    <script type="text/javascript" src="js/scripts.js"></script>
+    <script type="text/javascript" src="../js/scripts.js"></script>
 </head>
 <body>
     <?php/*
@@ -19,13 +18,13 @@
         session_start();
                        
         if(isset($_SESSION['nivel'])!= true){
-            header("Location: login.php");
+            header("Location: visao/vLogin.php");
          }*/
     ?>
     <div class="wrap">
         <div class="header">
             <div class="logo">
-                <a href="atendente.php"><div class="lg"><h1>Ação Moradia</h1></div></a>
+                <a href="vAtendente.php"><div class="lg"><h1>Ação Moradia</h1></div></a>
             </div>
             <div class="titulo">
                 <div class="txt">
@@ -35,7 +34,7 @@
 
             <div class="menu">
                 <div class="mn">
-                    <div class="menu_bts"> <a href="" target="_parent"><img src="imagens/menu_cadastros.png" width="94" height="73" /></a> <a href="" target="_parent"><img src="imagens/menu_relatorios.png" width="106" height="73" /></a><a href="" target="_parent"><img src="imagens/menu_sobre.png" width="81" height="73" /></a><a href="" target="_parent"><img src="imagens/menu_ajuda.png" width="76" height="73" /></a><a href="cLogout.php"><img src="imagens/menu_logout.png" width="62" height="73" /></a></div>
+                    <div class="menu_bts"> <a href="" target="_parent"><img src="../imagens/menu_cadastros.png" width="94" height="73" /></a> <a href="" target="_parent"><img src="../imagens/menu_relatorios.png" width="106" height="73" /></a><a href="" target="_parent"><img src="../imagens/menu_sobre.png" width="81" height="73" /></a><a href="" target="_parent"><img src="../imagens/menu_ajuda.png" width="76" height="73" /></a><a href="controle/cLogout.php"><img src="../imagens/menu_logout.png" width="62" height="73" /></a></div>
                 </div>
             </div>
         </div>
@@ -74,11 +73,11 @@
                     </p>                                 
                 </div>
             </div>
-            <!--<div class="navegador"><a href="#"><img src="imagens/bt_confirmar.png" alt="confirmar" width="87" height="27" border="0" /></a> <a href="#"><img src="imagens/bt_cancelar.png" alt="cancelar" width="79" height="27" border="0" /></a><a href="#"><img src="imagens/bt_incluir.png" alt="incluir" width="69" height="27" border="0" /></a><a href="#"><img src="imagens/bt_alterar.png" alt="alterar" width="69" height="27" border="0" /></a><a href="#"><img src="imagens/bt_excluir.png" alt="excluir" width="69" height="27" border="0" /></a><a href="menu_prolog.pdf" target="_blank"><img src="imagens/bt_ajuda.png" alt="ajuda" width="69" height="27" border="0" /></a></div>-->
+            <!--<div class="navegador"><a href="#"><img src="../imagens/bt_confirmar.png" alt="confirmar" width="87" height="27" border="0" /></a> <a href="#"><img src="../imagens/bt_cancelar.png" alt="cancelar" width="79" height="27" border="0" /></a><a href="#"><img src="../imagens/bt_incluir.png" alt="incluir" width="69" height="27" border="0" /></a><a href="#"><img src="../imagens/bt_alterar.png" alt="alterar" width="69" height="27" border="0" /></a><a href="#"><img src="../imagens/bt_excluir.png" alt="excluir" width="69" height="27" border="0" /></a><a href="menu_prolog.pdf" target="_blank"><img src="../imagens/bt_ajuda.png" alt="ajuda" width="69" height="27" border="0" /></a></div>-->
             <div class="tit_sub_cat"></div>
             <div class="bloco">
 
-                <form name="cadastro" action="controleCadastroPessoa.php" method="get"/>
+                <form name="cadastro" action="controle/cCadastraPessoa.php" method="get"/>
                     <div style="margin: 10px; border: #b1b1b1 solid 2px;"> 
                         <div style="margin: 25px; float:left;"> 
                             <h3>&nbsp;</h3>
@@ -156,7 +155,7 @@
                     </div>
 <!--
                     <div>
-                        <form action="cBuscaParente.php" method="get">
+                        <form action="controle/cBuscaParente.php" method="get">
                         <div>Pesquisar parente: <input type="text" name="parente" value=""/> <input type="submit" value="Pesquisar"/></div>
                         </form>        
 -->

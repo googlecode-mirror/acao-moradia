@@ -5,14 +5,14 @@
     <title>Ação Moradia</title>
     <link type="image/x-icon" href="copy.ico" rel="icon"/>
     <link type="image/x-icon" href="copy.ico" rel="shortcut icon"/>
-    <link href="css/styles.css" rel="stylesheet" type="text/css" />
+    <link href="../css/styles.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
     <?php
     session_start();
      if(!isset($_SESSION['nivel'])){
-        header("Location: login.php");
+        header("Location: vLogin.php");
      }
     ?>
     <div class="wrap">
@@ -28,7 +28,7 @@
 
             <div class="menu">
                 <div class="mn">
-                    <div class="menu_bts"> <a href="" target="_parent"><img src="imagens/menu_cadastros.png" width="94" height="73" /></a> <a href="" target="_parent"><img src="imagens/menu_relatorios.png" width="106" height="73" /></a><a href="" target="_parent"><img src="imagens/menu_sobre.png" width="81" height="73" /></a><a href="" target="_parent"><img src="imagens/menu_ajuda.png" width="76" height="73" /></a><a href="cLogout.php" target="_parent"><img src="imagens/menu_logout.png" width="62" height="73" /></a></div>
+                    <div class="menu_bts"> <a href="" target="_parent"><img src="../imagens/menu_cadastros.png" width="94" height="73" /></a> <a href="" target="_parent"><img src="../imagens/menu_relatorios.png" width="106" height="73" /></a><a href="" target="_parent"><img src="../imagens/menu_sobre.png" width="81" height="73" /></a><a href="" target="_parent"><img src="../imagens/menu_ajuda.png" width="76" height="73" /></a><a href="../controle/cLogout.php" target="_parent"><img src="../imagens/menu_logout.png" width="62" height="73" /></a></div>
                 </div>
             </div>
         </div>

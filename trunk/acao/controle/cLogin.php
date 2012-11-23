@@ -1,8 +1,7 @@
 <?php	
-    include_once 'LoginDAO.php';
-    include_once 'dBConection.php';
-    include_once 'modelo.php';
-    include_once 'sessao.php';
+    include_once '../bd/LoginDAO.php';
+    include_once '../bd/DBConnection.php';
+    include_once '../modelo/Modelo.php';    
 
     $login = $_POST['log'];
     $pass = $_POST['password'];
@@ -26,17 +25,17 @@
         //sessao::initeSession($lTemp);///passar campos texto
 
         if($lTemp->getNivel() === "ATENDENTE")
-            header("Location: atendente.php");
+            header("Location: ../visao/vAtendente.php");
         elseif ($lTemp->getNivel() === "ADMIN") {
-            header("Location: admin.php");
+            header("Location: ../visao/vAdmin.php");
         }
     }    
 
     elseif(sizeof($vet)<2){            
-       header("Location: login.php?mess= login ou senha incorreta");//resultado vazio de consulta		
+       header("Location: ../visao/vLogin.php?mess= login ou senha incorreta");//resultado vazio de consulta		
        echo 'nao encontrado';           
     }else{		
-             header("Location: login.php?mess= login ou senha incorreta");//erro desconhecido ounulo
+             header("Location: ../visao/vLogin.php?mess= login ou senha incorreta");//erro desconhecido ounulo
     }		
     //$vet= null;
 ?>

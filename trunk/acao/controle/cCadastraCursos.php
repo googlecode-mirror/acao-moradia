@@ -28,7 +28,7 @@
 
             <div class="menu">
                 <div class="mn">
-                    <div class="menu_bts"> <a href="" target="_parent"><img src="imagens/menu_cadastros.png" width="94" height="73" /></a> <a href="" target="_parent"><img src="imagens/menu_relatorios.png" width="106" height="73" /></a><a href="" target="_parent"><img src="imagens/menu_sobre.png" width="81" height="73" /></a><a href="" target="_parent"><img src="imagens/menu_ajuda.png" width="76" height="73" /></a><a href="login.php"><img src="imagens/menu_logout.png" width="62" height="73" /></a></div>
+                    <div class="menu_bts"> <a href="" target="_parent"><img src="imagens/menu_cadastros.png" width="94" height="73" /></a> <a href="" target="_parent"><img src="imagens/menu_relatorios.png" width="106" height="73" /></a><a href="" target="_parent"><img src="imagens/menu_sobre.png" width="81" height="73" /></a><a href="" target="_parent"><img src="imagens/menu_ajuda.png" width="76" height="73" /></a><a href="visao/vLogin.php"><img src="imagens/menu_logout.png" width="62" height="73" /></a></div>
                 </div>
             </div>
         </div>
@@ -43,7 +43,7 @@
 
                     <div class="bts">
                         <ul>
-                            <li><a href="vCadastroPessoa.php" target="_parent">Pessoas</a></li>
+                            <li><a href="visao/vCadastroPessoa.php" target="_parent">Pessoas</a></li>
                         </ul>
                     </div>
 
@@ -61,7 +61,7 @@
             <!--<div class="navegador"><a href="#"><img src="imagens/bt_confirmar.png" alt="confirmar" width="87" height="27" border="0" /></a> <a href="#"><img src="imagens/bt_cancelar.png" alt="cancelar" width="79" height="27" border="0" /></a><a href="#"><img src="imagens/bt_incluir.png" alt="incluir" width="69" height="27" border="0" /></a><a href="#"><img src="imagens/bt_alterar.png" alt="alterar" width="69" height="27" border="0" /></a><a href="#"><img src="imagens/bt_excluir.png" alt="excluir" width="69" height="27" border="0" /></a><a href="menu_prolog.pdf" target="_blank"><img src="imagens/bt_ajuda.png" alt="ajuda" width="69" height="27" border="0" /></a></div>-->
             <div class="tit_sub_cat">Cadastro de Clientes</div>
             <div class="bloco">
-                <form name="cadastro" action="controleCadastroPessoa.php" method="get">
+                <form name="cadastro" action="controle/cCadastraPessoa.php" method="get">
                     <div style="margin: 10px; border: #b1b1b1 solid 2px;">
                         <div style="margin: 5px;">Dados pessoais:</div>
                         <div style="margin: 25px;">
@@ -129,7 +129,7 @@
                         </form>
 
                         <?php
-                            include_once 'dBConection.php';
+                            include_once 'bd/DBConnection.php';
                             DataBase::createConection();
 
                             if(isset($_POST['queryString'])) {
