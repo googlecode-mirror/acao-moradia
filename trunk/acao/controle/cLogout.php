@@ -2,5 +2,5 @@
     session_start();
     session_unset();
     session_destroy();
-    header("Location: visao/vLogin.php.php");
+    header("Location: ../visao/vLogin.php");
 ?>
