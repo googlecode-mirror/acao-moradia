@@ -1,7 +1,7 @@
 <?php
 /*RETORNA YYYY-MM-DD*/
 class Date{
-    public static function toMySqlDate($data) {
+    public static function toMySqlDate($data) {        
         $ano = $data[6].$data[7].$data[8].$data[9];
         $mes = $data[3].$data[4];
         $dia = $data[0].$data[1];

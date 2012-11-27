@@ -18,7 +18,7 @@
         session_start();
                        
         if(isset($_SESSION['nivel'])!= true){
-            header("Location: visao/vLogin.php");
+            header("Location: vLogin.php");
          }*/
     ?>
     <div class="wrap">
@@ -34,7 +34,7 @@
 
             <div class="menu">
                 <div class="mn">
-                    <div class="menu_bts"> <a href="" target="_parent"><img src="../imagens/menu_cadastros.png" width="94" height="73" /></a> <a href="" target="_parent"><img src="../imagens/menu_relatorios.png" width="106" height="73" /></a><a href="" target="_parent"><img src="../imagens/menu_sobre.png" width="81" height="73" /></a><a href="" target="_parent"><img src="../imagens/menu_ajuda.png" width="76" height="73" /></a><a href="controle/cLogout.php"><img src="../imagens/menu_logout.png" width="62" height="73" /></a></div>
+                    <div class="menu_bts"> <a href="" target="_parent"><img src="../imagens/menu_cadastros.png" width="94" height="73" /></a> <a href="" target="_parent"><img src="../imagens/menu_relatorios.png" width="106" height="73" /></a><a href="" target="_parent"><img src="../imagens/menu_sobre.png" width="81" height="73" /></a><a href="" target="_parent"><img src="../imagens/menu_ajuda.png" width="76" height="73" /></a><a href="../controle/cLogout.php"><img src="../imagens/menu_logout.png" width="62" height="73" /></a></div>
                 </div>
             </div>
         </div>
@@ -77,19 +77,22 @@
             <div class="tit_sub_cat"></div>
             <div class="bloco">
 
-                <form name="cadastro" action="controle/cCadastraPessoa.php" method="get"/>
+                <form name="cadastro" action="../controle/cCadastraPessoa.php" method="get"/>
                     <div style="margin: 10px; border: #b1b1b1 solid 2px;"> 
-                        <div style="margin: 25px; float:left;"> 
+                        <center>
+                            <h2>Etapa 1/3 do Cadastro da família</h2>
+                        </center>                            
+                        <div style="margin: 25px; float:left;">                            
                             <h3>&nbsp;</h3>
-                            <h3>Dados pessoais: </h3>
+                            <h3>Dados pessoais do titular: </h3>
                             <p>&nbsp;</p>
-                            <p>Nome completo:</p>
-                            <p><input type="text" name="nome" size="30" value="" /></p>
+                            <p>Nome completo: (*)</p>
+                            <p><input type="text" name="nome" size="30" value="" maxlength="100" /></p>
                             <p><br />CPF:</p>
-                            <p><input type="text" name="cpf" size="12" value="" /></p>
+                            <p><input type="text" name="cpf" size="12" value="" maxlength="14" /></p>
                             <p>&nbsp;</p>
                             <p>RG:</p>
-                            <p><input type="text" name="rg"value="" size="14" /></p>
+                            <p><input type="text" name="rg"value="" size="14" maxlength="45" /></p>
                             <p>&nbsp;</p>
                             Sexo: 
                             <select name="sexo">
@@ -99,16 +102,27 @@
                             </select>
                             <p>&nbsp;</p>
 				
-                            <p>Telefone:</p>
+                            <p>Telefone:</p>                            
                             <p>
                                 <input maxlength="15" name="telefone" size="15" />
+                                <!--
                                 <input type="checkbox" id="telefone2" onclick="novoTelefone()"/>
-				Adicionar outro telefone
+				Adicionar outro telefone-->
                             </p>
+                            <!--
                             <div style="margin: 10px 0px 0px 0px;  display: none;" id="novoTelefone" > <input maxlength="15" name="telefone2" size="15"/></div>
+                            -->
                             <p>&nbsp;</p>
                             <p>Data de nascimento:</p>
                             <p><input maxlength="10" name="dataNascimento" size="9" onblur="validaData(this,this.value)" onkeypress="Data(event,this)"/></p>
+                            
+                            <p>&nbsp;</p>
+                            <p>Naturalidade:</p>
+                            <p>
+                                <input maxlength="100" name="cidadeNatal" size="14" />
+                                <input maxlength="2" name="estado" size="2" />
+                            </p>                            
+                            <p>&nbsp;</p>
                         </div>
                     </div>
                     <br/>
@@ -155,7 +169,7 @@
                     </div>
 <!--
                     <div>
-                        <form action="controle/cBuscaParente.php" method="get">
+                        <form action="../controle/cBuscaParente.php" method="get">
                         <div>Pesquisar parente: <input type="text" name="parente" value=""/> <input type="submit" value="Pesquisar"/></div>
                         </form>        
 -->
