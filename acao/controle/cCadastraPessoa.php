@@ -55,7 +55,7 @@
     $vet= $bDao->buscaBairro($bairroNome);
     if(sizeof($vet)>0){
     
-        //echo $vet['nome'];   
+        //echo $vet['nome'];
    
         $cidadeClass= new Cidade($cidadeNome, $cidadeEstado);//persistir cidade
         //enquanto telefones
