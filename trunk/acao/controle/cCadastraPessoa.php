@@ -2,10 +2,10 @@
     include_once 'cFuncoes.php';
     echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />";
 
-    include_once 'modelo/Modelo.php';
-    include_once 'bd/BairroDAO.php';
-    include_once 'bd/PessoaDAO.php';
-    include_once 'bd/BDConnection.php';
+    include_once '../modelo/Modelo.php';
+    include_once '../bd/BairroDAO.php';
+    include_once '../bd/PessoaDAO.php';
+    include_once '../bd/DBConnection.php';
     
     $nome= $_GET['nome'];
     $cpf= $_GET['cpf'];
