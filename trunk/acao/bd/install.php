@@ -80,8 +80,8 @@
       `cep` VARCHAR(9) NOT NULL ,
       `logradouro` VARCHAR(100) NOT NULL ,			#upper
       `numero` INT UNSIGNED NOT NULL ,
-      `bairro` VARCHAR(100) NOT NULL ,				#upper
-      `cidade` VARCHAR(100) NOT NULL ,				#upper
+      `bairro` VARCHAR(100) ,				#upper
+      `cidade` VARCHAR(100) ,				#upper
       `estado` VARCHAR(2) NOT NULL ,				#upper
       INDEX `fk_Endereço_Bairro1_idx` (`bairro` ASC) ,
       INDEX `fk_Endereço_Cidade1_idx` (`cidade` ASC, `estado` ASC) ,

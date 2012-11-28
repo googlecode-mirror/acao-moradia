@@ -121,3 +121,12 @@ function fill(thisValue) {
         $('#inputString').val(thisValue);
         setTimeout("$('#suggestions').hide();", 200);
 }
+
+function valida_nome(){        
+    if($("#nome").val()==""){
+        alert("Preencha o campo nome.");        
+        document.cadastro.nome.focus();
+        return false;
+    }    
+    return true;
+}
