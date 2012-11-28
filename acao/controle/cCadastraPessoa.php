@@ -63,6 +63,4 @@
         $pDAO= new PessoaDAO();
         $tep= $pDAO->cadastraPessoa( $cpf, $nome, $rg, $sexo, $dataNascimento, $idConjuge, $cep, $logradouro, $numero);*/
         //if($tep === true){
-         
-                 
 ?>
