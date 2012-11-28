@@ -8,13 +8,6 @@
   Exemplo: <input maxlength="16" name="datahora" onKeyPress="DataHora(event, this)">
 -----------------------------------------------------------------------*/
 
-$(document).ready(function(){
-	$(function(){
-		$.mask.addPlaceholder("~","[+-]");
-		$("#cpf").mask("999.999.999-99");
-                $("#telefone").mask("(99) 9999-9999?9");                
-	});
-});
 function validaData(campo,valor) {
     var date=valor;
     var ardt=new Array;
@@ -33,36 +26,11 @@ function validaData(campo,valor) {
             erro = true;
     }
     if (erro) {
-        alert("\"" + valor + "\" não é uma data válida!!!");
+        //alert("\"" + valor + "\" não é uma data válida!!!");
         campo.value = "";
         return false;
     }
     return true;
-}
-
-
-function Data(evento, objeto){
-    var keypress=(window.event)?event.keyCode:evento.which;
-    campo = eval (objeto);
-    if (campo.value == '00/00/0000')
-    {
-        campo.value=""
-    }
-
-    caracteres = '0123456789';
-    separacao1 = '/';
-    conjunto1 = 2;
-    conjunto2 = 5;
-    if ((caracteres.search(String.fromCharCode (keypress))!=-1) && campo.value.length < (10))
-    {
-        if (campo.value.length == conjunto1 )
-            campo.value = campo.value + separacao1;
-        else if (campo.value.length == conjunto2)
-            campo.value = campo.value + separacao1;
-    }
-    else
-        event.returnValue = false;
-
 }
 
 function checkBox(){
@@ -122,11 +90,68 @@ function fill(thisValue) {
         setTimeout("$('#suggestions').hide();", 200);
 }
 
-function valida_nome(){        
+function valida_campos(){        
     if($("#nome").val()==""){
         alert("Preencha o campo nome.");        
         document.cadastro.nome.focus();
         return false;
-    }    
+    }            
     return true;
+}
+
+function controla(){      
+    switch($("#et").val()){        
+        case "1":
+            if(valida_campos()==true){                
+                cadastra_endereco_familia();                
+            }else{
+                return false;
+            }
+        case "2":            
+            if(confirm("Deseja prosseguir para o cadastro socio-econômico")){
+                //redirecionar para pesquisa socio-economica
+            }else{
+                return true;
+            }
+        default:
+            return false;
+    }
+}
+
+function cadastra_endereco_familia()
+{
+    $("#logradouro").removeAttr('disabled');
+    $("#numero").removeAttr('disabled');    
+    $("#cidade").removeAttr('disabled');
+    $("#bairro").removeAttr('disabled');
+    $("#cep").removeAttr('disabled');
+    $("#estado").removeAttr('disabled');
+    $('#etapa').text("Etapa 2/3: Cadastro de Endereço Familiar");
+}
+
+// Função única que fará a transação
+function getEndereco() {
+    // Se o campo CEP não estiver vazio
+    if($.trim($("#cep").val()) != ""){
+        /* 
+                Para conectar no serviço e executar o json, precisamos usar a função
+                getScript do jQuery, o getScript e o dataType:"jsonp" conseguem fazer o cross-domain, os outros
+                dataTypes não possibilitam esta interação entre domínios diferentes
+                Estou chamando a url do serviço passando o parâmetro "formato=javascript" e o CEP digitado no formulário
+                http://cep.republicavirtual.com.br/web_cep.php?formato=javascript&cep="+$("#cep").val()
+        */
+        $.getScript("http://cep.republicavirtual.com.br/web_cep.php?formato=javascript&cep="+$("#cep").val(), function(){
+                // o getScript dá um eval no script, então é só ler!
+                //Se o resultado for igual a 1
+                if(resultadoCEP["resultado"]){
+                        // troca o valor dos elementos
+                        $("#logradouro").val(unescape(resultadoCEP["tipo_logradouro"])+": "+unescape(resultadoCEP["logradouro"]));
+                        $("#bairro").val(unescape(resultadoCEP["bairro"]));
+                        $("#cidade").val(unescape(resultadoCEP["cidade"]));
+                        $("#estado").val(unescape(resultadoCEP["uf"]));
+                }else{
+                        alert("Endereço não encontrado");
+                }
+        });				
+    }			
 }
