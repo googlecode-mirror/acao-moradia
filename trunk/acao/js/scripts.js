@@ -8,6 +8,13 @@
   Exemplo: <input maxlength="16" name="datahora" onKeyPress="DataHora(event, this)">
 -----------------------------------------------------------------------*/
 
+$(document).ready(function(){
+	$(function(){
+		$.mask.addPlaceholder("~","[+-]");
+		$("#cpf").mask("999.999.999-99");
+                $("#telefone").mask("(99) 9999-9999?9");                
+	});
+});
 function validaData(campo,valor) {
     var date=valor;
     var ardt=new Array;

@@ -9,7 +9,10 @@
     <link href="../css/button.css" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
-    <script type="text/javascript" src="../js/scripts.js"></script>
+    <script type="text/javascript" src="../js/jquery-1.8.3.js"></script>    
+    <script type="text/javascript" src="../js/jquery.maskedinput-1.2.pack.js"></script>
+    <script type="text/javascript" src="../js/scripts.js"></script>S
+    
 </head>
 <body>
     <?php/*
@@ -78,25 +81,24 @@
             <div class="bloco">
 
                 <form name="cadastro" action="../controle/cCadastraPessoa.php" method="get"/>
-                    <div style="margin: 10px; border: #b1b1b1 solid 2px;"> 
+                    <div style="margin: 10px; border: #b1b1b1 solid 2px;">                         
                         <center>
-                            <h2>Etapa 1/3 do Cadastro da família</h2>
-                        </center>                            
-                        <div style="margin: 25px; float:left;">                            
+                            <h2>Etapa 1/<?php echo $_GET["etapas"] ?>: Cadastro de Titular</h2>
+                        </center>                          
+                        <div style="margin: 25px; float:left; ">
                             <h3>&nbsp;</h3>
-                            <h3>Dados pessoais do titular: </h3>
+                            <h3>Dados pessoais <?php echo $_GET["msg"]?>: </h3>
                             <p>&nbsp;</p>
                             <p>Nome completo: (*)</p>
                             <p><input type="text" name="nome" size="30" value="" maxlength="100" /></p>
                             <p><br />CPF:</p>
-                            <p><input type="text" name="cpf" size="12" value="" maxlength="14" /></p>
+                            <p><input type="text" name="cpf" id="cpf" size="12" value="" maxlength="14" /></p>
                             <p>&nbsp;</p>
                             <p>RG:</p>
                             <p><input type="text" name="rg"value="" size="14" maxlength="45" /></p>
                             <p>&nbsp;</p>
                             Sexo: 
-                            <select name="sexo">
-                                <option selected="selected"></option>
+                            <select name="sexo">                                
                                 <option>Masculino</option>
                                 <option>Feminino</option>
                             </select>
@@ -104,7 +106,7 @@
 				
                             <p>Telefone:</p>                            
                             <p>
-                                <input maxlength="15" name="telefone" size="15" />
+                                <input maxlength="15" name="telefone" id="telefone" size="15" />
                                 <!--
                                 <input type="checkbox" id="telefone2" onclick="novoTelefone()"/>
 				Adicionar outro telefone-->
@@ -118,11 +120,96 @@
                             
                             <p>&nbsp;</p>
                             <p>Naturalidade:</p>
+                            
                             <p>
-                                <input maxlength="100" name="cidadeNatal" size="14" />
-                                <input maxlength="2" name="estado" size="2" />
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <input maxlength="100" name="cidadeNatal" size="14" />                                     
+                                        </td>
+                                        <td>
+                                            <select name="estado">
+                                                <option> AC </option>
+                                                <option> AL </option>
+                                                <option> AP </option>
+                                                <option> AM </option>
+                                                <option> BA </option>
+                                                <option> CE </option>
+                                                <option> DF </option>
+                                                <option> ES </option>
+                                                <option> GO </option>
+                                                <option> MA </option>
+                                                <option> MT </option>
+                                                <option> MS </option>
+                                                <option selected> MG </option>
+                                                <option> PR </option>
+                                                <option> PB </option>
+                                                <option> PA </option>
+                                                <option> PE </option>
+                                                <option> PI </option>
+                                                <option> RJ </option>
+                                                <option> RN </option>
+                                                <option> RS </option>
+                                                <option> RO </option>
+                                                <option> RR </option>
+                                                <option> SC </option>
+                                                <option> SE </option>
+                                                <option> SP </option>
+                                                <option> TO </option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </table>
                             </p>                            
                             <p>&nbsp;</p>
+                            
+                            <p>Estado Civil:</p>                            
+                            <select name="estadoCivil">                                
+                                <option>SOLTEIRO(A)</option>
+                                <option>CASADO(A)</option>
+                                <option>SEPARADO(A)</option>
+                                <option>DIVORCIADO(A)</option>
+                                <option>VIÚVO(A)</option>
+                            </select>
+                            <p>&nbsp;</p>
+                            
+                            <p>Raça:</p>
+                            <select name="raca">                                
+                                <option>NÃO DECLARADA</option>
+                                <option>BRANCA</option>
+                                <option>NEGRA</option>
+                                <option>AMARELA</option>
+                                <option>INDÌGENA</option>
+                                <option>MULATA</option>
+                                <option>CABOCLO</option>
+                                <option>CABRA</option>
+                            </select>                                  
+                            <p>&nbsp;</p>
+                            
+                            <p>Religião:</p>
+                            <select name="sexo">
+                                <option selected="selected"></option>
+                                <option>Masculino</option>
+                                <option>Feminino</option>
+                            </select>
+                            <p>&nbsp;</p>
+                            
+                            <p>Carteira Profissional:</p>
+                            <input type="radio" name="carteiraProfissional" value="sim"/>Sim
+                            <input type="radio" name="carteiraProfissional" value="nao"/>Não
+                            <p>&nbsp;</p>
+                            
+                            <p>Certidão de Nascimento:</p>
+                            <input type="radio" name="certidaoNascimento" value="sim"/>Sim
+                            <input type="radio" name="certidaoNascimento" value="nao"/>Não
+                            <p>&nbsp;</p>
+
+                            
+                            <p>Título de Eleitor(somente números):</p>
+                            <input type="text" name="tituloEleitor" size="12" maxlength="12"/>
+                            <p>&nbsp;</p>
+                            
+                            <p>Programas inseridos na instituição:</p>                                                                                                                
                         </div>
                     </div>
                     <br/>

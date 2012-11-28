@@ -42,7 +42,7 @@
                     </div>
 
                     <div class="bts">
-                        <ul><li><a href="vCadastroPessoa.php" target="_parent">Pessoas</a></li></ul>
+                        <ul><li><a href="vPreCadastro.php" target="_parent">Pessoas</a></li></ul>
                     </div>
 
                     <div class="bts">
