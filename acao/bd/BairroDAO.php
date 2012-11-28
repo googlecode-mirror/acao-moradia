@@ -8,14 +8,14 @@
         
          public function testeInsert($_res){
             if($_res != TRUE)
-                echo 'falaha na operação';  
+                echo 'falha na operação';  
         }
         
         public function cadastraBairro($b){       
             $this->_ins.= " ('$b')"; 
             $_res= mysql_query($this->_ins);
             if($_res != TRUE)
-                echo 'falaha na operação B'; 
+                echo 'falha na operação B'; 
         }             
         
         public function removeBairro($nome){            
