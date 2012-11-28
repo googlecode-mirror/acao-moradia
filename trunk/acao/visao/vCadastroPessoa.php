@@ -8,22 +8,22 @@
         <link href="../css/styles.css" rel="stylesheet" type="text/css" />
         <link href="../css/button.css" rel="stylesheet" type="text/css" />
 
+        <!--
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
+        -->
         <script type="text/javascript" src="../js/jquery-1.8.3.js"></script>    
-        <script type="text/javascript" src="../js/jquery.maskedinput-1.2.pack.js"></script>
-        <script type="text/javascript" src="../js/scripts.js"></script>S
-
+        <script type="text/javascript" src="../js/jquery.maskedinput.js"></script>               
+        <script type="text/javascript" src="../js/scripts.js" ></script>        
+        <script>
+            jQuery(function(){
+                jQuery("#cpf").mask("999.999.999-99");                                
+                jQuery("#cep").mask("99999-999");                
+                jQuery("#telefone").mask("(99) 9999-9999?9");                
+                jQuery("#dataNascimento").mask("99/99/9999");                
+            });
+        </script>
     </head>
-    <body>
-        <?php /*
-          include_once 'sessao.php';
-          ob_start();
-          session_start();
-
-          if(isset($_SESSION['nivel'])!= true){
-          header("Location: vLogin.php");
-          } */
-        ?>
+    <body>  
         <div class="wrap">
             <div class="header">
                 <div class="logo">
@@ -51,7 +51,7 @@
                         </div>
 
                         <div class="bts">
-                            <ul><li><a href="vCadastroPessoa.php" target="_parent">Pessoas</a></li></ul>
+                            <ul><li><a href="vPreCadastro.php" target="_parent">Pessoas</a></li></ul>
                         </div>
 
                         <div class="bts">
@@ -75,15 +75,18 @@
                             </center>
                         </p>                                 
                     </div>
-                </div>
+                </div>                
                 <!--<div class="navegador"><a href="#"><img src="../imagens/bt_confirmar.png" alt="confirmar" width="87" height="27" border="0" /></a> <a href="#"><img src="../imagens/bt_cancelar.png" alt="cancelar" width="79" height="27" border="0" /></a><a href="#"><img src="../imagens/bt_incluir.png" alt="incluir" width="69" height="27" border="0" /></a><a href="#"><img src="../imagens/bt_alterar.png" alt="alterar" width="69" height="27" border="0" /></a><a href="#"><img src="../imagens/bt_excluir.png" alt="excluir" width="69" height="27" border="0" /></a><a href="menu_prolog.pdf" target="_blank"><img src="../imagens/bt_ajuda.png" alt="ajuda" width="69" height="27" border="0" /></a></div>-->
                 <div class="tit_sub_cat"></div>
-                <div class="bloco">
+                <div class="bloco" style="border: #b1b1b1 solid 2px;">
 
+                    <?php
+                        $etapa = 1;
+                    ?>
                     <form name="cadastro" action="../controle/cCadastraPessoa.php" method="get"/>
                     <div style="margin: 10px; border: #b1b1b1 solid 2px;">                         
-                        <center>
-                            <h2>Etapa 1/<?php echo $_GET["etapas"] ?>: Cadastro de Titular</h2>
+                        <center>                            
+                            <h2 id="etapa">Etapa 1/3: Cadastro de Titular</h2>                            
                         </center>                          
                         <div style="margin: 25px; float:left; ">
                             <h3>&nbsp;</h3>
@@ -116,7 +119,7 @@
                             -->
                             <p>&nbsp;</p>
                             <p>Data de nascimento:</p>
-                            <p><input maxlength="10" name="dataNascimento" size="9" onblur="validaData(this,this.value)" onkeypress="Data(event,this)"/></p>
+                            <p><input maxlength="10" id="dataNascimento" name="dataNascimento" size="9" onblur="validaData(this,this.value)" /></p>
 
                             <p>&nbsp;</p>
                             <p>Naturalidade:</p>
@@ -128,7 +131,7 @@
                                             <input maxlength="100" name="cidadeNatal" size="14" />                                     
                                         </td>
                                         <td>
-                                            <select name="estado">
+                                            <select name="estadoNatal">
                                                 <option> AC </option>
                                                 <option> AL </option>
                                                 <option> AP </option>
@@ -183,15 +186,12 @@
                                 <option>MULATA</option>
                                 <option>CABOCLO</option>
                                 <option>CABRA</option>
+                                <option>PARDA</option>
                             </select>                                  
                             <p>&nbsp;</p>
 
                             <p>Religião:</p>
-                            <select name="sexo">
-                                <option selected="selected"></option>
-                                <option>Masculino</option>
-                                <option>Feminino</option>
-                            </select>
+                            <input type="text" name="religiao" maxlength="45" size="20"/>
                             <p>&nbsp;</p>
 
                             <p>Carteira Profissional:</p>
@@ -211,6 +211,7 @@
 
                             <p>Programas inseridos na instituição:</p>                            
                             <?php
+                                //pegando do banco os programas
                                 include_once '../controle/cListaProgramas.php';
                                 $CPrograma = new CPrograma();
                                 $programas = $CPrograma->buscaTodosProgramas();                                                                
@@ -223,35 +224,36 @@
                         </div>
                     </div>
                     <br/>                    
-                    <div style="margin: 10px; border: #b1b1b1 solid 2px;">                    
+                    <div style="margin: 10px;">                    
                         <div style="margin: 20px;"> 
                             <p>&nbsp;</p>
                             <p>&nbsp;</p>
+                            <p>&nbsp;</p>                            
                             <p>&nbsp;</p>
-                            <p>Logradouro: <br/>
-                                <input type="text" name="logradouro" size="30" value="" disabled/>
+                            <p>CEP:<br/>
+                                <input type="text" id="cep" name="cep" value="" size="14" onBlur="getEndereco();" disabled/>
                             </p>
                             <p>&nbsp;</p>
+                            <p>Logradouro: <br/>
+                                <input type="text" id="logradouro" name="logradouro" size="30" value="" disabled/>
+                            </p>                            
+                            <p>&nbsp;</p>
                             <p>Número:<br/>
-                                <input type="text" name="numero" size="12" value="" disabled/>
+                                <input type="text" id="numero" name="numero" size="12" value="" disabled/>
                             </p>
                             <p>&nbsp;</p>
                             <p>
                                 Cidade:<br/>
-                                <input type="text" name="cidade" value="" size="14" disabled/>
+                                <input type="text" id="cidade" name="cidade" value="" size="14" disabled/>
                             </p>
                             <p>&nbsp;</p>
                             <p>Bairro: <br/>
-                                <input type="text" name="bairro" value="" size="14" disabled/>
+                                <input type="text" id="bairro" name="bairro" value="" size="14" disabled/>
                             </p>
-                            <p>&nbsp;</p>                   
-                            <p>CEP:<br/>
-                                <input type="text" name="cep" value="" size="14" disabled/>
-                            </p>
-                            <p>&nbsp;</p>
+                            <p>&nbsp;</p>                                               
                             <p>
                                 Estado:<br/>
-                                <input type="text" name="estado" value="" size="14" disabled /><br/><br/>
+                                <input type="text" id="estado" name="estado" value="" size="14" disabled /><br/><br/>
                                 <br/>
                             </p>
                             <div id="novoEndereco" style="display: none; ">
@@ -276,10 +278,10 @@
                         printr($vet);
                     }
                     ?>
-
+                    <input type="hidden" id="et" name="et" value="1"/>
                     <center>
                         <p>
-                            <input type="submit" class="button blue" value="Próximo >>" onclick="return valida_nome();"/>
+                            <input type="submit" class="button blue" value="Próximo >>" onclick="return controla();"/>
                         </p>
                     </center>
                     </form>                
