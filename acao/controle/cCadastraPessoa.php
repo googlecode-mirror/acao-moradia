@@ -1,4 +1,16 @@
 <?php
+    
+    $etapa_concluida = $_GET['et'];
+    if($etapa_concluida == 2){//se ele fez até a etapa de cadastro familiar
+        //$_G
+    }else{
+        if($etapa_concluida == 3){//se ele fez até a etapa de pesquisa socio-economica
+            
+        }
+    }
+    
+
+/*
     include_once 'cFuncoes.php';
     echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />";
     include_once '../modelo/Modelo.php';
@@ -25,8 +37,8 @@
     //$dataCadastro= date('m/d/Y');
     
     $_SESSION['telefone']= $_GET['telefone'];
-    
-     header("Location: cCadastraCursos.php");//mudar p cadastro pt 2
+  */  
+    //header("Location: cCadastraCursos.php");//mudar p cadastro pt 2
     /*
     $logradouro= $_GET['logradouro'];
     $numero= $_GET['numero'];

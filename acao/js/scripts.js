@@ -90,28 +90,70 @@ function fill(thisValue) {
         setTimeout("$('#suggestions').hide();", 200);
 }
 
-function valida_campos(){        
+function valida_etapa_1(){        
     if($("#nome").val()==""){
         alert("Preencha o campo nome.");        
         document.cadastro.nome.focus();
         return false;
-    }            
+    }                 
     return true;
 }
 
-function controla(){      
+function valida_etapa_2(){            
+    if($("#cep").val()==""){
+        alert("Preencha o campo cep.");        
+        document.cadastro.cep.focus();
+        return false;
+    }
+    if($("#logradouro").val()==": " || $("#logradouro").val()==""){
+        alert("Preencha o campo logradouro.");        
+        document.cadastro.logradouro.focus();
+        return false;
+    }
+    if($("#numero").val()==""){
+        alert("Preencha o campo numero.");        
+        document.cadastro.numero.focus();
+        return false;
+    }
+    if($("#cidade").val()==""){
+        alert("Preencha o campo cidade.");        
+        document.cadastro.cidade.focus();
+        return false;
+    }
+    if($("#bairro").val()==""){
+        alert("Preencha o campo bairro.");        
+        document.cadastro.bairro.focus();
+        return false;
+    }    
+    if($("#estado").val()==""){
+        alert("Preencha o campo estado.");        
+        document.cadastro.estado.focus();
+        return false;
+    }
+    return true;
+}
+
+function controla(){          
+    //alert(document.getElementById("et").value);
     switch($("#et").val()){        
-        case "1":
-            if(valida_campos()==true){                
-                cadastra_endereco_familia();                
+        case "1":                       
+            if(valida_etapa_1()==true){                
+                cadastra_endereco_familia();                      
+                document.getElementById("et").value='2';//alterar o valor do campo hidden com id #et para 2                                    
+                return false;
             }else{
                 return false;
             }
-        case "2":            
-            if(confirm("Deseja prosseguir para o cadastro socio-econômico")){
-                //redirecionar para pesquisa socio-economica
+        case "2":             
+            if(valida_etapa_1()==true && valida_etapa_2()==true){
+                if(confirm("Deseja prosseguir para o cadastro socio-econômico")){
+                    document.getElementById("et").value='3';                 
+                    //redirecionar para pesquisa socio-economica
+                }else{//vai persistir no banco os dados até a etapa 2
+                    return true;
+                }    
             }else{
-                return true;
+                return false;
             }
         default:
             return false;
@@ -127,6 +169,7 @@ function cadastra_endereco_familia()
     $("#cep").removeAttr('disabled');
     $("#estado").removeAttr('disabled');
     $('#etapa').text("Etapa 2/3: Cadastro de Endereço Familiar");
+    document.cadastro.cep.focus();
 }
 
 // Função única que fará a transação
@@ -147,7 +190,7 @@ function getEndereco() {
                         // troca o valor dos elementos
                         $("#logradouro").val(unescape(resultadoCEP["tipo_logradouro"])+": "+unescape(resultadoCEP["logradouro"]));
                         $("#bairro").val(unescape(resultadoCEP["bairro"]));
-                        $("#cidade").val(unescape(resultadoCEP["cidade"]));
+                        $("#cidade").val(unescape(resultadoCEP["cidade"]));                        
                         $("#estado").val(unescape(resultadoCEP["uf"]));
                 }else{
                         alert("Endereço não encontrado");
