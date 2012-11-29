@@ -102,8 +102,8 @@
                             <p>&nbsp;</p>
                             Sexo: 
                             <select name="sexo">                                
-                                <option>Masculino</option>
-                                <option>Feminino</option>
+                                <option>M</option>
+                                <option>F</option>
                             </select>
                             <p>&nbsp;</p>
 
@@ -167,11 +167,11 @@
                             <p>&nbsp;</p>
 
                             <p>Estado Civil:</p>                            
-                            <select name="estadoCivil">                                
-                                <option>SOLTEIRO(A)</option>
+                            <select name="estadoCivil">                                                                
                                 <option>CASADO(A)</option>
-                                <option>SEPARADO(A)</option>
-                                <option>DIVORCIADO(A)</option>
+                                <option>DIVORCIADO(A)</option>                                
+                                <option>SEPARADO(A)</option>  
+                                <option>SOLTEIRO(A)</option>
                                 <option>VIÚVO(A)</option>
                             </select>
                             <p>&nbsp;</p>
@@ -179,13 +179,13 @@
                             <p>Raça:</p>
                             <select name="raca">                                
                                 <option>NÃO DECLARADA</option>
-                                <option>BRANCA</option>
-                                <option>NEGRA</option>
                                 <option>AMARELA</option>
-                                <option>INDÌGENA</option>
-                                <option>MULATA</option>
+                                <option>BRANCA</option>
                                 <option>CABOCLO</option>
                                 <option>CABRA</option>
+                                <option>INDÌGENA</option>
+                                <option>NEGRA</option>                                                                
+                                <option>MULATA</option>                               
                                 <option>PARDA</option>
                             </select>                                  
                             <p>&nbsp;</p>
@@ -230,32 +230,69 @@
                             <p>&nbsp;</p>
                             <p>&nbsp;</p>                            
                             <p>&nbsp;</p>
-                            <p>CEP:<br/>
+                            <p>CEP:(*)<br/>
                                 <input type="text" id="cep" name="cep" value="" size="14" onBlur="getEndereco();" disabled/>
                             </p>
                             <p>&nbsp;</p>
-                            <p>Logradouro: <br/>
+                            <p>Logradouro:(*) <br/>
                                 <input type="text" id="logradouro" name="logradouro" size="30" value="" disabled/>
                             </p>                            
                             <p>&nbsp;</p>
-                            <p>Número:<br/>
+                            <p>Número:(*)<br/>
                                 <input type="text" id="numero" name="numero" size="12" value="" disabled/>
                             </p>
                             <p>&nbsp;</p>
-                            <p>
-                                Cidade:<br/>
-                                <input type="text" id="cidade" name="cidade" value="" size="14" disabled/>
+                            <p>Cidade/estado:(*)</p>   
+                            <table>
+                                <tr>
+                                    <td>                                        
+                                        <input type="text" id="cidade" name="cidade" value="" size="14" disabled/>
+                                    </td>                            
+                                    <td>
+                                        <select id="estado" name="estado" disabled>
+                                            <option> AC </option>
+                                            <option> AL </option>
+                                            <option> AP </option>
+                                            <option> AM </option>
+                                            <option> BA </option>
+                                            <option> CE </option>
+                                            <option> DF </option>
+                                            <option> ES </option>
+                                            <option> GO </option>
+                                            <option> MA </option>
+                                            <option> MT </option>
+                                            <option> MS </option>
+                                            <option selected> MG </option>
+                                            <option> PR </option>
+                                            <option> PB </option>
+                                            <option> PA </option>
+                                            <option> PE </option>
+                                            <option> PI </option>
+                                            <option> RJ </option>
+                                            <option> RN </option>
+                                            <option> RS </option>
+                                            <option> RO </option>
+                                            <option> RR </option>
+                                            <option> SC </option>
+                                            <option> SE </option>
+                                            <option> SP </option>
+                                            <option> TO </option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
                             </p>
                             <p>&nbsp;</p>
-                            <p>Bairro: <br/>
-                                <input type="text" id="bairro" name="bairro" value="" size="14" disabled/>
-                            </p>
-                            <p>&nbsp;</p>                                               
+                            <p>Bairro:(*) <br/>
+                                <input type="text" id="bairro" name="bairro" value="" size="14" disabled/>                                                        
+                            </p>                            
+                            <p>&nbsp;</p>                                                                           
+                            <!--
                             <p>
-                                Estado:<br/>
+                                Estado:(*)<br/>
                                 <input type="text" id="estado" name="estado" value="" size="14" disabled /><br/><br/>
                                 <br/>
-                            </p>
+                            </p>-->                            
                             <div id="novoEndereco" style="display: none; ">
                                 <br/><br/>
                                 <div style="margin: 10px 0px 0px 0px; float: left;">Logradouro: <input type="text" name="logradouro2" size="30" value="" /></div>
