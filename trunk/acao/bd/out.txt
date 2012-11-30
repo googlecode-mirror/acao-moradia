@@ -1,0 +1,1 @@
+INSERT INTO familia (`cep`, `logradouro`, `numero`, `bairro`, `cidade`, `estado`) VALUES ('38415-129', 'Rua: das Harpas', 1, 'Taiaman', 'Uberlândia', 'MG')

@@ -1,19 +1,29 @@
 <?php
     class PessoaDAO{
         
-        private $_sel= "SELECT * FROM pessoa";
-        private $_ins= "INSERT INTO `pessoa`(`cpf`, `nome`, `rg`, `sexo`, `data_nascimento`, `id_conjuge`, `cep`, `logradouro`, `numero`) VALUES";
-        /*private $_rem= "DELETE FROM pessoa WHERE";
+        private $_sel= "SELECT * FROM pessoa";        
+        private $_ins= "INSERT INTO `pessoa`(`cpf`, `nome`, `rg`, `sexo`,`telefone`, `grau_parentesco`, 
+            `estado_civil`, `raca`, `religiao`, `carteira_profissional`, `titulo_eleitor`, 
+            `certidao_nascimento`, `cidade_natal`, `estado_natal`, `id_familia`) VALUES";        
+        private $_rem= "DELETE FROM pessoa WHERE";
         private $_alt= "UPDATE pessoa set";
-        */
-        public function cadastraPessoa( $cpf, $nome, $rg, $sexo, $dataNascimento, $idConjuge, $cep, $logradouro, $numero){
-            $nome= strtolower($nome);
-            $this->_ins.= " ('$cpf', '$nome', '$rg', '$sexo', '$dataNascimento', $idConjuge, '$cep', '$logradouro', $numero)";
+        
+        public function cadastraPessoa( 
+            $cpf, $nome, $rg, $sexo, $telefone, $grauParentesco, $estadoCivil, $raca, $religiao, 
+                $carteiraProfissional, $tituloEleitor, $certidaoNascimento, $cidadeNatal, 
+                $estadoNatal, $idFamilia){
+            
+            //$nome= strtolower($nome);
+            $this->_ins.= " ('$cpf', '$nome', '$rg', '$sexo', '$telefone', '$grauParentesco', '$estadoCivil', '$raca', '$religiao',
+                '$carteiraProfissional', '$tituloEleitor', '$certidaoNascimento', '$cidadeNatal', 
+                '$estadoNatal', $idFamilia)";
             //TO_DATE($dataNascimento,'DD/MM/YYYY')
+            
             echo $this->_ins."<br>";
+            
             $_res= mysql_query($this->_ins)or die(mysql_error());
             if($_res != TRUE)
-                echo 'falaha na operação pessoa';
+                echo 'falha na operação pessoa';
             else{
                 return true;
             }

@@ -14,12 +14,12 @@
         public function cadastraBairro($b){       
             $this->_ins.= " ('$b')"; 
             $_res= mysql_query($this->_ins);
-            if($_res != TRUE)
-                echo 'falha na operação B'; 
+            //if($_res != TRUE)
+                //echo 'falha na operação B'; 
         }             
         
         public function removeBairro($nome){            
-            $this->_rem.= " usuario= $user AND senha= $pass AND nivel= $level";
+            $this->_rem.= " nome = '$nome'";
             $_res= mysql_query($this->rem);
             this.testeInsert($_res);
         }   
@@ -31,10 +31,24 @@
                 echo "bairro desconhecido";
                 return null;
             }else{
-                $arived= mysql_fetch_assoc($res);
-                return $arived;
+                $arrived= mysql_fetch_assoc($res);
+                return $arrived;
             }            
         }      
+        
+        public function alteraBairro($bairro_novo, $bairro_antigo){            
+            $this->_rem.= " nome = '$bairro_novo' where nome = '$bairro_antigo'";
+            $_res = mysql_query($this->rem);
+            if($res === FALSE){
+                echo "Este bairro já é existente ou ocorreu um erro";
+                return null;
+            }else{
+                $arrived= mysql_fetch_assoc($res);
+                return $arrived;
+            }            
+        }   
+        
+        
     }
 ?>
 
