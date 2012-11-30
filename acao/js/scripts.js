@@ -96,6 +96,14 @@ function valida_etapa_1(){
         document.cadastro.nome.focus();
         return false;
     }                 
+    
+    if($("#cidadeNatal").val()=="" || $("#estadoNatal").val()==""){
+        alert("Preencha os campos de naturalidade.");        
+        document.cadastro.cidadeNatal.focus();
+        return false;
+    }                 
+        
+    
     return true;
 }
 
@@ -158,6 +166,13 @@ function controla(){
         default:
             return false;
     }
+}
+
+function verifica_etapa(){          
+    //alert(document.getElementById("et").value);
+    if($("#cep").val() != ""){
+        cadastra_endereco_familia();
+    }    
 }
 
 function cadastra_endereco_familia()

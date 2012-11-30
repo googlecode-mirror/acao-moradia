@@ -21,9 +21,9 @@
                 jQuery("#telefone").mask("(99) 9999-9999?9");                
                 jQuery("#dataNascimento").mask("99/99/9999");                
             });
-        </script>
+        </script>     
     </head>
-    <body>  
+    <body onload="verifica_etapa();">  
         <div class="wrap">
             <div class="header">
                 <div class="logo">
@@ -122,16 +122,17 @@
                             <p><input maxlength="10" id="dataNascimento" name="dataNascimento" size="9" onblur="validaData(this,this.value)" /></p>
 
                             <p>&nbsp;</p>
-                            <p>Naturalidade:</p>
+                            <p>Naturalidade(*):</p>
 
                             <p>
                                 <table>
                                     <tr>
                                         <td>
-                                            <input maxlength="100" name="cidadeNatal" size="14" />                                     
+                                            <input maxlength="100" id="cidadeNatal" name="cidadeNatal" size="14" />                                     
                                         </td>
                                         <td>
-                                            <select name="estadoNatal">
+                                            <select id="estadoNatal" name="estadoNatal">
+                                                <option selected> </option>
                                                 <option> AC </option>
                                                 <option> AL </option>
                                                 <option> AP </option>
@@ -144,7 +145,7 @@
                                                 <option> MA </option>
                                                 <option> MT </option>
                                                 <option> MS </option>
-                                                <option selected> MG </option>
+                                                <option> MG </option>
                                                 <option> PR </option>
                                                 <option> PB </option>
                                                 <option> PA </option>

@@ -25,6 +25,6 @@
             if($_con === TRUE)
                 return TRUE;
             return FALSE;
-        }        
+        }                        
     }
 ?>

@@ -121,8 +121,8 @@
       `carteira_profissional` CHAR(1) NOT NULL ,			#upper
       `titulo_eleitor` VARCHAR(12) NULL ,
       `certidao_nascimento` CHAR(1) NOT NULL ,				#upper
-      `cidade_natal` VARCHAR(100) NOT NULL ,				#upper
-      `estado_natal` VARCHAR(2) NOT NULL ,  				#upper
+      `cidade_natal` VARCHAR(100) ,				#upper
+      `estado_natal` VARCHAR(2),  				#upper
       PRIMARY KEY (`id_pessoa`), 
       INDEX `fk_Pessoa_familia1_idx` (`id_familia` ASC) ,
       INDEX `fk_pessoa_cidade1_idx` (`cidade_natal` ASC, `estado_natal` ASC) ,

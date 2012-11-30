@@ -1,8 +1,36 @@
 <?php
+    include_once '../modelo/Modelo.php';
+    include_once '../bd/BairroDAO.php';
+    include_once '../bd/CidadeDAO.php';
+    include_once '../bd/DBConnection.php';
+    include_once '../bd/FamiliaDAO.php';
+    include_once '../bd/PessoaDAO.php';
     
+    DataBase::createConection();    
     $etapa_concluida = $_GET['et'];
-    if($etapa_concluida == 2){//se ele fez até a etapa de cadastro familiar
-        //$_G
+    
+    if($etapa_concluida == 2){//se ele fez até a etapa de cadastro familiar                
+        //$cep, $logradouro, $numero, $bairro, $cidade, $estado) {                                                                   
+        
+        $bairroDAO = new BairroDAO();
+        $bairroDAO->cadastraBairro($_GET['bairro']);
+        
+        $cidadeDAO = new CidadeDAO();
+        $cidadeDAO->cadastraCidade($_GET['cidade'],$_GET['estado']);
+        $cidadeDAO->cadastraCidade($_GET['cidadeNatal'],$_GET['estadoNatal']);
+                
+        $familia = new Familia($_GET['cep'],$_GET['logradouro'],$_GET['numero'],$_GET['bairro'],$_GET['cidade'],$_GET['estado']);
+        $familiaDAO = new FamiliaDAO();
+        $familiaDAO->cadastraFamilia_2($familia);
+                        
+        $pessoaDAO = new PessoaDAO();        
+        $pessoaDAO->cadastraPessoa(
+                $_GET['cpf'], $_GET['nome'], $_GET['rg'],
+                $_GET['sexo'], $_GET['telefone'], 'TITULAR',
+                $_GET['estadoCivil'],$_GET['raca'],$_GET['religiao'],
+                $_GET['carteiraProfissional'], $_GET['tituloEleitor'],$_GET['certidaoNascimento'],
+                $_GET['cidadeNatal'],$_GET['estadoNatal'],$familia->getIdFamilia());
+        
     }else{
         if($etapa_concluida == 3){//se ele fez até a etapa de pesquisa socio-economica
             
