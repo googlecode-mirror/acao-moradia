@@ -8,8 +8,34 @@
     <link href="../css/styles.css" rel="stylesheet" type="text/css" />
     <link href="../css/button.css" rel="stylesheet" type="text/css" />
 
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
-    <script type="text/javascript" src="../js/scripts.js"></script>
+    <script type="text/javascript" src="../js/jquery.js"></script>
+    <script type="text/javascript" > 
+    
+    $(document).ready(function(){
+      
+        $(".carregar_tabela").click(function(){
+           
+            var id= $("#id_familia").val();
+            var titular= $("#titular").val();
+            var endereco= $("#endereco").val();
+        
+            $("#resultado").load('../controle/montaTabela.php',{id:id, titular:titular, endereco:endereco});
+                
+        })
+        
+        $(".__idFamilia").click(function(){
+            
+            alert('olá');
+            
+        })
+      
+    });
+    
+    
+    
+    
+    
+    </script>
 </head>
 <body>    
     <div class="wrap">
@@ -58,15 +84,22 @@
                     <div style="margin: 10px; border: #b1b1b1 solid 2px;">                         
                         <div style="margin: 25px; float:left;">
                             <p>
-                                Você já possui família cadastrada:
-                                <br/>
-                                <input type="radio" name="op" value="sim" />Sim
+                                
+                                <br/>                              
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                Nº Família ou Nome do Titular <input type="text" name="familia" value="" size="14"/><br/>
-                                    <input type="radio" name="op" value="nao" />Não<br/>
+                                Informações da familia<br/><br/>
+                                <span>id da família</span><input id="id_familia" type="text" name="familia" value="" size="14"/> 
+                                <span>nome titular</span><input id="titular" type="text" name="familia" value="" size="14"/>    
+                                <span>endereço</span><input id="endereco" type="text" name="familia" value="" size="14"/>
+                                <input type="button" class="carregar_tabela" value="Ir"/>
+                                <br/>                                 
                                 <br/>
                                 <br/>
-                            </p>                        
+                            </p>
+                            <div id="resultado">
+                                
+                                
+                            </div>
                         </div>
                     </div>
 <!--
