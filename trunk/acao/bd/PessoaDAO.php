@@ -1,14 +1,15 @@
 <?php
     class PessoaDAO{
         
-        private $_sel= "SELECT * FROM pessoa";        
+        private $_sel= "SELECT * FROM pessoa";   
+        private $_selNome= "SELECT nome FROM pessoa"; 
         private $_ins= "INSERT INTO `pessoa`(`cpf`, `nome`, `rg`, `sexo`,`telefone`, `grau_parentesco`, 
             `estado_civil`, `raca`, `religiao`, `carteira_profissional`, `titulo_eleitor`, 
             `certidao_nascimento`, `cidade_natal`, `estado_natal`, `id_familia`) VALUES";        
         private $_rem= "DELETE FROM pessoa WHERE";
         private $_alt= "UPDATE pessoa set";
         
-        public function cadastraPessoa( 
+        public function cadastraPessoa(
             $cpf, $nome, $rg, $sexo, $telefone, $grauParentesco, $estadoCivil, $raca, $religiao, 
                 $carteiraProfissional, $tituloEleitor, $certidaoNascimento, $cidadeNatal, 
                 $estadoNatal, $idFamilia){
@@ -43,6 +44,22 @@
             }else{
                 $arived= mysql_fetch_row($res);
                 return $arived;
+            } 
+        }
+        
+        public function buscaPessoabyFamilia($id){
+            
+            $teste = $this->_selNome.' '."WHERE id_familia= '".$id."' AND grau_parentesco= 'TITULAR'";         
+                       
+            $res= mysql_query($teste)or die(mysql_error());
+            $a  = mysql_fetch_assoc($res);
+            
+            if($res === FALSE){
+                echo "pessoa não encontrada";
+                return null;
+            }else{
+                //$arived= mysql_fetch_row($res);               
+                return $a['nome'];
             } 
         }
         

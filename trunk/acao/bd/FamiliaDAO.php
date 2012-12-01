@@ -1,9 +1,9 @@
 <?php
     class FamiliaDAO{        
         private $_ins= "INSERT INTO familia (`cep`, `logradouro`, `numero`, `bairro`, `cidade`, `estado`) VALUES";
-        private $_rem= "DELETE FROM endereco WHERE";
-        private $_alt= "UPDATE endereco set";
-        private $_sel= "SELECT * FROM endereco";                 
+        private $_rem= "DELETE FROM familia WHERE";
+        private $_alt= "UPDATE familia set";
+        private $_sel= "SELECT * FROM familia";                 
         
         private $_sel_max_id= "SELECT max(id_familia) as max_id_familia FROM familia";                
         
@@ -32,6 +32,18 @@
                 return $arrived;
             }            
         }               
+        
+        public function buscaFamilia(){
+            //$this->_sel.= " WHERE id_familia= $idFamilia";
+            $res= mysql_query($this->_sel);
+            if($res === FALSE){
+                echo "familia não encontrada";
+                return null;
+            }else{
+                //$arrived= mysql_fetch_assoc($res);
+                return $res;
+            }            
+        }
         
         public function sel_max_id(){            
             $res= mysql_query($this->_sel_max_id);
