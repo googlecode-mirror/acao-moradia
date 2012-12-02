@@ -22,16 +22,29 @@
         }   
         
         public function buscaFamiliaById($idFamilia){
-            $this->_sel.= " WHERE id_familia= $idFamilia";
-            $res= mysql_query($this->_sel);
+            $select= "SELECT * FROM familia WHERE id_familia= $idFamilia";
+            $res= mysql_query($select);
             if($res === FALSE){
                 echo "familia não encontrada";
                 return null;
             }else{
-                $arrived= mysql_fetch_assoc($res);
-                return $arrived;
+                //$arrived= mysql_fetch_assoc($res);
+                return $res;
             }            
-        }               
+        }    
+        
+        public function buscaFamiliaExceptId($idFamilia){
+            $select= "SELECT * FROM familia WHERE id_familia <> $idFamilia";
+            $res= mysql_query($select);
+            if($res === FALSE){
+                echo "familia não encontrada";
+                return null;
+            }else{
+                //$arrived= mysql_fetch_assoc($res);
+                return $res;
+            }            
+        }  
+        
         
         public function buscaFamilia(){
             //$this->_sel.= " WHERE id_familia= $idFamilia";

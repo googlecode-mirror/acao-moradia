@@ -15,13 +15,11 @@
       
         $(".carregar_tabela").click(function(){
            
-            /*var id= $("#id_familia").val();
+            var id= $("#id_familia").val();
             var titular= $("#titular").val();
-            var endereco= $("#endereco").val();*/
-            
-            var query= $("#query").val();
+            var endereco= $("#endereco").val();
         
-            $("#resultado").load('../controle/montaTabela.php',{query:query});
+            $("#resultado").load('../controle/montaTabela.php',{id:id, titular:titular, endereco:endereco});
                 
         })
         
@@ -89,18 +87,11 @@
                                 
                                 <br/>                              
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <center>                            
-                            <h2 id="etapa">Etapa 1/3: Vinculação com Família</h2>                            
-                        </center> <br/><br/>
-                                Digite o ID da família, seu endereço ou o nome de seu titular
-                                <br/><br/>
-                                <!--<span>id da família</span><input id="id_familia" type="text" name="familia" value="" size="14"/> 
+                                Informações da familia<br/><br/>
+                                <span>id da família</span><input id="id_familia" type="text" name="familia" value="" size="14"/> 
                                 <span>nome titular</span><input id="titular" type="text" name="familia" value="" size="14"/>    
                                 <span>endereço</span><input id="endereco" type="text" name="familia" value="" size="14"/>
-                                -->
-                                <input id="query" type="text" name="familia" value="" size="40"/>
-                                
-                                <input type="button" class="carregar_tabela" value="Pesquisar"/>
+                                <input type="button" class="carregar_tabela" value="Ir"/>
                                 <br/>                                 
                                 <br/>
                                 <br/>
@@ -125,7 +116,8 @@
 
                     <center>
                         <p>
-                            <!--<input type="submit" class="button blue" value="Próximo >>"/>-->
+                            <input type="submit" class="button blue" value="Próximo >>"/>
+                        </p>
                     </center>
                 </form>                
             </div>                                                                                                                                                                                                                                                       
