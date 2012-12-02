@@ -33,8 +33,32 @@
             }            
         }    
         
+        public function buscaFamiliaByNumero($numero){
+            $select= "SELECT * FROM familia WHERE numero like '%$numero%' AND id_familia <> $numero";
+            $res= mysql_query($select);
+            if($res === FALSE){
+                echo "familia não encontrada";
+                return null;
+            }else{
+                //$arrived= mysql_fetch_assoc($res);
+                return $res;
+            }            
+        }
+        
         public function buscaFamiliaExceptId($idFamilia){
-            $select= "SELECT * FROM familia WHERE id_familia <> $idFamilia";
+            $select= "SELECT * FROM familia WHERE id_familia <> $idFamilia AND numero NOT IN (SELECT numero FROM familia WHERE numero like '%$idFamilia%')";
+            $res= mysql_query($select);
+            if($res === FALSE){
+                echo "familia não encontrada";
+                return null;
+            }else{
+                //$arrived= mysql_fetch_assoc($res);
+                return $res;
+            }            
+        }  
+        
+        public function buscaFamiliaExceptLogradouro($logr){
+            $select= "SELECT * FROM familia WHERE id_familia NOT IN(SELECT id_familia FROM familia WHERE logradouro like '%$logr%')";
             $res= mysql_query($select);
             if($res === FALSE){
                 echo "familia não encontrada";
@@ -71,8 +95,8 @@
             }            
         }
         
-        public function buscaFamiliabyLogradouro($nome){            
-            $select= "SELECT * FROM familia WHERE logradouro like '%$nome%'"; //add um: AND id_familia de pessoa not in (select do while anterior em monta tabela)
+        public function buscaFamiliabyLogradouro($nome){ 
+            $select= "SELECT * FROM familia WHERE logradouro like '%$nome%' AND id_familia NOT IN (SELECT id_familia FROM pessoa WHERE grau_parentesco= 'TITULAR' AND nome like '%$nome%')"; //add um: AND id_familia de pessoa not in (select do while anterior em monta tabela)
             $res= mysql_query($select)or die(mysql_error());
             //$a  = mysql_fetch_assoc($res);
             
