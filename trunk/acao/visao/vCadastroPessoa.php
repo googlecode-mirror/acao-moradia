@@ -7,10 +7,7 @@
         <link type="image/x-icon" href="copy.ico" rel="shortcut icon"/>
         <link href="../css/styles.css" rel="stylesheet" type="text/css" />
         <link href="../css/button.css" rel="stylesheet" type="text/css" />
-
-        <!--
-        <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
-        -->
+        
         <script type="text/javascript" src="../js/jquery-1.8.3.js"></script>    
         <script type="text/javascript" src="../js/jquery.maskedinput.js"></script>               
         <script type="text/javascript" src="../js/scripts.js" ></script>        
@@ -20,12 +17,13 @@
                 jQuery("#cep").mask("99999-999");                
                 jQuery("#telefone").mask("(99) 9999-9999?9");                
                 jQuery("#dataNascimento").mask("99/99/9999");                
+                jQuery("#numero").mask("9?99999");                
             });
-        </script>     
+        </script>                     
     </head>
     <body onload="verifica_etapa();">  
         <div class="wrap">
-            <div class="header">
+s            <div class="header">
                 <div class="logo">
                     <a href="vAtendente.php"><div class="lg"><h1>Ação Moradia</h1></div></a>
                 </div>
@@ -79,10 +77,7 @@
                 <!--<div class="navegador"><a href="#"><img src="../imagens/bt_confirmar.png" alt="confirmar" width="87" height="27" border="0" /></a> <a href="#"><img src="../imagens/bt_cancelar.png" alt="cancelar" width="79" height="27" border="0" /></a><a href="#"><img src="../imagens/bt_incluir.png" alt="incluir" width="69" height="27" border="0" /></a><a href="#"><img src="../imagens/bt_alterar.png" alt="alterar" width="69" height="27" border="0" /></a><a href="#"><img src="../imagens/bt_excluir.png" alt="excluir" width="69" height="27" border="0" /></a><a href="menu_prolog.pdf" target="_blank"><img src="../imagens/bt_ajuda.png" alt="ajuda" width="69" height="27" border="0" /></a></div>-->
                 <div class="tit_sub_cat"></div>
                 <div class="bloco" style="border: #b1b1b1 solid 2px;">
-
-                    <?php
-                        $etapa = 1;
-                    ?>
+                    
                     <form name="cadastro" action="../controle/cCadastraPessoa.php" method="get"/>
                     <div style="margin: 10px; border: #b1b1b1 solid 2px;">                         
                         <center>                            
@@ -90,7 +85,7 @@
                         </center>                          
                         <div style="margin: 25px; float:left; ">
                             <h3>&nbsp;</h3>
-                            <h3>Dados pessoais <?php echo $_GET["msg"] ?>: </h3>
+                            <h3>Dados pessoais <?php if(isset($_GET["msg"])) echo $_GET["msg"] ?>: </h3>
                             <p>&nbsp;</p>
                             <p>Nome completo: (*)</p>
                             <p><input type="text" id="nome" name="nome" size="30" value="" maxlength="100" /></p>
@@ -124,42 +119,24 @@
                             <p>&nbsp;</p>
                             <p>Naturalidade(*):</p>
 
-                            <p>
+                            <p>                                 
                                 <table>
                                     <tr>
                                         <td>
-                                            <input maxlength="100" id="cidadeNatal" name="cidadeNatal" size="14" />                                     
+                                            <select name="estadoNatal" id="estadoNatal">
+                                                <?php                                            
+                                                    include_once '../bd/EstadoDAO.php';
+                                                    $estadoDAO = new EstadoDAO();
+                                                    $estados = $estadoDAO->buscaEstados();                                                                                
+                                                    while ( $row = mysql_fetch_assoc( $estados ) ) {
+                                                        echo '<option value="'.$row['cod_estado'].'">'.$row['sigla'].'</option>';
+                                                    }                                                                                           
+                                                ?>
+                                            </select>
                                         </td>
                                         <td>
-                                            <select id="estadoNatal" name="estadoNatal">
-                                                <option selected> </option>
-                                                <option> AC </option>
-                                                <option> AL </option>
-                                                <option> AP </option>
-                                                <option> AM </option>
-                                                <option> BA </option>
-                                                <option> CE </option>
-                                                <option> DF </option>
-                                                <option> ES </option>
-                                                <option> GO </option>
-                                                <option> MA </option>
-                                                <option> MT </option>
-                                                <option> MS </option>
-                                                <option> MG </option>
-                                                <option> PR </option>
-                                                <option> PB </option>
-                                                <option> PA </option>
-                                                <option> PE </option>
-                                                <option> PI </option>
-                                                <option> RJ </option>
-                                                <option> RN </option>
-                                                <option> RS </option>
-                                                <option> RO </option>
-                                                <option> RR </option>
-                                                <option> SC </option>
-                                                <option> SE </option>
-                                                <option> SP </option>
-                                                <option> TO </option>
+                                            <select name="cidadeNatal" id="cidadeNatal">
+                                                <option value="0">Escolha um estado</option>
                                             </select>
                                         </td>
                                     </tr>
@@ -196,8 +173,8 @@
                             <p>&nbsp;</p>
 
                             <p>Carteira Profissional:</p>
-                            <input type="radio" name="carteiraProfissional" value="sim"/>Sim
-                            <input type="radio" name="carteiraProfissional" value="nao" checked/>Não
+                            <input type="radio" name="carteiraProfissional" value="sim" checked/>Sim
+                            <input type="radio" name="carteiraProfissional" value="nao"/>Não
                             <p>&nbsp;</p>
 
                             <p>Certidão de Nascimento:</p>
@@ -218,7 +195,7 @@
                                 $programas = $CPrograma->buscaTodosProgramas();                                                                
                                 
                                 while($programa = mysql_fetch_array($programas)){
-                                    echo '<input type="checkbox" name='.$programa["nome"].'/>'.$programa["nome"]."<br>";
+                                    echo "<input type='checkbox' value='$programa[id_programa]' name='programas[]'/>".$programa['nome']."<br>";
                                 }                                                          
                                
                             ?>
@@ -244,44 +221,27 @@
                             </p>
                             <p>&nbsp;</p>
                             <p>Cidade/estado:(*)</p>   
+                            <p>                           
                             <table>
-                                <tr>
-                                    <td>                                        
-                                        <input type="text" id="cidade" name="cidade" value="" size="14" disabled/>
-                                    </td>                            
+                                <tr>                                    
                                     <td>
                                         <select id="estado" name="estado" disabled>
-                                            <option> AC </option>
-                                            <option> AL </option>
-                                            <option> AP </option>
-                                            <option> AM </option>
-                                            <option> BA </option>
-                                            <option> CE </option>
-                                            <option> DF </option>
-                                            <option> ES </option>
-                                            <option> GO </option>
-                                            <option> MA </option>
-                                            <option> MT </option>
-                                            <option> MS </option>
-                                            <option selected> MG </option>
-                                            <option> PR </option>
-                                            <option> PB </option>
-                                            <option> PA </option>
-                                            <option> PE </option>
-                                            <option> PI </option>
-                                            <option> RJ </option>
-                                            <option> RN </option>
-                                            <option> RS </option>
-                                            <option> RO </option>
-                                            <option> RR </option>
-                                            <option> SC </option>
-                                            <option> SE </option>
-                                            <option> SP </option>
-                                            <option> TO </option>
+                                            <?php                                                                                                                                            
+                                                $estados = $estadoDAO->buscaEstados();                                                                                
+                                                while ( $row = mysql_fetch_assoc( $estados ) ) {
+                                                    echo '<option value="'.$row['cod_estado'].'">'.$row['sigla'].'</option>';
+                                                }                                                                                           
+                                            ?>
                                         </select>
                                     </td>
+                                    <td>                                        
+                                        <select name="cidade" id="cidade">
+                                            <option value="0">Escolha um estado</option>
+                                        </select>                                        
+                                    </td>                            
                                 </tr>
                             </table>
+                            
                             </p>
                             <p>&nbsp;</p>
                             <p>Bairro:(*) <br/>
@@ -301,8 +261,7 @@
                                 <div style="margin: 10px 0px 0px 20px; float: left;">Cidade: <input type="text" value="" name="cidade2" size="14" /></div>
                                 <div style="margin: 10px 0px 0px 20px; float: left;">Bairro: <input type="text" value="" name="bairro2" size="14" /></div>
                                 <div style="margin: 10px 0px 0px 20px; float: left;">Estado: <input type="text" value="" name="estado2" size="14" /></div><br/><br/><br/>
-                            </div>
-                            <!--<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>-->
+                            </div>                            
                         </div>
                     </div>
                     <!--

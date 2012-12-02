@@ -1,12 +1,25 @@
-<?php
+<?php    
     include_once 'DBConnection.php';
     DataBase::createConection();
-    class CidadeDAO{
+    class EstadoDAO{
+        private $_sel= "SELECT * FROM estado";
         
+        public function buscaEstados(){            
+            $sql = "SELECT cod_estado, sigla
+                        FROM estado
+                        ORDER BY sigla";
+            $res = mysql_query( $sql );            
+            if($res === FALSE){
+                echo "falha na consulta";
+                return null;
+            }else{                
+                return $res;
+            }            
+        }      
+        /*
         private $_ins= "INSERT INTO  cidade (`nome`, `estado`) VALUES";
         private $_rem= "DELETE FROM cidade WHERE";
-        private $_alt= "UPDATE cidade set";
-        private $_sel= "SELECT * FROM cidade";
+        private $_alt= "UPDATE cidade set";        
         
          public function testeInsert($_res){
             if($_res != TRUE)
@@ -42,7 +55,7 @@
             $this->_rem.= " nome= $nome AND estado= $estado";
             $_res= mysql_query($this->rem);
             this.testeInsert($_res);
-        }   
+        }   */
     }
 ?>
 
