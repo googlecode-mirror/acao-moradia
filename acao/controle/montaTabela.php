@@ -1,12 +1,13 @@
 <script type="text/javascript">
-    /*
+    
    $(".__idFamilia").click(function(){
             
        var id = $(this).attr('id');
        
-       alert(id);
+      var novaURL = "http://www.codigofonte.com.br/";
+    $(window.document.location).attr('href',"../visao/vCadastroPessoa.php");
             
-   })*/
+   })
     
 </script>    
 <?php
@@ -19,13 +20,13 @@ DataBase::createConection();
 $id= $_REQUEST['id'];
 $titular= $_REQUEST['titular'];
 $endereco= $_REQUEST['endereco'];*/
-$html='';
+$html='<form action="../visao/vCadastroPessoaComFamilia.php" method="post">';
 $query= $_REQUEST['query'];
 $fD= new FamiliaDAO;
     $pD= new PessoaDAO;
 
 if(!$query){//busca vazia retorno irrelevante 
-    $resultado= $fD->buscaFamilia();
+    $resultado= $fD->buscaFamilia();    
     $html  .= "<table border= 1 width=500px>";    
     $html .= "<th>id</th>";
     $html .= "<th>nome titular</th>";
@@ -41,7 +42,7 @@ if(!$query){//busca vazia retorno irrelevante
     } 
 }
 
-elseif (is_numeric($query)) { //provavel q a pesquisa seja por ID   
+elseif (is_numeric($query)) { //provavel q a pesquisa seja por ID ou numero da casa, seguido por resultados sem relevancia  
     $resultadoId= $fD->buscaFamiliaById($query);
     $html  .= "<table border= 1 width=500px>";    
     $html .= "<th>id</th>";
@@ -59,7 +60,7 @@ elseif (is_numeric($query)) { //provavel q a pesquisa seja por ID
     }
     
     //if(mysql_num_rows($resultadoId)){
-    $resultadoNum= $fD->buscaFamiliaByNumero($query);
+    $resultadoNum= $fD->buscaFamiliaByNumero($query);//busca de numeros de casa
     while ($a= mysql_fetch_assoc($resultadoNum)){
         $html .= '<tr>';
         $html .= '<td>'.$a['id_familia'].'</td>';
@@ -82,10 +83,9 @@ elseif (is_numeric($query)) { //provavel q a pesquisa seja por ID
 }
 
  else {//a pesquisa é texto, pode ser um endereço ou titular
-     //criar contador p fazer uma busca * caso os dois selects falhem
    $tamanhoPesquisa= strlen($query);
    $radical= substr($query, 1, $tamanhoPesquisa-2);
-   $resultado3= $pD->buscaPessoaTitular($query);
+   $resultado3= $pD->buscaPessoaTitular($radical);
    $html  .= "<table border= 1 width=500px>";    
     $html .= "<th>id</th>";
     $html .= "<th>nome titular</th>";
@@ -122,6 +122,7 @@ elseif (is_numeric($query)) { //provavel q a pesquisa seja por ID
     
 }
  $html  .= "</table>";
+ $html .= "</form> ";
       echo $html;
 
 /*
