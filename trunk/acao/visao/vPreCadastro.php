@@ -25,11 +25,11 @@
                 
         })
         
-        $(".__idFamilia").click(function(){
+       /* $(".__idFamilia").click(function(){
             
             alert('olá');
             
-        })
+        })*/
       
     });
     
