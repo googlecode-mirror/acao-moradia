@@ -46,8 +46,7 @@
     class Pessoa{        
         private $idPessoa;
         private $idFamilia;
-        private $cidadeNatal;
-        private $estadoNatal;                
+        private $cidadeNatal;        
         private $nome;
         private $cpf;
         private $rg;
@@ -62,20 +61,19 @@
         private $religiao;
         private $carteiraProfissional;
         private $tituloEleitor;
-        private $certidaoNascimento;  
+        private $certidaoNascimento;                  
         
-        function __construct($idPessoa, $idFamilia, $cidadeNatal, $estadoNatal, $nome, $cpf, $rg, $sexo, $dataNascimento, $dataCadastro, $dataSaida, $telefone, $grauParentesco, $estadoCivil, $raca, $religiao, $carteiraProfissional, $tituloEleitor, $certidaoNascimento) {
-            $this->idPessoa = $idPessoa;
+        function __construct(
+                $idFamilia, $cidadeNatal, $nome, $cpf, $rg, $sexo, $dataNascimento, 
+                $telefone, $grauParentesco, $estadoCivil, $raca, $religiao, 
+                $carteiraProfissional, $tituloEleitor, $certidaoNascimento) {            
             $this->idFamilia = $idFamilia;
-            $this->cidadeNatal = $cidadeNatal;
-            $this->estadoNatal = $estadoNatal;
+            $this->cidadeNatal = $cidadeNatal;            
             $this->nome = $nome;
             $this->cpf = $cpf;
             $this->rg = $rg;
             $this->sexo = $sexo;
             $this->dataNascimento = $dataNascimento;
-            $this->dataCadastro = $dataCadastro;
-            $this->dataSaida = $dataSaida;
             $this->telefone = $telefone;
             $this->grauParentesco = $grauParentesco;
             $this->estadoCivil = $estadoCivil;
@@ -109,15 +107,7 @@
 
         public function setCidadeNatal($cidadeNatal) {
             $this->cidadeNatal = $cidadeNatal;
-        }
-
-        public function getEstadoNatal() {
-            return $this->estadoNatal;
-        }
-
-        public function setEstadoNatal($estadoNatal) {
-            $this->estadoNatal = $estadoNatal;
-        }
+        }       
 
         public function getNome() {
             return $this->nome;
@@ -334,16 +324,14 @@
         private $logradouro;
         private $numero;
         private $bairro;
-        private $cidade;
-        private $estado;
+        private $cod_cidade;        
         
-        function __construct($cep, $logradouro, $numero, $bairro, $cidade, $estado) {            
+        function __construct($cep, $logradouro, $numero, $bairro, $cod_cidade) {            
             $this->cep = $cep;
             $this->logradouro = $logradouro;
             $this->numero = $numero;
             $this->bairro = $bairro;
-            $this->cidade = $cidade;
-            $this->estado = $estado;
+            $this->cod_cidade = $cod_cidade;            
         }
         
         public function getIdFamilia() {
@@ -386,20 +374,12 @@
             $this->bairro = $bairro;
         }
 
-        public function getCidade() {
-            return $this->cidade;
+        public function getCodCidade() {
+            return $this->cod_cidade;
         }
 
-        public function setCidade($cidade) {
-            $this->cidade = $cidade;
-        }
-
-        public function getEstado() {
-            return $this->estado;
-        }
-
-        public function setEstado($estado) {
-            $this->estado = $estado;
+        public function setCodCidade($cod_cidade) {
+            $this->cod_cidade = $cod_cidade;
         }
         
     }

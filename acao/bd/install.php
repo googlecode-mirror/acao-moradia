@@ -62,12 +62,31 @@
 
     mysql_query("
     -- -----------------------------------------------------
+    -- Table `estado`
+    -- -----------------------------------------------------
+    CREATE  TABLE IF NOT EXISTS `estado` (
+      `cod_estado` INT(2) ,
+      `sigla` VARCHAR(2) NOT NULL ,
+      `nome` VARCHAR(100) ,
+      PRIMARY KEY (`cod_estado`) )
+    ENGINE = InnoDB;
+    ") or die(mysql_error());
+    
+    mysql_query("
+    -- -----------------------------------------------------
     -- Table `cidade`
     -- -----------------------------------------------------
     CREATE  TABLE IF NOT EXISTS `cidade` (
+      `cod_cidade` INT(11) ,
       `nome` VARCHAR(100) NOT NULL ,	#upper
-      `estado` VARCHAR(2) NOT NULL ,	#upper
-      PRIMARY KEY (`nome`, `estado`) )
+      `cep` VARCHAR(9) ,                #vai ser tirada esta coluna, ela é apenas para manter compatibilidade com as linhas              
+      `cod_estado` INT(2) NOT NULL ,      
+      CONSTRAINT `fk_estado`
+        FOREIGN KEY (`cod_estado` )
+        REFERENCES `estado` (`cod_estado` )
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION,
+      PRIMARY KEY (`cod_cidade`) )
     ENGINE = InnoDB;
     ") or die(mysql_error());
 
@@ -80,11 +99,9 @@
       `cep` VARCHAR(9) NOT NULL ,
       `logradouro` VARCHAR(100) NOT NULL ,			#upper
       `numero` INT UNSIGNED NOT NULL ,
-      `bairro` VARCHAR(100) ,				#upper
-      `cidade` VARCHAR(100) ,				#upper
-      `estado` VARCHAR(2) NOT NULL ,				#upper
-      INDEX `fk_Endereço_Bairro1_idx` (`bairro` ASC) ,
-      INDEX `fk_Endereço_Cidade1_idx` (`cidade` ASC, `estado` ASC) ,
+      `bairro` VARCHAR(100) ,                                   #upper      
+      `cod_cidade` INT(11) NOT NULL ,	
+      INDEX `fk_Endereço_Bairro1_idx` (`bairro` ASC) ,      
       PRIMARY KEY (`id_familia`) ,
       CONSTRAINT `fk_Endereço_Bairro1`
         FOREIGN KEY (`bairro` )
@@ -92,8 +109,8 @@
         ON DELETE NO ACTION
         ON UPDATE NO ACTION,
       CONSTRAINT `fk_Endereço_Cidade1`
-        FOREIGN KEY (`cidade` , `estado` )
-        REFERENCES `cidade` (`nome` , `estado` )
+        FOREIGN KEY (`cod_cidade` )
+        REFERENCES `cidade` (`cod_cidade` )
         ON DELETE NO ACTION
         ON UPDATE NO ACTION)
     ENGINE = InnoDB;
@@ -106,6 +123,7 @@
     CREATE  TABLE IF NOT EXISTS `pessoa` (
       `id_pessoa` INT NOT NULL AUTO_INCREMENT ,
       `id_familia` INT NOT NULL ,
+      `cidade_natal` INT(11) ,
       `nome` VARCHAR(100) NOT NULL ,		#upper
       `cpf` VARCHAR(14) NULL ,
       `rg` VARCHAR(45) NULL ,
@@ -120,20 +138,17 @@
       `religiao` VARCHAR(45) NULL,							#upper
       `carteira_profissional` CHAR(1) NOT NULL ,			#upper
       `titulo_eleitor` VARCHAR(12) NULL ,
-      `certidao_nascimento` CHAR(1) NOT NULL ,				#upper
-      `cidade_natal` VARCHAR(100) ,				#upper
-      `estado_natal` VARCHAR(2),  				#upper
+      `certidao_nascimento` CHAR(1) NOT NULL ,				#upper      
       PRIMARY KEY (`id_pessoa`), 
-      INDEX `fk_Pessoa_familia1_idx` (`id_familia` ASC) ,
-      INDEX `fk_pessoa_cidade1_idx` (`cidade_natal` ASC, `estado_natal` ASC) ,
+      INDEX `fk_Pessoa_familia1_idx` (`id_familia` ASC) ,      
       CONSTRAINT `fk_Pessoa_familia1`
         FOREIGN KEY (`id_familia` )
         REFERENCES `familia` (`id_familia` )
         ON DELETE NO ACTION
         ON UPDATE NO ACTION,
       CONSTRAINT `fk_pessoa_cidade1`
-        FOREIGN KEY (`cidade_natal` , `estado_natal` )
-        REFERENCES `cidade` (`nome` , `estado` )
+        FOREIGN KEY (`cidade_natal` )
+        REFERENCES `cidade` (`cod_cidade` )
         ON DELETE NO ACTION
         ON UPDATE NO ACTION)
     ENGINE = InnoDB;   
@@ -186,9 +201,9 @@
     -- Table `programa`
     -- -----------------------------------------------------
     CREATE  TABLE IF NOT EXISTS `programa` (
-      `id` INT NOT NULL AUTO_INCREMENT ,
-      `nome` VARCHAR(100) NOT NULL ,			#upper
-      PRIMARY KEY (`id`))  
+      `id_programa` INT NOT NULL AUTO_INCREMENT ,
+      `nome` VARCHAR(100) NOT NULL UNIQUE,			#upper
+      PRIMARY KEY (`id_programa`))  
     ENGINE = InnoDB;
     ") or die(mysql_error());
 
@@ -209,7 +224,7 @@
         ON UPDATE NO ACTION,
       CONSTRAINT `fk_Pessoa_has_Programa_Programa1`
         FOREIGN KEY (`id_programa` )
-        REFERENCES `programa` (`id` )
+        REFERENCES `programa` (`id_programa` )
         ON DELETE NO ACTION
         ON UPDATE NO ACTION)
     ENGINE = InnoDB;
@@ -304,8 +319,7 @@
     mysql_query("
     CREATE TRIGGER insere_cidade BEFORE INSERT ON cidade
       FOR EACH ROW BEGIN    
-            set NEW.nome = upper(NEW.nome);
-            set NEW.estado = upper(NEW.estado);
+            set NEW.nome = upper(NEW.nome);            
       END;
     ") or die(mysql_error());
 
@@ -315,8 +329,7 @@
     mysql_query("
     CREATE TRIGGER atualiza_cidade BEFORE UPDATE ON cidade
       FOR EACH ROW BEGIN    
-            set NEW.nome = upper(NEW.nome);
-            set NEW.estado = upper(NEW.estado);
+            set NEW.nome = upper(NEW.nome);            
       END;
     ") or die(mysql_error());
 
@@ -329,9 +342,7 @@
     CREATE TRIGGER insere_familia BEFORE INSERT ON familia
       FOR EACH ROW BEGIN     
             set NEW.logradouro = upper(NEW.logradouro);	
-            set NEW.bairro = upper(NEW.bairro);	
-            set NEW.cidade = upper(NEW.cidade);	
-            set NEW.estado = upper(NEW.estado);	
+            set NEW.bairro = upper(NEW.bairro);	                        
       END;
     ") or die(mysql_error());
 
@@ -342,9 +353,7 @@
     CREATE TRIGGER atualiza_familia BEFORE UPDATE ON familia
       FOR EACH ROW BEGIN    
             set NEW.logradouro = upper(NEW.logradouro);	
-            set NEW.bairro = upper(NEW.bairro);	
-            set NEW.cidade = upper(NEW.cidade);	
-            set NEW.estado = upper(NEW.estado);	
+            set NEW.bairro = upper(NEW.bairro);	                        
       END;
     ") or die(mysql_error());
 
@@ -365,8 +374,6 @@
             set NEW.religiao = upper(NEW.religiao);	
             set NEW.carteira_profissional = upper(NEW.carteira_profissional);		   	
             set NEW.certidao_nascimento = upper(NEW.certidao_nascimento);		   
-            set NEW.cidade_natal = upper(NEW.cidade_natal);		   
-            set NEW.estado_natal = upper(NEW.estado_natal);		   	
       END;
     ") or die(mysql_error());
 
@@ -385,9 +392,6 @@
             set NEW.religiao = upper(NEW.religiao);	
             set NEW.carteira_profissional = upper(NEW.carteira_profissional);		   	
             set NEW.certidao_nascimento = upper(NEW.certidao_nascimento);		   
-            set NEW.cidade_natal = upper(NEW.cidade_natal);		   
-            set NEW.estado_natal = upper(NEW.estado_natal);		   	
-
       END;
     ") or die(mysql_error());
 
@@ -484,13 +488,14 @@
     echo "Tabela bairro populada com sucesso<br>";
 
     #CIDADE
-    mysql_query("insert into cidade(nome, estado) values ('UBERlÂNDIA','MG')") or die(mysql_error());
-    echo "Tabela cidade populada com sucesso<br>";
+    include_once 'install_cidades_estados.php';    
+    echo "Tabela cidade e estado populada com sucesso<br>";
 
     #FAMILIA
-    mysql_query("insert into familia(cep,logradouro,numero,bairro,cidade,estado) values ('38408-100','AVENIDA: joão naves de ávila', 2121,'santa mônica','uberlândia','MG')") or die(mysql_error());
+    mysql_query("insert into familia(cep,logradouro,numero,bairro,cod_cidade) values 
+        ('38408-100','AVENIDA: joão naves de ávila', 2121,'santa mônica',4048)") or die(mysql_error());
     echo "Tabela familia populada com sucesso<br>";
-
+    
     #TELEFONE
     mysql_query("insert into telefone(id_familia, telefone, recado_com) 
     values (1,'(34) 3230-1101', 'JoÃO')") or die(mysql_error());
@@ -498,16 +503,14 @@
 
     #PESSOA
     mysql_query("insert into pessoa
-    (cpf,nome,rg,sexo,data_nascimento,telefone,grau_parentesco,estado_civil,raca,religiao,cidade_natal,estado_natal,carteira_profissional,titulo_eleitor,certidao_nascimento,id_familia) values 
-    ('101.101.101-00','João da silva', 'SSP-DF 2.573.224','m','1970-10-31','9998-0099','TiTULAR','SoLTEIRO(A)','BrANCO','CATÓlICO','uBERLÂNDIA','MG','s','000011112222','s',1)") or die(mysql_error());
+    (id_familia,cidade_natal,nome,cpf,rg,sexo,data_nascimento,telefone,grau_parentesco,estado_civil,raca,religiao,carteira_profissional,titulo_eleitor,certidao_nascimento) values 
+    (1,4048,'João da silva','101.101.101-00','SSP-DF 2.573.224','m','1970-10-31','9998-0099','TiTULAR','SoLTEIRO(A)','BrANCO','CATÓlICO','s','000011112222','s')") or die(mysql_error());
     echo "Tabela cidade populada com sucesso<br>"; 
-
 
     #PESSOA_HAS_PROGRAMA
     mysql_query("insert into pessoa_has_programa(id_pessoa, id_programa) values (1,1)") or die(mysql_error());
     echo "Tabela pesssoa_has_programa populada com sucesso<br>";
-
-
+        
     #CURSO_HAS_PESSOA
     mysql_query("insert into curso_has_pessoa(id_curso, id_pessoa) values (1,1)") or die(mysql_error());
     echo "Tabela curso_has_pessoa populada com sucesso<br>";

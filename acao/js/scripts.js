@@ -97,16 +97,18 @@ function valida_etapa_1(){
         return false;
     }                 
     
-    if($("#cidadeNatal").val()=="" || $("#estadoNatal").val()==""){
+    if($("#cidadeNatal").val()=="0"){
         alert("Preencha os campos de naturalidade.");        
-        document.cadastro.cidadeNatal.focus();
+        document.cadastro.estadoNatal.focus();
         return false;
     }                 
         
     
     return true;
 }
-
+/*----------------------------------------------------------------------------
+ função que valida a segunda etapa do cadastro de um endereço de uma família.
+-----------------------------------------------------------------------------*/
 function valida_etapa_2(){            
     if($("#cep").val()==""){
         alert("Preencha o campo cep.");        
@@ -123,24 +125,22 @@ function valida_etapa_2(){
         document.cadastro.numero.focus();
         return false;
     }
-    if($("#cidade").val()==""){
-        alert("Preencha o campo cidade.");        
-        document.cadastro.cidade.focus();
+    if($("#cidade").val()=="0"){
+        alert("Preencha o campo estado e cidade.");        
+        document.cadastro.estado.focus();
         return false;
     }
     if($("#bairro").val()==""){
         alert("Preencha o campo bairro.");        
         document.cadastro.bairro.focus();
         return false;
-    }    
-    if($("#estado").val()==""){
-        alert("Preencha o campo estado.");        
-        document.cadastro.estado.focus();
-        return false;
-    }
+    }        
     return true;
 }
 
+/*----------------------------------------------------------------------------
+ controla a validação das etapas do cadastro de famílias.
+-----------------------------------------------------------------------------*/
 function controla(){          
     //alert(document.getElementById("et").value);
     switch($("#et").val()){        
@@ -155,7 +155,8 @@ function controla(){
         case "2":             
             if(valida_etapa_1()==true && valida_etapa_2()==true){
                 if(confirm("Deseja prosseguir para o cadastro socio-econômico")){
-                    document.getElementById("et").value='3';                 
+                    document.getElementById("et").value='3';  
+                    return false;
                     //redirecionar para pesquisa socio-economica
                 }else{//vai persistir no banco os dados até a etapa 2
                     return true;
@@ -168,6 +169,11 @@ function controla(){
     }
 }
 
+/*----------------------------------------------------------------------------
+ função que verifica em qual etapa do cadastro da familia foi parado. Esta 
+ funão existe, pq se o usuário voltar um página no browser e o campo cep 
+ estiver escrito algo, significa que a etapa 2 foi concluida.
+-----------------------------------------------------------------------------*/
 function verifica_etapa(){          
     //alert(document.getElementById("et").value);
     if($("#cep").val() != ""){
@@ -175,6 +181,10 @@ function verifica_etapa(){
     }    
 }
 
+/*----------------------------------------------------------------------------
+ função que habilita os campos da etapa 2, bem como muda o texto para etapa 2 
+ e foca o cursor no cep
+-----------------------------------------------------------------------------*/
 function cadastra_endereco_familia()
 {
     $("#logradouro").removeAttr('disabled');
@@ -187,7 +197,10 @@ function cadastra_endereco_familia()
     document.cadastro.cep.focus();
 }
 
-// Função única que fará a transação
+/*----------------------------------------------------------------------------
+ função responsável por preencher a cidade, o bairro, o estado, o logradouro
+ quando o cep é fornecido pelo usuário.
+-----------------------------------------------------------------------------*/
 function getEndereco() {
     // Se o campo CEP não estiver vazio
     if($.trim($("#cep").val()) != ""){
@@ -205,11 +218,28 @@ function getEndereco() {
                         // troca o valor dos elementos
                         $("#logradouro").val(unescape(resultadoCEP["tipo_logradouro"])+": "+unescape(resultadoCEP["logradouro"]));
                         $("#bairro").val(unescape(resultadoCEP["bairro"]));
-                        $("#cidade").val(unescape(resultadoCEP["cidade"]));                        
-                        $("#estado").val(unescape(resultadoCEP["uf"]));
+                        $("#estado").val(unescape(resultadoCEP["uf"]));                        
+                        $("#cidade").val(unescape(resultadoCEP["cidade"]));                                                
                 }else{
                         alert("Endereço não encontrado");
                 }
         });				
     }			
 }
+
+/*----------------------------------------------------------------------------
+ função que ao ser preenchido o campo #estado, este dado é enviado para 
+ vcCidades.php para que as cidades deste estado sejam buscadas no banco 
+ de dados e exibidas ao usuário.
+-----------------------------------------------------------------------------*/
+$(document).ready(function(){    
+    $('#estado').change(function(){
+        $('#cidade').load('vcCidades.php?estado='+$('#estado').val() );
+
+    });
+    
+    $('#estadoNatal').change(function(){
+        $('#cidadeNatal').load('vcCidades.php?estado='+$('#estadoNatal').val() );
+
+    });  
+});                                         

@@ -5,32 +5,52 @@
     include_once '../bd/DBConnection.php';
     include_once '../bd/FamiliaDAO.php';
     include_once '../bd/PessoaDAO.php';
+    include_once '../bd/PessoHasProgramaDAO.php';
     
     DataBase::createConection();    
     $etapa_concluida = $_GET['et'];
     
-    if($etapa_concluida == 2){//se ele fez até a etapa de cadastro familiar                
-        //$cep, $logradouro, $numero, $bairro, $cidade, $estado) {                                                                   
+    if($etapa_concluida == 2){//se ele fez até a etapa de cadastro familiar                                                                               
         
+        //cadastra o bairro
         $bairroDAO = new BairroDAO();
-        $bairroDAO->cadastraBairro($_GET['bairro']);
-        
-        $cidadeDAO = new CidadeDAO();
-        $cidadeDAO->cadastraCidade($_GET['cidade'],$_GET['estado']);
-        $cidadeDAO->cadastraCidade($_GET['cidadeNatal'],$_GET['estadoNatal']);
-                
-        $familia = new Familia($_GET['cep'],$_GET['logradouro'],$_GET['numero'],$_GET['bairro'],$_GET['cidade'],$_GET['estado']);
-        $familiaDAO = new FamiliaDAO();
-        $familiaDAO->cadastraFamilia_2($familia);
+        $bairroDAO->cadastraBairro($_GET['bairro']);        
                         
-        $pessoaDAO = new PessoaDAO();        
-        $pessoaDAO->cadastraPessoa(
-                $_GET['cpf'], $_GET['nome'], $_GET['rg'],
-                $_GET['sexo'], $_GET['telefone'], 'TITULAR',
-                $_GET['estadoCivil'],$_GET['raca'],$_GET['religiao'],
-                $_GET['carteiraProfissional'], $_GET['tituloEleitor'],$_GET['certidaoNascimento'],
-                $_GET['cidadeNatal'],$_GET['estadoNatal'],$familia->getIdFamilia());
+        //cadastra a familia
+        $familia = new Familia($_GET['cep'],$_GET['logradouro'],$_GET['numero'],$_GET['bairro'],$_GET['cidade']);
         
+        $familiaDAO = new FamiliaDAO();
+        $res = $familiaDAO->cadastraFamilia_2($familia);
+        
+        if($res === FALSE){
+            echo "Erro ao cadastrar familia";
+            exit();
+        }
+        
+        //cadastra a pessoa(que neste caso e o titular)
+        $pessoa = new Pessoa(
+                $familia->getIdFamilia(), $_GET['cidadeNatal'],$_GET['nome'], $_GET['cpf'], 
+                $_GET['rg'], $_GET['sexo'], $_GET['dataNascimento'], $_GET['telefone'], 'TITULAR',
+                $_GET['estadoCivil'],$_GET['raca'],$_GET['religiao'], $_GET['carteiraProfissional'],
+                $_GET['tituloEleitor'],$_GET['certidaoNascimento']);
+        
+        $pessoaDAO = new PessoaDAO();
+        $res = $pessoaDAO->cadastraPessoa_2($pessoa);
+        
+        if($res === FALSE){
+            echo "Erro ao cadastrar familia";
+            exit();
+        }
+        
+        //cadastra os programas que o titular participa
+        if(isset($_GET['programas'])){//se existem programas            
+            $programas = $_GET['programas'];
+            foreach ($programas as $programa){
+                $pessoaHasProgramaDAO = new pessoaHasProgramaDAO();
+                $pessoaHasProgramaDAO->cadastraPessoaHasPrograma($pessoa->getIdPessoa(), $programa);
+            }
+        }                     
+                
     }else{
         if($etapa_concluida == 3){//se ele fez até a etapa de pesquisa socio-economica
             

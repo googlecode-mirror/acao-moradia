@@ -9,8 +9,7 @@
     <link href="../css/styles.css" rel="stylesheet" type="text/css" />
     <link href="../css/button.css" rel="stylesheet" type="text/css" />
 </head>
-
-<body>
+<body onLoad="document.logar.login.focus();">
     <?php
         session_start();
         if(isset($_SESSION['nivel']))
@@ -33,8 +32,8 @@
                 <div class="tit_login"></div>
                 <div class="mn" align="center">
                     <br/><br/>
-                    <form action="../controle/cLogin.php" method="post">
-                        Usuário:<input style="width:140px; "type="text" id="login" name="log" />
+                    <form name="logar" action="../controle/cLogin.php" method="post">
+                        Usuário:<input style="width:140px; "type="text" id="login" name="log"/>
                         Senha:<input style="width:115px;" type="password" id="pass" name="password" />
                         <input type="submit" class="small black" value="Enviar" />
                     </form>
