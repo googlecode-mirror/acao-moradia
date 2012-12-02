@@ -45,6 +45,45 @@
             }            
         }  
         
+        public function buscaLogradouro($idFamilia){
+            $select= "SELECT logradouro FROM familia WHERE id_familia = $idFamilia";
+            $res= mysql_query($select);
+            $a= mysql_fetch_assoc($res);
+            if($res === FALSE){
+                echo "familia não encontrada";
+                return null;
+            }else{
+                //$arrived= mysql_fetch_assoc($res);
+                return $a['logradouro'];
+            }            
+        } 
+        
+        public function buscaNumero($idFamilia){
+            $select= "SELECT numero FROM familia WHERE id_familia = $idFamilia";
+            $res= mysql_query($select);
+            $a  = mysql_fetch_assoc($res);
+            if($res === FALSE){
+                echo "familia não encontrada";
+                return null;
+            }else{
+                //$arrived= mysql_fetch_assoc($res);
+                return $a['numero'];
+            }            
+        }
+        
+        public function buscaFamiliabyLogradouro($nome){            
+            $select= "SELECT * FROM familia WHERE logradouro like '%$nome%'"; //add um: AND id_familia de pessoa not in (select do while anterior em monta tabela)
+            $res= mysql_query($select)or die(mysql_error());
+            //$a  = mysql_fetch_assoc($res);
+            
+            if($res === FALSE){
+                echo "pessoa não encontrada";
+                return null;
+            }else{
+                //$arived= mysql_fetch_row($res);               
+                return $res;
+            } 
+        }
         
         public function buscaFamilia(){
             //$this->_sel.= " WHERE id_familia= $idFamilia";

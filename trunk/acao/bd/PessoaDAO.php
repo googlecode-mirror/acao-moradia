@@ -63,6 +63,20 @@
             } 
         }
         
+        public function buscaPessoaTitular($nome){            
+            $select= "SELECT * FROM pessoa WHERE grau_parentesco= 'TITULAR' AND nome like '%$nome%'"; 
+            $res= mysql_query($select)or die(mysql_error());
+            //$a  = mysql_fetch_assoc($res);
+            
+            if($res === FALSE){
+                echo "pessoa não encontrada";
+                return null;
+            }else{
+                //$arived= mysql_fetch_row($res);               
+                return $res;
+            } 
+        }
+        
         public function buscaAllOfPessoaByAttribute($attribute, $query){
             /*$this->_sel.= " WHERE ";
             $this->_sel.= $attribute;
