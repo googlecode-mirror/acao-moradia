@@ -242,8 +242,7 @@
         private $diasSemana;
         private $dataTermino;
         
-        function __construct($id, $nome, $vagas, $dataInicio, $cargaHoraria, $preRequisitos, $diasSemana, $dataTermino) {
-            $this->id = $id;
+        function __construct($nome, $vagas, $dataInicio, $cargaHoraria, $preRequisitos, $diasSemana, $dataTermino) {            
             $this->nome = $nome;
             $this->vagas = $vagas;
             $this->dataInicio = $dataInicio;
