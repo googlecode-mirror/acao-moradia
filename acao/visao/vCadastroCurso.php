@@ -80,7 +80,7 @@ function soNumeros(v){
                         </div>
                         <p>&nbsp;</p>
                         <p>&nbsp;</p>
-                        <p>
+                        <!--<p>
                             <center>
                                 <p><br /><br /><br />
                                     <a href="vPesquisaPessoa.php" class="button blue">Pesquisar pessoa</a>
@@ -90,14 +90,14 @@ function soNumeros(v){
                                 </p>
                                 <p>&nbsp;</p>
                             </center>
-                        </p>                                 
+                        </p>       -->                          
                     </div>
                 </div>                
                 <!--<div class="navegador"><a href="#"><img src="../imagens/bt_confirmar.png" alt="confirmar" width="87" height="27" border="0" /></a> <a href="#"><img src="../imagens/bt_cancelar.png" alt="cancelar" width="79" height="27" border="0" /></a><a href="#"><img src="../imagens/bt_incluir.png" alt="incluir" width="69" height="27" border="0" /></a><a href="#"><img src="../imagens/bt_alterar.png" alt="alterar" width="69" height="27" border="0" /></a><a href="#"><img src="../imagens/bt_excluir.png" alt="excluir" width="69" height="27" border="0" /></a><a href="menu_prolog.pdf" target="_blank"><img src="../imagens/bt_ajuda.png" alt="ajuda" width="69" height="27" border="0" /></a></div>-->
                 <div class="tit_sub_cat"></div>
                 <div class="bloco" style="border: #b1b1b1 solid 2px;">
                     
-                    <form name="cadastro" action="../controle/cCadastroCurso.php" method="get"/>
+                    <form name="cadastro" action="../controle/cCadastraCurso.php" method="post"/>
                     <div style="margin: 10px; border: #b1b1b1 solid 2px;">                         
                         <center>                            
                             <h2>Cadastro de Curso</h2>                            
@@ -120,18 +120,18 @@ function soNumeros(v){
                             <p><input type="number" name="cargaHoraria" id="cargaHoraria" size="4" value="" maxlength="3" min="0" step="0.1"/> horas </p>
                             <p>&nbsp;</p>
                             <p>Pré-requisitos:</p>
-                            <!-- <p><input type="text" id="pre_requisitos" name="pre_requisitos" size="30" value=""/></p> -->
-                            <p><textarea rows="4" cols="30" form="cadastro" style="resize: none;" id="preRequisitos" name="preRequisitos"></textarea></p>
+                             <p><input type="text" id="preRequisitos" name="preRequisitos" size="30" value=""/></p>
+                            <!--<p><textarea rows="4" cols="30" form="cadastro" style="resize: none;" id="preRequisitos" name="preRequisitos"> </textarea></p>-->
                             <p>&nbsp;</p>
                             <p>Dias da semana:</p>
                             <!--<p><input type="text" id="diasSemana" name="diasSemana" size="30" value="" maxlength="100"/></p>-->
-                            <input type='checkbox' value='domingo' name='diasSemana'/>Domingo<br>
-                            <input type='checkbox' value='segunda' name='diasSemana'/>Segunda-feira<br>
-                            <input type='checkbox' value='terça' name='diasSemana'/>Terça-feira<br>
-                            <input type='checkbox' value='quarta' name='diasSemana'/>Quarta-feira<br>
-                            <input type='checkbox' value='quinta' name='diasSemana'/>Quinta-feira<br>
-                            <input type='checkbox' value='sexta' name='diasSemana'/>Sexta-feira<br>
-                            <input type='checkbox' value='sabado' name='diasSemana'/>Sábado<br>
+                            <input type='checkbox' value='domingo' name='diasSemana[]'/>Domingo<br>
+                            <input type='checkbox' value='segunda' name='diasSemana[]'/>Segunda-feira<br>
+                            <input type='checkbox' value='terça' name='diasSemana[]'/>Terça-feira<br>
+                            <input type='checkbox' value='quarta' name='diasSemana[]'/>Quarta-feira<br>
+                            <input type='checkbox' value='quinta' name='diasSemana[]'/>Quinta-feira<br>
+                            <input type='checkbox' value='sexta' name='diasSemana[]'/>Sexta-feira<br>
+                            <input type='checkbox' value='sabado' name='diasSemana[]'/>Sábado<br>
                         </div>
                     </div>
                     <br/>                    
@@ -149,7 +149,7 @@ function soNumeros(v){
                     <input type="hidden" id="et" name="et" value="1"/>
                     <center>
                         <p>
-                            <input type="submit" class="button blue" value="Cadastrar" onclick="return controla();"/>
+                            <input type="submit" class="button blue" value="Cadastrar" <!--onclick="return controla(); -->"/>
                         </p>
                     </center>
                     </form>                
