@@ -1,5 +1,5 @@
 <?php
-/*
+
     include_once '../modelo/Modelo.php';
     include_once '../bd/BairroDAO.php';
     include_once '../bd/CidadeDAO.php';
@@ -11,7 +11,8 @@
     include_once '../modelo/Modelo.php';
     
     DataBase::createConection();    
-    //$etapa_concluida = $_GET['et'];
+    $etapa_concluida = $_GET['et'];
+/*    
     $CPrograma = new CPrograma();
     $programas = $CPrograma->buscaTodosProgramas(); 
     $pD= new PessoaDAO();
@@ -56,7 +57,7 @@
         if($res === FALSE){
             echo "Erro ao cadastrar familia";
             exit();
-        }
+        }                
         
         //cadastra a pessoa(que neste caso e o titular)
         $pessoa = new Pessoa(

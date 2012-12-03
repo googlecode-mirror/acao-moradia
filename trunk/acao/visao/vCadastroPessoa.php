@@ -23,7 +23,7 @@
     </head>
     <body onload="verifica_etapa();">  
         <div class="wrap">
-s            <div class="header">
+             <div class="header">
                 <div class="logo">
                     <a href="vAtendente.php"><div class="lg"><h1>Ação Moradia</h1></div></a>
                 </div>
@@ -195,7 +195,7 @@ s            <div class="header">
                                 $programas = $CPrograma->buscaTodosProgramas();                                                                
                                 
                                 while($programa = mysql_fetch_array($programas)){
-                                    echo "<input type='checkbox' value='$programa[id_programa]' name='programas[]'/>".$programa['nome']."<br>";
+                                    echo "<input type='checkbox' value='$programa[id_programa]' name='programa[]'/>".$programa['nome']."<br>";
                                 }                                                          
                                
                             ?>
