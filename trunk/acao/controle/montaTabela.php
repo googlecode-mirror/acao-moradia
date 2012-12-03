@@ -9,7 +9,7 @@
             
    })
     
-</script>    
+</script>
 <?php
 
 include_once '../bd/DBConnection.php';
@@ -31,7 +31,7 @@ if(!$query){//busca vazia retorno irrelevante
     $html .= "<th>id</th>";
     $html .= "<th>nome titular</th>";
     $html .= "<th>endereço</th>";
-    $html .= "<th>seleção</th>";    
+    $html .= "<th>seleção</th>";   
     while ($a= mysql_fetch_assoc($resultado)){        
         $html .= '<tr>';
         $html .= '<td>'.$a['id_familia'].'</td>';
@@ -39,7 +39,7 @@ if(!$query){//busca vazia retorno irrelevante
         $html .= '<td>'.$a['logradouro'].' - '.$a['numero'].'</td>';
         $html .= '<td>'.'<input type="submit" name= "id_familia" value="'.$a['id_familia'].'" img src="../imagens/next.png">'.'</td>';
         //$html .= '<td>'.'<img src="../imagens/next.png" class="__idFamilia" id="'.$a['id_familia'].'">'.'</td>';
-        $html .= '</tr>';        
+        $html .= '</tr>';      
     } 
 }
 
@@ -56,7 +56,8 @@ elseif (is_numeric($query)) { //provavel q a pesquisa seja por ID ou numero da c
         $html .= '<td>'.$a['id_familia'].'</td>';
         $html .= '<td>'.$pD->buscaPessoabyFamilia($a['id_familia']).'</td>';
         $html .= '<td>'.$a['logradouro'].' - '.$a['numero'].'</td>';
-        $html .= '<td>'.'<img src="../imagens/next.png" class="__idFamilia" id="'.$a['id_familia'].'">'.'</td>';
+        $html .= '<td>'.'<input type="submit" name= "id_familia" value="'.$a['id_familia'].'" img src="../imagens/next.png">'.'</td>';
+        //$html .= '<td>'.'<img src="../imagens/next.png" class="__idFamilia" id="'.$a['id_familia'].'">'.'</td>';
         $html .= '</tr>';      
     }
     
@@ -67,7 +68,8 @@ elseif (is_numeric($query)) { //provavel q a pesquisa seja por ID ou numero da c
         $html .= '<td>'.$a['id_familia'].'</td>';
         $html .= '<td>'.$pD->buscaPessoabyFamilia($a['id_familia']).'</td>';
         $html .= '<td>'.$a['logradouro'].' - '.$a['numero'].'</td>';
-        $html .= '<td>'.'<img src="../imagens/next.png" class="__idFamilia" id="'.$a['id_familia'].'">'.'</td>';
+        $html .= '<td>'.'<input type="submit" name= "id_familia" value="'.$a['id_familia'].'" img src="../imagens/next.png">'.'</td>';
+        //$html .= '<td>'.'<img src="../imagens/next.png" class="__idFamilia" id="'.$a['id_familia'].'">'.'</td>';
         $html .= '</tr>'; 
     }
     
@@ -78,7 +80,8 @@ elseif (is_numeric($query)) { //provavel q a pesquisa seja por ID ou numero da c
         $html .= '<td>'.$a['id_familia'].'</td>';
         $html .= '<td>'.$pD->buscaPessoabyFamilia($a['id_familia']).'</td>';
         $html .= '<td>'.$a['logradouro'].' - '.$a['numero'].'</td>';
-        $html .= '<td>'.'<img src="../imagens/next.png" class="__idFamilia" id="'.$a['id_familia'].'">'.'</td>';
+        $html .= '<td>'.'<input type="submit" name= "id_familia" value="'.$a['id_familia'].'" img src="../imagens/next.png">'.'</td>';
+        //$html .= '<td>'.'<img src="../imagens/next.png" class="__idFamilia" id="'.$a['id_familia'].'">'.'</td>';
         $html .= '</tr>';      
     }    
 }
@@ -97,7 +100,8 @@ elseif (is_numeric($query)) { //provavel q a pesquisa seja por ID ou numero da c
         $html .= '<td>'.$a['id_familia'].'</td>';
         $html .= '<td>'.$a['nome'].'</td>';
         $html .= '<td>'.$fD->buscaLogradouro($a['id_familia']) .' - '.$fD->buscaNumero($a['id_familia']).'</td>';
-        $html .= '<td>'.'<img src="../imagens/next.png" class="__idFamilia" id="'.$a['id_familia'].'">'.'</td>';
+        $html .= '<td>'.'<input type="submit" name= "id_familia" value="'.$a['id_familia'].'" img src="../imagens/next.png">'.'</td>';
+        //$html .= '<td>'.'<img src="../imagens/next.png" class="__idFamilia" id="'.$a['id_familia'].'">'.'</td>';
         $html .= '</tr>';  
     }
     
@@ -107,20 +111,22 @@ elseif (is_numeric($query)) { //provavel q a pesquisa seja por ID ou numero da c
         $html .= '<td>'.$a['id_familia'].'</td>';
         $html .= '<td>'.$pD->buscaPessoabyFamilia($a['id_familia']).'</td>';
         $html .= '<td>'.$a['logradouro'].' - '.$a['numero'].'</td>';
-        $html .= '<td>'.'<img src="../imagens/next.png" class="__idFamilia" id="'.$a['id_familia'].'">'.'</td>';
+        $html .= '<td>'.'<input type="submit" name= "id_familia" value="'.$a['id_familia'].'" img src="../imagens/next.png">'.'</td>';
+        //$html .= '<td>'.'<img src="../imagens/next.png" class="__idFamilia" id="'.$a['id_familia'].'">'.'</td>';
         $html .= '</tr>';  
     }
     //mostrar resultados menos relevantes
-    $resultado= $fD->buscaFamiliaExceptLogradouro($query);
-    while ($a= mysql_fetch_assoc($resultado)){        
+    $resultado5= $fD->buscaFamiliaExceptLogradouro($query);
+    
+    while ($a1= mysql_fetch_assoc($resultado5)){        
         $html .= '<tr>';
-        $html .= '<td>'.$a['id_familia'].'</td>';
-        $html .= '<td>'.$pD->buscaPessoabyFamilia($a['id_familia']).'</td>';
-        $html .= '<td>'.$a['logradouro'].' - '.$a['numero'].'</td>';
-        $html .= '<td>'.'<img src="../imagens/next.png" class="__idFamilia" id="'.$a['id_familia'].'">'.'</td>';
+        $html .= '<td>'.$a1['id_familia'].'</td>';
+        $html .= '<td>'.$pD->buscaPessoabyFamilia($a1['id_familia']).'</td>';
+        $html .= '<td>'.$a1['logradouro'].' - '.$a1['numero'].'</td>';
+        $html .= '<td>'.'<input type="submit" name= "id_familia" value="'.$a1['id_familia'].'" img src="../imagens/next.png">'.'</td>';
+        //$html .= '<td>'.'<img src="../imagens/next.png" class="__idFamilia" id="'.$a['id_familia'].'">'.'</td>';
         $html .= '</tr>';        
     }
-    
 }
  $html  .= "</table>";
  $html .= "</form> ";

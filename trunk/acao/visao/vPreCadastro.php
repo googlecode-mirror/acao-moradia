@@ -105,10 +105,15 @@
                                 <br/>
                                 <br/>
                             </p>
+                            
                             <div id="resultado">
                                 
                                 
                             </div>
+</br>
+</br>                            <p>
+                            <input type="submit" href="vCadastroPessoa.php" class="button blue" value="criar nova >>" <!--onclick="return controla();-->"/>
+                        </p>
                         </div>
                     </div>
 <!--
