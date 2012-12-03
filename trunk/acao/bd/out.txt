@@ -1,1 +1,2 @@
-3
+INSERT INTO `pessoa`(`id_familia`, `cidade_natal`, `nome`, `cpf`, `rg`, `sexo`, `data_nascimento`, `data_saida`, `telefone`, `grau_parentesco`, `estado_civil`, `raca`, `religiao`, `carteira_profissional`, `titulo_eleitor`, `certidao_nascimento`) VALUES (1, 4048, 'dsds', '', '', 'M', '2000-11-11', null, '', 'TITULAR', 'CASADO(A)', 'NÃO DECLARADA', '',
+                'sim', '', 'sim')
