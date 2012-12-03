@@ -61,7 +61,7 @@
                         <p>&nbsp;</p>
                         <p>&nbsp;</p>
                         <p>&nbsp;</p>
-                        <p>
+                        <p><!--
                             <center>
                                 <p><br /><br /><br />
                                     <a href="vPesquisaPessoa.php" class="button blue">Pesquisar pessoa</a>
@@ -71,6 +71,7 @@
                                 </p>
                                 <p>&nbsp;</p>
                             </center>
+                           -->
                         </p>                                 
                     </div>
                 </div>                

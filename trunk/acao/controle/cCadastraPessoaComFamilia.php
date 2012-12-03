@@ -46,18 +46,7 @@
                 $_GET['tituloEleitor'],$_GET['certidaoNascimento']);
     
     
-    $pD->cadastraPessoa_2($pessoa);
-    //$_SESSION['id_familia']= null;
-    //unset()
-    /*
-    if(isset($_GET['programa'])){
-         //$programas = $_GET['programas'];
-        $programas2= $_GET['programa'];
-         foreach ( $programas2 as $pp ){            
-            //echo $_GET[$programa['id_programa']].'</br>';
-            $pHasp->cadastraPessoaHasPrograma($pessoa->getIdPessoa(), $pp);  
-        }
-    }*/
+    $pD->cadastraPessoa_2($pessoa);   
     
     if(isset($_GET['programa'])){//se existem programas            
         $programas = $_GET['programa'];
@@ -66,7 +55,6 @@
             $pessoaHasProgramaDAO->cadastraPessoaHasPrograma($pessoa->getIdPessoa(), $programa);
         }
     }
-    
-   
-   
+    //header("Location: ../visao/vCadastroCurso.php");
+      
 ?>

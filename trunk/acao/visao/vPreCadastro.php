@@ -75,7 +75,11 @@
                     </div>
                     <div class="bts">
                         <ul><li><a href="" target="_parent">Programas</a></li></ul>
-                    </div>                    
+                    </div> 
+                    <div class="bts1">
+                                <ul><li><a href="vCadastroPessoa.php" target="_parent"><a href="vCadastroPessoa.php" class="button blue">Criar uma família</a></a></li></ul>
+                                
+                    </div>
                 </div>
             </div>
             <!--<div class="navegador"><a href="#"><img src="../imagens/bt_confirmar.png" alt="confirmar" width="87" height="27" border="0" /></a> <a href="#"><img src="../imagens/bt_cancelar.png" alt="cancelar" width="79" height="27" border="0" /></a><a href="#"><img src="../imagens/bt_incluir.png" alt="incluir" width="69" height="27" border="0" /></a><a href="#"><img src="../imagens/bt_alterar.png" alt="alterar" width="69" height="27" border="0" /></a><a href="#"><img src="../imagens/bt_excluir.png" alt="excluir" width="69" height="27" border="0" /></a><a href="menu_prolog.pdf" target="_blank"><img src="../imagens/bt_ajuda.png" alt="ajuda" width="69" height="27" border="0" /></a></div>-->
@@ -110,11 +114,7 @@
                                 
                                 
                             </div>
-</br>
-</br>                            <p>
-                            <input type="submit" href="vCadastroPessoa.php" class="button blue" value="criar nova >>" <!--onclick="return controla();-->"/>
-                        </p>
-                        </div>
+                          </div>
                     </div>
 <!--
                     <div>
