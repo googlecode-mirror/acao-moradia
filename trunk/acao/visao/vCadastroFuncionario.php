@@ -93,7 +93,7 @@
                             <p>Usuário: (*)</p>
                             <p><input type="text" id="usuario" name="usuario" size="30" value="" maxlength="100" /></p>
                             <p><br/>Senha: (*)</p>
-                            <p><input type="text" name="senha" id="senha" size="32" value="" maxlength="14" /></p>
+                            <p><input type="password" name="senha" id="senha" size="30" value="" maxlength="100" /></p>
                             <p>&nbsp;</p>
                             <p>Nível:</p> 
                             <select name="nivel">                                
