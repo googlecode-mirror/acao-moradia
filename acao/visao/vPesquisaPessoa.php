@@ -7,10 +7,37 @@
     <link type="image/x-icon" href="copy.ico" rel="shortcut icon"/>
     <link href="../css/styles.css" rel="stylesheet" type="text/css" />
     <link href="../css/button.css" rel="stylesheet" type="text/css" />
-
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.0.min.js"></script>    
-    <script type="text/javascript" src="../js/scripts.js"></script>
-
+<script type="text/javascript" src="../js/jquery.js"></script>
+    <script type="text/javascript" > 
+    
+    $(document).ready(function(){
+      
+        $(".carregar_tabela").click(function(){
+           
+            /*var id= $("#id_familia").val();
+            var titular= $("#titular").val();
+            var endereco= $("#endereco").val();*/
+            
+            var query= $("#query").val();
+            //alert('foda');
+        
+            $("#resultado").load('../controle/cMontaTabelaPessoa.php',{query:query});
+                
+        })
+        
+       /* $(".__idFamilia").click(function(){
+            
+            alert('olá');
+            
+        })*/
+      
+    });
+    
+    
+    
+    
+    
+    </script>
 </head>  
 <body>
     <?php/*
@@ -64,24 +91,39 @@
             <div class="tit_sub_cat"></div>
             <div class="bloco">
                 <form name="cadastro" action="../controle/cCadastraPessoa.php" method="get">
-                    <div style="margin: 10px; border: #b1b1b1 solid 2px;"> 
-                        <div style="margin: 25px;"> 
-                            <p>Buscar...
-                                <input name="chave" type="text" id="chave" value="" size="30" maxlength="30" />
-                                , que é um(a)...
-                                <select name="filtro" id="filtro">
-                                    <option value="nome">nome</option>
-                                    <option value="familia">família</option>
-                                    <option value="endereco">endereço</option>
-                                </select>
+                    <div style="margin: 10px; border: #b1b1b1 solid 2px;">                         
+                        <div style="margin: 25px; float:left;">
+                            <p>
+                                
+                                <br/>                              
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        
+                            <h2 id="etapa">Pesquisa de Pessoa</h2>                            
+                         <br/><br/>
+                                Digite alguma informação sobre a pessoa
+                                <br/><br/>
+                                <!--<span>id da família</span><input id="id_familia" type="text" name="familia" value="" size="14"/> 
+                                <span>nome titular</span><input id="titular" type="text" name="familia" value="" size="14"/>    
+                                <span>endereço</span><input id="endereco" type="text" name="familia" value="" size="14"/>
+                                -->
+                                <input id="query" type="text" name="familia" value="" size="40"/>
+                                
+                                <input type="button" class="carregar_tabela" value="Pesquisar"/>
+                                <br/>                                 
+                                <br/>
+                                <br/>
                             </p>
-                        </div>
+                            
+                            <div id="resultado">
+                                
+                                
+                            </div>
+                           
+                          </div>
                     </div>
-                </form>                                                                                                                                     
-                <center>
-                    <p><input type="submit" class="button blue" value="Pesquisar pessoa"></p>
-                    <p>&nbsp;</p>
-                </center>
+                    </div>
+                </form>                                                                                                                                    
+                
             </div>               
         </div>
     </div>
