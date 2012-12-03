@@ -57,8 +57,8 @@
             }else{
                 //$arrived= mysql_fetch_assoc($res);
                 return $res;
-            }            
-        }  
+            }
+        }
         
          public function buscaAttribOfFamiliabyId($idFamilia){
             $select= "SELECT * FROM familia WHERE id_familia = $idFamilia";
@@ -72,8 +72,8 @@
             }            
         } 
         
-        public function buscaFamiliaExceptLogradouro($logr){
-            $select= "SELECT * FROM familia WHERE id_familia NOT IN(SELECT id_familia FROM familia WHERE logradouro like '%$logr%') AND id_familia NOT IN (SELECT id_familia FROM pessoa WHERE grau_parentesco= 'TITULAR' AND nome like '%$nome%') ";
+        public function buscaFamiliaExceptLogradouro($nome){
+            $select= "SELECT * FROM familia WHERE id_familia NOT IN(SELECT id_familia FROM familia WHERE logradouro like '%$nome%' AND id_familia NOT IN (SELECT id_familia FROM pessoa WHERE grau_parentesco= 'TITULAR' AND nome like '%$nome%'))";
             //"SELECT * FROM familia WHERE logradouro like '%$nome%' AND id_familia NOT IN (SELECT id_familia FROM pessoa WHERE grau_parentesco= 'TITULAR' AND nome like '%$nome%')"
             $res= mysql_query($select);
             if($res === FALSE){

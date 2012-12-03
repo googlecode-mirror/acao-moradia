@@ -9,7 +9,7 @@
     <link href="../css/styles.css" rel="stylesheet" type="text/css" />
     <link href="../css/button.css" rel="stylesheet" type="text/css" />
 </head>
-<body onLoad="document.logar.login.focus();">
+    <body onLoad="document.logar.login.focus();">
     <?php
         session_start();
         if(isset($_SESSION['nivel']))
@@ -33,7 +33,7 @@
                 <div class="mn" align="center">
                     <br/><br/>
                     <form name="logar" action="../controle/cLogin.php" method="post">
-                        Usuário:<input style="width:140px; "type="text" id="login" name="log"/>
+                        Usuário:<input style="width:140px; "type="text" id="login" name="log" autofocus="autofocus"/>
                         Senha:<input style="width:115px;" type="password" id="pass" name="password" />
                         <input type="submit" class="small black" value="Enviar" />
                     </form>
