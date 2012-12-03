@@ -111,27 +111,27 @@ function soNumeros(v){
                             <p><input name="vagas" id="vagas" size="4" value="" maxlength="3" min="0" required="required" type=""/></p>
                             <p>&nbsp;</p>
                             <p>Data de início: (*)</p>
-                            <p><input type="date" maxlength="10" id="data_inicio" name="data_inicio" size="11" required="required"/></p>
+                            <p><input type="date" maxlength="10" id="dataInicio" name="dataInicio" size="11" required="required"/></p>
                             <p>&nbsp;</p>
                             <p>Data de término: (*)</p>
-                            <p><input type="date" maxlength="10" id="data_termino" name="data_termino" size="11" required="required"/></p><!--onblur="validaData(this,this.value)"-->
+                            <p><input type="date" maxlength="10" id="dataTermino" name="dataTermino" size="11" required="required"/></p><!--onblur="validaData(this,this.value)"-->
                             <p>&nbsp;</p>
                             <p><br />Carga horária: </p>
-                            <p><input type="number" name="carga_horaria" id="carga_horaria" size="4" value="" maxlength="3" min="0" step="0.1"/> horas </p>
+                            <p><input type="number" name="cargaHoraria" id="cargaHoraria" size="4" value="" maxlength="3" min="0" step="0.1"/> horas </p>
                             <p>&nbsp;</p>
                             <p>Pré-requisitos:</p>
                             <!-- <p><input type="text" id="pre_requisitos" name="pre_requisitos" size="30" value=""/></p> -->
-                            <p><textarea rows="4" cols="30" form="cadastro" style="resize: none;" id="pre_requisitos" name="pre_requisitos"></textarea></p>
+                            <p><textarea rows="4" cols="30" form="cadastro" style="resize: none;" id="preRequisitos" name="preRequisitos"></textarea></p>
                             <p>&nbsp;</p>
                             <p>Dias da semana:</p>
-                            <!--<p><input type="text" id="dias_semana" name="dias_semana" size="30" value="" maxlength="100"/></p>-->
-                            <input type='checkbox' value='domingo' name='dias_semana'/>Domingo<br>
-                            <input type='checkbox' value='segunda' name='dias_semana'/>Segunda-feira<br>
-                            <input type='checkbox' value='terça' name='dias_semana'/>Terça-feira<br>
-                            <input type='checkbox' value='quarta' name='dias_semana'/>Quarta-feira<br>
-                            <input type='checkbox' value='quinta' name='dias_semana'/>Quinta-feira<br>
-                            <input type='checkbox' value='sexta' name='dias_semana'/>Sexta-feira<br>
-                            <input type='checkbox' value='sabado' name='dias_semana'/>Sábado<br>
+                            <!--<p><input type="text" id="diasSemana" name="diasSemana" size="30" value="" maxlength="100"/></p>-->
+                            <input type='checkbox' value='domingo' name='diasSemana'/>Domingo<br>
+                            <input type='checkbox' value='segunda' name='diasSemana'/>Segunda-feira<br>
+                            <input type='checkbox' value='terça' name='diasSemana'/>Terça-feira<br>
+                            <input type='checkbox' value='quarta' name='diasSemana'/>Quarta-feira<br>
+                            <input type='checkbox' value='quinta' name='diasSemana'/>Quinta-feira<br>
+                            <input type='checkbox' value='sexta' name='diasSemana'/>Sexta-feira<br>
+                            <input type='checkbox' value='sabado' name='diasSemana'/>Sábado<br>
                         </div>
                     </div>
                     <br/>                    
