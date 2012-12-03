@@ -82,7 +82,7 @@
             <div class="tit_sub_cat"></div>
             <div class="bloco">
 
-                <form name="cadastro" action="../controle/cPreCadastro.php" method="get"/>
+                <form name="cadastro" />
                     <div style="margin: 10px; border: #b1b1b1 solid 2px;">                         
                         <div style="margin: 25px; float:left;">
                             <p>
@@ -90,9 +90,9 @@
                                 <br/>                              
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <center>                            
-                            <h2 id="etapa">Etapa 1/3: Vinculação com Família</h2>                            
+                            <h2 id="etapa">Etapa 1/4: Vinculação com Família</h2>                            
                         </center> <br/><br/>
-                                Digite o ID da família, seu endereço ou o nome de seu titular
+                                Digite alguma informação sobre a família
                                 <br/><br/>
                                 <!--<span>id da família</span><input id="id_familia" type="text" name="familia" value="" size="14"/> 
                                 <span>nome titular</span><input id="titular" type="text" name="familia" value="" size="14"/>    

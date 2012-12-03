@@ -19,11 +19,33 @@
                 jQuery("#dataNascimento").mask("99/99/9999");                
                 jQuery("#numero").mask("9?99999");                
             });
-        </script>                     
+        </script>
     </head>
-    <body onload="verifica_etapa();">  
+    <body <!--onload="verifica_etapa();-->">-  
+        <?php
+            include_once '../bd/DBConnection.php';
+            include_once '../bd/PessoaDAO.php';
+            include_once '../bd/FamiliaDAO.php';
+            include_once '../bd/CidadeDAO.php';
+            include_once '../bd/EstadoDAO.php';
+            include_once '../bd/PessoaDAO.php';
+            include_once '../modelo/Modelo.php';
+            
+            $id_familia= $_POST['id_familia'];
+            Familia::$id_familia= $id_familia;
+            
+            $fD= new FamiliaDAO();
+            $cD= new CidadeDAO;
+            $eD= new EstadoDAO();
+            $pD= new PessoaDAO();
+            
+            $result= mysql_fetch_assoc($fD->buscaFamiliaById($id_familia));
+            $resCidade= mysql_fetch_assoc($cD->buscaCidadebyCod($result['cod_cidade']));
+            $resEstado= mysql_fetch_assoc($eD->buscaEstadobyCod($resCidade['cod_estado']));
+            //$pD->buscaPessoabyFamilia($id_familia);
+        ?>
         <div class="wrap">
-s            <div class="header">
+            <div class="header">
                 <div class="logo">
                     <a href="vAtendente.php"><div class="lg"><h1>Ação Moradia</h1></div></a>
                 </div>
@@ -81,15 +103,19 @@ s            <div class="header">
                     <form name="cadastro" action="../controle/cCadastraPessoa.php" method="get"/>
                     <div style="margin: 10px; border: #b1b1b1 solid 2px;">                         
                         <center>                            
-                            <h2 id="etapa">Etapa 1/3: Cadastro de Titular</h2>                            
+                            <h2 id="etapa">Etapa 2/4: Dados Pessoais</h2>                            
                         </center>                          
                         <div style="margin: 25px; float:left; ">
                             <h3>&nbsp;</h3>
-                            <h3>Dados pessoais <?php if(isset($_GET["msg"])) echo $_GET["msg"] ?>: </h3>
+                            <h3>Dados pessoais  </h3>
                             <p>&nbsp;</p>
                             <p>Nome completo: (*)</p>
                             <p><input type="text" id="nome" name="nome" size="30" value="" maxlength="100" /></p>
-                            <p><br />CPF:</p>
+                            <p><br />grau de parentesco com</br> <?php echo $pD->buscaPessoabyFamilia($id_familia);?>:</p>
+                            <p><input type="text" name="parentesco" id="" size="12" value="" maxlength="14" /></p>
+                            <p>&nbsp;</p>
+                            
+                            <p>CPF:</p>
                             <p><input type="text" name="cpf" id="cpf" size="12" value="" maxlength="14" /></p>
                             <p>&nbsp;</p>
                             <p>RG:</p>
@@ -129,7 +155,7 @@ s            <div class="header">
                                                     $estadoDAO = new EstadoDAO();
                                                     $estados = $estadoDAO->buscaEstados();                                                                                
                                                     while ( $row = mysql_fetch_assoc( $estados ) ) {
-                                                        echo '<option value="'.$row['cod_estado'].'">'.$row['sigla'].'</option>';
+                                                        echo '<option name= "estadoNatal2" value="'.$row['cod_estado'].'">'.$row['sigla'].'</option>';
                                                     }                                                                                           
                                                 ?>
                                             </select>
@@ -195,7 +221,7 @@ s            <div class="header">
                                 $programas = $CPrograma->buscaTodosProgramas();                                                                
                                 
                                 while($programa = mysql_fetch_array($programas)){
-                                    echo "<input type='checkbox' value='$programa[id_programa]' name='programas[]'/>".$programa['nome']."<br>";
+                                    echo "<input type='checkbox' value='$programa[id_programa]' name='$programa[id_programa]'/>".$programa['nome']."<br>";
                                 }                                                          
                                
                             ?>
@@ -208,44 +234,27 @@ s            <div class="header">
                             <p>&nbsp;</p>
                             <p>&nbsp;</p>                            
                             <p>&nbsp;</p>
+                            <p>ID da família<br/>
+                                <input type="text" name="id_familia" value="<?php echo $id_familia ?>" size="14" onBlur="getEndereco();" disabled/><br/>
+                            </p><br/>
                             <p>CEP:(*)<br/>
-                                <input type="text" id="cep" name="cep" value="" size="14" onBlur="getEndereco();" disabled/>
+                                <input type="text" id="cep" name="cep" value="<?php echo $result['cep']; ?>" size="14" onBlur="getEndereco();" disabled/>
                             </p>
                             <p>&nbsp;</p>
                             <p>Logradouro:(*) <br/>
-                                <input type="text" id="logradouro" name="logradouro" size="30" value="" disabled/>
+                                <input type="text" id="logradouro" name="logradouro" size="30" value="<?php echo $result['logradouro']; ?>" disabled/>
                             </p>                            
                             <p>&nbsp;</p>
                             <p>Número:(*)<br/>
-                                <input type="text" id="numero" name="numero" size="12" value="" disabled/>
+                                <input type="text" id="numero" name="numero" size="12" value="<?php echo $result['numero']; ?>" disabled/>
                             </p>
                             <p>&nbsp;</p>
                             <p>Cidade/estado:(*)</p>   
-                            <p>                           
-                            <table>
-                                <tr>                                    
-                                    <td>
-                                        <select id="estado" name="estado" disabled>
-                                            <?php                                                                                                                                            
-                                                $estados = $estadoDAO->buscaEstados();                                                                                
-                                                while ( $row = mysql_fetch_assoc( $estados ) ) {
-                                                    echo '<option value="'.$row['cod_estado'].'">'.$row['sigla'].'</option>';
-                                                }                                                                                           
-                                            ?>
-                                        </select>
-                                    </td>
-                                    <td>                                        
-                                        <select name="cidade" id="cidade" disabled="true">
-                                            <option value="0">Escolha um estado</option>
-                                        </select>                                        
-                                    </td>                            
-                                </tr>
-                            </table>
-                            
-                            </p>
+                             <input type="text" id="cidade" name="cidade" size="16" value="<?php echo $resCidade['nome']; ?>" disabled/>
+                             <input type="text" id="estado" name="estado" size="8" value="<?php echo $resEstado['sigla']; ?>" disabled/>
                             <p>&nbsp;</p>
                             <p>Bairro:(*) <br/>
-                                <input type="text" id="bairro" name="bairro" value="" size="14" disabled/>                                                        
+                                <input type="text" id="bairro" name="bairro" value="<?php echo $result['bairro']; ?>" size="14" disabled/>                                                        
                             </p>                            
                             <p>&nbsp;</p>                                                                           
                             <!--
@@ -278,7 +287,7 @@ s            <div class="header">
                     <input type="hidden" id="et" name="et" value="1"/>
                     <center>
                         <p>
-                            <input type="submit" class="button blue" value="Próximo >>" onclick="return controla();"/>
+                            <input type="submit" class="button blue" value="Próximo >>" <!--onclick="return controla();-->"/>
                         </p>
                     </center>
                     </form>                

@@ -324,7 +324,8 @@
         private $logradouro;
         private $numero;
         private $bairro;
-        private $cod_cidade;        
+        private $cod_cidade;   
+        public static $id_familia;
         
         function __construct($cep, $logradouro, $numero, $bairro, $cod_cidade) {            
             $this->cep = $cep;

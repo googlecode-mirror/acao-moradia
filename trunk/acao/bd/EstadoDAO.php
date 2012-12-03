@@ -15,7 +15,19 @@
             }else{                
                 return $res;
             }            
-        }      
+        }     
+        
+         public function buscaEstadobyCod($cod){          
+            $select= "SELECT * FROM estado WHERE cod_estado = $cod";
+            $res= mysql_query($select);
+            if($res === FALSE){
+                echo "familia não encontrada";
+                return null;
+            }else{
+                //$arrived= mysql_fetch_assoc($res);
+                return $res;
+            }            
+        } 
         /*
         private $_ins= "INSERT INTO  cidade (`nome`, `estado`) VALUES";
         private $_rem= "DELETE FROM cidade WHERE";

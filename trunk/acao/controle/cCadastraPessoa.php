@@ -6,10 +6,40 @@
     include_once '../bd/FamiliaDAO.php';
     include_once '../bd/PessoaDAO.php';
     include_once '../bd/PessoHasProgramaDAO.php';
+    include_once '../controle/cListaProgramas.php';
+    include_once '../modelo/Modelo.php';
     
     DataBase::createConection();    
-    $etapa_concluida = $_GET['et'];
+    //$etapa_concluida = $_GET['et'];
+    $CPrograma = new CPrograma();
+    $programas = $CPrograma->buscaTodosProgramas(); 
+    $pD= new PessoaDAO();
     
+    echo $nome= $_GET['nome'];
+    echo $grauParentesco= $_GET['parentesco'];
+    echo $cpf= $_GET['cpf'];
+    echo $rg= $_GET['rg'];
+    echo $sexo= $_GET['sexo'];
+    echo $telefone= $_GET['telefone'];
+    echo $dataNascimento= $_GET['dataNascimento'];
+    echo $_GET['estadoNatal'];
+    echo $cod_cidade_Natal= $_GET['cidadeNatal'];
+    echo $estadoCivil= $_GET['estadoCivil'];
+    echo $raca= $_GET['raca'];
+    echo $religiao= $_GET['religiao'];
+    echo $carteiraProfissional= $_GET['carteiraProfissional'];
+    echo $certidaoNascimento= $_GET['certidaoNascimento'].'</br>';
+    echo $tituloEleitor= $_GET['tituloEleitor'].'</br>';
+    $id_familia= Familia::$id_familia;
+     echo 'locura: '.$id_familia.'</br>';
+    $pD->cadastraPessoa($id_familia, $cod_cidade_Natal, $nome, $cpf, $rg, $sexo, $dataNascimento, $telefone, $grauParentesco, $estadoCivil, $raca, $religiao, $carteiraProfissional, $tituloEleitor, $certidaoNascimento);
+     /*
+    while($programa = mysql_fetch_array($programas)){
+         echo $_GET[$programa['id_programa']];
+    }*/
+    
+    
+    /*
     if($etapa_concluida == 2){//se ele fez até a etapa de cadastro familiar                                                                               
         
         //cadastra o bairro
@@ -122,5 +152,5 @@
         //$pessoa= new Pessoa($idPessoa, $cpf, $nome, $rg, $sexo, $dataNascimento, $dataCadastro, $dataSaida, $cep, null);
         $pDAO= new PessoaDAO();
         $tep= $pDAO->cadastraPessoa( $cpf, $nome, $rg, $sexo, $dataNascimento, $idConjuge, $cep, $logradouro, $numero);*/
-        //if($tep === true){
+        //if($tep === true){*/
 ?>
