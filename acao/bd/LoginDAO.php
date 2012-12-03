@@ -1,21 +1,28 @@
 <?php
+    include_once 'DBConnection.php';
+    DataBase::createConection();
     class LoginDAO{
         
-        private $_ins= "INSERT INTO login VALUES";
+        private $_ins= "INSERT INTO login (usuario,senha,nivel) VALUES";
         private $_rem= "DELETE FROM login WHERE";
         private $_alt= "UPDATE login set";
         private $_sel= "SELECT * FROM login";
         
         public function cadastraLogin(Login $l){         
-            $this->_ins.= " ( $l.getUsuario(), $l1.getSenha(), $l1.getNivel)";            
-            $_res= mysql_query($this->ins);
-            this.testeInsert($_res);
+            return $this->cadastraLogin2($l->getUser(), $l->getSenha(), $l->getNivel());
         }
         
         public function cadastraLogin2($user, $pass, $level){            
-            $this->_ins.= " ($user, $pass, $level)";
-            $_res= mysql_query($this->ins);
-            this.testeInsert($_res);
+            $this->_ins.= " ('$user', '$pass', '$level')";
+            $_res= mysql_query($this->_ins);
+            if($_res != TRUE){
+                echo "falha ao cadastrar";
+                }
+                else{
+                    echo "Cadastrado com sucesso!";
+                
+            }
+            return $_res;
         }
         
         public function removeLogin($user, $pass, $level){            

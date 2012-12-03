@@ -80,7 +80,8 @@
                 <div class="tit_sub_cat"></div>
                 <div class="bloco">
 
-                    <form name="cadastro" action="../controle/cCadastraPessoa.php" method="get"/>
+                    <form name="cadastro" action="../controle/cCadastraFuncionario.php" method="post"/>
+                       
                     <div style="margin: 10px; border: #b1b1b1 solid 2px;">                         
                         <center>
                             <h2>Cadastro de Funcionário</h2>
@@ -91,28 +92,40 @@
                             <p>&nbsp;</p>
                             <p>Usuário: (*)</p>
                             <p><input type="text" id="usuario" name="usuario" size="30" value="" maxlength="100" /></p>
-                            <p><br/>Senha:</p>
-                            <p><input type="text" name="senha" id="senha" size="12" value="" maxlength="14" /></p>
+                            <p><br/>Senha: (*)</p>
+                            <p><input type="text" name="senha" id="senha" size="32" value="" maxlength="14" /></p>
+                            <p>&nbsp;</p>
+                            <p>Nível:</p> 
+                            <select name="nivel">                                
+                                <option>Atendente</option>                               
+                            </select>
                             <p>&nbsp;</p>
                             
-                        </div>
-                    </div>
-
-
-                    <center>
+                         
+                              <center>
                         <p>
-                            <input type="submit" class="button blue" value="Próximo >>" onclick="return valida_nome();"/>
+                            <input type="submit" class="button blue" value="Cadastrar >>" onclick="return valida_nome();"/>
                         </p>
                     </center>
-                    </form>                
-                </div>                                                                                                                                                                                                                                             
-                <div class="txt">Os campos com * são obrigatórios</div>   
+                        </div>
+                     
+                    </div>
+   
+                    </form>
+                 
+                </div>          
+                  
+                <div class="txt">Os campos com * são obrigatórios</div> 
+              
             </div>
+       
         </div>
         <div class="footer">
             <div class="foot">
                 <div class="copyright"></div>
+                
             </div>
+              
         </div>
     </body>
 </html>
