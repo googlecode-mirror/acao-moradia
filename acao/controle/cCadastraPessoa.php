@@ -1,4 +1,5 @@
 <?php
+/*
     include_once '../modelo/Modelo.php';
     include_once '../bd/BairroDAO.php';
     include_once '../bd/CidadeDAO.php';
@@ -36,10 +37,10 @@
      /*
     while($programa = mysql_fetch_array($programas)){
          echo $_GET[$programa['id_programa']];
-    }*/
+    }
     
+    */
     
-    /*
     if($etapa_concluida == 2){//se ele fez até a etapa de cadastro familiar                                                                               
         
         //cadastra o bairro
@@ -73,8 +74,8 @@
         }
         
         //cadastra os programas que o titular participa
-        if(isset($_GET['programas'])){//se existem programas            
-            $programas = $_GET['programas'];
+        if(isset($_GET['programa'])){//se existem programas            
+            $programas = $_GET['programa'];
             foreach ($programas as $programa){
                 $pessoaHasProgramaDAO = new pessoaHasProgramaDAO();
                 $pessoaHasProgramaDAO->cadastraPessoaHasPrograma($pessoa->getIdPessoa(), $programa);

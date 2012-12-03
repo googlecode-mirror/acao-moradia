@@ -33,6 +33,8 @@
             
             $id_familia= $_POST['id_familia'];
             Familia::$id_familia= $id_familia;
+            session_start();
+            $_SESSION['id_familia']= $id_familia;
             
             $fD= new FamiliaDAO();
             $cD= new CidadeDAO;
@@ -100,7 +102,7 @@
                 <div class="tit_sub_cat"></div>
                 <div class="bloco" style="border: #b1b1b1 solid 2px;">
                     
-                    <form name="cadastro" action="../controle/cCadastraPessoa.php" method="get"/>
+                    <form name="cadastro" action="../controle/cCadastraPessoaComFamilia.php" method="get"/>
                     <div style="margin: 10px; border: #b1b1b1 solid 2px;">                         
                         <center>                            
                             <h2 id="etapa">Etapa 2/4: Dados Pessoais</h2>                            
@@ -221,9 +223,9 @@
                                 $programas = $CPrograma->buscaTodosProgramas();                                                                
                                 
                                 while($programa = mysql_fetch_array($programas)){
-                                    echo "<input type='checkbox' value='$programa[id_programa]' name='$programa[id_programa]'/>".$programa['nome']."<br>";
-                                }                                                          
-                               
+                                    echo "<input type='checkbox' value='$programa[id_programa]' name='programa[]'/>".$programa['nome']."<br>";
+                                }            
+                                
                             ?>
                         </div>
                     </div>

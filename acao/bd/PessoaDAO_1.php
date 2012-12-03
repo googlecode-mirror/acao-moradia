@@ -11,7 +11,7 @@
         private $_alt= "UPDATE pessoa set";
         private $_sel_max_id= "SELECT max(id_pessoa) as max_id_pessoa FROM pessoa";                
         
-         public function cadastraPessoa(
+        public function cadastraPessoa(
             $id_familia, $cod_cidade_Natal, $nome, $cpf, $rg, $sexo, $dataNascimento, $telefone, $grauParentesco, $estadoCivil, $raca, $religiao, 
                 $carteiraProfissional, $tituloEleitor, $certidaoNascimento){
             
@@ -30,7 +30,8 @@
             
             return $_res;
             
-        }       
+        }
+                     
         private function testeInsert($res){
             if($res != TRUE)
                 echo 'falaha na operação';
@@ -117,14 +118,14 @@
             }            
         }
         
-        public function cadastraPessoa_2($pessoa){            
-                    
+        public function cadastraPessoa_2($pessoa){
             $res = $this->cadastraPessoa(
-                    $pessoa->getIdFamilia(), $pessoa->getCidadeNatal(), $pessoa->getNome(), $pessoa->getCpf(), $pessoa->getRg(), 
-                    $pessoa->getSexo(), $pessoa->getDataNascimento(), $pessoa->getTelefone(), $pessoa->getGrauParentesco(), 
+                    $pessoa->getCpf(), $pessoa->getNome(), $pessoa->getRg(), 
+                    $pessoa->getSexo(), $pessoa->getTelefone(), $pessoa->getGrauParentesco(), 
                     $pessoa->getEstadoCivil(), $pessoa->getRaca(), $pessoa->getReligiao(), 
                     $pessoa->getCarteiraProfissional(), $pessoa->getTituloEleitor(), 
-                    $pessoa->getCertidaoNascimento());
+                    $pessoa->getCertidaoNascimento(), $pessoa->getCidadeNatal(), 
+                    $pessoa->getIdFamilia(), $pessoa->getDataNascimento());
             if($res){
                 $pessoa->setIdPessoa($this->sel_max_id());
             }
