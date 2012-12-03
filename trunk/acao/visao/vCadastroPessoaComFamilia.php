@@ -85,16 +85,7 @@
                         <p>&nbsp;</p>
                         <p>&nbsp;</p>
                         <p>&nbsp;</p>
-                        <p>
-                            <center>
-                                <p><br /><br /><br />
-                                    <a href="vPesquisaPessoa.php" class="button blue">Pesquisar pessoa</a>
-                                </p>
-                                <p><br />
-                                    <input type="submit" class="button blue" value="Vincular à família"/>
-                                </p>
-                                <p>&nbsp;</p>
-                            </center>
+                        <p>                           
                         </p>                                 
                     </div>
                 </div>                

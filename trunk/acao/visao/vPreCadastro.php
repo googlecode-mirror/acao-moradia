@@ -80,6 +80,12 @@
                                 <ul><li><a href="vCadastroPessoa.php" target="_parent"><a href="vCadastroPessoa.php" class="button blue">Criar uma família</a></a></li></ul>
                                 
                     </div>
+                    <p></br></p>
+                    <div class="bts1"><p>
+                                <ul><li><a href="vPesquisaPessoa.php" target="_parent"><a href="vPesquisaPessoa.php" class="button blue">Procurar pessoa </a></a></li></ul>
+                                </p>
+                    </div>
+                    
                 </div>
             </div>
             <!--<div class="navegador"><a href="#"><img src="../imagens/bt_confirmar.png" alt="confirmar" width="87" height="27" border="0" /></a> <a href="#"><img src="../imagens/bt_cancelar.png" alt="cancelar" width="79" height="27" border="0" /></a><a href="#"><img src="../imagens/bt_incluir.png" alt="incluir" width="69" height="27" border="0" /></a><a href="#"><img src="../imagens/bt_alterar.png" alt="alterar" width="69" height="27" border="0" /></a><a href="#"><img src="../imagens/bt_excluir.png" alt="excluir" width="69" height="27" border="0" /></a><a href="menu_prolog.pdf" target="_blank"><img src="../imagens/bt_ajuda.png" alt="ajuda" width="69" height="27" border="0" /></a></div>-->
@@ -93,9 +99,9 @@
                                 
                                 <br/>                              
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <center>                            
-                            <h2 id="etapa">Etapa 1/4: Vinculação com Família</h2>                            
-                        </center> <br/><br/>
+                                                           
+                            <h2 id="etapa">Etapa 1/2: Vinculação com Família</h2>                            
+                         <br/><br/>
                                 Digite alguma informação sobre a família
                                 <br/><br/>
                                 <!--<span>id da família</span><input id="id_familia" type="text" name="familia" value="" size="14"/> 
