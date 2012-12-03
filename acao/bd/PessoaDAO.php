@@ -12,14 +12,13 @@
         private $_sel_max_id= "SELECT max(id_pessoa) as max_id_pessoa FROM pessoa";                
         
         public function cadastraPessoa(
-            $cpf, $nome, $rg, $sexo, $telefone, $grauParentesco, $estadoCivil, $raca, $religiao, 
-                $carteiraProfissional, $tituloEleitor, $certidaoNascimento, $cidadeNatal, $idFamilia, $dataNascimento){
+            $id_familia, $cod_cidade_Natal, $nome, $cpf, $rg, $sexo, $dataNascimento, $telefone, $grauParentesco, $estadoCivil, $raca, $religiao, 
+                $carteiraProfissional, $tituloEleitor, $certidaoNascimento){
             
             $dataNascimentoMySQL = Funcoes::toMySqlDate($dataNascimento);
             //$nome= strtolower($nome);
-            $this->_ins.= " ('$cpf', '$nome', '$rg', '$sexo', '$telefone', '$grauParentesco', '$estadoCivil', '$raca', '$religiao',
-                '$carteiraProfissional', '$tituloEleitor', '$certidaoNascimento', '$cidadeNatal', 
-                $idFamilia, '$dataNascimentoMySQL')";
+            $selec= "INSERT INTO `pessoa`(`id_familia`, `cidade_natal`, `nome`, `cpf`, `rg`, `sexo`, `data_nascimento`, `data_cadastro`, `data_saida`, `telefone`, `grau_parentesco`, `estado_civil`, `raca`, `religiao`, `carteira_profissional`, `titulo_eleitor`, `certidao_nascimento` VALUES ('$id_familia', '$cod_cidade_Natal', '$nome', '$cpf', '$rg', '$sexo', $dataNascimentoMySQL, CURRENT_DATE, null, '$telefone', '$grauParentesco', '$estadoCivil', '$raca', '$religiao',
+                '$carteiraProfissional', '$tituloEleitor', '$certidaoNascimento')";
             //TO_DATE($dataNascimento,'DD/MM/YYYY')
             
             echo $this->_ins."<br>";

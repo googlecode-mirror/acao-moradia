@@ -37,7 +37,8 @@ if(!$query){//busca vazia retorno irrelevante
         $html .= '<td>'.$a['id_familia'].'</td>';
         $html .= '<td>'.$pD->buscaPessoabyFamilia($a['id_familia']).'</td>';
         $html .= '<td>'.$a['logradouro'].' - '.$a['numero'].'</td>';
-        $html .= '<td>'.'<img src="../imagens/next.png" class="__idFamilia" id="'.$a['id_familia'].'">'.'</td>';
+        $html .= '<td>'.'<input type="submit" name= "id_familia" value="'.$a['id_familia'].'" img src="../imagens/next.png">'.'</td>';
+        //$html .= '<td>'.'<img src="../imagens/next.png" class="__idFamilia" id="'.$a['id_familia'].'">'.'</td>';
         $html .= '</tr>';        
     } 
 }

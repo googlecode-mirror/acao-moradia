@@ -26,7 +26,7 @@
             this.testeInsert($_res);
         }   
         
-        public function buscaCidade($nome){
+          public function buscaCidade($nome){
             $this->_sel.= " WHERE nome= '$nome'";
             $res= mysql_query($this->_sel);
             if($res === FALSE){
@@ -36,7 +36,19 @@
                 $arrived= mysql_fetch_assoc($res);
                 return $arrived;
             }            
-        }      
+        } 
+        
+        public function buscaCidadebyCod($cod){
+            $select= "SELECT * FROM cidade WHERE cod_cidade= $cod";
+            $res= mysql_query($select);
+            if($res === FALSE){
+                echo "falha na consulta";
+                return null;
+            }else{
+                //$arrived= mysql_fetch_assoc($res);
+                return $res;
+            }            
+        } 
         
         public function alteraCidade($nome,$estado){
             $this->_rem.= " nome= $nome AND estado= $estado";
