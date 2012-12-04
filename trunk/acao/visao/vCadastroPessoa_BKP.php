@@ -218,7 +218,7 @@
                                 $programas = $CPrograma->buscaTodosProgramas();                                                                
                                 
                                 while($programa = mysql_fetch_array($programas)){
-                                    echo '<input type="checkbox" name='.$programa["nome"].'/>'.$programa["nome"]."<br>";
+                                    echo '<input type="checkbox" name='.$programa["nome"].'/>'.$programa["nome"]."<br/>";
                                 }                                                          
                                
                             ?>
@@ -302,7 +302,7 @@
                                 <div style="margin: 10px 0px 0px 20px; float: left;">Bairro: <input type="text" value="" name="bairro2" size="14" /></div>
                                 <div style="margin: 10px 0px 0px 20px; float: left;">Estado: <input type="text" value="" name="estado2" size="14" /></div><br/><br/><br/>
                             </div>
-                            <!--<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>-->
+                            <!--<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>-->
                         </div>
                     </div>
                     <!--
