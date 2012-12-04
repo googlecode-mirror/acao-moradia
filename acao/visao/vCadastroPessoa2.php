@@ -200,15 +200,15 @@
                                                   <input type="checkbox" id="telefone2" onclick="novoTelefone()"/>
                                             Telefone2</div> 
                                           <div style="margin: 10px 0px 0px 2px; float: left; display: none;" id="novoTelefone" >: <input maxlength="15" name="telefone2" size="15"/></div>
-                                            <!--<div style="margin: 10px 0px 0px 10px; float: left;">Data Saída: <input maxlength="10" name="data_saida" size="8" onKeyPress="Data(event, this)"/></div>--><br><br>
-                                                    <br>
+                                            <!--<div style="margin: 10px 0px 0px 10px; float: left;">Data Saída: <input maxlength="10" name="data_saida" size="8" onKeyPress="Data(event, this)"/></div>--><br/><br/>
+                                                    <br/>
                                                     <div id="formConjugue" style="display: none;">
                                                             <div style="margin: 10px 0px 10px 0px;">Nome Parente: <input type="text" size="30" value="" /></div>
                                                         </div>
 
                                       </div>
                               </div>
-                                                        <br><br><br>
+                                                        <br/><br/><br/>
                                                                     <div style="margin: 10px; border: #b1b1b1 solid 2px;">
                                                                         <div style="margin: 5px;">Dados endereço:</div>
                                                                         <div style="margin: 25px;">
@@ -217,16 +217,16 @@
                                                                             <div style="margin: 10px 0px 0px 20px; float: left;">Cidade: <input type="text" name="cidade" value="" size="14" /></div>
                                                                             <div style="margin: 10px 0px 0px 20px; float: left;">Bairro: <input type="text" name="bairro" value="" size="14" /></div>
                                                                             <div style="margin: 10px 0px 0px 20px; float: left;">CEP: <input type="text" name="cep" value="" size="14" /></div>
-                                                                            <div style="margin: 10px 0px 0px 20px; float: left;">Estado: <input type="text" name="estado" value="" size="14" /></div><br><br><br>                                                
+                                                                            <div style="margin: 10px 0px 0px 20px; float: left;">Estado: <input type="text" name="estado" value="" size="14" /></div><br/><br/><br/>                                                
                                                                                         <div style="margin: 0px 0px 0px -4px;"><input type="checkbox" id="novoFormEndereco" onclick="return novoEndereco()" /> Outro endereço:
-                                                                                            <br>
+                                                                                            <br/>
                                                                                                 <div id="novoEndereco" style="display: none; ">
-                                                                                                    <br><br>
+                                                                                                    <br/><br/>
                                                                                                             <div style="margin: 10px 0px 0px 0px; float: left;">Logradouro: <input type="text" name="logradouro2" size="30" value="" /></div>
                                                                                                             <div style="margin: 10px 0px 0px 20px; float: left;">Número: <input type="text" size="12" name="numero2" value="" /></div>                
                                                                                                             <div style="margin: 10px 0px 0px 20px; float: left;">Cidade: <input type="text" value="" name="cidade2" size="14" /></div>
                                                                                                             <div style="margin: 10px 0px 0px 20px; float: left;">Bairro: <input type="text" value="" name="bairro2" size="14" /></div>
-                                                                                                            <div style="margin: 10px 0px 0px 20px; float: left;">Estado: <input type="text" value="" name="estado2" size="14" /></div><br><br><br>                                                                                
+                                                                                                            <div style="margin: 10px 0px 0px 20px; float: left;">Estado: <input type="text" value="" name="estado2" size="14" /></div><br/><br/><br/>                                                                                
                                                                                           </div>
                                                                           </div>
                                                                       </div>
