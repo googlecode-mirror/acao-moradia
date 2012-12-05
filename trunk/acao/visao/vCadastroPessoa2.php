@@ -8,8 +8,8 @@
 
                 <link href="css/styles.css" rel="stylesheet" type="text/css" />
 
-                <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
-                <script type="text/javascript" src="jquery.js"></script>
+                <script type="text/javascript" src="../js/jquery-1.8.0.min.js"></script>
+                <script type="text/javascript" src="../js/jquery-1.8.3.js"></script>
                 <script language="JavaScript">
                     /*-----------------------------------------------------------------------
                       Máscara para o campo data dd/mm/aaaa hh:mm:ss

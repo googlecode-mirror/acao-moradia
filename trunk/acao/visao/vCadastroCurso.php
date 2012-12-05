@@ -78,9 +78,11 @@
                         printr($vet);
                     }
                     ?>
-                    <input type="hidden" id="et" name="et" value="1"/>
+                                            
+                    <!--<input type="hidden" id="et" name="et" value="1"/>-->
                     <center>
                         <p>
+                            <a href="vIncluirPessoaCurso.php" class="button blue">Cadastrar uma pessoa em um curso</a><p>&nbsp;</p>
                             <input type="submit" class="button blue" value="Cadastrar" <!--onclick="return controla(); -->"/>
                     </p>
                 </center>
