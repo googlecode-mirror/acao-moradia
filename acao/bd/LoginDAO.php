@@ -1,4 +1,5 @@
 <?php
+  
     include_once 'DBConnection.php';
     DataBase::createConection();
     class LoginDAO{
@@ -15,16 +16,10 @@
         public function cadastraLogin2($user, $pass, $level){            
             $this->_ins.= " ('$user', '$pass', '$level')";
             $_res= mysql_query($this->_ins);
-            if($_res != TRUE){
-                echo "falha ao cadastrar";
-                }
-                else{
-                    echo "Cadastrado com sucesso!";
-                
-            }
-            return $_res;
+            
+                return $_res;
         }
-        
+       
         public function removeLogin($user, $pass, $level){            
             $this->_rem.= " usuario= $user AND senha= $pass AND nivel= $level";
             $_res= mysql_query($this->rem);

@@ -242,4 +242,14 @@ $(document).ready(function(){
         $('#cidadeNatal').load('vcCidades.php?estado='+$('#estadoNatal').val() );
 
     });  
-});                                         
+});     
+
+
+//verifica se o login do funcionario nao esta em branco, no cadastro de funcionario
+function valida_cadastro_funcionario_login(){        
+    if(($("#usuario").val()=="")|| ($("#senha").val()=="")){
+        alert("Preencha os campos obrigatórios!");        
+        return false;
+    }    
+    return true;
+}
