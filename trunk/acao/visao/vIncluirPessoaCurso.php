@@ -6,18 +6,40 @@
         ?>
 
         <link href="../css/button.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" type="text/css" href="../css/jqac.css" />
-        <script type="text/javascript" src="../js/jquery.autocomplete-1.4.2.js"></script>
-        <script type="text/javascript" src="../js/jquery-1.8.3.js"></script>
-
+        <link rel="stylesheet" href="../css/jquery-ui-1.9.2.css" />
+        <script src="../js/jquery-1.8.3.js"></script>
+        <script src="../js/jquery-ui-1.9.2.js"></script>
         <script>
-            $(document).ready(function(){
-                $("#nomePessoa").autocomplete("vAutocompleteNomePessoa.php", {
-                    selectFirst: true
+            $(function() {
+                var availableTags = [
+                    "ActionScript",
+                    "AppleScript",
+                    "Asp",
+                    "BASIC",
+                    "C",
+                    "C++",
+                    "Clojure",
+                    "COBOL",
+                    "ColdFusion",
+                    "Erlang",
+                    "Fortran",
+                    "Groovy",
+                    "Haskell",
+                    "Java",
+                    "JavaScript",
+                    "Lisp",
+                    "Perl",
+                    "PHP",
+                    "Python",
+                    "Ruby",
+                    "Scala",
+                    "Scheme"
+                ];
+                $( "#tags" ).autocomplete({
+                    source: availableTags
                 });
             });
         </script>
-
     </head>
     <body>  
         <div class="wrap">
@@ -40,7 +62,9 @@
                             <h3>&nbsp;</h3>
                             <p>&nbsp;</p>
                             <p>Entre com o nome da pessoa a ser inclusa no curso:</p>
-                            <input name="nomePessoa" type="text" id="nomePessoa" size="30" required="required"/>
+                            <div class="ui-widget">
+                                <input id="tags" required="required"/>
+                            </div>
 
                             <p>&nbsp;</p>
                             <p>Selecione o curso:</p>
