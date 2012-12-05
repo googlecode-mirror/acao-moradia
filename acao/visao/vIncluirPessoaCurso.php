@@ -5,36 +5,31 @@
         require("vLayoutHead.php");
         ?>
 
+        <?php
+        include_once '../bd/DBConnection.php';
+        DataBase::createConection();
+        ?>
+
         <link href="../css/button.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="../css/jquery-ui-1.9.2.css" />
         <script src="../js/jquery-1.8.3.js"></script>
         <script src="../js/jquery-ui-1.9.2.js"></script>
         <script>
             $(function() {
-                var availableTags = [
-                    "ActionScript",
-                    "AppleScript",
-                    "Asp",
-                    "BASIC",
-                    "C",
-                    "C++",
-                    "Clojure",
-                    "COBOL",
-                    "ColdFusion",
-                    "Erlang",
-                    "Fortran",
-                    "Groovy",
-                    "Haskell",
-                    "Java",
-                    "JavaScript",
-                    "Lisp",
-                    "Perl",
-                    "PHP",
-                    "Python",
-                    "Ruby",
-                    "Scala",
-                    "Scheme"
-                ];
+                var availableTags = <?php
+        $result = mysql_query("SELECT `nome` FROM `pessoa`");
+        $count = mysql_num_rows($result);
+        echo '[';
+        if ($count > 0) {
+            for ($i = 0; $i < $count - 1; $i++) {
+                $row = mysql_fetch_row($result);
+                echo '"',$row[0], '"', ',';
+            }
+            $row = mysql_fetch_row($result);
+            echo '"',$row[0],'"';
+        echo ']';
+        }
+        ?>;
                 $( "#tags" ).autocomplete({
                     source: availableTags
                 });
@@ -69,8 +64,6 @@
                             <p>&nbsp;</p>
                             <p>Selecione o curso:</p>
                             <?php
-                            include_once '../bd/DBConnection.php';
-                            DataBase::createConection();
                             //error_reporting(E_ALL & ~ E_NOTICE);
 
                             $curso_block = "";
