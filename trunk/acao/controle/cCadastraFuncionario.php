@@ -1,6 +1,5 @@
 <?php
 
-//galera, estou editando aqui, esta errado pq eu estou aprendendo, assim que estiver certo eu dou outro subversion --bruno
 
     include_once 'cFuncoes.php';
     echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />";
@@ -13,13 +12,24 @@
     $senha= $_POST['senha'];
     $nivel= $_POST['nivel'];
     
+        
     $login = new Login($usuario, $senha, $nivel);
     $loginDAO = new LoginDAO();
     $loginDAO->cadastraLogin($login);
+    $retorno = $loginDAO->cadastraLogin($_res);
     
-       // corrigir isso aqui depois 
-       // $pDAO = new pDAO();
-       // $tep= $pDAO->cadastraFuncionario( $usuario, $senha, $nivel);
-
-     
+    if($retorno != TRUE){          
+                echo "<script>alert('Falha ao cadastrar!');</script>";
+                header("Location:../visao/vCadastroFuncionario.php");
+                
+                }
+                else{                    
+                    echo "<script>alert('Cadastrado com sucesso!');</script>";
+                    header("Location:../visao/vAtentente.php");
+        
+    }
+    
+    
+    
+    
 ?>

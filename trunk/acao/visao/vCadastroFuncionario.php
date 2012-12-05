@@ -9,7 +9,7 @@
         <script type="text/javascript" src="../js/jquery-1.8.0.min.js"></script>
         <script type="text/javascript" src="../js/jquery-1.8.3.js"></script>    
         <script type="text/javascript" src="../js/jquery.maskedinput-1.2.pack.js"></script>
-        <script type="text/javascript" src="../js/scripts.js"></script>S
+        <script type="text/javascript" src="../js/scripts.js"></script>
 
     </head>
     <body>
@@ -44,22 +44,21 @@
                             <h3>Dados do Funcionário: </h3>
                             <p>&nbsp;</p>
                             <p>Usuário: (*)</p>
-                            <p><input type="text" id="usuario" name="usuario" size="30" value="" maxlength="100" /></p>
+                            <p><input type="text" id="usuario" name="usuario" size="30" value="" maxlength="100" required="required"/></p>
                             <p><br/>Senha: (*)</p>
-                            <p><input type="password" name="senha" id="senha" size="30" value="" maxlength="100" /></p>
+                            <p><input type="password" name="senha" id="senha" size="30" value="" maxlength="100" required="required"/></p>
                             <p>&nbsp;</p>
                             <p>Nível:</p> 
                             <select name="nivel">                                
-                                <option>Atendente</option>                               
+                                <option>ATENDENTE</option>                               
                             </select>
                             <p>&nbsp;</p>
-
-
                             <center>
                                 <p>
-                                    <input type="submit" class="button blue" value="Cadastrar >>" onclick="return valida_nome();"/>
+                                <input type="submit" class="button blue" value="Cadastrar >>" onclick="return valida_cadastro_funcionario_login();"/>
                                 </p>
                             </center>
+
                         </div>
 
                     </div>
