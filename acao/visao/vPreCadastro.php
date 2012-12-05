@@ -6,7 +6,8 @@
         ?>
         <link href="../css/button.css" rel="stylesheet" type="text/css" />
 
-        <script type="text/javascript" src="../js/jquery.js"></script>
+        <script type="text/javascript" src="../js/jquery-1.8.3.js"></script>
+                        
         <script type="text/javascript" > 
     
             $(document).ready(function(){

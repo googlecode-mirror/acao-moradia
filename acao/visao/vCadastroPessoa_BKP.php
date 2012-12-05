@@ -9,7 +9,7 @@
         <link href="../css/button.css" rel="stylesheet" type="text/css" />
 
         <!--
-        <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
+        <script type="text/javascript" src="../js/jquery-1.8.0.min.js"></script>
         -->
         <script type="text/javascript" src="../js/jquery-1.8.3.js"></script>    
         <script type="text/javascript" src="../js/jquery.maskedinput.js"></script>               
