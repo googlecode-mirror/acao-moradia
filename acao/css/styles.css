@@ -1,4 +1,9 @@
 @charset "utf-8";
+
+img {
+    border: 0 /* Evita que bordas pretas apareçam em imagens no IE */
+}
+
 /* ----------  CSS RESET  ---------- */
 
 	html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre,a, abbr, acronym, address, big, cite, code,del, dfn, em, img, ins, kbd, q, s, samp,
@@ -94,24 +99,6 @@
 	.wrap .content .bloco form fieldset input,select	{
 	width: auto;
 	margin: 2px;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	display: float
-:left;
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 	font-size: 13px;
 	display: block;

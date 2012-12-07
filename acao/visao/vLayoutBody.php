@@ -1,10 +1,10 @@
     <div class="header">
         <div class="logo">
-            <div class="lg"><h1></h1></div>
+            <div><a href="../visao/vAtendente.php" class="lg"></a></div>
         </div>
         <div class="titulo">
             <div class="txt">
-                <ul><li><h2>Sistema de Cadastro e Relatório</h2> </li></ul>
+                <ul><li><h2>Sistema de Gerenciamento de Famílias</h2> </li></ul>
             </div>
         </div>
 

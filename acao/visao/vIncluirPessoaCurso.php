@@ -14,25 +14,79 @@
         <link rel="stylesheet" href="../css/jquery-ui-1.9.2.css" />
         <script src="../js/jquery-1.8.3.js"></script>
         <script src="../js/jquery-ui-1.9.2.js"></script>
+	<style>
+	#project-label {
+		display: block;
+		font-weight: bold;
+		margin-bottom: 1em;
+	}
+	#project-icon {
+		float: left;
+		height: 32px;
+		width: 32px;
+	}
+	#project-description {
+		margin: 0;
+		padding: 0;
+	}
+	</style>
         <script>
             $(function() {
-                var availableTags = <?php
-        $result = mysql_query("SELECT `nome` FROM `pessoa`");
+                var pessoas = <?php
+        $result = mysql_query("SELECT p.nome,p.id_pessoa, f.logradouro, f.numero FROM pessoa p, familia f where p.id_familia = f.id_familia");
+        //$result = mysql_query("SELECT `nome` FROM `pessoa`");
         $count = mysql_num_rows($result);
         echo '[';
         if ($count > 0) {
             for ($i = 0; $i < $count - 1; $i++) {
+                echo '{';
                 $row = mysql_fetch_row($result);
-                echo '"',$row[0], '"', ',';
+                //echo '"', $row[1], ' ', $row[0], '"', ',';
+                //echo '"',$row[0], '"', ',';
+                //$idPessoa = $row[1];
+                //$nome = $row[0];
+                //$logradouro = $row[2];
+                //$numero = $row[3];
+                
+                echo 'value: "', $row[1], '",';
+                echo 'label: "', $row[0], '",';
+                echo 'desc: "Endereço: ', $row[2], ', ', $row[3], '"},';
             }
             $row = mysql_fetch_row($result);
-            echo '"',$row[0],'"';
-        echo ']';
+            //echo '"', $row[1], ' ',$row[0], '"';
+            //echo '"',$row[0], '"';
+            echo '{';
+            echo 'value: "', $row[1], '",';
+            echo 'label: "', $row[0], '",';
+            echo 'desc: "ID: ', $row[1], '"}';
+            echo ']';
         }
         ?>;
-                $( "#tags" ).autocomplete({
-                    source: availableTags
-                });
+                //$( "#nome" ).autocomplete({
+                //    source: pessoas
+                //});
+                
+                $( "#pessoa" ).autocomplete({
+                    minLength: 2,
+                    source: pessoas,
+                    focus: function( event, ui ) {
+                        $( "#pessoa" ).val( ui.item.label );
+                        return false;
+                    },
+                    select: function( event, ui ) {
+                        $( "#pessoa" ).val( ui.item.label );
+                        $( "#idPessoa" ).val( ui.item.value );
+                        $( "#descricao" ).html( ui.item.desc );
+
+                        return false;
+                    }
+                })
+                .data( "autocomplete" )._renderItem = function( ul, item ) {
+                    return $( "<li>" )
+                    .data( "item.autocomplete", item )
+                    .append( "<a>" + item.label + "<br>" + item.desc + "</a>" )
+                    .appendTo( ul );
+                };
             });
         </script>
     </head>
@@ -57,9 +111,13 @@
                             <h3>&nbsp;</h3>
                             <p>&nbsp;</p>
                             <p>Entre com o nome da pessoa a ser inclusa no curso:</p>
-                            <div class="ui-widget">
-                                <input id="tags" required="required"/>
-                            </div>
+                            <!-- <div class="ui-widget">
+                                <input id="nome" name="nome" required="required" size="50"/>
+                            </div> -->
+                            <input id="pessoa" name="pessoa"/>
+                            <input type="hidden" id="idPessoa" name="idPessoa"/>
+                            <p id="descricao"></p>
+                            
 
                             <p>&nbsp;</p>
                             <p>Selecione o curso:</p>
@@ -75,12 +133,12 @@
                                 $curso_block .= '<OPTION value="' . $idCurso . '">' . $nomeCurso . '</OPTION>';
                             }
                             ?>
-                            <select><?php echo $curso_block; ?></select>
+                            <select id="idCurso" name="idCurso"><?php echo $curso_block; ?></select>
 
                             <input type="hidden" id="et" name="et" value="1"/>
                             <p>&nbsp;</p>
                             <p>
-                                <input type="submit" class="button blue" value="Inserir""/>
+                                <input type="submit" class="button blue" value="Inserir"/>
                             </p>
 
                         </div>
