@@ -58,7 +58,7 @@
             echo '{';
             echo 'value: "', $row[1], '",';
             echo 'label: "', $row[0], '",';
-            echo 'desc: "ID: ', $row[1], '"}';
+            echo 'desc: "Endereço: ', $row[2], ', ', $row[3], '"}';
             echo ']';
         }
         ?>;
