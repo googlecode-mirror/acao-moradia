@@ -1,5 +1,4 @@
-<?php
-  
+<?php  
     include_once 'DBConnection.php';
     DataBase::createConection();
     class LoginDAO{
@@ -66,7 +65,7 @@
         
         public function testeInsert($res){
             if($res != TRUE)
-                echo 'falaha na operação';  
+                echo 'falha na operação';  
         }
                
     }
