@@ -1,13 +1,13 @@
 <?php
 /*RETORNA YYYY-MM-DD*/
 class Funcoes{
-    public static function toMySqlDate($data) {
-        if($data != NULL){
+    public static function toMySqlDate($data) {        
+        if($data != NULL){            
             $ano = $data[6].$data[7].$data[8].$data[9];
             $mes = $data[3].$data[4];
             $dia = $data[0].$data[1];
             $data = $ano.'-'.$mes.'-'.$dia;
-        }
+        }                
         return $data;
     }
 

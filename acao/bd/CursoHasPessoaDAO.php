@@ -1,6 +1,5 @@
 <?php
 
-include_once 'Debug.php';
 include_once 'DBConnection.php';
 DataBase::createConection();
 
@@ -15,7 +14,7 @@ class CursoHasPessoaDAO {
     public function cadastraCursoHasPessoa($idPessoa, $idCurso) {
         $this->_ins.= " ($idPessoa,$idCurso)";
         $_res = mysql_query($this->_ins);
-        Debug::gravaEmArquivo($this->_ins);
+
         if ($_res != TRUE)
             echo 'falha na operação';
         else {

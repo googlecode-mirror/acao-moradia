@@ -1,4 +1,6 @@
 <?php
+    include_once 'DBConnection.php';
+    DataBase::createConection();
     class BairroDAO{
         
         private $_ins= "INSERT INTO  bairro (`nome`) VALUES";

@@ -90,26 +90,22 @@ function fill(thisValue) {
         setTimeout("$('#suggestions').hide();", 200);
 }
 
-function valida_etapa_1(){        
+
+function valida_nome(){
     if($("#nome").val()==""){
         alert("Preencha o campo nome.");        
         document.cadastro.nome.focus();
         return false;
-    }                 
-    
-    if($("#cidadeNatal").val()=="0"){
-        alert("Preencha os campos de naturalidade.");        
-        document.cadastro.estadoNatal.focus();
-        return false;
-    }                 
-        
-    
+    }     
     return true;
 }
+
 /*----------------------------------------------------------------------------
- função que valida a segunda etapa do cadastro de um endereço de uma família.
+ função que valida a primeira etapa de cadastrar os dados da familia.
 -----------------------------------------------------------------------------*/
-function valida_etapa_2(){            
+function valida_etapa_1(){        
+    valida_nome();
+        
     if($("#cep").val()==""){
         alert("Preencha o campo cep.");        
         document.cadastro.cep.focus();
@@ -124,8 +120,8 @@ function valida_etapa_2(){
         alert("Preencha o campo numero.");        
         document.cadastro.numero.focus();
         return false;
-    }
-    if($("#cidade").val()=="0"){
+    }    
+    if($("#cidade").val()=="null"){
         alert("Preencha o campo estado e cidade.");        
         document.cadastro.estado.focus();
         return false;
@@ -138,32 +134,47 @@ function valida_etapa_2(){
     return true;
 }
 
+function valida_etapa_2(){        
+    return valida_nome();            
+    
+}
+
+
 /*----------------------------------------------------------------------------
  controla a validação das etapas do cadastro de famílias.
 -----------------------------------------------------------------------------*/
 function controla(){          
     //alert(document.getElementById("et").value);
-    switch($("#et").val()){        
+    alert($("#et").val());    
+    switch($("#et").val()){
         case "1":                       
-            if(valida_etapa_1()==true){                
-                cadastra_endereco_familia();                      
-                document.getElementById("et").value='2';//alterar o valor do campo hidden com id #et para 2                                    
-                return false;
-            }else{
-                return false;
-            }
-        case "2":             
-            if(valida_etapa_1()==true && valida_etapa_2()==true){
-                if(confirm("Deseja prosseguir para o cadastro socio-econômico")){
-                    document.getElementById("et").value='3';  
-                    return false;
-                    //redirecionar para pesquisa socio-economica
-                }else{//vai persistir no banco os dados até a etapa 2
-                    return true;
-                }    
-            }else{
+            if(valida_etapa_1()==true){                                
+                if(confirm("Deseja incluir outras pessoas?"))
+                {
+                    document.getElementById("et").value='2';//alterar o valor do campo hidden com id #et para 2                    
+                    //vai persistir no banco os dados e passa para a pesquisa socio-economica                    
+                }else{
+                    document.getElementById("et").value='3';//alterar o valor do campo hidden com id #et para 3                    
+                    //vai para a pesquisa socioeconomica
+                }
+                alert(document.getElementById("et").value);
+                return true;
+            }else{                
                 return false;
             }
+        break;
+        case "2":
+            if(valida_etapa_2()==true){
+                if(!confirm("Deseja incluir outras pessoas?"))
+                {                                    
+                    document.getElementById("et").value='3';//alterar o valor do campo hidden com id #et para 3                    
+                    //vai para a pesquisa socioeconomica
+                }
+                return true;
+            }else{                
+                return false;
+            }        
+        break;
         default:
             return false;
     }
@@ -176,9 +187,10 @@ function controla(){
 -----------------------------------------------------------------------------*/
 function verifica_etapa(){          
     //alert(document.getElementById("et").value);
+    /*
     if($("#cep").val() != ""){
         cadastra_endereco_familia();
-    }    
+    } */   
 }
 
 /*----------------------------------------------------------------------------
@@ -219,7 +231,8 @@ function getEndereco() {
                         $("#logradouro").val(unescape(resultadoCEP["tipo_logradouro"])+": "+unescape(resultadoCEP["logradouro"]));
                         $("#bairro").val(unescape(resultadoCEP["bairro"]));
                         $("#estado").val(unescape(resultadoCEP["uf"]));                        
-                        $("#cidade").val(unescape(resultadoCEP["cidade"]));                                                
+                        $("#cidade").val(unescape(resultadoCEP["cidade"]));                                                                        
+                        
                 }else{
                         alert("Endereço não encontrado");
                 }
@@ -253,3 +266,4 @@ function valida_cadastro_funcionario_login(){
     }    
     return true;
 }
+
