@@ -10,16 +10,23 @@
         <script type="text/javascript" src="../js/jquery.maskedinput.js"></script>               
         <script type="text/javascript" src="../js/scripts.js" ></script>        
         <script>
+            /*
+            <!--
+              javascript:window.history.forward(1);//não deixa voltar
+            //-->*/
+            <!--
+                $("#estado").select(0);
+            //-->
             jQuery(function(){
-                jQuery("#cpf").mask("999.999.999-99");                                
-                jQuery("#cep").mask("99999-999");                
-                jQuery("#telefone").mask("(99) 9999-9999?9");                
-                jQuery("#dataNascimento").mask("99/99/9999");                
-                jQuery("#numero").mask("9?99999");                
+                jQuery("#cpf").mask("999.999.999-99");
+                jQuery("#cep").mask("99999-999");
+                jQuery("#telefone").mask("(99) 9999-9999?9");
+                jQuery("#dataNascimento").mask("99/99/9999");
+                jQuery("#numero").mask("9?99999");
             });
         </script>                     
     </head>
-    <body onload="verifica_etapa();">  
+    <body onload="verifica_etapa();" >  
         <div class="wrap">
             <?php
             require("vLayoutBody.php");
@@ -32,17 +39,28 @@
                 
                 <div class="bloco" style="border: #b1b1b1 solid 2px;">
 
-                    <form name="cadastro" action="../controle/cCadastraPessoa.php" method="get"/>
+                    <form name="cadastro" action="../controle/cCadastraPessoa.php" method="post"/>
                     <div style="margin: 10px; border: #b1b1b1 solid 2px;">                         
-                        <center>                            
-                            <h2 id="etapa">Etapa 1/3: Cadastro de Titular</h2>                            
+                        <center>
+                            <?php
+                                if(isset($_GET['et']) && $_GET['et'] == "2"){
+                                    $et = "2";
+                                    echo "<h2 id='etapa'>Etapa 2/3: Cadastro de Outros familiares</h2>";
+                                    echo "<input type='hidden' id='et' name='et' value='2'/>";
+                                    echo "<input type='hidden' name='idFamilia' value='".$_GET['family']."'/>";
+                                }else{        
+                                    $et = "1";
+                                    echo "<h2 id='etapa'>Etapa 1/3: Cadastro de Titular</h2>";
+                                    echo "<input type='hidden' id='et' name='et' value='1'/>";
+                                }
+                            ?>
                         </center>                          
                         <div style="margin: 25px; float:left; ">
                             <h3>&nbsp;</h3>
-                            <h3>Dados pessoais <?php if (isset($_GET["msg"])) echo $_GET["msg"] ?>: </h3>
+                            <h3>Dados pessoais <?php if (isset($_GET["msg"])) echo $_GET["msg"] ?>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </h3>
                             <p>&nbsp;</p>
                             <p>Nome completo: (*)</p>
-                            <p><input type="text" id="nome" name="nome" size="30" value="" maxlength="100" /></p>
+                            <p><input type="text" id="nome" name="nome" size="30" value="a" maxlength="100" /></p>
                             <p><br />CPF:</p>
                             <p><input type="text" name="cpf" id="cpf" size="12" value="" maxlength="14" /></p>
                             <p>&nbsp;</p>
@@ -59,19 +77,13 @@
                             <p>Telefone:</p>                            
                             <p>
                                 <input maxlength="15" name="telefone" id="telefone" size="15" />
-                                <!--
-                                <input type="checkbox" id="telefone2" onclick="novoTelefone()"/>
-                                Adicionar outro telefone-->
                             </p>
-                            <!--
-                            <div style="margin: 10px 0px 0px 0px;  display: none;" id="novoTelefone" > <input maxlength="15" name="telefone2" size="15"/></div>
-                            -->
                             <p>&nbsp;</p>
                             <p>Data de nascimento:</p>
                             <p><input maxlength="10" id="dataNascimento" name="dataNascimento" size="9" onblur="validaData(this,this.value)" /></p>
 
                             <p>&nbsp;</p>
-                            <p>Naturalidade(*):</p>
+                            <p>Naturalidade:</p>
 
                             <p>                                 
                                 <table>
@@ -81,7 +93,7 @@
                                                 <?php
                                                 include_once '../bd/EstadoDAO.php';
                                                 $estadoDAO = new EstadoDAO();
-                                                $estados = $estadoDAO->buscaEstados();
+                                                $estados = $estadoDAO->buscaEstados();                                                
                                                 while ($row = mysql_fetch_assoc($estados)) {
                                                     echo '<option value="' . $row['cod_estado'] . '">' . $row['sigla'] . '</option>';
                                                 }
@@ -90,7 +102,7 @@
                                         </td>
                                         <td>
                                             <select name="cidadeNatal" id="cidadeNatal">
-                                                <option value="0">Escolha um estado</option>
+                                                <option value="null">Escolha um estado</option>
                                             </select>
                                         </td>
                                     </tr>
@@ -155,22 +167,50 @@
                         </div>
                     </div>
                     <br/>                    
-                    <div style="margin: 10px;">                    
+                    <div style="margin: 10px;">                                            
                         <div style="margin: 20px;"> 
                             <p>&nbsp;</p>
                             <p>&nbsp;</p>
                             <p>&nbsp;</p>                            
                             <p>&nbsp;</p>
+                            <?php
+                            
+                            if(isset($_GET["family"])){
+                                echo "<p>Qual é o grau de parentesco desta pessoa em relação ao ".strtoupper($_GET['titular']).":<br>"                              
+                                .    "<select name='grauParentesco'>"
+                                .        "<option>AGREGADO(A)</option>"                                            
+                                .        "<option>AVÔ(Ó)</option>"
+                                .        "<option>COMPANHEIRO(A)</option>"
+                                .        "<option>CÔNJUGE(MARIDO OU ESPOSA)</option>"                        
+                                .        "<option>CUNHADO(A)</option>"
+                                .        "<option>ENTEADO(A)</option>"
+                                .        "<option>EX-COMPANHEIRO(A)</option>"
+                                .        "<option>EX-MARIDO/EX-ESPOSA</option>"
+                                .        "<option>FILHO(A)</option>"
+                                .        "<option>GENRO/NORA</option>"
+                                .        "<option>IRMÃ(O)</option>"
+                                .        "<option>NETO(A)</option>"
+                                .        "<option>PADRASTO/MADRASTA</option>"
+                                .        "<option>PAI/MÃE</option>"
+                                .        "<option>PRIMO(A)</option>"
+                                .        "<option>SOBRINHO(A)</option>"
+                                .        "<option>SOGRO(A)</option>"
+                                .        "<option>TIO(A)</option>"
+                                .    "</select>";                                
+                            }else
+                            {
+                                //printar os dados do endereco da familia
+                            ?>
                             <p>CEP:(*)<br/>
-                                <input type="text" id="cep" name="cep" value="" size="14" onBlur="getEndereco();" disabled/>
+                                <input required="required" type="text" id="cep" name="cep" value="38415-129" size="14" onBlur="getEndereco();" />
                             </p>
                             <p>&nbsp;</p>
                             <p>Logradouro:(*) <br/>
-                                <input type="text" id="logradouro" name="logradouro" size="30" value="" disabled/>
+                                <input required="required" type="text" id="logradouro" name="logradouro" size="30" value="" />
                             </p>                            
                             <p>&nbsp;</p>
                             <p>Número:(*)<br/>
-                                <input type="text" id="numero" name="numero" size="12" value="" disabled/>
+                                <input required="required" type="text" id="numero" name="numero" size="12" value="11" />
                             </p>
                             <p>&nbsp;</p>
                             <p>Cidade/estado:(*)</p>   
@@ -178,7 +218,7 @@
                                 <table>
                                     <tr>                                    
                                         <td>
-                                            <select id="estado" name="estado" disabled>
+                                            <select id="estado" name="estado" >
                                                 <?php
                                                 $estados = $estadoDAO->buscaEstados();
                                                 while ($row = mysql_fetch_assoc($estados)) {
@@ -189,46 +229,23 @@
                                         </td>
                                         <td>                                        
                                             <select name="cidade" id="cidade">
-                                                <option value="0">Escolha um estado</option>
+                                                <option value="null">Escolha um estado</option>
                                             </select>                                        
                                         </td>                            
                                     </tr>
                                 </table>
-
                             </p>
                             <p>&nbsp;</p>
                             <p>Bairro:(*) <br/>
-                                <input type="text" id="bairro" name="bairro" value="" size="14" disabled/>                                                        
+                                <input type="text" id="bairro" name="bairro" value="" size="14" />                                                        
                             </p>                            
-                            <p>&nbsp;</p>                                                                           
-                            <!--
-                            <p>
-                                Estado:(*)<br/>
-                                <input type="text" id="estado" name="estado" value="" size="14" disabled /><br/><br/>
-                                <br/>
-                            </p>-->                            
-                            <div id="novoEndereco" style="display: none; ">
-                                <br/><br/>
-                                <div style="margin: 10px 0px 0px 0px; float: left;">Logradouro: <input type="text" name="logradouro2" size="30" value="" /></div>
-                                <div style="margin: 10px 0px 0px 20px; float: left;">Número: <input type="text" size="12" name="numero2" value="" /></div>                
-                                <div style="margin: 10px 0px 0px 20px; float: left;">Cidade: <input type="text" value="" name="cidade2" size="14" /></div>
-                                <div style="margin: 10px 0px 0px 20px; float: left;">Bairro: <input type="text" value="" name="bairro2" size="14" /></div>
-                                <div style="margin: 10px 0px 0px 20px; float: left;">Estado: <input type="text" value="" name="estado2" size="14" /></div><br/><br/><br/>
-                            </div>                            
-                        </div>
-                    </div>
-                    <!--
-                                        <div>
-                                            <form action="../controle/cBuscaParente.php" method="get">
-                                            <div>Pesquisar parente: <input type="text" name="parente" value=""/> <input type="submit" value="Pesquisar"/></div>
-                                            </form>        
-                    -->
-                    <?php
-                    if (isset($vet)) {
-                        printr($vet);
-                    }
-                    ?>
-                    <input type="hidden" id="et" name="et" value="1"/>
+                            <?php
+                                }
+                            ?>
+                            <p>&nbsp;</p>                                                                                                                                   
+                        </div>                                            
+                    </div>       
+                    <?php if(isset($_GET["family"])) echo "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>"; ?>
                     <center>
                         <p>
                             <input type="submit" class="button blue" value="Próximo >>" onclick="return controla();"/>

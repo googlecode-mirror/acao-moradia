@@ -1,1 +1,0 @@
-INSERT INTO curso_has_pessoa (`id_pessoa`,`id_curso`) VALUES (,1)

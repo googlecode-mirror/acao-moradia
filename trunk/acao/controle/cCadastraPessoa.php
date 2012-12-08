@@ -7,49 +7,16 @@
     include_once '../bd/FamiliaDAO.php';
     include_once '../bd/PessoaDAO.php';
     include_once '../bd/PessoHasProgramaDAO.php';
-    include_once '../controle/cListaProgramas.php';
-    include_once '../modelo/Modelo.php';
-    
-    DataBase::createConection();    
-    $etapa_concluida = $_GET['et'];
-/*    
-    $CPrograma = new CPrograma();
-    $programas = $CPrograma->buscaTodosProgramas(); 
-    $pD= new PessoaDAO();
-    
-    echo $nome= $_GET['nome'];
-    echo $grauParentesco= $_GET['parentesco'];
-    echo $cpf= $_GET['cpf'];
-    echo $rg= $_GET['rg'];
-    echo $sexo= $_GET['sexo'];
-    echo $telefone= $_GET['telefone'];
-    echo $dataNascimento= $_GET['dataNascimento'];
-    echo $_GET['estadoNatal'];
-    echo $cod_cidade_Natal= $_GET['cidadeNatal'];
-    echo $estadoCivil= $_GET['estadoCivil'];
-    echo $raca= $_GET['raca'];
-    echo $religiao= $_GET['religiao'];
-    echo $carteiraProfissional= $_GET['carteiraProfissional'];
-    echo $certidaoNascimento= $_GET['certidaoNascimento'].'</br>';
-    echo $tituloEleitor= $_GET['tituloEleitor'].'</br>';
-    $id_familia= Familia::$id_familia;
-     echo 'locura: '.$id_familia.'</br>';
-    $pD->cadastraPessoa($id_familia, $cod_cidade_Natal, $nome, $cpf, $rg, $sexo, $dataNascimento, $telefone, $grauParentesco, $estadoCivil, $raca, $religiao, $carteiraProfissional, $tituloEleitor, $certidaoNascimento);
-     /*
-    while($programa = mysql_fetch_array($programas)){
-         echo $_GET[$programa['id_programa']];
-    }
-    
-    */
-    
-    if($etapa_concluida == 2){//se ele fez até a etapa de cadastro familiar                                                                               
+    include_once 'cListaProgramas.php';
+    include_once 'cFuncoes.php';    
         
+    if(!isset($_POST['idFamilia'])){//se nao existe familia        
         //cadastra o bairro
         $bairroDAO = new BairroDAO();
-        $bairroDAO->cadastraBairro($_GET['bairro']);        
+        $bairroDAO->cadastraBairro($_POST['bairro']);        
                         
         //cadastra a familia
-        $familia = new Familia($_GET['cep'],$_GET['logradouro'],$_GET['numero'],$_GET['bairro'],$_GET['cidade']);
+        $familia = new Familia($_POST['cep'],$_POST['logradouro'],$_POST['numero'],$_POST['bairro'],$_POST['cidade']);
         
         $familiaDAO = new FamiliaDAO();
         $res = $familiaDAO->cadastraFamilia_2($familia);
@@ -58,34 +25,53 @@
             echo "Erro ao cadastrar familia";
             exit();
         }                
-        
-        //cadastra a pessoa(que neste caso e o titular)
-        $pessoa = new Pessoa(
-                $familia->getIdFamilia(), $_GET['cidadeNatal'],$_GET['nome'], $_GET['cpf'], 
-                $_GET['rg'], $_GET['sexo'], $_GET['dataNascimento'], $_GET['telefone'], 'TITULAR',
-                $_GET['estadoCivil'],$_GET['raca'],$_GET['religiao'], $_GET['carteiraProfissional'],
-                $_GET['tituloEleitor'],$_GET['certidaoNascimento']);
-        
-        $pessoaDAO = new PessoaDAO();
-        $res = $pessoaDAO->cadastraPessoa_2($pessoa);
-        
-        if($res === FALSE){
-            echo "Erro ao cadastrar familia";
-            exit();
-        }
-        
-        //cadastra os programas que o titular participa
-        if(isset($_GET['programa'])){//se existem programas            
-            $programas = $_GET['programa'];
-            foreach ($programas as $programa){
-                $pessoaHasProgramaDAO = new pessoaHasProgramaDAO();
-                $pessoaHasProgramaDAO->cadastraPessoaHasPrograma($pessoa->getIdPessoa(), $programa);
-            }
-        }                     
-                
     }else{
-        if($etapa_concluida == 3){//se ele fez até a etapa de pesquisa socio-economica
-            
+        echo $_POST['idFamilia'];
+        $familia = new Familia("","","","","");
+        $familia->setIdFamilia($_POST['idFamilia']);
+    }
+        
+    //se existe grauParentesco não estou cadastrando um TITULAR!
+    if(isset($_POST['grauParentesco'])){    
+        $grauParentesco = $_POST['grauParentesco'];
+    }else{
+        $grauParentesco = "TITULAR";
+    }
+    
+    $dataNascimento = Funcoes::toMySqlDate($_POST['dataNascimento']);
+    
+    //cadastra a pessoa
+    $pessoa = new Pessoa(
+            $familia->getIdFamilia(), $_POST['cidadeNatal'],$_POST['nome'], $_POST['cpf'], 
+            $_POST['rg'], $_POST['sexo'], $dataNascimento, $_POST['telefone'], $grauParentesco,
+            $_POST['estadoCivil'],$_POST['raca'],$_POST['religiao'], $_POST['carteiraProfissional'],
+            $_POST['tituloEleitor'],$_POST['certidaoNascimento']);
+
+    $pessoaDAO = new PessoaDAO();
+    $res = $pessoaDAO->cadastraPessoa_2($pessoa);
+
+    if($res === FALSE){
+        echo "Erro ao cadastrar";
+        exit();
+    }
+
+    //cadastra os programas que o titular participa
+    if(isset($_POST['programa'])){//se existem programas            
+        $programas = $_POST['programa'];
+        foreach ($programas as $programa){
+            $pessoaHasProgramaDAO = new pessoaHasProgramaDAO();
+            $pessoaHasProgramaDAO->cadastraPessoaHasPrograma($pessoa->getIdPessoa(), $programa);
+        }
+    }                     
+                        
+    $etapa_concluida = $_POST['et'];
+    echo $etapa_concluida ;
+    
+    if($etapa_concluida == "2"){//o usuario quer incluir outras pessoas
+        header("Location: ../visao/vCadastroPessoa.php?et=".$etapa_concluida."&family=".$familia->getIdFamilia()."&titular=".$pessoa->getNome());        
+    }else{
+        if($etapa_concluida == "3"){//o usuario vai para etapa de pesquisa                                            
+            header("Location: ../visao/vPesquisa.php");
         }
     }
     
@@ -99,33 +85,33 @@
     include_once '../bd/DBConnection.php';
     
     session_start();
-    $_SESSION['nome']= $_GET['nome'];//
-    $_SESSION['cpf']= $_GET['cpf'];//
-    $_SESSION['rg']= $_GET['rg'];//
-    $sexo= $_GET['sexo'];
+    $_SESSION['nome']= $_POST['nome'];//
+    $_SESSION['cpf']= $_POST['cpf'];//
+    $_SESSION['rg']= $_POST['rg'];//
+    $sexo= $_POST['sexo'];
     
     if($sexo === "Masculino")
         $_SESSION['sexo']= 'M';//
     elseif ($sexo === "Feminino") 
         $_SESSION['sexo']= 'F';//  
     
-    $dataNascimento= $_GET['dataNascimento'];
+    $dataNascimento= $_POST['dataNascimento'];
     $_SESSION['dataNascimento']= Date::toMySqlDate($dataNascimento);
 
     //pegando a data de cadastro do sistema
     //date_default_timezone_set('America/Sao_Paulo');
     //$dataCadastro= date('m/d/Y');
     
-    $_SESSION['telefone']= $_GET['telefone'];
+    $_SESSION['telefone']= $_POST['telefone'];
   */  
     //header("Location: cCadastraCursos.php");//mudar p cadastro pt 2
     /*
-    $logradouro= $_GET['logradouro'];
-    $numero= $_GET['numero'];
-    $cidadeNome= $_GET['cidade'];
-    $bairroNome= $_GET['bairro'];
-    $cidadeEstado= $_GET['estado'];
-    $cep= $_GET['cep'];
+    $logradouro= $_POST['logradouro'];
+    $numero= $_POST['numero'];
+    $cidadeNome= $_POST['cidade'];
+    $bairroNome= $_POST['bairro'];
+    $cidadeEstado= $_POST['estado'];
+    $cep= $_POST['cep'];
     $idConjuge = "NULL";
     */
     //$idPessoa= 01;

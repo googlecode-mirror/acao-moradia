@@ -21,9 +21,7 @@
                 '$carteiraProfissional', '$tituloEleitor', '$certidaoNascimento')";
             //TO_DATE($dataNascimento,'DD/MM/YYYY')
             
-            
-            include_once '../bd/Debug.php';
-            Debug::gravaEmArquivo($selec);
+                        
             $_res= mysql_query($selec)or die(mysql_error());
             if($_res != TRUE)
                 echo 'falha na operação pessoa';
