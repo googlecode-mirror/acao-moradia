@@ -3,6 +3,9 @@
     <head>
         <?php
         require("vLayoutHead.php");
+        session_start();
+        $_SESSION['botao'] = 'cadastrar_curso';        
+        ?>
         ?>
 
         <?php
@@ -34,7 +37,6 @@
             $(function() {
                 var pessoas = <?php
         $result = mysql_query("SELECT p.nome,p.id_pessoa, f.logradouro, f.numero FROM pessoa p, familia f where p.id_familia = f.id_familia");
-        //$result = mysql_query("SELECT `nome` FROM `pessoa`");
         $count = mysql_num_rows($result);
         echo '[';
         if ($count > 0) {
@@ -109,10 +111,7 @@
                         </center>                          
                         <div style="margin: 25px; float:left; ">
                             <p>Entre com o nome da pessoa a ser inclusa no curso:</p>
-                            <!-- <div class="ui-widget">
-                                <input id="nome" name="nome" required="required" size="50"/>
-                            </div> -->
-                            <input id="pessoa" name="pessoa" size="50"/>
+                            <input id="pessoa" name="pessoa" size="50" required="required" autofocus="autofocus"/>
                             <input type="hidden" id="idPessoa" name="idPessoa"/>
                             <p id="descricao"></p>
 
@@ -142,10 +141,6 @@
                         </div>
                     </div>
                     <br/>
-                    <center>
-                        <p>
-                            <a href="vCadastroCurso.php" class="button red">Cadastrar um curso</a>
-                        </p>
                         </form>                
                 </div>                                                                                                                                                                                                                                             
             </div>
