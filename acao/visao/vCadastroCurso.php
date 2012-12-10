@@ -35,8 +35,6 @@
                             <h2>Cadastro de Curso</h2>                            
                         </center>                          
                         <div style="margin: 25px; float:left; ">
-                            <h3>&nbsp;</h3>
-                            <p>&nbsp;</p>
                             <p>Nome do curso: (*)</p>
                             <p><input type="text" id="nome" name="nome" size="30" value="" maxlength="100" required="required"/></p>
                             <p><br />Número de vagas: (*)</p>

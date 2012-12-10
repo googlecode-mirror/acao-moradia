@@ -36,7 +36,11 @@
 
                         <div class="bts">
                             <ul><li><a href="" target="_parent"><s>Programas</a></s></li></ul>
-                        </div>             
+                        </div>
+                        
+                        <div class="bts">
+                            <ul><li><a href="vCadastroPessoa.php" target="_parent">Famílias</a></li></ul>
+                        </div>
                     </div>
 
                     <div class="menu_relatorios" style="margin-left:30px;">
@@ -52,7 +56,10 @@
                         </div>                
                         <div class="bts">
                             <ul><li><a href="" target="_parent"><s>Programas</s></a></li></ul>
-                        </div>                                               
+                        </div>
+                        <div class="bts">
+                            <ul><li><a href="" target="_parent"><s>Famílias</s></a></li></ul>
+                        </div>
                     </div>
                 </div>
             </div>

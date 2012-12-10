@@ -108,8 +108,6 @@
                             <h2>Inclusão de uma pessoa em um curso</h2>
                         </center>                          
                         <div style="margin: 25px; float:left; ">
-                            <h3>&nbsp;</h3>
-                            <p>&nbsp;</p>
                             <p>Entre com o nome da pessoa a ser inclusa no curso:</p>
                             <!-- <div class="ui-widget">
                                 <input id="nome" name="nome" required="required" size="50"/>
@@ -146,7 +144,7 @@
                     <br/>
                     <center>
                         <p>
-                            <a href="vCadastroCurso.php" class="button red">Cadastrar um curso</a><p>&nbsp;</p>
+                            <a href="vCadastroCurso.php" class="button red">Cadastrar um curso</a>
                         </p>
                         </form>                
                 </div>                                                                                                                                                                                                                                             
