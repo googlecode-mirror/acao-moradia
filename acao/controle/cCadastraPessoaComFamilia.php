@@ -55,6 +55,7 @@
             $pessoaHasProgramaDAO->cadastraPessoaHasPrograma($pessoa->getIdPessoa(), $programa);
         }
     }
+    
     //header("Location: ../visao/vCadastroCurso.php");
       
 ?>
