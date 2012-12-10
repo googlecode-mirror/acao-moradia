@@ -6,7 +6,6 @@
         session_start();
         $_SESSION['botao'] = 'cadastrar_curso';        
         ?>
-        ?>
 
         <?php
         include_once '../bd/DBConnection.php';
