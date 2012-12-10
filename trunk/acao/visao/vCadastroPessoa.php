@@ -3,6 +3,8 @@
     <head>
         <?php
         require("vLayoutHead.php");
+        session_start();
+        $_SESSION['botao'] = 'editar_familia';        
         ?>
         <link href="../css/button.css" rel="stylesheet" type="text/css" />
 
@@ -176,7 +178,7 @@
                             <?php
                             
                             if(isset($_GET["family"])){
-                                echo "<p>Qual é o grau de parentesco desta pessoa em relação ao ".strtoupper($_GET['titular']).":<br>"                              
+                                echo "<p>Qual é o grau de parentesco desta pessoa em relação a(ao) ".strtoupper($_GET['titular']).":<br>"                              
                                 .    "<select name='grauParentesco'>"
                                 .        "<option>AGREGADO(A)</option>"                                            
                                 .        "<option>AVÔ(Ó)</option>"
@@ -196,10 +198,50 @@
                                 .        "<option>SOBRINHO(A)</option>"
                                 .        "<option>SOGRO(A)</option>"
                                 .        "<option>TIO(A)</option>"
-                                .    "</select>";                                
+                                .    "</select>";       
+                                                                                                
+                                include_once '../bd/FamiliaDAO.php';
+                                include_once '../bd/CidadeDAO.php';
+                                include_once '../bd/EstadoDAO.php';                                
+                                
+                                $fD= new FamiliaDAO();
+                                $cD= new CidadeDAO;
+                                $eD= new EstadoDAO();                                
+
+                                $result= mysql_fetch_assoc($fD->buscaFamiliaById($_GET["family"]));
+                                $resCidade= mysql_fetch_assoc($cD->buscaCidadebyCod($result['cod_cidade']));
+                                $resEstado= mysql_fetch_assoc($eD->buscaEstadobyCod($resCidade['cod_estado']));
+                                //$pD->buscaPessoabyFamilia($id_familia);
+                                ?>
+                                <p>&nbsp;</p>
+                                <p>&nbsp;</p>
+                                <p>ID da família<br/>
+                                    <input type="text" name="id_familia" value="<?php echo $_GET["family"]?>" size="14" onBlur="getEndereco();" disabled/><br/>
+                                </p><br/>
+                                <p>CEP:(*)<br/>
+                                    <input type="text" id="cep" name="cep" value="<?php echo $result['cep']; ?>" size="14" onBlur="getEndereco();" disabled/>
+                                </p>
+                                <p>&nbsp;</p>
+                                <p>Logradouro:(*) <br/>
+                                    <input type="text" id="logradouro" name="logradouro" size="30" value="<?php echo $result['logradouro']; ?>" disabled/>
+                                </p>                            
+                                <p>&nbsp;</p>
+                                <p>Número:(*)<br/>
+                                    <input type="text" id="numero" name="numero" size="12" value="<?php echo $result['numero']; ?>" disabled/>
+                                </p>
+                                <p>&nbsp;</p>
+                                <p>Cidade/estado:(*)</p>   
+                                 <input type="text" id="cidade" name="cidade" size="16" value="<?php echo $resCidade['nome']; ?>" disabled/>
+                                 <input type="text" id="estado" name="estado" size="8" value="<?php echo $resEstado['sigla']; ?>" disabled/>
+                                <p>&nbsp;</p>
+                                <p>Bairro:(*) <br/>
+                                    <input type="text" id="bairro" name="bairro" value="<?php echo $result['bairro']; ?>" size="14" disabled/>                                                        
+                                </p>
+                            
+                            <?php    
                             }else
                             {
-                                //printar os dados do endereco da familia
+                                //printar os dados do endereco da familia                                
                             ?>
                             <p>CEP:(*)<br/>
                                 <input required="required" type="text" id="cep" name="cep" value="38415-129" size="14" onBlur="getEndereco();" />
@@ -245,7 +287,7 @@
                             <p>&nbsp;</p>                                                                                                                                   
                         </div>                                            
                     </div>       
-                    <?php if(isset($_GET["family"])) echo "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>"; ?>
+                    <?php if(isset($_GET["family"])) echo "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>"; ?>
                     <center>
                         <p>
                             <input type="submit" class="button blue" value="Próximo >>" onclick="return controla();"/>
