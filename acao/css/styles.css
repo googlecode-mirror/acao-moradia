@@ -4,6 +4,8 @@ img {
     border: 0 /* Evita que bordas pretas apareçam em imagens no IE */
 }
 
+.ui-autocomplete { height: 175px; overflow-y: scroll; overflow-x: hidden;} /* Autocomplete with vertical scrollbar */
+
 /* ----------  CSS RESET  ---------- */
 
 	html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre,a, abbr, acronym, address, big, cite, code,del, dfn, em, img, ins, kbd, q, s, samp,

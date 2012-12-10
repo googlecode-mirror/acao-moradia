@@ -31,7 +31,7 @@
                         </div>
 
                         <div class="bts">
-                            <ul><li><a href="vCadastroCurso.php" target="_parent">Cursos</a></li></ul>
+                            <ul><li><a href="vIncluirPessoaCurso.php" target="_parent">Cursos</a></li></ul>
                         </div>
 
                         <div class="bts">
@@ -42,7 +42,7 @@
                     <div class="menu_relatorios" style="margin-left:30px;">
                         <div class="tit">Relatórios</div>
                         <div class="bts">
-                            <ul><li><a href="" target="_parent"><s>Funcionários</s></a></li></ul>
+                            <ul><li><a href="vFuncionario.php" target="_parent">Funcionários</a></li></ul>
                         </div>                
                         <div class="bts">
                             <ul><li><a href="" target="_parent"><s>Pessoas</a></s></li></ul>
