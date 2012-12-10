@@ -4,7 +4,8 @@ img {
     border: 0 /* Evita que bordas pretas apareçam em imagens no IE */
 }
 
-.ui-autocomplete { height: 175px; overflow-y: scroll; overflow-x: hidden;} /* Autocomplete with vertical scrollbar */
+/* Autocomplete with vertical scrollbar */
+.ui-autocomplete { height: 175px; overflow-y: scroll; overflow-x: hidden;}
 
 /* ----------  CSS RESET  ---------- */
 
