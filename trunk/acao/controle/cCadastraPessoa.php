@@ -68,7 +68,7 @@
     echo $etapa_concluida ;
     
     if($etapa_concluida == "2"){//o usuario quer incluir outras pessoas
-        header("Location: ../visao/vCadastroPessoa.php?et=".$etapa_concluida."&family=".$familia->getIdFamilia()."&titular=".$pessoa->getNome());        
+        header("Location: ../visao/vCadastroPessoa.php?et=".$etapa_concluida."&family=".$familia->getIdFamilia()."&titular=".$pessoa->getNome());                        
     }else{
         if($etapa_concluida == "3"){//o usuario vai para etapa de pesquisa                                            
             header("Location: ../visao/vPesquisa.php");

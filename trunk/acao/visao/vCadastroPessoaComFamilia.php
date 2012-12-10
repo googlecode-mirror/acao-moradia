@@ -19,7 +19,7 @@
             });
         </script>
     </head>
-    <body <!--onload="verifica_etapa();-->">-  
+    <body>  <!--onload="verifica_etapa();-->
         <?php
             include_once '../bd/DBConnection.php';
             include_once '../bd/PessoaDAO.php';
@@ -30,7 +30,7 @@
             include_once '../modelo/Modelo.php';
             
             $id_familia= $_POST['id_familia'];
-            Familia::$id_familia= $id_familia;
+            //Familia::$id_familia= $id_familia;
             session_start();
             $_SESSION['id_familia']= $id_familia;
             
