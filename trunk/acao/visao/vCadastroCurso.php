@@ -67,22 +67,8 @@
                         </div>
                     </div>
                     <br/>                    
-                    <!--
-                                        <div>
-                                            <form action="../controle/cBuscaParente.php" method="get">
-                                            <div>Pesquisar parente: <input type="text" name="parente" value=""/> <input type="submit" value="Pesquisar"/></div>
-                                            </form>        
-                    -->
-                    <?php
-                    if (isset($vet)) {
-                        printr($vet);
-                    }
-                    ?>
-                                            
-                    <!--<input type="hidden" id="et" name="et" value="1"/>-->
                     <center>
                         <p>
-                            <a href="vIncluirPessoaCurso.php" class="button blue">Cadastrar uma pessoa em um curso</a><p>&nbsp;</p>
                             <input type="submit" class="button blue" value="Cadastrar" <!--onclick="return controla(); -->"/>
                     </p>
                 </center>

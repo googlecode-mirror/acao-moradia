@@ -14,22 +14,22 @@
         <link rel="stylesheet" href="../css/jquery-ui-1.9.2.css" />
         <script src="../js/jquery-1.8.3.js"></script>
         <script src="../js/jquery-ui-1.9.2.js"></script>
-	<style>
-	#project-label {
-		display: block;
-		font-weight: bold;
-		margin-bottom: 1em;
-	}
-	#project-icon {
-		float: left;
-		height: 32px;
-		width: 32px;
-	}
-	#project-description {
-		margin: 0;
-		padding: 0;
-	}
-	</style>
+        <style>
+            #project-label {
+                display: block;
+                font-weight: bold;
+                margin-bottom: 1em;
+            }
+            #project-icon {
+                float: left;
+                height: 32px;
+                width: 32px;
+            }
+            #project-description {
+                margin: 0;
+                padding: 0;
+            }
+        </style>
         <script>
             $(function() {
                 var pessoas = <?php
@@ -47,7 +47,7 @@
                 //$nome = $row[0];
                 //$logradouro = $row[2];
                 //$numero = $row[3];
-                
+
                 echo 'value: "', $row[1], '",';
                 echo 'label: "', $row[0], '",';
                 echo 'desc: "Endereço: ', $row[2], ', ', $row[3], '"},';
@@ -114,10 +114,10 @@
                             <!-- <div class="ui-widget">
                                 <input id="nome" name="nome" required="required" size="50"/>
                             </div> -->
-                            <input id="pessoa" name="pessoa"/>
+                            <input id="pessoa" name="pessoa" size="50"/>
                             <input type="hidden" id="idPessoa" name="idPessoa"/>
                             <p id="descricao"></p>
-                            
+
 
                             <p>&nbsp;</p>
                             <p>Selecione o curso:</p>
@@ -144,12 +144,11 @@
                         </div>
                     </div>
                     <br/>
-                    <?php
-                    if (isset($vet)) {
-                        printr($vet);
-                    }
-                    ?>
-                    </form>                
+                    <center>
+                        <p>
+                            <a href="vCadastroCurso.php" class="button red">Cadastrar um curso</a><p>&nbsp;</p>
+                        </p>
+                        </form>                
                 </div>                                                                                                                                                                                                                                             
             </div>
         </div>
