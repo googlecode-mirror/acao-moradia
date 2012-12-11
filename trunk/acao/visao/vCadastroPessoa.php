@@ -3,8 +3,7 @@
     <head>
         <?php
         require("vLayoutHead.php");
-        session_start();
-        $_SESSION['botao'] = 'editar_familia';        
+               
         ?>
         <link href="../css/button.css" rel="stylesheet" type="text/css" />
 

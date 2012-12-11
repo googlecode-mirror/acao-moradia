@@ -3,6 +3,8 @@
     <head>
         <?php
         require("vLayoutHead.php");
+        session_start();
+        $_SESSION['botao'] = 'editar_familia'; 
         ?>
         <link href="../css/button.css" rel="stylesheet" type="text/css" />
 
@@ -20,9 +22,10 @@
             
                     var query= $("#query").val();
         
-                    $("#resultado").load('../controle/montaTabela.php',{query:query});
+                    $("#resultado").load('../controle/montaTabelaFamilia.php',{query:query});
                 
                 })
+                
         
                 /* $(".__idFamilia").click(function(){
             
