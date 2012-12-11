@@ -1,8 +1,9 @@
 <?php
 
     $query= $_POST['id_familia'];
+    
     $tamanhoPesquisa = strlen($query);    
-    $parametro = substr($query, 1, $tamanhoPesquisa - 1);//detecta q operação deve-se fazer: (a= add pessoa à familia, e= editar familia e d= deletar familia)
+    $parametro = substr($query, $tamanhoPesquisa-1, $tamanhoPesquisa - 1);//detecta q operação deve-se fazer: (a= add pessoa à familia, e= editar familia e d= deletar familia)
     $id_familia = substr($query, 0, $tamanhoPesquisa-1);
     echo $query.'</br>';
     echo $parametro.'</br>';

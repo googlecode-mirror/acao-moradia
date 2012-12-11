@@ -41,7 +41,7 @@
     
     $pessoa = new Pessoa(
                 $id_familia, $_GET['cidadeNatal'],$_GET['nome'], $_GET['cpf'], 
-                $_GET['rg'], $_GET['sexo'], $_GET['dataNascimento'], $_GET['telefone'], 'TITULAR',
+                $_GET['rg'], $_GET['sexo'], $_GET['dataNascimento'], $_GET['telefone'], $_GET['parentesco'],
                 $_GET['estadoCivil'],$_GET['raca'],$_GET['religiao'], $_GET['carteiraProfissional'],
                 $_GET['tituloEleitor'],$_GET['certidaoNascimento']);
     

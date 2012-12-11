@@ -12,7 +12,7 @@
                 echo 'falha na operação';             
         }
         
-         public function IsPessoaInPrograma($id_pessoa, $id_programa){           
+        /* public function IsPessoaInPrograma($id_pessoa, $id_programa){           
              echo $select= "SELECT * FROM pessoa_has_programa WHERE id_pessoa= $id_pessoa AND id_programa = $id_programa";
              $res= mysql_query($select);
              //$b= mysql_fetch_array($res);
@@ -22,7 +22,19 @@
              }else{                
                  return $res;
              }            
-        }
+        }*/
+        
+        public function IsPessoaInPrograma($id_pessoa, $id_programa){
+            $select= "SELECT * FROM pessoa_has_programa WHERE id_pessoa= $id_pessoa AND id_programa= $id_programa";
+            $res= mysql_query($select);
+            if($res === FALSE){
+                echo "familia não encontrada";
+                return null;
+            }else{
+                //$arrived= mysql_fetch_assoc($res);
+                return $res;
+            }            
+        }    
         
     }
 
