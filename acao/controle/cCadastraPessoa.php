@@ -39,7 +39,9 @@
     }
     
     $dataNascimento = Funcoes::toMySqlDate($_POST['dataNascimento']);
-    
+    echo $dataNascimento;
+    include_once '../bd/Debug.php';
+    Debug::gravaEmArquivo($dataNascimento);
     //cadastra a pessoa
     $pessoa = new Pessoa(
             $familia->getIdFamilia(), $_POST['cidadeNatal'],$_POST['nome'], $_POST['cpf'], 

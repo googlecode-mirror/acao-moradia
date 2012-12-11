@@ -12,6 +12,7 @@
             include_once '../modelo/Modelo.php';
             include_once '../controle/cFuncoes.php';
             include_once '../bd/PessoHasProgramaDAO.php';
+            include_once '../bd/ProgramaDAO.php';
             
             session_start();
             $id_familia= $_SESSION['id_familia'];
@@ -21,10 +22,11 @@
             $eD= new EstadoDAO();
             $pD= new PessoaDAO();
             $pHpD= new PessoaHasProgramaDAO();
+            $progD= new ProgramaDAO();
             
             //$resltTitular= $pD->buscaPessoabyFamilia2($id_familia);
             $a  = mysql_fetch_assoc($pD->buscaPessoabyFamilia2($id_familia));
-            //echo $a['telefone'];
+            echo $a['telefone'];
             $result= mysql_fetch_assoc($fD->buscaFamiliaById($id_familia));
             $resCidadeNatal= mysql_fetch_assoc($cD->buscaCidadebyCod($a['cidade_natal']));
             $resEstadoNaltal= mysql_fetch_assoc($eD->buscaEstadobyCod($resCidadeNatal['cod_estado']));
@@ -184,14 +186,25 @@
                             $programas = $CPrograma->buscaTodosProgramas();
 
                             while ($programa = mysql_fetch_array($programas)) {
+                                 //session_start();
                                 $if='';
-                                $b= mysql_fetch_array($pHpD->IsPessoaInPrograma($a[id_pessoa], $programa[id_programa]));
-                                //echo $b;
-                                //if()
-                                echo "<input type='checkbox' value='$programa[id_programa]' name='programa[]'/>" . $programa['nome'] . "<br/>";
+                                    $_SESSION['if']='';
+                                $resultProg= mysql_fetch_assoc($pHpD->IsPessoaInPrograma($a['id_pessoa'], $a['id_familia']));
+                                $cod= $resultProg['id_programa'];
+                                $resProg2= mysql_fetch_assoc($progD->buscaProgramaById($cod));
+                                //echo $resProg2['nome'];
+                                if($programa['nome'] === $resProg2['nome']){
+                                    //session_start();
+                                    $_SESSION['if']= $_SESSION['if'].'checked';
+                                    $if= $_SESSION['if'];                                    
+                                }
+                                //echo $if;
+                                $strs= "<input type='checkbox' ".$if." value='$programa[id_programa]' name='programa[]'/>" . $programa['nome'] . "<br/>";
+                                echo $strs;
+                                $_SESSION['if']='';
+                                
                             }
-                            ?>
-                            
+                            ?>                            
                         </div>
                     </div>
                     <br/>                    
@@ -201,116 +214,53 @@
                             <p>&nbsp;</p>
                             <p>&nbsp;</p>                            
                             <p>&nbsp;</p>
-                            <?php
-                            
-                            if(isset($_GET["family"])){
-                                echo "<p>Qual é o grau de parentesco desta pessoa em relação a(ao) ".strtoupper($_GET['titular']).":<br>"                              
-                                .    "<select name='grauParentesco'>"
-                                .        "<option>AGREGADO(A)</option>"                                            
-                                .        "<option>AVÔ(Ó)</option>"
-                                .        "<option>COMPANHEIRO(A)</option>"
-                                .        "<option>CÔNJUGE(MARIDO OU ESPOSA)</option>"                        
-                                .        "<option>CUNHADO(A)</option>"
-                                .        "<option>ENTEADO(A)</option>"
-                                .        "<option>EX-COMPANHEIRO(A)</option>"
-                                .        "<option>EX-MARIDO/EX-ESPOSA</option>"
-                                .        "<option>FILHO(A)</option>"
-                                .        "<option>GENRO/NORA</option>"
-                                .        "<option>IRMÃ(O)</option>"
-                                .        "<option>NETO(A)</option>"
-                                .        "<option>PADRASTO/MADRASTA</option>"
-                                .        "<option>PAI/MÃE</option>"
-                                .        "<option>PRIMO(A)</option>"
-                                .        "<option>SOBRINHO(A)</option>"
-                                .        "<option>SOGRO(A)</option>"
-                                .        "<option>TIO(A)</option>"
-                                .    "</select>";       
-                                                                                                
-                                include_once '../bd/FamiliaDAO.php';
-                                include_once '../bd/CidadeDAO.php';
-                                include_once '../bd/EstadoDAO.php';                                
-                                
-                                $fD= new FamiliaDAO();
-                                $cD= new CidadeDAO;
-                                $eD= new EstadoDAO();                                
-
-                                $result= mysql_fetch_assoc($fD->buscaFamiliaById($_GET["family"]));
-                                $resCidade= mysql_fetch_assoc($cD->buscaCidadebyCod($result['cod_cidade']));
-                                $resEstado= mysql_fetch_assoc($eD->buscaEstadobyCod($resCidade['cod_estado']));
-                                //$pD->buscaPessoabyFamilia($id_familia);
-                                ?>
+                           
                                 <p>&nbsp;</p>
                                 <p>&nbsp;</p>
                                 <p>ID da família<br/>
-                                    <input type="text" name="id_familia" value="<?php echo $_GET["family"]?>" size="14" onBlur="getEndereco();" disabled/><br/>
+                                    <input type="text" name="id_familia" value="<?php echo $a['id_familia'];?>" size="14" onBlur="getEndereco();" /><br/>
                                 </p><br/>
                                 <p>CEP:(*)<br/>
-                                    <input type="text" id="cep" name="cep" value="<?php echo $result['cep']; ?>" size="14" onBlur="getEndereco();" disabled/>
+                                    <input type="text" id="cep" name="cep" value="<?php echo $result['cep']; ?>" size="14" onBlur="getEndereco();" />
                                 </p>
                                 <p>&nbsp;</p>
                                 <p>Logradouro:(*) <br/>
-                                    <input type="text" id="logradouro" name="logradouro" size="30" value="<?php echo $result['logradouro']; ?>" disabled/>
+                                    <input type="text" id="logradouro" name="logradouro" size="30" value="<?php echo $result['logradouro']; ?>" />
                                 </p>                            
                                 <p>&nbsp;</p>
                                 <p>Número:(*)<br/>
-                                    <input type="text" id="numero" name="numero" size="12" value="<?php echo $result['numero']; ?>" disabled/>
+                                    <input type="text" id="numero" name="numero" size="12" value="<?php echo $result['numero']; ?>" />
                                 </p>
                                 <p>&nbsp;</p>
-                                <p>Cidade/estado:(*)</p>   
-                                 <input type="text" id="cidade" name="cidade" size="16" value="<?php echo $resCidade['nome']; ?>" disabled/>
-                                 <input type="text" id="estado" name="estado" size="8" value="<?php echo $resEstado['sigla']; ?>" disabled/>
-                                <p>&nbsp;</p>
-                                <p>Bairro:(*) <br/>
-                                    <input type="text" id="bairro" name="bairro" value="<?php echo $result['bairro']; ?>" size="14" disabled/>                                                        
-                                </p>
-                            
-                            <?php    
-                            }else
-                            {
-                                //printar os dados do endereco da familia                                
-                            ?>
-                            <p>CEP:(*)<br/>
-                                <input required="required" type="text" id="cep" name="cep" value="38415-129" size="14" onBlur="getEndereco();" />
-                            </p>
-                            <p>&nbsp;</p>
-                            <p>Logradouro:(*) <br/>
-                                <input required="required" type="text" id="logradouro" name="logradouro" size="30" value="" />
-                            </p>                            
-                            <p>&nbsp;</p>
-                            <p>Número:(*)<br/>
-                                <input required="required" type="text" id="numero" name="numero" size="12" value="11" />
-                            </p>
-                            <p>&nbsp;</p>
-                            <p>Cidade/estado:(*)</p>   
-                            <p>                           
-                                <table>
-                                    <tr>                                    
-                                        <td>
-                                            <select id="estado" name="estado" >
+                                <p>Cidade/estado:(*)</p> 
+                                <table><tr><td><select name="estado" id="estadoNatal">
                                                 <?php
-                                                $estados = $estadoDAO->buscaEstados();
+                                                include_once '../bd/EstadoDAO.php';
+                                                $estadoDAO = new EstadoDAO();
+                                                $estados = $estadoDAO->buscaEstados();                                               
                                                 while ($row = mysql_fetch_assoc($estados)) {
-                                                    echo '<option value="' . $row['cod_estado'] . '">' . $row['sigla'] . '</option>';
+                                                    $if='';
+                                                    if($resCidadeNatal['cod_estado'] === $row['cod_estado']){
+                                                        $if=  'selected';
+                                                    }
+                                                    echo '<option '.$if.'  value="' . $row['cod_estado'] . '" >' . $row['sigla'] . '</option>';
                                                 }
                                                 ?>
                                             </select>
                                         </td>
-                                        <td>                                        
-                                            <select name="cidade" id="cidade">
-                                                <option value="null">Escolha um estado</option>
-                                            </select>                                        
-                                        </td>                            
+                                        <td>
+                                            <select name="cidade" id="cidadeNatal">
+                                                <option value="null"><?php echo $resCidadeNatal['nome']?></option>
+                                            </select>
+                                        </td>
                                     </tr>
                                 </table>
-                            </p>
-                            <p>&nbsp;</p>
-                            <p>Bairro:(*) <br/>
-                                <input type="text" id="bairro" name="bairro" value="" size="14" />                                                        
-                            </p>                            
-                            <?php
-                                }
-                            ?>
-                            <p>&nbsp;</p>                                                                                                                                   
+                                 <input type="text" id="cidade" name="cidade" size="16" value="<?php echo $resCidade['nome']; ?>" />
+                                 <input type="text" id="estado" name="estado" size="8" value="<?php echo $resEstado['sigla']; ?>" />
+                                <p>&nbsp;</p>
+                                <p>Bairro:(*) <br/>
+                                    <input type="text" id="bairro" name="bairro" value="<?php echo $result['bairro']; ?>" size="14" />                                                        
+                                </p>                                                                                                                         
                         </div>                                            
                     </div>       
                     <?php if(isset($_GET["family"])) echo "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>"; ?>

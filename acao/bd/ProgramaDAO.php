@@ -35,7 +35,19 @@
                 $arived= mysql_fetch_assoc($res);
                 return $arived;
             }            
-        }      
+        }     
+        
+         public function buscaProgramaById($id_programa){
+            $select= "SELECT * FROM programa WHERE id_programa= $id_programa";
+            $res= mysql_query($select);
+            if($res === FALSE){
+                echo "programa desconhecido";
+                return null;
+            }else{
+                //$arived= mysql_fetch_assoc($res);
+                return $res;
+            }            
+        }  
         
          public function buscaTodosProgramas(){           
              DataBase::createConection();
@@ -47,10 +59,6 @@
                  return $res;
              }            
         }
-        
-        
-        
-      
     }
 ?>
 
