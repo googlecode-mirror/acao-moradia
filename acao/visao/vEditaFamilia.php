@@ -26,6 +26,7 @@
             
             //$resltTitular= $pD->buscaPessoabyFamilia2($id_familia);
             $a  = mysql_fetch_assoc($pD->buscaPessoabyFamilia2($id_familia));
+            //print_r($a);
             echo $a['telefone'];
             $result= mysql_fetch_assoc($fD->buscaFamiliaById($id_familia));
             $resCidadeNatal= mysql_fetch_assoc($cD->buscaCidadebyCod($a['cidade_natal']));
@@ -51,7 +52,7 @@
             jQuery(function(){
                 jQuery("#cpf").mask("999.999.999-99");
                 jQuery("#cep").mask("99999-999");
-                jQuery("#telefone").mask("(99) 9999-9999?9");
+                jQuery("#telefone").mask("(99) 9999-999?9");
                 jQuery("#dataNascimento").mask("99/99/9999");
                 jQuery("#numero").mask("9?99999");
             });
@@ -80,8 +81,9 @@
                             <h3>&nbsp;</h3>
                             <h4>Dados do titular e residenciais</h4>
                             <p>&nbsp;</p>
+                            <?php $nomef=  $a['nome']; ?>
                             <p>Nome do titular: (*)</p>
-                            <p><input type="text" id="nome" name="nome" size="30" value=<?php echo $a['nome'] ?> maxlength="100" /></p>
+                            <p><input type="text" name="nome" size="30"           value= "<?php echo $nomef; ?>"/></p>
                             <p><br />CPF:</p>
                             <p><input type="text" name="cpf" id="cpf" size="12" value=<?php echo $a['cpf']; ?> maxlength="14" /></p>
                             <p>&nbsp;</p>
@@ -97,7 +99,7 @@
 
                             <p>Telefone:</p>                            
                             <p>
-                                <input maxlength="15" name="telefone" value=<?php echo $a['telefone']; ?> id="telefone" size="15" />
+                                <input maxlength="15" name="telefone" value="<?php echo $a['telefone']; ?>" id="telefone" size="15" />
                             </p>
                             <p>&nbsp;</p>
                             <p>Data de nascimento:</p>
@@ -233,14 +235,17 @@
                                 </p>
                                 <p>&nbsp;</p>
                                 <p>Cidade/estado:(*)</p> 
-                                <table><tr><td><select name="estado" id="estadoNatal">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <select name="estado" id="estadoNatal">
                                                 <?php
                                                 include_once '../bd/EstadoDAO.php';
                                                 $estadoDAO = new EstadoDAO();
-                                                $estados = $estadoDAO->buscaEstados();                                               
+                                                $estados = $estadoDAO->buscaEstados();                                                
                                                 while ($row = mysql_fetch_assoc($estados)) {
                                                     $if='';
-                                                    if($resCidadeNatal['cod_estado'] === $row['cod_estado']){
+                                                    if($resCidade['cod_estado'] === $row['cod_estado']){
                                                         $if=  'selected';
                                                     }
                                                     echo '<option '.$if.'  value="' . $row['cod_estado'] . '" >' . $row['sigla'] . '</option>';
@@ -250,13 +255,13 @@
                                         </td>
                                         <td>
                                             <select name="cidade" id="cidadeNatal">
-                                                <option value="null"><?php echo $resCidadeNatal['nome']?></option>
+                                                <option value="null"><?php echo $resCidade['nome']?></option>
                                             </select>
                                         </td>
                                     </tr>
                                 </table>
-                                 <input type="text" id="cidade" name="cidade" size="16" value="<?php echo $resCidade['nome']; ?>" />
-                                 <input type="text" id="estado" name="estado" size="8" value="<?php echo $resEstado['sigla']; ?>" />
+                                 <!--<input type="text" id="cidade" name="cidade" size="16" value="<?php echo $resCidade['nome']; ?>" />
+                                 <input type="text" id="estado" name="estado" size="8" value="<?php echo $resEstado['sigla']; ?>" />-->
                                 <p>&nbsp;</p>
                                 <p>Bairro:(*) <br/>
                                     <input type="text" id="bairro" name="bairro" value="<?php echo $result['bairro']; ?>" size="14" />                                                        
