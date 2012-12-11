@@ -20,7 +20,7 @@
             
                     var query= $("#query").val();
         
-                    $("#resultado").load('../controle/montaTabela.php',{query:query});
+                    $("#resultado").load('../controle/montaTabelaFamilia.php',{query:query});
                 
                 })
         
@@ -57,9 +57,7 @@
                              <h2 id="etapa">Etapa 1/2: Vinculação com Família</h2>                            
                         </center>
                         <div style="margin: 25px; float:left;">
-                            <h3>&nbsp;</h3>
-                            <p>&nbsp;</p>
-                                <br/><br/>
+                           
                                 Digite alguma informação sobre a família
                                 <br/><br/>
                                 <!--<span>id da família</span><input id="id_familia" type="text" name="familia" value="" size="14"/> 
