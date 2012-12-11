@@ -3,21 +3,19 @@
     <head>
         <?php
         require("vLayoutHead.php");
-               
+
         ?>
-        <link href="../css/button.css" rel="stylesheet" type="text/css" />
+        <link href="../css/button.css" rel="stylesheet" type="text/css" />        
 
         <script type="text/javascript" src="../js/jquery-1.8.3.js"></script>    
         <script type="text/javascript" src="../js/jquery.maskedinput.js"></script>               
         <script type="text/javascript" src="../js/scripts.js" ></script>        
+        
         <script>
             /*
             <!--
               javascript:window.history.forward(1);//não deixa voltar
-            //-->*/
-            <!--
-                $("#estado").select(0);
-            //-->
+            //-->*/            
             jQuery(function(){
                 jQuery("#cpf").mask("999.999.999-99");
                 jQuery("#cep").mask("99999-999");
@@ -34,7 +32,12 @@
             ?>
 
             <div class="content">
-                <?php
+                <?php   
+                /*
+                if(isset($_GET['family'])){
+                    session_start();
+                    $_SESSION['botao'] = 'excluir_familia';
+                }*/
                 require("vLayoutMargin.php");
                 ?>   
                 
@@ -218,7 +221,8 @@
                                     <input type="text" name="id_familia" value="<?php echo $_GET["family"]?>" size="14" onBlur="getEndereco();" disabled/><br/>
                                 </p><br/>
                                 <p>CEP:(*)<br/>
-                                    <input type="text" id="cep" name="cep" value="<?php echo $result['cep']; ?>" size="14" onBlur="getEndereco();" disabled/>
+                                    <input type="text" id="cep" name="cep" value="<?php echo $result['cep']; ?>" size="14" onBlur="getEndereco();" disabled/>                                                                        
+                                </p>
                                 </p>
                                 <p>&nbsp;</p>
                                 <p>Logradouro:(*) <br/>
@@ -244,6 +248,7 @@
                             ?>
                             <p>CEP:(*)<br/>
                                 <input required="required" type="text" id="cep" name="cep" value="38415-129" size="14" onBlur="getEndereco();" />
+                                <a href="http://www.buscacep.correios.com.br" target="_blank"/>Buscar CEP</a>
                             </p>
                             <p>&nbsp;</p>
                             <p>Logradouro:(*) <br/>
@@ -297,7 +302,7 @@
                 <div class="txt">Os campos com * são obrigatórios</div>   
             </div>
         </div>
-
+      
     </body>
     <footer>
         <?php
