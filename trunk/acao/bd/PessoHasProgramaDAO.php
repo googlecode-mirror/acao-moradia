@@ -10,7 +10,19 @@
             $_res= mysql_query($this->_ins);
             if($_res != TRUE)
                 echo 'falha na operação';             
-        }             
+        }
+        
+         public function IsPessoaInPrograma($id_pessoa, $id_programa){           
+             echo $select= "SELECT * FROM pessoa_has_programa WHERE id_pessoa= $id_pessoa AND id_programa = $id_programa";
+             $res= mysql_query($select);
+             //$b= mysql_fetch_array($res);
+             if($res === FALSE){
+                 echo "programa desconhecido: ".$this->_sel;
+                 return null;
+             }else{                
+                 return $res;
+             }            
+        }
         
     }
 

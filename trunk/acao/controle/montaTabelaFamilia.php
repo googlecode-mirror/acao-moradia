@@ -32,20 +32,27 @@ DataBase::createConection();
   $titular= $_REQUEST['titular'];
   $endereco= $_REQUEST['endereco']; */
 $html = '<form action="../controle/cControleFamilia.php" method="post">';
-$query = $_REQUEST['query'];
-$fD = new FamiliaDAO;
-$pD = new PessoaDAO;
-
-if (!$query) {//busca vazia retorno irrelevante 
-    $resultado = $fD->buscaFamilia();
-    $html .= "<table border= 1 width=500px>";
+ $html .= "<table border= 1 width=500px>";
     $html .= "<th>id</th>";
     $html .= "<th>nome titular</th>";
     $html .= "<th>endereço</th>"; 
     $html .= "<th>add pessoa</th>";
     $html .= "<th>Editar</th>";
     $html .= "<th>excluir</th>";
-   
+$query = $_REQUEST['query'];
+$fD = new FamiliaDAO;
+$pD = new PessoaDAO;
+
+if (!$query) {//busca vazia retorno irrelevante 
+    $resultado = $fD->buscaFamilia();
+   /* $html .= "<table border= 1 width=500px>";
+    $html .= "<th>id</th>";
+    $html .= "<th>nome titular</th>";
+    $html .= "<th>endereço</th>"; 
+    $html .= "<th>add pessoa</th>";
+    $html .= "<th>Editar</th>";
+    $html .= "<th>excluir</th>";
+   */
     while ($a = mysql_fetch_assoc($resultado)) {
         $html .= '<tr>';
         $html .= '<td>' . $a['id_familia'] . '</td>';
@@ -60,20 +67,41 @@ if (!$query) {//busca vazia retorno irrelevante
         //$html .= '<td>'.'<img src="../imagens/next.png" class="__idFamilia" id="'.$a['id_familia'].'">'.'</td>';
         $html .= '</tr>';
     }
-} elseif (is_numeric($query)) { //provavel q a pesquisa seja por ID ou numero da casa, seguido por resultados sem relevancia  
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+elseif (is_numeric($query)) { //provavel q a pesquisa seja por ID ou numero da casa, seguido por resultados sem relevancia  
     $resultadoId = $fD->buscaFamiliaById($query);
-    $html .= "<table border= 1 width=500px>";
+    /*$html .= "<table border= 1 width=500px>";
     $html .= "<th>id</th>";
     $html .= "<th>nome titular</th>";
     $html .= "<th>endereço</th>";
-    $html .= "<th>seleção</th>";
+    $html .= "<th>seleção</th>";*/
     //busca a familia cujo ID seja igual ao numero digitado
     while ($a = mysql_fetch_assoc($resultadoId)) {
         $html .= '<tr>';
         $html .= '<td>' . $a['id_familia'] . '</td>';
         $html .= '<td>' . $pD->buscaPessoabyFamilia($a['id_familia']) . '</td>';
         $html .= '<td>' . $a['logradouro'] . ' - ' . $a['numero'] . '</td>';
-        $html .= '<center>' . '<td>' . '<input src="../imagens/next.png" type="image" name= "id_familia" value="' . $a['id_familia'] . '">' . '</td>' . '</center>';
+        $html .= '<center>' . '<td>' . '<input src="../imagens/next.png" type="image" name= "id_familia" value="' . $a['id_familia'] .'a'. '">' . '</td>' . '</center>';
+        $html .= '<center>' . '<td>' . '<input src="../imagens/bt_editar.png" type="image" name= "id_familia" value="' . $a['id_familia'] .'e'. '">' . '</td>' . '</center>';
+        $html .= '<center>' . '<td>' . '<input src="../imagens/bt_deletar.png" type="image" name= "id_familia" value="' . $a['id_familia'] . 'd'.'">' . '</td>' . '</center>';
+
+        //$html .= '<center>' . '<td>' . '<input src="../imagens/next.png" type="image" name= "id_familia" value="' . $a['id_familia'] . '">' . '</td>' . '</center>';
         //$html .= '<td>' . '<input type="submit" name= "id_familia" value="' . $a['id_familia'] . '" img src="../imagens/next.png">' . '</td>';
         //$html .= '<td>'.'<img src="../imagens/next.png" class="__idFamilia" id="'.$a['id_familia'].'">'.'</td>';
         $html .= '</tr>';
@@ -86,7 +114,11 @@ if (!$query) {//busca vazia retorno irrelevante
         $html .= '<td>' . $a['id_familia'] . '</td>';
         $html .= '<td>' . $pD->buscaPessoabyFamilia($a['id_familia']) . '</td>';
         $html .= '<td>' . $a['logradouro'] . ' - ' . $a['numero'] . '</td>';
-        $html .= '<center>' . '<td>' . '<input src="../imagens/next.png" type="image" name= "id_familia" value="' . $a['id_familia'] . '">' . '</td>' . '</center>';
+        $html .= '<center>' . '<td>' . '<input src="../imagens/next.png" type="image" name= "id_familia" value="' . $a['id_familia'] .'a'. '">' . '</td>' . '</center>';
+        $html .= '<center>' . '<td>' . '<input src="../imagens/bt_editar.png" type="image" name= "id_familia" value="' . $a['id_familia'] .'e'. '">' . '</td>' . '</center>';
+        $html .= '<center>' . '<td>' . '<input src="../imagens/bt_deletar.png" type="image" name= "id_familia" value="' . $a['id_familia'] . 'd'.'">' . '</td>' . '</center>';
+
+        //$html .= '<center>' . '<td>' . '<input src="../imagens/next.png" type="image" name= "id_familia" value="' . $a['id_familia'] . '">' . '</td>' . '</center>';
         //$html .= '<td>' . '<input type="submit" name= "id_familia" value="' . $a['id_familia'] . '" img src="../imagens/next.png">' . '</td>';
         //$html .= '<td>'.'<img src="../imagens/next.png" class="__idFamilia" id="'.$a['id_familia'].'">'.'</td>';
         $html .= '</tr>';
@@ -99,26 +131,40 @@ if (!$query) {//busca vazia retorno irrelevante
         $html .= '<td>' . $a['id_familia'] . '</td>';
         $html .= '<td>' . $pD->buscaPessoabyFamilia($a['id_familia']) . '</td>';
         $html .= '<td>' . $a['logradouro'] . ' - ' . $a['numero'] . '</td>';
-        $html .= '<center>' . '<td>' . '<input src="../imagens/next.png" type="image" name= "id_familia" value="' . $a['id_familia'] . '">' . '</td>' . '</center>';
+        $html .= '<center>' . '<td>' . '<input src="../imagens/next.png" type="image" name= "id_familia" value="' . $a['id_familia'] .'a'. '">' . '</td>' . '</center>';
+        $html .= '<center>' . '<td>' . '<input src="../imagens/bt_editar.png" type="image" name= "id_familia" value="' . $a['id_familia'] .'e'. '">' . '</td>' . '</center>';
+        $html .= '<center>' . '<td>' . '<input src="../imagens/bt_deletar.png" type="image" name= "id_familia" value="' . $a['id_familia'] . 'd'.'">' . '</td>' . '</center>';
+
+        //$html .= '<center>' . '<td>' . '<input src="../imagens/next.png" type="image" name= "id_familia" value="' . $a['id_familia'] . '">' . '</td>' . '</center>';
         //$html .= '<td>' . '<input type="submit" name= "id_familia" value="' . $a['id_familia'] . '" img src="../imagens/next.png">' . '</td>';
         //$html .= '<td>'.'<img src="../imagens/next.png" class="__idFamilia" id="'.$a['id_familia'].'">'.'</td>';
         $html .= '</tr>';
     }
-} else {//a pesquisa é texto, pode ser um endereço ou titular
+    
+} 
+
+
+
+
+
+
+
+else {//a pesquisa é texto, pode ser um endereço ou titular
+    //echo 'locura';
     $tamanhoPesquisa = strlen($query);
     $radical = substr($query, 1, $tamanhoPesquisa - 2);
     $resultado3 = $pD->buscaPessoaTitular($radical);
-    $html .= "<table border= 1 width=500px>";
-    $html .= "<th>id</th>";
-    $html .= "<th>nome titular</th>";
-    $html .= "<th>endereço</th>";
-    $html .= "<th>seleção</th>";
+   
     while ($a = mysql_fetch_assoc($resultado3)) {
         $html .= '<tr>';
         $html .= '<td>' . $a['id_familia'] . '</td>';
         $html .= '<td>' . $a['nome'] . '</td>';
         $html .= '<td>' . $fD->buscaLogradouro($a['id_familia']) . ' - ' . $fD->buscaNumero($a['id_familia']) . '</td>';
-        $html .= '<center>' . '<td>' . '<input src="../imagens/next.png" type="image" name= "id_familia" value="' . $a['id_familia'] . '">' . '</td>' . '</center>';
+        $html .= '<center>' . '<td>' . '<input src="../imagens/next.png" type="image" name= "id_familia" value="' . $a['id_familia'] .'a'. '">' . '</td>' . '</center>';
+        $html .= '<center>' . '<td>' . '<input src="../imagens/bt_editar.png" type="image" name= "id_familia" value="' . $a['id_familia'] .'e'. '">' . '</td>' . '</center>';
+        $html .= '<center>' . '<td>' . '<input src="../imagens/bt_deletar.png" type="image" name= "id_familia" value="' . $a['id_familia'] . 'd'.'">' . '</td>' . '</center>';
+
+//$html .= '<center>' . '<td>' . '<input src="../imagens/next.png" type="image" name= "id_familia" value="' . $a['id_familia'] . '">' . '</td>' . '</center>';
         //$html .= '<td>' . '<input type="submit" name= "id_familia" value="' . $a['id_familia'] . '" img src="../imagens/next.png">' . '</td>';
         //$html .= '<td>'.'<img src="../imagens/next.png" class="__idFamilia" id="'.$a['id_familia'].'">'.'</td>';
         $html .= '</tr>';
@@ -126,25 +172,30 @@ if (!$query) {//busca vazia retorno irrelevante
 
     $resultado4 = $fD->buscaFamiliabyLogradouro($query);
     while ($a = mysql_fetch_assoc($resultado4)) {
-        $html .= '<tr>';
+        /*$html .= '<tr>';
         $html .= '<td>' . $a['id_familia'] . '</td>';
         $html .= '<td>' . $pD->buscaPessoabyFamilia($a['id_familia']) . '</td>';
         $html .= '<td>' . $a['logradouro'] . ' - ' . $a['numero'] . '</td>';
-        $html .= '<center>' . '<td>' . '<input src="../imagens/next.png" type="image" name= "id_familia" value="' . $a['id_familia'] . '">' . '</td>' . '</center>';
-        //$html .= '<td>' . '<input type="submit" name= "id_familia" value="' . $a['id_familia'] . '" img src="../imagens/next.png">' . '</td>';
-        //$html .= '<td>'.'<img src="../imagens/next.png" class="__idFamilia" id="'.$a['id_familia'].'">'.'</td>';
-        $html .= '</tr>';
+        $html .= '<center>' . '<td>' . '<input src="../imagens/next.png" type="image" name= "id_familia" value="' . $a['id_familia'] .'a'. '">' . '</td>' . '</center>';
+        $html .= '<center>' . '<td>' . '<input src="../imagens/bt_editar.png" type="image" name= "id_familia" value="' . $a['id_familia'] .'e'. '">' . '</td>' . '</center>';
+        $html .= '<center>' . '<td>' . '<input src="../imagens/bt_deletar.png" type="image" name= "id_familia" value="' . $a['id_familia'] . 'd'.'">' . '</td>' . '</center>';
+        $html .= '</tr>';*/
     }
     //mostrar resultados menos relevantes
     $resultado5 = $fD->buscaFamiliaExceptLogradouro($query);
 
     while ($a1 = mysql_fetch_assoc($resultado5)) {
-        $html .= '<tr>';
+        /*$html .= '<tr>';
         $html .= '<td>' . $a1['id_familia'] . '</td>';
         $html .= '<td>' . $pD->buscaPessoabyFamilia($a1['id_familia']) . '</td>';
         $html .= '<td>' . $a1['logradouro'] . ' - ' . $a1['numero'] . '</td>';
-        $html .= '<center>' . '<td>' . '<input src="../imagens/next.png" type="image" name= "id_familia" value="' . $a['id_familia'] . '">' . '</td>' . '</center>';
-        //$html .= '<td>' . '<input type="submit" name= "id_familia" value="' . $a1['id_familia'] . '" img src="../imagens/next.png">' . '</td>';
+        $html .= '<center>' . '<td>' . '<input src="../imagens/next.png" type="image" name= "id_familia" value="' . $a['id_familia'] .'a'. '">' . '</td>' . '</center>';
+        $html .= '<center>' . '<td>' . '<input src="../imagens/bt_editar.png" type="image" name= "id_familia" value="' . $a['id_familia'] .'e'. '">' . '</td>' . '</center>';
+        $html .= '<center>' . '<td>' . '<input src="../imagens/bt_deletar.png" type="image" name= "id_familia" value="' . $a['id_familia'] . 'd'.'">' . '</td>' . '</center>';
+*/
+        //$html .= '<center>' . '<td>' . '<input src="../imagens/next.png" type="image" name= "id_familia" value="' . $a['id_familia'] . '">' . '</td>' . '</center>';
+        
+//$html .= '<td>' . '<input type="submit" name= "id_familia" value="' . $a1['id_familia'] . '" img src="../imagens/next.png">' . '</td>';
         //$html .= '<td>'.'<img src="../imagens/next.png" class="__idFamilia" id="'.$a['id_familia'].'">'.'</td>';
         $html .= '</tr>';
     }
