@@ -73,7 +73,12 @@
         } 
         
         public function buscaFamiliaExceptLogradouro($nome){
-            $select= "SELECT * FROM familia WHERE id_familia NOT IN(SELECT id_familia FROM familia WHERE logradouro like '%$nome%' AND id_familia NOT IN (SELECT id_familia FROM pessoa WHERE grau_parentesco= 'TITULAR' AND nome like '%$nome%'))";
+            $select= "SELECT * FROM familia WHERE id_familia NOT IN
+                (SELECT id_familia FROM familia WHERE logradouro like '%$nome%') 
+                AND id_familia NOT IN 
+                 (SELECT id_familia FROM pessoa WHERE grau_parentesco= 'TITULAR' AND nome like '%$nome%')
+                     
+            ";
             //"SELECT * FROM familia WHERE logradouro like '%$nome%' AND id_familia NOT IN (SELECT id_familia FROM pessoa WHERE grau_parentesco= 'TITULAR' AND nome like '%$nome%')"
             $res= mysql_query($select);
             if($res === FALSE){
@@ -101,13 +106,13 @@
         public function buscaNumero($idFamilia){
             $select= "SELECT numero FROM familia WHERE id_familia = $idFamilia";
             $res= mysql_query($select);
-            $a  = mysql_fetch_assoc($res);
+            //$a  = mysql_fetch_assoc($res);
             if($res === FALSE){
                 echo "familia não encontrada";
                 return null;
             }else{
                 //$arrived= mysql_fetch_assoc($res);
-                return $a['numero'];
+                return $res;
             }            
         }
         

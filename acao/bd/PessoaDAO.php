@@ -46,6 +46,22 @@
             } 
         }
         
+        public function buscaPessoabyFamilia2($id){
+            
+            $teste = "SELECT * FROM pessoa WHERE id_familia= '".$id."' AND grau_parentesco= 'TITULAR'";        
+                       
+            $res= mysql_query($teste)or die(mysql_error());
+            //$a  = mysql_fetch_assoc($res);
+            
+            if($res === FALSE){
+                echo "pessoa não encontrada";
+                return null;
+            }else{
+                //$arived= mysql_fetch_row($res);               
+                return $res;
+            } 
+        }
+        
         public function buscaPessoabyFamilia($id){
             
             $teste = $this->_selNome.' '."WHERE id_familia= '".$id."' AND grau_parentesco= 'TITULAR'";         

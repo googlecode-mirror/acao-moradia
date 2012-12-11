@@ -16,7 +16,7 @@
      elseif($parametro === 'e'){
         session_start();
         $_SESSION['id_familia']= $id_familia;
-        header("Location: ../visao/vCadastroPessoaComFamilia2.php");
+        header("Location: ../visao/vEditaFamilia.php");
     }
 /*
  * To change this template, choose Tools | Templates
