@@ -39,7 +39,7 @@
                         </div>
                         
                         <div class="bts">
-                            <ul><li><a href="vCadastroPessoa.php" target="_parent">Famílias</a></li></ul>
+                            <ul><li><a href="vEditOrDeleteFamilia.php" target="_parent">Famílias</a></li></ul>
                         </div>
                     </div>
 
