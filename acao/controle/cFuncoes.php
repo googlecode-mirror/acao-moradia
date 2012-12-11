@@ -1,6 +1,6 @@
 <?php
 /*RETORNA YYYY-MM-DD*/
-include_once '../bd/Debug.php';
+//include_once '../bd/Debug.php';
 class Funcoes{
     public static function toMySqlDate($data) {        
         if($data != NULL){            
@@ -9,7 +9,7 @@ class Funcoes{
             $dia = $data[0].$data[1];
             $data = $ano.'-'.$mes.'-'.$dia;
         }                
-        Debug::gravaEmArquivo($data);
+        //Debug::gravaEmArquivo($data);
         return $data;
     }
 

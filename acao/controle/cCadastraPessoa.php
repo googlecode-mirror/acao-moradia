@@ -37,15 +37,11 @@
     }else{
         $grauParentesco = "TITULAR";
     }
-    
-    $dataNascimento = Funcoes::toMySqlDate($_POST['dataNascimento']);
-    echo $dataNascimento;
-    include_once '../bd/Debug.php';
-    Debug::gravaEmArquivo($dataNascimento);
+        
     //cadastra a pessoa
     $pessoa = new Pessoa(
             $familia->getIdFamilia(), $_POST['cidadeNatal'],$_POST['nome'], $_POST['cpf'], 
-            $_POST['rg'], $_POST['sexo'], $dataNascimento, $_POST['telefone'], $grauParentesco,
+            $_POST['rg'], $_POST['sexo'], $_POST['dataNascimento'], $_POST['telefone'], $grauParentesco,
             $_POST['estadoCivil'],$_POST['raca'],$_POST['religiao'], $_POST['carteiraProfissional'],
             $_POST['tituloEleitor'],$_POST['certidaoNascimento']);
 
@@ -73,74 +69,8 @@
         header("Location: ../visao/vCadastroPessoa.php?et=".$etapa_concluida."&family=".$familia->getIdFamilia()."&titular=".$pessoa->getNome());                        
     }else{
         if($etapa_concluida == "3"){//o usuario vai para etapa de pesquisa                                            
-            header("Location: ../visao/vPesquisa.php");
+            header("Location: ../visao/vPesquisaSocioEconomica.php");
         }
     }
     
-
-/*
-    include_once 'cFuncoes.php';
-    echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />";
-    include_once '../modelo/Modelo.php';
-    include_once '../bd/BairroDAO.php';
-    include_once '../bd/PessoaDAO.php';
-    include_once '../bd/DBConnection.php';
-    
-    session_start();
-    $_SESSION['nome']= $_POST['nome'];//
-    $_SESSION['cpf']= $_POST['cpf'];//
-    $_SESSION['rg']= $_POST['rg'];//
-    $sexo= $_POST['sexo'];
-    
-    if($sexo === "Masculino")
-        $_SESSION['sexo']= 'M';//
-    elseif ($sexo === "Feminino") 
-        $_SESSION['sexo']= 'F';//  
-    
-    $dataNascimento= $_POST['dataNascimento'];
-    $_SESSION['dataNascimento']= Date::toMySqlDate($dataNascimento);
-
-    //pegando a data de cadastro do sistema
-    //date_default_timezone_set('America/Sao_Paulo');
-    //$dataCadastro= date('m/d/Y');
-    
-    $_SESSION['telefone']= $_POST['telefone'];
-  */  
-    //header("Location: cCadastraCursos.php");//mudar p cadastro pt 2
-    /*
-    $logradouro= $_POST['logradouro'];
-    $numero= $_POST['numero'];
-    $cidadeNome= $_POST['cidade'];
-    $bairroNome= $_POST['bairro'];
-    $cidadeEstado= $_POST['estado'];
-    $cep= $_POST['cep'];
-    $idConjuge = "NULL";
-    */
-    //$idPessoa= 01;
-    
-   /* DataBase::createConection();
-    
-    /*
-     procura se ja existe uma familia com este endereço, se jah, retorna tds os atributos dela p preencher os campos...
-     * se naum, da a opção de criar a familia
-     */
-    
-    //enquanto endereços
-    /*$bairroClass= new Bairro($bairroNome);//persistir bairro
-    $bDao= new BairroDAO();
-    $vet= $bDao->buscaBairro($bairroNome);
-    if(sizeof($vet)>0){    
-        //echo $vet['nome'];
-        $cidadeClass= new Cidade($cidadeNome, $cidadeEstado);//persistir cidade
-        //enquanto telefones
-        //$telefonrClass= new Telefone($idPessoa, $numero);//persistir telefone
-    
-        //$endereco= new Endereco($cep, $logradouro, $numero, $bairroClass, $cidadeClass, $cidadeEstado);//persistir endereço
-   
-        //fazer uma validação de cpf...    
-    
-        //$pessoa= new Pessoa($idPessoa, $cpf, $nome, $rg, $sexo, $dataNascimento, $dataCadastro, $dataSaida, $cep, null);
-        $pDAO= new PessoaDAO();
-        $tep= $pDAO->cadastraPessoa( $cpf, $nome, $rg, $sexo, $dataNascimento, $idConjuge, $cep, $logradouro, $numero);*/
-        //if($tep === true){*/
 ?>
