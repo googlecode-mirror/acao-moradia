@@ -132,7 +132,7 @@
                                 <option>BRANCA</option>
                                 <option>CABOCLO</option>
                                 <option>CABRA</option>
-                                <option>INDÌGENA</option>
+                                <option>INDÍGENA</option>
                                 <option>NEGRA</option>                                                                
                                 <option>MULATA</option>                               
                                 <option>PARDA</option>
