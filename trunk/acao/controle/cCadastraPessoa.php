@@ -7,8 +7,10 @@
     include_once '../bd/FamiliaDAO.php';
     include_once '../bd/PessoaDAO.php';
     include_once '../bd/PessoHasProgramaDAO.php';
+    include_once '../bd/TelefoneDAO.php';
     include_once 'cListaProgramas.php';
     include_once 'cFuncoes.php';    
+    
         
     if(!isset($_POST['idFamilia'])){//se nao existe familia        
         //cadastra o bairro
@@ -20,13 +22,20 @@
         
         $familiaDAO = new FamiliaDAO();
         $res = $familiaDAO->cadastraFamilia_2($familia);
-        
+                
         if($res === FALSE){
             echo "Erro ao cadastrar familia";
             exit();
-        }                
+        }else{
+            if(isset($_POST['telefone_residencial'])){
+                $tel = $_POST['telefone_residencial'];
+                $TelefoneDAO = new TelefoneDAO();
+                $TelefoneDAO->cadastraTelefone($tel, $familia->getIdFamilia(), ''); 
+            }
+        }               
+        
     }else{
-        echo $_POST['idFamilia'];
+        //echo $_POST['idFamilia'];
         $familia = new Familia("","","","","");
         $familia->setIdFamilia($_POST['idFamilia']);
     }
@@ -63,10 +72,11 @@
     }                     
                         
     $etapa_concluida = $_POST['et'];
-    echo $etapa_concluida ;
+    //echo $etapa_concluida ;
     
     if($etapa_concluida == "2"){//o usuario quer incluir outras pessoas
-        header("Location: ../visao/vCadastroPessoa.php?et=".$etapa_concluida."&family=".$familia->getIdFamilia()."&titular=".$pessoa->getNome());                        
+        $familiaDAO = new FamiliaDAO();
+        header("Location: ../visao/vCadastroPessoa.php?et=".$etapa_concluida."&family=".$familia->getIdFamilia()."&titular=".$familiaDAO->getNomeTitularFamiliaByIdFamilia($familia->getIdFamilia()));                        
     }else{
         if($etapa_concluida == "3"){//o usuario vai para etapa de pesquisa                                            
             header("Location: ../visao/vPesquisaSocioEconomica.php");

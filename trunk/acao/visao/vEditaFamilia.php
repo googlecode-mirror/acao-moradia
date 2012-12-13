@@ -13,6 +13,7 @@
             include_once '../controle/cFuncoes.php';
             include_once '../bd/PessoHasProgramaDAO.php';
             include_once '../bd/ProgramaDAO.php';
+            include_once '../bd/TelefoneDAO.php';
             
             session_start();
             $id_familia= $_SESSION['id_familia'];
@@ -23,6 +24,7 @@
             $pD= new PessoaDAO();
             $pHpD= new PessoaHasProgramaDAO();
             $progD= new ProgramaDAO();
+            $telD = new TelefoneDAO();
             
             //$resltTitular= $pD->buscaPessoabyFamilia2($id_familia);
             $a  = mysql_fetch_assoc($pD->buscaPessoabyFamilia2($id_familia));
@@ -35,6 +37,7 @@
             $resCidade= mysql_fetch_assoc($cD->buscaCidadebyCod($result['cod_cidade']));
             $resEstado= mysql_fetch_assoc($eD->buscaEstadobyCod($resCidade['cod_estado']));
             echo $a['religiao'];
+            $telefone_residencial = mysql_fetch_assoc($telD->buscaTelefoneByIdFamilia($id_familia));
         ?>
         <link href="../css/button.css" rel="stylesheet" type="text/css" />
 
@@ -55,6 +58,7 @@
                 jQuery("#telefone").mask("(99) 9999-999?9");
                 jQuery("#dataNascimento").mask("99/99/9999");
                 jQuery("#numero").mask("9?99999");
+                jQuery("#telefone_residencial").mask("(99) 9999-999?9");
             });
         </script>                     
     </head>
@@ -154,7 +158,7 @@
                                 <option <?php if($a['raca'] === 'BRANCA') echo 'selected'; ?>>BRANCA</option>
                                 <option <?php if($a['raca'] === 'CABOCLO)') echo 'selected'; ?>>CABOCLO</option>
                                 <option <?php if($a['raca'] === 'CABRA') echo 'selected'; ?>>CABRA</option>
-                                <option <?php if($a['raca'] === 'INDÌGENA') echo 'selected'; ?>>INDÌGENA</option>
+                                <option <?php if($a['raca'] === 'INDÍGENA') echo 'selected'; ?>>INDÍGENA</option>
                                 <option <?php if($a['raca'] === 'NEGRA') echo 'selected'; ?>>NEGRA</option>                                                                
                                 <option <?php if($a['raca'] === 'MULATA') echo 'selected'; ?>>MULATA</option>                               
                                 <option <?php if($a['raca'] === 'PARDA') echo 'selected'; ?>>PARDA</option>
@@ -265,7 +269,12 @@
                                 <p>&nbsp;</p>
                                 <p>Bairro:(*) <br/>
                                     <input type="text" id="bairro" name="bairro" value="<?php echo $result['bairro']; ?>" size="14" />                                                        
-                                </p>                                                                                                                         
+                                </p> 
+                                <p>&nbsp;</p>
+                                <p>Telefone Residencial:</p>                            
+                                <p>
+                                    <input maxlength="15" name="telefone_residencial" id="telefone_residencial" size="15" value="<?php echo $telefone_residencial['telefone']; ?>" />
+                                </p>
                         </div>                                            
                     </div>       
                     <?php if(isset($_GET["family"])) echo "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>"; ?>

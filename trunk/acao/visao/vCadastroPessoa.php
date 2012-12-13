@@ -20,6 +20,7 @@
                 jQuery("#cpf").mask("999.999.999-99");
                 jQuery("#cep").mask("99999-999");
                 jQuery("#telefone").mask("(99) 9999-9999?9");
+                jQuery("#telefone_residencial").mask("(99) 9999-9999?9");
                 jQuery("#dataNascimento").mask("99/99/9999");
                 jQuery("#numero").mask("9?99999");
             });
@@ -64,7 +65,7 @@
                             <h3>Dados pessoais <?php if (isset($_GET["msg"])) echo $_GET["msg"] ?>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </h3>
                             <p>&nbsp;</p>
                             <p>Nome completo: (*)</p>
-                            <p><input type="text" id="nome" name="nome" size="30" value="a" maxlength="100" /></p>
+                            <p><input type="text" id="nome" name="nome" size="30" value="<?php echo date("d/m/Y")." ".date("H:i:s");?>" maxlength="100" /></p>
                             <p><br />CPF:</p>
                             <p><input type="text" name="cpf" id="cpf" size="12" value="" maxlength="14" /></p>
                             <p>&nbsp;</p>
@@ -78,7 +79,7 @@
                             </select>
                             <p>&nbsp;</p>
 
-                            <p>Telefone:</p>                            
+                            <p>Telefone Celular:</p>                            
                             <p>
                                 <input maxlength="15" name="telefone" id="telefone" size="15" />
                             </p>
@@ -205,14 +206,16 @@
                                 include_once '../bd/FamiliaDAO.php';
                                 include_once '../bd/CidadeDAO.php';
                                 include_once '../bd/EstadoDAO.php';                                
-                                
+                                include_once '../bd/TelefoneDAO.php';                                
                                 $fD= new FamiliaDAO();
                                 $cD= new CidadeDAO;
                                 $eD= new EstadoDAO();                                
+                                $tD = new TelefoneDAO();
 
                                 $result= mysql_fetch_assoc($fD->buscaFamiliaById($_GET["family"]));
                                 $resCidade= mysql_fetch_assoc($cD->buscaCidadebyCod($result['cod_cidade']));
                                 $resEstado= mysql_fetch_assoc($eD->buscaEstadobyCod($resCidade['cod_estado']));
+                                $resTelefone = mysql_fetch_assoc($tD->buscaTelefoneByIdFamilia($_GET['family']));
                                 //$pD->buscaPessoabyFamilia($id_familia);
                                 ?>
                                 <p>&nbsp;</p>
@@ -239,8 +242,13 @@
                                 <p>&nbsp;</p>
                                 <p>Bairro:(*) <br/>
                                     <input type="text" id="bairro" name="bairro" value="<?php echo $result['bairro']; ?>" size="14" disabled/>                                                        
+                                </p>                                
+                                <p>&nbsp;</p>                                
+                                <p>&nbsp;</p>
+                                <p>Telefone Residencial:</p>                            
+                                <p>
+                                    <input maxlength="15" name="telefone_residencial" id="telefone_residencial" size="15" value="<?php echo $resTelefone['telefone']; ?>" disabled/>
                                 </p>
-                            
                             <?php    
                             }else
                             {
@@ -252,7 +260,7 @@
                             </p>
                             <p>&nbsp;</p>
                             <p>Logradouro:(*) <br/>
-                                <input required="required" type="text" id="logradouro" name="logradouro" size="30" value="" />
+                                <input required="required" type="text" id="logradouro" name="logradouro" size="30" value="Rua: das Harpas" />
                             </p>                            
                             <p>&nbsp;</p>
                             <p>Número:(*)<br/>
@@ -283,15 +291,21 @@
                             </p>
                             <p>&nbsp;</p>
                             <p>Bairro:(*) <br/>
-                                <input type="text" id="bairro" name="bairro" value="" size="14" />                                                        
-                            </p>                            
+                                <input type="text" id="bairro" name="bairro" value="Taiaman" size="14" />                                                        
+                            </p>    
+                            <p>&nbsp;</p>
+                            <p>&nbsp;</p>
+                            <p>Telefone Residencial:</p>                            
+                            <p>
+                                <input maxlength="15" name="telefone_residencial" id="telefone_residencial" size="15" value=""/>                                    
+                            </p>
                             <?php
                                 }
                             ?>
                             <p>&nbsp;</p>                                                                                                                                   
                         </div>                                            
                     </div>       
-                    <?php if(isset($_GET["family"])) echo "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>"; ?>
+                    <?php if(isset($_GET["family"])) echo "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>"; ?>
                     <center>
                         <p>
                             <input type="submit" class="button blue" value="Próximo >>" onclick="return controla();"/>
