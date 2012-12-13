@@ -160,6 +160,16 @@
             }
             return $res;
         }
+        
+        public function getNomeTitularFamiliaByIdFamilia($idFamilia){
+            $nome_titular = mysql_query("select nome from familia f, pessoa p where f.id_familia = p.id_familia and f.id_familia = $idFamilia");
+            if($nome_titular){
+                $arrived= mysql_fetch_assoc($nome_titular);                
+                return $arrived['nome'];
+            }else{
+                return "TITULAR";
+            }
+        }
     }
 ?>
 

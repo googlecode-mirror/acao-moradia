@@ -143,13 +143,14 @@ function valida_etapa_2(){
 /*----------------------------------------------------------------------------
  controla a validação das etapas do cadastro de famílias.
 -----------------------------------------------------------------------------*/
+var msg_confirm = "Clique em OK para incluir outras pessoas.\n\nClique em Cancelar ou em Fechar(X) para ir ao cadastro socioeconômico"
 function controla(){              
     //alert(document.getElementById("et").value);
     //alert($("#et").val());    
     switch($("#et").val()){
         case "1":                       
             if(valida_etapa_1()==true){                                                
-                if(confirm("Clique em OK para incluir outras pessoas.\n\nClique em Cancelar ou em Fechar(X) para ir ao cadastro socioeconômico"))
+                if(confirm(msg_confirm))
                 {
                     document.getElementById("et").value='2';//alterar o valor do campo hidden com id #et para 2                    
                     //vai persistir no banco os dados e passa para a pesquisa socio-economica                    
@@ -157,7 +158,7 @@ function controla(){
                     document.getElementById("et").value='3';//alterar o valor do campo hidden com id #et para 3                    
                     //vai para a pesquisa socioeconomica
                 }
-                alert(document.getElementById("et").value);
+                //alert(document.getElementById("et").value);
                 return true;                
             }else{                
                 return false;
@@ -165,7 +166,7 @@ function controla(){
         break;
         case "2":
             if(valida_etapa_2()==true){
-                if(!confirm("Deseja incluir outras pessoas?"))
+                if(!confirm(msg_confirm))
                 {                                    
                     document.getElementById("et").value='3';//alterar o valor do campo hidden com id #et para 3                    
                     //vai para a pesquisa socioeconomica
