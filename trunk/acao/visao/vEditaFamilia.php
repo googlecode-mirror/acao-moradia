@@ -224,7 +224,8 @@
                                 <p>&nbsp;</p>
                                 <p>&nbsp;</p>
                                 <p>ID da família<br/>
-                                    <input type="text" name="id_familia" value="<?php echo $a['id_familia'];?>" size="14" onBlur="getEndereco();" /><br/>
+                                    <input type="text" name="id_familia" value="<?php echo $a['id_familia'];?>"  disabled size="14" onBlur="getEndereco();" /><br/>
+                                    <input type="hidden" name="id_familia" value="<?php echo $a['id_familia'];?>"/>
                                 </p><br/>
                                 <p>CEP:(*)<br/>
                                     <input type="text" id="cep" name="cep" value="<?php echo $result['cep']; ?>" size="14" onBlur="getEndereco();" />
