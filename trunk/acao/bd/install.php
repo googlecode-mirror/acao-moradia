@@ -23,7 +23,6 @@
     mysql_query('SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO"');
 
     $charset = mysql_set_charset('utf8');
-    $charset = mysql_set_charset('utf8');
 
     ########CRIA O BANCO
     mysql_query('DROP DATABASE IF EXISTS acao_moradia');
@@ -144,7 +143,7 @@
       CONSTRAINT `fk_Pessoa_familia1`
         FOREIGN KEY (`id_familia` )
         REFERENCES `familia` (`id_familia` )
-        ON DELETE NO ACTION
+        ON DELETE CASCADE   #permite deletar uma família
         ON UPDATE NO ACTION,
       CONSTRAINT `fk_pessoa_cidade1`
         FOREIGN KEY (`cidade_natal` )
@@ -167,7 +166,7 @@
       CONSTRAINT `fk_Telefone_familia1`
         FOREIGN KEY (`id_familia` )
         REFERENCES `familia` (`id_familia` )
-        ON DELETE NO ACTION
+        ON DELETE CASCADE
         ON UPDATE NO ACTION)
     ENGINE = InnoDB;
     ") or die(mysql_error());
@@ -191,7 +190,7 @@
       CONSTRAINT `fk_Curso_has_Pessoa_Pessoa1`
         FOREIGN KEY (`id_pessoa` )
         REFERENCES `pessoa` (`id_pessoa` )
-        ON DELETE NO ACTION
+        ON DELETE CASCADE   #permite que ao deletar uma pessoa, delete os cursos q ela fez tb
         ON UPDATE NO ACTION)
     ENGINE = InnoDB;
     ") or die(mysql_error());
@@ -220,7 +219,7 @@
       CONSTRAINT `fk_Pessoa_has_Programa_Pessoa1`
         FOREIGN KEY (`id_pessoa` )
         REFERENCES `pessoa` (`id_pessoa` )
-        ON DELETE NO ACTION
+        ON DELETE CASCADE   #permite q ao deletar uma pessoa delete os programas dela
         ON UPDATE NO ACTION,
       CONSTRAINT `fk_Pessoa_has_Programa_Programa1`
         FOREIGN KEY (`id_programa` )

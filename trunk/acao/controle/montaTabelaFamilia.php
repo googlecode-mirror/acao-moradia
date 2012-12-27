@@ -1,4 +1,7 @@
 <script type="text/javascript">
+    function confirma_exclusao(){
+        return confirm("Atenção! A Exclusão de uma família apagará os dados de todas as pessoas pertencentes a esta família, bem como telefones de contatos, cursos pegos. Deseja REALMENTE excluir esta família?");
+    }
     /*
     $("._editar").click(function(){
             
@@ -60,7 +63,7 @@ if (!$query) {//busca vazia retorno irrelevante
         $html .= '<td>' . $a['logradouro'] . ' - ' . $a['numero'] . '</td>';
         $html .= '<center>' . '<td>' . '<input src="../imagens/next.png" type="image" name= "id_familia" value="' . $a['id_familia'] .'a'. '">' . '</td>' . '</center>';
         $html .= '<center>' . '<td>' . '<input src="../imagens/bt_editar.png" type="image" name= "id_familia" value="' . $a['id_familia'] .'e'. '">' . '</td>' . '</center>';
-        $html .= '<center>' . '<td>' . '<input src="../imagens/bt_deletar.png" type="image" name= "id_familia" value="' . $a['id_familia'] . 'd'.'">' . '</td>' . '</center>';
+        $html .= '<center>' . '<td>' . '<input src="../imagens/bt_deletar.png" type="image" name= "id_familia" onclick="return confirma_exclusao()" value="' . $a['id_familia'] . 'd'.'">' . '</td>' . '</center>';
 
 
 //$html .= '<td>'.'<input type="submit" name= "id_familia" value="'.$a['id_familia'].'" img src="../imagens/next.png">'.'</td>';

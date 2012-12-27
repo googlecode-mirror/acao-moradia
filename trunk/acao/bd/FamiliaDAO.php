@@ -20,8 +20,8 @@
         
         public function removeFamiliaById($idFamilia){            
             $this->_rem.= " id_familia=$idFamilia";
-            $_res= mysql_query($this->rem);
-            this.testeInsert($_res);
+            return mysql_query($this->_rem) or die(mysql_error());
+            //this.testeInsert($_res);
         }   
         
         public function buscaFamiliaById($idFamilia){
