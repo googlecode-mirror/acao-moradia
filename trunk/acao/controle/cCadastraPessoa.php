@@ -1,5 +1,4 @@
 <?php
-
     include_once '../modelo/Modelo.php';
     include_once '../bd/BairroDAO.php';
     include_once '../bd/CidadeDAO.php';
@@ -12,7 +11,7 @@
     include_once 'cFuncoes.php';    
     
         
-    if(!isset($_POST['idFamilia'])){//se nao existe familia        
+    if(!isset($_POST['idFamilia'])){//se nao existe familia
         //cadastra o bairro
         $bairroDAO = new BairroDAO();
         $bairroDAO->cadastraBairro($_POST['bairro']);        

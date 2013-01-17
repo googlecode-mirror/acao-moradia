@@ -1,16 +1,16 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
     <head>
         <?php
         require("vLayoutHead.php");
-        ?>
+        ?>        
         <link href="../css/button.css" rel="stylesheet" type="text/css" />
 
+        <!--
         <script type="text/javascript" src="../js/jquery-1.8.0.min.js"></script>
         <script type="text/javascript" src="../js/jquery-1.8.3.js"></script>    
         <script type="text/javascript" src="../js/jquery.maskedinput-1.2.pack.js"></script>
         <script type="text/javascript" src="../js/scripts.js"></script>
-
+-->
     </head>
     <body>
         <?php /*
@@ -28,11 +28,18 @@
             ?>
             <div class="content">
                 <?php
+                //session_start();
+                //$_SESSION['botao'] = 'exibir_funcionarios';                 
                 require("vLayoutMargin.php");
                 ?>              
                               
                 <div class="bloco" style="border: #b1b1b1 solid 2px;">
-
+                    <?php
+                        //require_once("vCadastroFuncionarioNew.php");
+                        require_once '../mate-2.2/Example1.php';
+                        $ex = new Example1();
+                    ?>                    
+					<!--
                     <form name="cadastro" action="../controle/cCadastraFuncionario.php" method="post"/>
 
                     <div style="margin: 10px; border: #b1b1b1 solid 2px;">                         
@@ -64,6 +71,7 @@
                     </div>
 
                     </form>
+					-->
 
                 </div>          
 
