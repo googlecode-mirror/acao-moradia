@@ -6,6 +6,10 @@
         public static function createConection(){
             $_con= @mysql_connect("localhost", "root", "");
             mysql_set_charset('utf8');
+            mysql_query("SET NAMES 'utf8'");	/*PARA TRABALHAR COM ACENTOS SEM PROBLEMAS*/
+            mysql_query("SET character_set_connection=utf8");
+            mysql_query("SET character_set_client =utf8");
+            mysql_query("SET character_set_results = utf8");
             if($_con === FALSE){
                 echo "GBD conection failure";
                 mysql_error();
@@ -22,7 +26,7 @@
         }
         
         public static function isGoodConection(){
-            if($_con === TRUE)
+            if(DataBase::$_con === TRUE)
                 return TRUE;
             return FALSE;
         }                        

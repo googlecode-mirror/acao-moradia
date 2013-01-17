@@ -144,5 +144,9 @@
             }
             return $res;
         }
+        
+        public function excluiPessoaById($idPessoa){
+            return mysql_query($this->_rem.=' id_pessoa = '.$idPessoa) or die(mysql_error());
+        }
     }
 ?>

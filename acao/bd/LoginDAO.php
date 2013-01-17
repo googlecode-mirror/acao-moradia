@@ -67,6 +67,16 @@
             if($res != TRUE)
                 echo 'falha na operação';  
         }
+        
+        public function busca(){            
+            $res= mysql_query($this->_sel);
+            if($res === FALSE){
+                echo "falha na consulta";
+                return null;
+            }else{                
+                return $res;
+            }            
+        }
                
     }
 ?>
