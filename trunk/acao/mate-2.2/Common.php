@@ -82,8 +82,8 @@ class Common
 		<?php
 	}	
 	
-        function displayHtml() {
-        ?>						
+        function displayHtml() {            
+        ?>	                    
         <div class="wrap">
             <?php
             require("../visao/vLayoutBody.php");

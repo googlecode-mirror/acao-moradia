@@ -9,17 +9,17 @@
  * Download the latest version from
  * http://www.mysqlajaxtableeditor.com
  */
-var mateErrRespText = 'There was a problem with the response text';
-var mateErrAjaxUrl = 'Something went wrong...\n\nMost likely the ajax url is incorrect.\n\nIf the ajax url is correct check your apache error log file for more information.';
-var mateBtnBack = 'Back';
-var mateBtnForward = 'Forward';
-var mateDeleteMsg = 'Are you sure you would like to delete this row?';
-var mateSelectRow = 'Please select a row.';
-var mateEdit1Row = 'You can only edit 1 row at a time.';
-var mateView1Row = 'You can only view 1 row at a time.';
-var mateDeleteMultMsg = 'Are you sure you would like to delete these #num_rows# rows?';
-var mateCopyMultMsg = 'Are you sure you would like to copy these #num_rows# rows?';
-var mateNoDate = 'No Date';
+var mateErrRespText = 'Houve um problema com o texto de reposta';
+var mateErrAjaxUrl = 'Alguma coisa deu errado...\n\nO mais amigável ajax url está incorreta.\n\nSe a ajax url está correta certifique seu log de erro apache para mais informações.';
+var mateBtnBack = 'Voltar';
+var mateBtnForward = 'Avançar';
+var mateDeleteMsg = 'Você tem certeza que deseja deletar este registro?';
+var mateSelectRow = 'Por favor selecione um registro.';
+var mateEdit1Row = 'Você pode editar somente 1 registro por vez.';
+var mateView1Row = 'Você pode visualizar somente 1 registro por vez.';
+var mateDeleteMultMsg = 'Você têm certeza que gostaria de deletar esses #num_rows# registros?';
+var mateCopyMultMsg = 'Você têm certeza que gostaria de copiar essas #num_rows# registros?';
+var mateNoDate = 'Nenhuma data';
 var mateUpdateMultMsg = 'Are you sure you would like to update #num_rows# rows?';
-var mateRemoveDate = 'Remove Date';
-var mateUploading = 'The file is uploading...';
+var mateRemoveDate = 'Remover data';
+var mateUploading = 'Uploading...';

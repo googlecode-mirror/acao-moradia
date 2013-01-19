@@ -85,7 +85,7 @@ img {
 	
 /* ---------- bloco_internas  ---------- */
 	.wrap .content .navegador				{ width:660px; float:left; margin-left:15px; font-weight: bold; font-size: 12px; margin-top:20px; color:#4A4C50; font-family: "Trebuchet MS", Arial, Verdana, Helvetica, sans-serif; text-align:right; }
-	.wrap .content .bloco				{ width:860px; padding:20px; margin-left:15px; min-height:250px; background-color:#F2F2F2; border:#E2E2E2 1px solid; }
+	.wrap .content .bloco				{ width:930px; padding:20px; min-height:250px; background-color:#F2F2F2; border:#E2E2E2 1px solid; }
 	.wrap .content  .tit_sub_cat			{ width:600px; margin-left: 20px; float:left; font-family:"Trebuchet MS", Arial, Helvetica, sans-serif; font-size:18px; height:35px; display:block;  }
 
 
@@ -93,8 +93,7 @@ img {
 	.wrap .content .bloco .txt				{ width:600px; margin-top:20px; float:left; margin-left:15px; font-family:"Trebuchet MS", Arial, Helvetica, sans-serif; font-size:14px; font-weight:bold;  }
 	.wrap .content .bloco .txt2				{ width:300px; margin-top:20px; float:left; margin-left:15px; font-family:"Trebuchet MS", Arial, Helvetica, sans-serif; font-size:14px; font-weight:bold;  }
 	.wrap .content .bloco .total			{ width:300px; margin-top:20px; float:left; margin-left:15px; font-family:"Trebuchet MS", Arial, Helvetica, sans-serif; font-size:14px; font-weight:bold;  }
-
-	.wrap .content .bloco form 	{width:660px;}
+	
 	.wrap .content .bloco form fieldset	{border:none;}	
 	
 	.wrap .content .bloco form fieldset label		{   color:#4A4C50; float:left; width:320px; display:block; margin-top:6px;  margin-left:2px; font-size:13px; font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;}

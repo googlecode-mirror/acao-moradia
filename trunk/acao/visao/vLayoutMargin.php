@@ -14,7 +14,7 @@
                             echo '<li></br><a href="vCadastroPessoa.php" class="button red">Cadastrar uma família</a><li>';
                         }
                         if ($_SESSION['botao'] === 'cadastrar_curso') {
-                            echo '<li><a href="vCadastroCurso.php" class="button red">Cadastrar um curso</a><li>';
+                            echo '<li><a href="vCadastroCursoNew.php" class="button red">Cadastrar um curso</a><li>';
                         }
                         if ($_SESSION['botao'] === 'excluir_familia') {
                             echo '<li><a href="vExcluirFamilia.php?id_familia='.$_GET['family'].'" class="button red">Excluir Familia</a><li>';
