@@ -39,11 +39,17 @@
     CREATE  TABLE IF NOT EXISTS `curso` (
       `id_curso` INT NOT NULL AUTO_INCREMENT ,
       `nome` VARCHAR(100) NOT NULL ,	#upper
-      `vagas` SMALLINT NOT NULL ,
+      `vagas` SMALLINT NOT NULL,
       `data_inicio` DATE NOT NULL ,
       `carga_horaria` FLOAT NULL ,
       `pre_requisitos` TEXT NULL ,  	#upper
-      `dias_semana` TEXT NULL ,			#upper
+      `seg` bool NOT NULL DEFAULT FALSE,
+      `ter` bool NOT NULL DEFAULT FALSE,
+      `qua` bool NOT NULL DEFAULT FALSE,
+      `qui` bool NOT NULL DEFAULT FALSE,
+      `sex` bool NOT NULL DEFAULT FALSE,
+      `sab` bool NOT NULL DEFAULT FALSE,
+      `dom` bool NOT NULL DEFAULT FALSE,
       `data_termino` DATE NOT NULL CHECK(`data_termino` >= `data_inicio`),
       PRIMARY KEY (`id_curso`) )
     ENGINE = InnoDB;
@@ -178,6 +184,7 @@
     CREATE  TABLE IF NOT EXISTS `curso_has_pessoa` (
       `id_curso` INT NOT NULL ,
       `id_pessoa` INT NOT NULL ,
+      `data_inscricao` TIMESTAMP NOT NULL ,      
       `situacao_matricula` TINYTEXT NOT NULL CHECK(`situacao_matricula` IN('MATRICULADO', 'LISTA DE ESPERA', 'CONCLUÍDO', 'DESISTIU')),		#upper
       PRIMARY KEY (`id_curso`, `id_pessoa`) ,
       INDEX `fk_Curso_has_Pessoa_Pessoa1_idx` (`id_pessoa` ASC) ,
@@ -248,9 +255,19 @@
     mysql_query("
     CREATE TRIGGER insere_curso BEFORE INSERT ON curso
       FOR EACH ROW BEGIN    
+            declare msg varchar(255);
             set NEW.nome = upper(NEW.nome);
             set NEW.pre_requisitos = upper(NEW.pre_requisitos);
-            set NEW.dias_semana = upper(NEW.dias_semana);		
+            IF(NEW.data_termino < NEW.data_inicio) THEN
+                /*CALL insere_curso('Erro: A data de término não pode ser menor do que a data de início');*/
+                set msg = \"Erro: A data de término não pode ser menor do que a data de início\";
+                SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = msg;
+            END IF;
+            IF(NEW.vagas < 1) THEN
+                /*CALL insere_curso('Erro: A data de término não pode ser menor do que a data de início');*/
+                set msg = \"Erro: O número de vagas deve ser maior do que 0\";
+                SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = msg;
+            END IF;
       END;
     ") or die(mysql_error());
 
@@ -260,11 +277,62 @@
     mysql_query("
     CREATE TRIGGER atualiza_curso BEFORE UPDATE ON curso
       FOR EACH ROW BEGIN    
+            DECLARE msg varchar(255);            
+            DECLARE i INTEGER;            
+            DECLARE done INT DEFAULT FALSE;
+            
+            DECLARE id_pes INTEGER;
+            DECLARE pessoas INTEGER;            
+            
+            DECLARE cur CURSOR FOR SELECT id_pessoa FROM curso_has_pessoa WHERE id_curso = OLD.id_curso AND situacao_matricula = 'LISTA DE ESPERA' ORDER BY data_inscricao;
+            DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+                        
+            SELECT COUNT(*) INTO pessoas FROM curso_has_pessoa WHERE id_curso = OLD.id_curso AND situacao_matricula = 'LISTA DE ESPERA';
+            
             set NEW.nome = upper(NEW.nome);
             set NEW.pre_requisitos = upper(NEW.pre_requisitos);
-            set NEW.dias_semana = upper(NEW.dias_semana);	
-      END;
-    ") or die(mysql_error());
+            IF(NEW.data_termino < NEW.data_inicio) THEN
+                set msg = \"Erro: A data de término não pode ser menor do que a data de início\";
+                SIGNAL SQLSTATE 'HY000' SET MESSAGE_TEXT = msg;
+            END IF;
+            IF(NEW.vagas < 1) THEN
+                /*CALL insere_curso('Erro: A data de término não pode ser menor do que a data de início');*/
+                set msg = \"Erro: O número de vagas deve ser maior do que 0\";
+                SIGNAL SQLSTATE 'HY000' SET MESSAGE_TEXT = msg;
+            END IF;
+            
+            /*VERIFICAR SE O NÚMERO DE VAGAS FOI ALTERADO*/            
+            IF NEW.vagas > OLD.vagas THEN       /*SE O NUMERO DE VAGAS NOVO É MAIOR QUE O ANTIGO*/
+                SET i = 0;
+                OPEN cur;                                                
+                lista_inscritos: LOOP                    
+                    IF i < (NEW.vagas - OLD.vagas) AND (pessoas > 0 ) THEN /*SE I < DIFERENÇA ENTRE AS NOVAS VAGAS E AS ANTIGAS*/
+                        FETCH cur INTO id_pes;                        
+                        UPDATE curso_has_pessoa SET situacao_matricula = 'MATRICULADO' WHERE id_curso = OLD.id_curso AND id_pessoa = id_pes;
+                        SET i = i + 1;
+                        SET pessoas = pessoas - 1;
+                        ITERATE lista_inscritos;
+                    END IF;
+                    CLOSE cur;
+                    LEAVE lista_inscritos;
+                END LOOP lista_inscritos;
+            ELSEIF NEW.vagas < OLD.vagas THEN
+                set msg = \"\";
+            END IF;
+            
+            
+      END;") or die(mysql_error());
+    /*
+     * SELECT * FROM curso_has_pessoa c WHERE c.id_curso = OLD.id_curso AND c.situacao_matricula = 'LISTA DE ESPERA';
+            //pega o numero de vagas atual
+            //pega o numero de vagas antigo            
+            
+            //ver se o numero de vagas aumentou
+                //se aumentou, ver se tem alguém na lista de espera
+                    //se tem alguém na lista de espera pega a diferença entre vagas atual e vagas antigo
+           //se diminuiu
+                //pega a diferença entre vagas antigo e vagas atual e tira quem se cadastrou por último
+           */
 
     echo "Trigger ao atualizar curso Instalada com sucesso<br>";
 
@@ -427,12 +495,15 @@
         SELECT COUNT(*) FROM curso_has_pessoa WHERE id_curso = NEW.id_curso INTO qtd_vagas_ocupadas;
         SELECT COUNT(*) FROM curso WHERE id_curso = NEW.id_curso INTO qtd_vagas_curso;
 
-        IF(qtd_vagas_curso > qtd_vagas_ocupadas) THEN
+        IF(qtd_vagas_curso >= qtd_vagas_ocupadas) THEN
              set NEW.situacao_matricula = 'MATRICULADO';
         ELSE
              set NEW.situacao_matricula = 'LISTA DE ESPERA';
 
         END IF;
+        
+        set NEW.data_inscricao = NOW();
+
       END;
     ") or die(mysql_error());
 
@@ -444,7 +515,7 @@
     mysql_query("
     CREATE TRIGGER atualiza_curso_has_pessoa BEFORE UPDATE ON curso_has_pessoa
       FOR EACH ROW BEGIN    
-            set NEW.situacao_matricula = upper(NEW.situacao_matricula);
+            set NEW.situacao_matricula = upper(NEW.situacao_matricula);                        
       END;
     ") or die(mysql_error());
 
@@ -474,8 +545,8 @@
     #---------------------------------------------------POPULAR O BANCO-------------------------------------------------------
     echo "<br>";
     #CURSO
-    mysql_query("insert into curso(nome,vagas,data_inicio,carga_horaria,pre_requisitos,dias_semana,data_termino) values
-    ('informática',2,'2013-01-10',45,'','terça e quinta', '2013-03-10')") or die(mysql_error());
+    mysql_query("insert into curso(nome,vagas,data_inicio,carga_horaria,pre_requisitos,ter,qui,data_termino) values
+    ('informática',2,'2013-01-10',45,'',true, true,'2013-03-10')") or die(mysql_error());
     echo "Tabela curso populada com sucesso<br>";
 
     #PROGRAMA
@@ -520,6 +591,24 @@
     mysql_query("insert into login(usuario, senha, nivel) values ('ATENDENTE','ATENDENTE','ATENDENTE')") or die(mysql_error());   
     mysql_query("insert into login(usuario, senha, nivel) values ('at','at','ATENDENTE')") or die(mysql_error());
     echo "Tabela login populada com sucesso<br>";
+
+    #mate-2.2 plugin
+    mysql_query("
+    --
+    -- Create this table in your database if you want to use show/hide columns or order columns.
+    --
+    CREATE TABLE IF NOT EXISTS `mate_columns` (
+      `id` mediumint(8) unsigned NOT NULL auto_increment,
+      `mate_user_id` varchar(75) collate utf8_unicode_ci NOT NULL,
+      `mate_var_prefix` varchar(100) collate utf8_unicode_ci NOT NULL,
+      `mate_column` varchar(75) collate utf8_unicode_ci NOT NULL,
+      `hidden` varchar(3) collate utf8_unicode_ci NOT NULL default 'No',
+      `order_num` mediumint(4) unsigned NOT NULL,
+      `date_updated` datetime NOT NULL,
+      PRIMARY KEY  (`id`),
+      KEY `mate_user_id` (`mate_user_id`)
+    ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;") or die(mysql_error());
+
 
     echo "<br>BANCO INSTALADO COM SUCESSO<br>";
 ?>

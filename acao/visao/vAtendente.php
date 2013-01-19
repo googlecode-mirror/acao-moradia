@@ -35,7 +35,7 @@
                         </div>
 
                         <div class="bts">
-                            <ul><li><a href="" target="_parent"><s>Programas</a></s></li></ul>
+                            <ul><li><a href="vCadastroPrograma.php" target="_parent">Programas</a></li></ul>
                         </div>
                         
                         <div class="bts">

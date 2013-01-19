@@ -14,9 +14,9 @@
 class LangVars
 {
 	//Class Common
-	var $errNoSelect   = 'Error connecting to mysql: Could not select the %s database';
-	var $errNoConnect  = 'Error connecting to mysql: Could not connect';
-	var $errInScript   = 'An error occurred in script %s on line %s: %s';
+	var $errNoSelect   = 'Erro ao conectar com o mysql: não foi possível selecionar o banco de dados %s';
+	var $errNoConnect  = 'Erro ao conectar com o mysql: não pode conectar';
+	var $errInScript   = 'Um erro ocorreu no script %s na linha %s: %s';
 	
 	//Class AjaxTableEditor
 	//function setDefaults
