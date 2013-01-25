@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <?php
-        require("vLayoutHead.php");
-        session_start();
-        $_SESSION['botao'] = 'cadastrar_curso';        
+                require("vLayoutHead.php");
+//                session_start();
+//                $_SESSION['botao'] = 'cadastrar_curso';
         ?>
 
         <?php
@@ -106,11 +106,11 @@
                     <form action="../controle/cIncluirPessoaCurso.php" method="post"/>
                     <div style="margin: 10px; border: #b1b1b1 solid 2px;">                         
                         <center>                            
-                            <h2>Inclusão de uma pessoa em um curso</h2>
+                            <h2>Inclusão de pessoa em curso</h2>
                         </center>                          
                         <div style="margin: 25px; float:left; ">
                             <p>Entre com o nome da pessoa a ser inclusa no curso:</p>
-                            <input id="pessoa" name="pessoa" size="50" required="required" autofocus="autofocus"/>
+                            <input id="pessoa" name="pessoa" size="50" required="required" autofocus="autofocus"/><a href="vCadastroPessoa.php" class="button red">Não encontrou a pessoa? Cadastre ela</a>                                
                             <input type="hidden" id="idPessoa" name="idPessoa"/>
                             <p id="descricao"></p>
 
@@ -134,14 +134,17 @@
                             <input type="hidden" id="et" name="et" value="1"/>
                             <p>&nbsp;</p>
                             <p>
-                                <input type="submit" class="button blue" value="Inserir"/>
-                            </p>
-
-                        </div>
-                    </div>
+                                <input type="submit" class="button blue" value="Incluir"/>                                
+                            </p>                            
+                            <p>&nbsp;</p>                            
+                            <a href="vCadastroCursoNew.php" class="button red">Exibir cursos</a>
+                            
+                        </div>                        
+                    </div>                    
                     <br/>
-                        </form>                
-                </div>                                                                                                                                                                                                                                             
+                    </form>                                    
+                </div>
+                
             </div>
         </div>
     </body>

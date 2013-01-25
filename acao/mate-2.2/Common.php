@@ -58,9 +58,7 @@ class Common
                         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">                        
                         <link rel="shortcut icon" href="../imagens/favicon.ico" />
                         <link href="../css/stylesNew.css" rel="stylesheet" type="text/css" />
-                        <link href="../css/button.css" rel="stylesheet" type="text/css" />                        
-                        
-                        <link href="../css/button.css" rel="stylesheet" type="text/css" />
+                        <link href="../css/button.css" rel="stylesheet" type="text/css" />                                                                        
                         
 			<link href="../mate-2.2/css/table_styles.css" rel="stylesheet" type="text/css" />
 			<link href="../mate-2.2/css/icon_styles.css" rel="stylesheet" type="text/css" />
@@ -82,6 +80,9 @@ class Common
 		<?php
 	}	
 	
+        function setConfig(){
+            $this->Editor->setConfig('iconTitle','Ações'); 
+        }
         function displayHtml() {            
         ?>	                    
         <div class="wrap">

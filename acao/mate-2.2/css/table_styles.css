@@ -29,6 +29,7 @@
 table.mateTable {
 	border: 3px solid #ccc;	
         color: #333;
+        font-size:14px;
 }
 
 table.mateTable tr.header {

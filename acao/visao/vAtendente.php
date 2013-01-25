@@ -27,7 +27,7 @@
                         </div>
 
                         <div class="bts">
-                            <ul><li><a href="vPreCadastro.php" target="_parent">Pessoas</a></li></ul>
+                            <ul><li><a href="vPreCadastroNew.php" target="_parent">Pessoas</a></li></ul>
                         </div>
 
                         <div class="bts">
@@ -39,7 +39,7 @@
                         </div>
                         
                         <div class="bts">
-                            <ul><li><a href="vEditOrDeleteFamilia.php" target="_parent">Famílias</a></li></ul>
+                            <ul><li><a href="vEditOrDeleteFamiliaNew.php" target="_parent">Famílias</a></li></ul>
                         </div>
                     </div>
 

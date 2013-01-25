@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 
 img {
     border: 0 /* Evita que bordas pretas apareçam em imagens no IE */
@@ -21,7 +21,7 @@ img {
 }
 	article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; }
 	blockquote:before, blockquote:after, q:before, q:after 	{ content: ''; content: none; }
-	body			{ margin:0 auto; background-color:#FFFFFF; background-image:url(../imagens/bg2.jpg); background-position:center top; background-repeat:repeat-x; font-family:"Trebuchet MS", Arial, Verdana, Helvetica, sans-serif; font-weight:normal; font-size:12px; line-height: 1.3; 
+	body			{ margin:0 auto; background-color:#FFFFFF; background-image:url(../imagens/bg2_NEW.jpg); background-position:center top; background-repeat:repeat-x; font-family:"Trebuchet MS", Arial, Verdana, Helvetica, sans-serif; font-weight:normal; font-size:12px; line-height: 1.3; 
 					}
 	ol, ul 			{ list-style: none; }
 	table 			{ border-collapse: collapse;	border-spacing: 0; }
@@ -55,7 +55,7 @@ img {
 
 /* ----------  LOGO  ---------- */
 	.wrap .header .logo	 				{ width:464px; float:left;  }
-	.wrap .header .titulo	 			{ width:300px; float:right; margin-top:70px;   }
+	.wrap .header .titulo	 			{ width:300px; float:right; margin-top:20px;   }
 	.wrap .header .titulo .txt	 			{ width:300px; height:76px; float:left; background-image:url(../imagens/bg_ferramenta.png); background-repeat:no-repeat; }
 	.wrap .header .titulo .txt ul li h2 { font-size:20px; margin-left:80px; color:#FFF; margin-top:5px;}
 	.wrap .header .logo .lg				{ width:464px; height:95px; float:left; margin-top:13px; text-indent:-99999em;background-image:url(../imagens/lg_copy.png);  }
@@ -63,9 +63,9 @@ img {
 
 
 /* ----------  MENU  ---------- */
-	.wrap .header .menu					{ width:570px; height:100px; margin-top:20px; float:left; background:url(../imagens/bg_menu.jpg); background-repeat:repeat-x;  }
+	.wrap .header .menu					{ width:570px; height:70px; margin-top:20px; float:left; background:url(../imagens/bg_menu.jpg); background-repeat:repeat-x;  }
 	.wrap .header .menu .tit_login		{ width:176px; height:40px; float:left; margin-top:24px; position:absolute; background-image:url(../imagens/img_login.png); background-repeat:no-repeat; }
-	.wrap .header .menu .mn				{ width:590px; height:73px; float:left;  margin-top:39px;background-image:url(../imagens/bg_menu.png); }
+	.wrap .header .menu .mn				{ width:590px; height:73px; float:left;  margin-top:-12px;background-image:url(../imagens/bg_menu.png); }
 	.wrap .header .menu .mn .menu_bts			{ width:475px; height:73px; float:left; margin-left:70px;   }
 	.wrap .header .menu .mn .form				{ width:465px; height:50px; float:left; margin-left:68px;  margin-top:30px; }	
 	.wrap .header .menu .mn .form .campo1				{ width:210px; height:23px; float:left;  font-size:12px; font-weight:normal; font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;   }

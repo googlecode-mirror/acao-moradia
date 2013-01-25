@@ -82,3 +82,13 @@ li.edit a {
 li.edit a:hover {
 	background: url('../images/icons/edit.png') 50% -19px no-repeat;
 }
+
+li.viewFull a {
+	height: 17px;
+	width: 22px;
+	background: url('../images/icons/view.png') no-repeat center top;
+}
+
+li.viewFull a:hover {
+	background: url('../images/icons/view.png') 50% -19px no-repeat;
+}

@@ -7,7 +7,7 @@
             <center>
             <!-- <ul><li><input class="button black bigrounded" type="button" value=" /\  Início " onClick="location.href='vAtendente.php'"/></li></ul> -->
                 <ul>
-                    <li><input class="button black bigrounded" type="button" value="<< Voltar"   onclick="history.go(-1);return true;"/></li>
+                    <!--<li><input class="button black bigrounded" type="button" value="<< Voltar"   onclick="history.go(-1);return true;"/></li>-->
                     <?php
                     if (isset($_SESSION['botao'])) {
                         if ($_SESSION['botao'] === 'editar_familia') {
@@ -22,7 +22,10 @@
                         if ($_SESSION['botao'] === 'exibir_funcionarios') {
                             echo '<li><a href="vExibirFuncionarios.php" class="button red">Exibir Funcionarios</a><li>';
                         }
-                        $_SESSION['botao'] = NULL;
+                        if ($_SESSION['botao'] === 'cadastrar_pessoa') {
+                            echo '<li><a href="vCadastroPessoa.php" class="button red">Cadastrar Pessoa</a><li>';
+                        }
+                        $_SESSION['botao'] = NULL;                        
                     }
                     ?>
                 </ul>
