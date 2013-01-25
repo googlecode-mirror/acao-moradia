@@ -17,14 +17,14 @@ require_once('../mate-2.2/Common.php');
 require_once('../mate-2.2/php/lang/LangVars-en.php');
 require_once('../mate-2.2/php/AjaxTableEditor.php');
 require_once '../controle/cFuncoes.php';
+require_once '../bd/DBConnection.php';
 
 class VCurso extends Common {
 
     function initiateEditor() {
         //nome,vagas,data_inicio,carga_horaria,pre_requisitos,ter,qui,data_termino
         $tableColumns['id_curso'] = array('display_text' => 'Id curso', 'perms' => 'VQXSHOMI', 'req' => true);
-        $tableColumns['nome'] = array('display_text' => 'Nome', 'perms' => 'EVTAXQSHOMI', 'req' => true, 'input_info' => 'maxlength="100"');
-        $tableColumns['vagas'] = array('display_text' => 'Vagas', 'perms' => 'EVTAXQSHOM', 'req' => true, 'val_fun' => array(&$this, 'valVagas'));
+        $tableColumns['nome'] = array('display_text' => 'Nome', 'perms' => 'EVTAXQSHOMI', 'req' => true, 'input_info' => 'maxlength="100"');        
         $tableColumns['data_inicio'] = array('display_text' => 'Data de início', 'perms' => 'EVTAXQSHOM', 'req' => true, 'display_mask' => 'date_format(date(`data_inicio`),"%d/%m/%Y")', 'calendar' => array('format' => '%d/%m/%Y', 'reset' => true));
         $tableColumns['data_termino'] = array('display_text' => 'Data de término', 'perms' => 'EVTAXQSHOM', 'req' => true, 'display_mask' => 'date_format(date(`data_termino`),"%d/%m/%Y")', 'calendar' => array('format' => '%d/%m/%Y', 'reset' => true));
 
@@ -38,8 +38,10 @@ class VCurso extends Common {
         $tableColumns['sex'] = array('display_text' => 'Sex', 'perms' => 'EVTAXQSHOM', 'checkbox' => array('checked_value' => '1', 'un_checked_value' => '0'), 'display_mask' => "IF(sex = '0','','<center>X</center>')");
         $tableColumns['sab'] = array('display_text' => 'Sab', 'perms' => 'EVTAXQSHOM', 'checkbox' => array('checked_value' => '1', 'un_checked_value' => '0'), 'display_mask' => "IF(sab = '0','','<center>X</center>')");
         $tableColumns['dom'] = array('display_text' => 'Dom', 'perms' => 'EVTAXQSHOM', 'checkbox' => array('checked_value' => '1', 'un_checked_value' => '0'), 'display_mask' => "IF(dom = '0','','<center>X</center>')");
-        //$tableColumns['dom'] = array('display_text' => 'Dom', 'perms' => 'EVTAXQSHOM', 'checkbox' => array('checked_value' => '1','un_checked_value' => '0'), 'display_mask' => "IF(dom = '0','','<style type=\"text/css\"><!--p {font-weight: bold;font-size:1.4em}--></style><p>S</p>')");
-
+        //$tableColumns['dom'] = array('display_text' => 'Dom', 'perms' => 'EVTAXQSHOM', 'checkbox' => array('checked_value' => '1','un_chec
+        //ked_value' => '0'), 'display_mask' => "IF(dom = '0','','<style type=\"text/css\"><!--p {font-weight: bold;font-size:1.4em}--></style><p>S</p>')");
+        $tableColumns['vagas'] = array('display_text' => 'Total de Vagas', 'perms' => 'EVTAXQSHOM', 'req' => true, 'val_fun' => array(&$this, 'valVagas'));
+        $userColumns[] = array('call_back_fun' => array(&$this,'valVagasDisp'), 'title' => 'Vagas Disponíveis');                         
         $tableName = 'curso';
         $primaryCol = 'id_curso';
         $errorFun = array(&$this, 'logError');
@@ -50,7 +52,9 @@ class VCurso extends Common {
         $this->Editor->setConfig('orderByColumn', 'nome');
         $this->Editor->setConfig('addRowTitle', 'Adicionar curso');
         $this->Editor->setConfig('editRowTitle', 'Editar curso');
-        $this->Editor->setConfig('defaultJsCalFormat', '%B %d, %Y');
+        $this->Editor->setConfig('defaultJsCalFormat', '%B %d, %Y');        
+        $this->Editor->setConfig('userColumns',$userColumns); 
+        $this->setConfig();       
     }
 
     function valVagas($col, $val, $info) {
@@ -58,6 +62,13 @@ class VCurso extends Common {
             return true;
         }
         return false;
+    }
+    
+    function valVagasDisp($row) {         
+         $res = mysql_fetch_assoc(mysql_query("select count(*) as ocupadas from curso_has_pessoa where id_curso=".$row['id_curso']));
+         $html = '<td>'.($row['vagas']-$res['ocupadas']).'</td>'; 
+         return $html; 
+        //return mysql_query("select count(*) from curso_has_pessoa where id_curso=".$info['id_curso']);
     }
 
     //todo construtor que utiliza o plugin mate-2.2 deverá chamar o $this->display();

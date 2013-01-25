@@ -14,20 +14,20 @@ img {
 	time, mark, audio, video {
 	margin: 0;
 	padding: 0;
-	border: 2px;
+	border: 2;
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
 }
 	article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; }
 	blockquote:before, blockquote:after, q:before, q:after 	{ content: ''; content: none; }
-	body			{ margin:0 auto; background-color:#FFFFFF; background-image:url('../imagens/bg2_NEW.jpg'); background-position:center top; background-repeat:repeat-x; font-family:"Trebuchet MS", Arial, Verdana, Helvetica, sans-serif; font-weight:normal; font-size:12px; line-height: 1.3; 
+	body			{ margin:0 auto; background-color:#FFFFFF; background-image:url(../imagens/bg2.jpg); background-position:center top; background-repeat:repeat-x; font-family:"Trebuchet MS", Arial, Verdana, Helvetica, sans-serif; font-weight:normal; font-size:12px; line-height: 1.3; 
 					}
 	ol, ul 			{ list-style: none; }
-	table 			{ border-collapse: collapse;	border-spacing: 6px; }
+	table 			{ border-collapse: collapse;	border-spacing: 0; }
 	blockquote, q 		{ quotes: none; }
 	
-	a		{ text-decoration:underline; color:#4A4C50; outline:none;}
+	a		{ text-decoration:underline; color:#4A4C50; outline:none; font-family:;}
 	h1		{ font-weight: bold; font-size: 40px; color:#4A4C50; font-family:"Trebuchet MS", Arial, Verdana, Helvetica, sans-serif; }
 	h2		{ font-weight: bold; font-size: 30px; color:#4A4C50; font-family:"Trebuchet MS", Arial, Verdana, Helvetica, sans-serif; }
 	h3		{
@@ -55,17 +55,17 @@ img {
 
 /* ----------  LOGO  ---------- */
 	.wrap .header .logo	 				{ width:464px; float:left;  }
-	.wrap .header .titulo	 			{ width:300px; float:right; margin-top:20px;   }
-	.wrap .header .titulo .txt	 			{ width:300px; height:76px; float:left; background-image:url('../imagens/bg_ferramenta.png'); background-repeat:no-repeat; }
+	.wrap .header .titulo	 			{ width:300px; float:right; margin-top:70px;   }
+	.wrap .header .titulo .txt	 			{ width:300px; height:76px; float:left; background-image:url(../imagens/bg_ferramenta.png); background-repeat:no-repeat; }
 	.wrap .header .titulo .txt ul li h2 { font-size:20px; margin-left:80px; color:#FFF; margin-top:5px;}
-	.wrap .header .logo .lg				{ width:464px; height:95px; float:left; margin-top:13px; text-indent:-99999em;background-image:url('../imagens/lg_copy.png');  }
+	.wrap .header .logo .lg				{ width:464px; height:95px; float:left; margin-top:13px; text-indent:-99999em;background-image:url(../imagens/lg_copy.png);  }
 
 
 
 /* ----------  MENU  ---------- */
-	.wrap .header .menu					{ width:570px; height:70px; margin-top:20px; float:left; background:url('../imagens/bg_menu.jpg'); background-repeat:repeat-x;  }
-	.wrap .header .menu .tit_login		{ width:176px; height:40px; float:left; margin-top:24px; position:absolute; background-image:url('../imagens/img_login.png'); background-repeat:no-repeat; }
-	.wrap .header .menu .mn				{ width:590px; height:73px; float:left;  margin-top:-12px;background-image:url('../imagens/bg_menu.png'); }
+	.wrap .header .menu					{ width:570px; height:100px; margin-top:20px; float:left; background:url(../imagens/bg_menu.jpg); background-repeat:repeat-x;  }
+	.wrap .header .menu .tit_login		{ width:176px; height:40px; float:left; margin-top:24px; position:absolute; background-image:url(../imagens/img_login.png); background-repeat:no-repeat; }
+	.wrap .header .menu .mn				{ width:590px; height:73px; float:left;  margin-top:39px;background-image:url(../imagens/bg_menu.png); }
 	.wrap .header .menu .mn .menu_bts			{ width:475px; height:73px; float:left; margin-left:70px;   }
 	.wrap .header .menu .mn .form				{ width:465px; height:50px; float:left; margin-left:68px;  margin-top:30px; }	
 	.wrap .header .menu .mn .form .campo1				{ width:210px; height:23px; float:left;  font-size:12px; font-weight:normal; font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;   }
@@ -77,7 +77,7 @@ img {
 
 
 /* ----------  CONTENT  ---------- */	
-	.wrap .content						{ width:960px; margin:0 auto; margin-top:10px; }
+	.wrap .content						{ width:960px; margin:0 auto; margin-top:20px; }
 	
 	/* ----------  home  ---------- */	
 	.wrap .content .home 				{ width:900px; float:left; margin-top:60px;  }
@@ -85,7 +85,7 @@ img {
 	
 /* ---------- bloco_internas  ---------- */
 	.wrap .content .navegador				{ width:660px; float:left; margin-left:15px; font-weight: bold; font-size: 12px; margin-top:20px; color:#4A4C50; font-family: "Trebuchet MS", Arial, Verdana, Helvetica, sans-serif; text-align:right; }
-	.wrap .content .bloco				{ width:1050px; padding:20px; min-height:250px; background-color:#F2F2F2; border:#E2E2E2 1px solid; }
+	.wrap .content .bloco				{ width:660px; float:left; padding:20px; margin-left:15px; min-height:250px; background-color:#F2F2F2; border:#E2E2E2 1px solid; }
 	.wrap .content  .tit_sub_cat			{ width:600px; margin-left: 20px; float:left; font-family:"Trebuchet MS", Arial, Helvetica, sans-serif; font-size:18px; height:35px; display:block;  }
 
 
@@ -93,7 +93,8 @@ img {
 	.wrap .content .bloco .txt				{ width:600px; margin-top:20px; float:left; margin-left:15px; font-family:"Trebuchet MS", Arial, Helvetica, sans-serif; font-size:14px; font-weight:bold;  }
 	.wrap .content .bloco .txt2				{ width:300px; margin-top:20px; float:left; margin-left:15px; font-family:"Trebuchet MS", Arial, Helvetica, sans-serif; font-size:14px; font-weight:bold;  }
 	.wrap .content .bloco .total			{ width:300px; margin-top:20px; float:left; margin-left:15px; font-family:"Trebuchet MS", Arial, Helvetica, sans-serif; font-size:14px; font-weight:bold;  }
-	
+
+	.wrap .content .bloco form 	{width:660px;}
 	.wrap .content .bloco form fieldset	{border:none;}	
 	
 	.wrap .content .bloco form fieldset label		{   color:#4A4C50; float:left; width:320px; display:block; margin-top:6px;  margin-left:2px; font-size:13px; font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;}
@@ -103,7 +104,7 @@ img {
 	margin: 2px;
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 	font-size: 13px;
-	/*display: block;*/
+	display: block;
 }
 	
 /* ---------- cadastro- servi�os  ---------- */
@@ -118,9 +119,9 @@ img {
 	.wrap .content .bloco .tb2 .lin { background-color:#EFEFEF;  width:115px; height:20px; float:left; font-size:12px; border-bottom:1px solid #CCC; font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;}
 		
 	/* ---------- cadastro  ---------- */	
-	.wrap .content .menu_cadastros				{ width:230px; float:left; font-weight: bold; font-size: 15px; color:#4A4C50; font-family: "Trebuchet MS", Arial, Verdana, Helvetica, sans-serif; margin-top:-10px; }
+	.wrap .content .menu_cadastros				{ width:230px; float:left; font-weight: bold; font-size: 15px; color:#4A4C50; font-family: "Trebuchet MS", Arial, Verdana, Helvetica, sans-serif; margin-top:20px; }
 	.wrap .content .menu_cadastros	.tit			{ width:230px; float:left; text-align:left; font-weight: bold; font-size: 25px; color:#4A4C50; font-family: "Trebuchet MS", Arial, Verdana, Helvetica, sans-serif; }
-	.wrap .content .menu_cadastros	.bts			{ width:224px; height:39px; float:left; font-weight: bold; margin-bottom:5px; font-size: 18px; background-image:url('../imagens/bg_itens_submenu.png') }
+	.wrap .content .menu_cadastros	.bts			{ width:224px; height:39px; float:left; font-weight: bold; margin-bottom:5px; font-size: 18px; background-image:url(../imagens/bg_itens_submenu.png) }
 	.wrap .content .menu_cadastros	.bts ul  			{color:#4A4C50;   font-family: "Trebuchet MS", Arial, Verdana, Helvetica, sans-serif;  }	
 	.wrap .content .menu_cadastros .bts ul li 			{ margin-top:8px; text-align:left; margin-left:20px; }		
 	.wrap .content .menu_cadastros .bts ul li a 			{ text-decoration:none;color:#4A4C50; font-family: "Trebuchet MS", Arial, Verdana, Helvetica, sans-serif;  }	
@@ -129,9 +130,9 @@ img {
 
 	
 	/* ---------- relatorio  ---------- */	
-	.wrap .content .menu_relatorios				{ width:230px; float:left; font-weight: bold; font-size: 15px; margin-top:-10px; color:#4A4C50; font-family: "Trebuchet MS", Arial, Verdana, Helvetica, sans-serif; }
+	.wrap .content .menu_relatorios				{ width:230px; float:left; font-weight: bold; font-size: 15px; margin-top:20px; color:#4A4C50; font-family: "Trebuchet MS", Arial, Verdana, Helvetica, sans-serif; }
 	.wrap .content .menu_relatorios .tit			{ width:230px; float:left; text-align:left; font-weight: bold; font-size: 25px; color:#4A4C50; font-family: "Trebuchet MS", Arial, Verdana, Helvetica, sans-serif; }
-	.wrap .content  .menu_relatorios .bts			{ width:224px; height:39px; margin-bottom:5px; float:left; font-weight: bold; font-size: 18px; background-image:url('../imagens/bg_itens_submenu.png') }
+	.wrap .content  .menu_relatorios .bts			{ width:224px; height:39px; margin-bottom:5px; float:left; font-weight: bold; font-size: 18px; background-image:url(../imagens/bg_itens_submenu.png) }
 	.wrap .content  .menu_relatorios .bts ul  			{color:#4A4C50;   font-family: "Trebuchet MS", Arial, Verdana, Helvetica, sans-serif;  }	
 	.wrap .content .menu_relatorios .bts ul li 			{ margin-top:8px; text-align:left; margin-left:20px; }		
 	.wrap .content .menu_relatorios .bts ul li a 			{ text-decoration:none;color:#4A4C50; font-family: "Trebuchet MS", Arial, Verdana, Helvetica, sans-serif;  }	
@@ -166,11 +167,11 @@ img {
 
 
 /* ----------  FOOTER  ---------- */	
-	.wrap .footer { width:100%; height:130px; background-image:url('../imagens/bg_rod.png'); background-position:center top; float:left; margin-top:20px; }
+	.wrap .footer { width:100%; height:130px; background-image:url(../imagens/bg_rod.png); background-position:center top; float:left; margin-top:20px; }
 	.wrap .footer .foot {width:960px; margin:0 auto;}
-	.wrap .footer .foot .lg { width:268px; height:65px; float:left;  margin-top:6px; margin-left:10px; background-image:url('../imagens/lg_prime_clean.png'); background-repeat:no-repeat; text-indent:-99999em;  }
+	.wrap .footer .foot .lg { width:268px; height:65px; float:left;  margin-top:6px; margin-left:10px; background-image:url(../imagens/lg_prime_clean.png); background-repeat:no-repeat; text-indent:-99999em;  }
 	.wrap .footer .foot .copyright { width:960px; margin:0 auto; margin-top:120px; font-size:10px; color:#999; text-align:center; font-family:"Trebuchet MS", Arial, Verdana, Helvetica, sans-serif; }
-	.wrap .footer .foot .copyright a { font-family:"Trebuchet MS", Arial, Verdana, Helvetica, sans-serif; color:#999;}
+	.wrap .footer .foot .copyright a { font-family:"Trebuchet MS", Arial, Verdana, Helvetica, sans-serif; color:#999;- }
 
 
 		

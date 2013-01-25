@@ -57,6 +57,7 @@ class VLogin extends Common {
         $this->Editor->setConfig('editRowTitle', 'Editar login');
         $this->Editor->setConfig('removeIcons', 'C');
         $this->Editor->setConfig('modifyRowSets', array(&$this, 'changeBgColor'));
+        $this->setConfig();
     }
 
     //colocando o campo password
