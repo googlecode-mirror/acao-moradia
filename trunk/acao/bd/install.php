@@ -136,6 +136,7 @@
       `data_nascimento` DATE NULL ,
       `data_cadastro` DATE NULL ,
       `data_saida` DATE NULL ,
+      `last_modified` TIMESTAMP NULL,
       `telefone` VARCHAR(15) NULL ,
       `grau_parentesco` VARCHAR(45) NOT NULL CHECK(`grau_parentesco` IN('TITULAR','CÔNJUGE(MARIDO OU ESPOSA)','COMPANHEIRO(A)','FILHO(A)','IRMÃ(O)','PAI/MÃE','CUNHADO(A)','GENRO/NORA','SOGRO(A)','ENTEADO(A)','NETO(A)','PADRASTO/MADRASTA','AGREGADO(A)','AVÔ(Ó)','EX-COMPANHEIRO(A)','EX-MARIDO/EX-ESPOSA','PRIMO(A)','SOBRINHO(A)','TIO(A)')),	#upper
       `estado_civil` VARCHAR(45) NULL CHECK(`estado_civil` IN('SOLTEIRO(A)','CASADO(A)','SEPARADO(A)','DIVORCIADO(A)','VIÚVO(A)')),		#upper  
@@ -144,6 +145,7 @@
       `carteira_profissional` CHAR(1) NOT NULL ,			#upper
       `titulo_eleitor` VARCHAR(12) NULL ,
       `certidao_nascimento` CHAR(1) NOT NULL ,				#upper      
+      `ativo` BOOL NOT NULL DEFAULT TRUE,
       PRIMARY KEY (`id_pessoa`), 
       INDEX `fk_Pessoa_familia1_idx` (`id_familia` ASC) ,      
       CONSTRAINT `fk_Pessoa_familia1`
@@ -435,6 +437,7 @@
             set NEW.nome = upper(NEW.nome);	
             set NEW.sexo = upper(NEW.sexo);
             set NEW.data_cadastro = date(now());	
+            set NEW.last_modified = now();
             set NEW.grau_parentesco = upper(NEW.grau_parentesco);	
             set NEW.estado_civil = upper(NEW.estado_civil);	
             set NEW.raca = upper(NEW.raca);	
@@ -453,6 +456,7 @@
             set NEW.nome = upper(NEW.nome);	
             set NEW.sexo = upper(NEW.sexo);
             set NEW.data_cadastro = date(now());	
+            set NEW.last_modified = now();            
             set NEW.grau_parentesco = upper(NEW.grau_parentesco);	
             set NEW.estado_civil = upper(NEW.estado_civil);	
             set NEW.raca = upper(NEW.raca);	

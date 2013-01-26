@@ -121,12 +121,19 @@
                             //error_reporting(E_ALL & ~ E_NOTICE);
 
                             $curso_block = "";
-                            $cursos = mysql_query("SELECT `id_curso`,`nome` FROM `curso`") or die(mysql_error());
+                            $cursos = mysql_query("SELECT `id_curso`,`nome`,`vagas` FROM `curso`") or die(mysql_error());
 
                             while ($curso = mysql_fetch_array($cursos)) {
-                                $idCurso = $curso['id_curso'];
-                                $nomeCurso = $curso['nome'];
-                                $curso_block .= '<OPTION value="' . $idCurso . '">' . $nomeCurso . '</OPTION>';
+                                $res = mysql_fetch_assoc(mysql_query("select count(*) as ocupadas from curso_has_pessoa where id_curso=".$curso['id_curso']));
+                                $vagas = $curso['vagas']-$res['ocupadas'];
+    
+                                if($vagas > 0){
+                                    $idCurso = $curso['id_curso'];
+                                    $nomeCurso = $curso['nome'];
+                                    $curso_block .= '<OPTION value="' . $idCurso . '">' . $nomeCurso . '</OPTION>';
+                                }else{
+                                    $curso_block .= '<OPTION> NÃO HÁ VAGAS DISPONÍVEIS PARA NENHUM CURSO</OPTION>';
+                                }
                             }
                             ?>
                             <select id="idCurso" name="idCurso"><?php echo $curso_block; ?></select>

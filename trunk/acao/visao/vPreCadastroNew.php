@@ -24,12 +24,13 @@ class VCurso extends Common {
         //nome,vagas,data_inicio,carga_horaria,pre_requisitos,ter,qui,data_termino
         $tableColumns['id_pessoa'] = array('display_text' => 'Id pessoa', 'perms' => 'QXSHOMI', 'style' => 'text-align:center;font-weight:bold;font-size:16px;white-space:normal;');
         $tableColumns['nome'] = array('display_text' => 'Nome', 'perms' => 'TVQXSHOMI');
-//        $tableColumns['id_familia'] = array('display_text' => 'Id família', 'perms' => 'TVQXSHOMI');
-        $tableColumns['cpf'] = array('display_text' => 'CPF', 'perms' => 'TVQXSHOMI');
-        $tableColumns['data_cadastro'] = array('display_text' => 'Data Cadastro', 'perms' => 'TVQXSHOMI', 'display_mask' => 'date_format(date(`data_cadastro`),"%d/%m/%Y")');
-        $tableColumns['data_nascimento'] = array('display_text' => 'Data Nascimento', 'perms' => 'TVQXSHOMI', 'display_mask' => 'date_format(date(`data_nascimento`),"%d/%m/%Y")');
-        $tableColumns['rg'] = array('display_text' => 'RG', 'perms' => 'TVQXSHOMI');
-        $tableColumns['telefone'] = array('display_text' => 'Tel', 'perms' => 'TVQXSHOMI');
+        $tableColumns['ativo'] = array('display_text' => 'Ativo', 'perms' => 'TVQXSHOMI',
+        'display_mask' => "IF(ativo = '1','Sim','Não')");
+//        $tableColumns['id_familia'] = array('display_text' => 'Id família', 'perms' => 'TVQXSHOMI');        
+        $tableColumns['data_cadastro'] = array('display_text' => 'Data Cad.', 'perms' => 'TVQXSHOMI', 'display_mask' => 'date_format(date(`data_cadastro`),"%d/%m/%Y")');
+        $tableColumns['last_modified'] = array('display_text' => 'Última modificação', 'perms' => 'TVQXSHOMI', 'display_mask' => 'date_format(`last_modified`,"%d/%m/%Y %H:%i:%s")');
+        $tableColumns['data_nascimento'] = array('display_text' => 'Data Nasc.', 'perms' => 'TVQXSHOMI', 'display_mask' => 'date_format(date(`data_nascimento`),"%d/%m/%Y")');        
+        $tableColumns['telefone'] = array('display_text' => 'Telefone', 'perms' => 'TVQXSHOMI');
             //'col_header_info' =>'style="text-align:center;font-weight:bold;"');
         $tableColumns['estado_civil'] = array('display_text' => 'Estado Civil', 'perms' => 'TVQXSHOMI');
   
@@ -44,6 +45,8 @@ class VCurso extends Common {
                  'type' => 'left' 
             ) 
         );
+        $tableColumns['cpf'] = array('display_text' => 'CPF', 'perms' => 'TVQXSHOMI');
+        $tableColumns['rg'] = array('display_text' => 'RG', 'perms' => 'TVQXSHOMI');
         
         $tableName = 'pessoa';
         $primaryCol = 'id_pessoa';
@@ -51,7 +54,7 @@ class VCurso extends Common {
         $permissions = 'XSQHO';
 
         $this->Editor = new AjaxTableEditor($tableName, $primaryCol, $errorFun, $permissions, $tableColumns);
-        $this->Editor->setConfig('tableInfo', 'cellpadding="3" width="950" class="mateTable"');
+        $this->Editor->setConfig('tableInfo', 'cellpadding="3" width="1200" class="mateTable"');
         $this->Editor->setConfig('orderByColumn', 'id_pessoa');
         $this->Editor->setConfig('modifyRowSets', array(&$this, 'changeBgColor'));
         /*

@@ -1696,7 +1696,7 @@ class AjaxTableEditor
 		$html .= '</div>';
 		if(stristr($this->permissions,'Q') && $this->searchType == 'quick')
 		{	
-			$html .= $this->langVars->lblSearch.': <input type="text" id="searchString" value="'.$this->searchString.'" size="25" onKeyPress="if(enterPressed(event)){handleSearch(); return false;}" />&nbsp;<button onclick="handleSearch();">'.$this->langVars->lblSearch.'</button>&nbsp;<button onclick="clearSearch();">'.$this->langVars->btnCSearch.'</button>';
+			$html .= $this->langVars->lblSearch.': <input type="text" id="searchString" autofocus="autofocus" value="'.$this->searchString.'" size="25" onKeyPress="if(enterPressed(event)){handleSearch(); return false;}" />&nbsp;<button onclick="handleSearch();">'.$this->langVars->lblSearch.'</button>&nbsp;<button onclick="clearSearch();">'.$this->langVars->btnCSearch.'</button>';
 		}
 		else if(stristr($this->permissions,'S') && $this->searchType == 'advanced')
 		{
