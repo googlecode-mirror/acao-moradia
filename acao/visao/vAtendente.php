@@ -23,7 +23,7 @@
                     <div class="menu_cadastros">
                         <div class="tit">Cadastros</div>
                         <div class="bts">
-                            <ul><li><a href="vCadastroFuncionarioNew.php" target="_parent">Funcionários</a></li></ul>
+                            <ul><li><a href="vCadastroFuncionarioNew.php" target="_parent">Login</a></li></ul>
                         </div>
 
                         <div class="bts">
