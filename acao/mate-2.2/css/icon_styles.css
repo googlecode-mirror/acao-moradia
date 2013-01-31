@@ -92,3 +92,13 @@ li.viewFull a {
 li.viewFull a:hover {
 	background: url('../images/icons/view.png') 50% -19px no-repeat;
 }
+
+li.off a {	
+        height: 17px;
+	width: 22px;
+	background: url('../images/icons/off.png') no-repeat center top;
+}
+
+li.off a:hover {
+	background: url('../images/icons/off.png') 50% -19px no-repeat;
+}

@@ -70,7 +70,7 @@ class VFamilia extends Common {
     { 
         $iconHtml = '';
         $numIcons = 0;
-        $iconHtml .= '<li class="viewFull"><a href="javascript: void(0);" onclick="window.location=\'vEditOrDeleteFamiliaNew.php?id_familia='.$info['id_familia'].'\';" title="Visualisação completa"></a></li>';
+        $iconHtml .= '<li class="viewFull"><a href="javascript: void(0);" onclick="window.location=\'vFamiliaInteira.php?id_familia='.$info['id_familia'].'\';" title="Visualisação completa"></a></li>';
         $numIcons++;      
         return array('icon_html' => $iconHtml, 'num_icons' => $numIcons);
     } 
@@ -108,7 +108,7 @@ class VFamilia extends Common {
 
     //todo construtor que utiliza o plugin mate-2.2 deverá chamar o $this->display();
     function VFamilia() {        
-        $_SESSION['botao'] = 'cadastrar_pessoa';
+        $_SESSION['botao'] = 'cadastrar_familia';
         $this->display();
     }
 

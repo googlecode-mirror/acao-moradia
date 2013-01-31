@@ -119,9 +119,21 @@ class Common
 
                     <script type="text/javascript">
                         trackHistory = false;
-                        var ajaxUrl = '<?php echo $_SERVER['PHP_SELF']; ?>';
+                        var ajaxUrl = '<?php 
+                        $ajaxUrl = $_SERVER['PHP_SELF'];
+                        if(count($_GET) > 0)
+                        {
+                           $queryStrArr = array();
+                           foreach($_GET as $var => $val)
+                           {
+                              $queryStrArr[] = $var.'='.urlencode($val);
+                           }
+                           $ajaxUrl .= '?'.implode('&',$queryStrArr);
+                        }
+                        echo $ajaxUrl;
+                        ?>';
                         toAjaxTableEditor('update_html','');
-                    </script>
+                    </script>                    
                 </div>                          
             </div>
         </div>
