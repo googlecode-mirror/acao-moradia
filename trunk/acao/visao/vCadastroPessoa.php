@@ -80,7 +80,7 @@
 
                             <p>Telefone Celular:</p>                            
                             <p>
-                                <input maxlength="15" name="telefone" id="telefone" size="15" />
+                                <input maxlength="15" name="telefone" id="telefone" size="15" value="(34) "/>
                             </p>
                             <p>&nbsp;</p>
                             <p>Data de nascimento:</p>
@@ -295,7 +295,7 @@
                                 <p>&nbsp;</p>
                                 <p>Telefone Residencial:</p>                            
                                 <p>
-                                    <input maxlength="15" name="telefone_residencial" id="telefone_residencial" size="15" value=""/>                                    
+                                    <input maxlength="15" name="telefone_residencial" id="telefone_residencial" size="15" value="(34) "/>                                    
                                 </p>
                                 <?php
                             }

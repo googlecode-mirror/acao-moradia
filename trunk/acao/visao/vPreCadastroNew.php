@@ -1,6 +1,5 @@
 
 <?php
-
 /*
  * Mysql Ajax Table Editor
  *
@@ -17,13 +16,16 @@ require_once('../mate-2.2/Common.php');
 require_once('../mate-2.2/php/lang/LangVars-en.php');
 require_once('../mate-2.2/php/AjaxTableEditor.php');
 
-class VCurso extends Common {
+class VPessoa extends Common {
 
-    function initiateEditor() {
-        
+    function initiateEditor() {                
+        if(isset($_GET['id_pessoa'])){
+            $this->id_pessoa = $_GET['id_pessoa'];
+        }
         //nome,vagas,data_inicio,carga_horaria,pre_requisitos,ter,qui,data_termino
         $tableColumns['id_pessoa'] = array('display_text' => 'Id pessoa', 'perms' => 'QXSHOMI', 'style' => 'text-align:center;font-weight:bold;font-size:16px;white-space:normal;');
-        $tableColumns['nome'] = array('display_text' => 'Nome', 'perms' => 'TVQXSHOMI');
+        $tableColumns['nome'] = array('display_text' => 'Nome', 'perms' => 'TVQXSHOMI');        
+        $tableColumns['grau_parentesco'] = array('display_text' => 'Tipo', 'perms' => 'TVQXSHOMI');
         $tableColumns['ativo'] = array('display_text' => 'Ativo', 'perms' => 'TVQXSHOMI',
         'display_mask' => "IF(ativo = '1','Sim','Não')");
 //        $tableColumns['id_familia'] = array('display_text' => 'Id família', 'perms' => 'TVQXSHOMI');        
@@ -33,7 +35,12 @@ class VCurso extends Common {
         $tableColumns['telefone'] = array('display_text' => 'Telefone', 'perms' => 'TVQXSHOMI');
             //'col_header_info' =>'style="text-align:center;font-weight:bold;"');
         $tableColumns['estado_civil'] = array('display_text' => 'Estado Civil', 'perms' => 'TVQXSHOMI');
-  
+        $tableColumns['raca'] = array('display_text' => 'Raça', 'perms' => 'TVQXSHOMI');
+        $tableColumns['religiao'] = array('display_text' => 'Religião', 'perms' => 'TVQXSHOMI');
+        $tableColumns['carteira_profissional'] = array('display_text' => 'Carteira Profissional', 'perms' => 'TVQXSHOMI');
+        $tableColumns['titulo_eleitor'] = array('display_text' => 'Título de eleitor', 'perms' => 'TVQXSHOMI');
+        $tableColumns['certidao_nascimento'] = array('display_text' => 'Certidão de Nasc.', 'perms' => 'TVQXSHOMI');
+        $tableColumns['data_saida'] = array('display_text' => 'Data da inatividade', 'perms' => 'TVQXSHOMI');
         
         $tableColumns['id_familia'] = array( 
             'display_text' => 'ID Familia, Logradouro, Nº', 
@@ -47,6 +54,8 @@ class VCurso extends Common {
         );
         $tableColumns['cpf'] = array('display_text' => 'CPF', 'perms' => 'TVQXSHOMI');
         $tableColumns['rg'] = array('display_text' => 'RG', 'perms' => 'TVQXSHOMI');
+        $tableColumns['sexo'] = array('display_text' => 'Sexo', 'perms' => 'TVQXSHOMI');
+        //$tableColumns['cidade_natal'] = array('display_text' => 'Sexo', 'perms' => 'TVQXSHOMI');
         
         $tableName = 'pessoa';
         $primaryCol = 'id_pessoa';
@@ -63,6 +72,8 @@ class VCurso extends Common {
         ); 
         $this->Editor->setConfig('userIcons',$userIcons); 
         */
+        if($this->id_pessoa != '-1')
+            $this->Editor->setConfig('sqlFilters',"id_pessoa = '$this->id_pessoa'"); 
         $this->setConfig();
     }
     private $cor1 = '#ffffff';  //branco
@@ -88,13 +99,15 @@ class VCurso extends Common {
         return $rowSets;
     }
 
-
+    private $id_pessoa = '-1';
     //todo construtor que utiliza o plugin mate-2.2 deverá chamar o $this->display();
-    function VCurso() {
+    function VPessoa() {        
         $this->display();
     }
-
+   
 }
+//require_once '../bd/Debug.php';
+//Debug::alert($_GET['id_pessoa']);
 
-$x = new VCurso();
+$x = new VPessoa();
 ?>

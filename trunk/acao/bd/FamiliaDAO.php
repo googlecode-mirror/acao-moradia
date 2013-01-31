@@ -170,6 +170,35 @@
                 return "TITULAR";
             }
         }
+        
+        public function buscaTodosDadosFamilia($id_familia){
+            $query = "select c.nome as cidade, e.sigla as estado, f.cep, f.logradouro, f.numero, f.bairro
+                      from familia f, cidade c, estado e
+                      where f.id_familia = $id_familia and                      
+                      c.cod_cidade = f.cod_cidade and
+                      e.cod_estado = c.cod_estado";
+            $res = mysql_query($query);
+            //echo $query;
+            if(!$res){
+                return NULL;
+            }
+            return $res;
+        }
+        
+        public function buscaTelefone($id_familia){
+            $query = "select t.telefone, t.recado_com  
+                      from familia f, telefone t
+                      where f.id_familia = $id_familia and
+                      f.id_familia = t.id_familia";
+            $res = mysql_query($query);
+            //echo $query;
+            if(!$res){
+                return NULL;
+            }
+            return $res;
+        }                
+        
+        
     }
 ?>
 

@@ -1,5 +1,7 @@
 <?php
     include_once '../controle/cFuncoes.php';
+    include_once 'DBConnection.php';
+    DataBase::createConection();
     class PessoaDAO{
         
         private $_sel= "SELECT * FROM pessoa";   
@@ -109,14 +111,14 @@
         public function buscaPessoaByAttribute($attribute, $query){
             $this->_sel.= " WHERE ";
             $this->_sel.= $attribute;
-            $this->_sel.= " = '$query'";
-            $res= mysql_query($this->_sel) OR die(mysql_error());
+            $this->_sel.= " = $query";
+            $res= mysql_query($this->_sel) OR die(mysql_error());            
             if($res === FALSE){
                 echo "pessoa não encontrada";
                 return null;
             }else{
-                $arived= mysql_fetch_row($res);
-                return $arived;
+                //$arrived= mysql_fetch_row($res);
+                return $res;
             }
         }
         
