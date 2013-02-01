@@ -53,6 +53,7 @@ table.mateTable td {
 	border-right: 1px solid #ccc;
 	border-bottom: 1px solid #ccc;
 	text-align: left;
+        padding: 3px;
 }
 
 table.mateTable td.labelCell {

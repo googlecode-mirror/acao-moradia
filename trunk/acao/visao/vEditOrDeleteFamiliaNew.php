@@ -44,7 +44,7 @@ class VFamilia extends Common {
         $permissions = 'VIDXSQHO';
 
         $this->Editor = new AjaxTableEditor($tableName, $primaryCol, $errorFun, $permissions, $tableColumns);
-        $this->Editor->setConfig('tableInfo', 'cellpadding="1" width="700" class="mateTable"');
+        $this->Editor->setConfig('tableInfo', 'cellpadding="1" width="100%" class="mateTable"');
         $this->Editor->setConfig('orderByColumn', 'id_familia');        
         $this->Editor->setConfig('removeIcons', 'CD');        
         $this->Editor->setConfig('modifyRowSets', array(&$this, 'changeBgColor'));

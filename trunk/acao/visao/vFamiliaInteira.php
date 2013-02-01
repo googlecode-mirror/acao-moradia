@@ -22,7 +22,7 @@
                 ?>   
                 <div class="bloco" style="border: #b1b1b1 solid 2px;">
                     <h4>Dados da Família:</h4>
-                    <table cellpadding="1" width="700" class="mateTable">
+                    <table cellpadding="1" width="100%" class="mateTable">
                         <tbody>
                         <tr class="header" style="background: #009900;">
                             <td>
@@ -73,7 +73,7 @@
                     </table>
                     <br />
                     <h4>Dados dos integrantes da família:</h4>
-                    <table cellpadding="1" width="700" class="mateTable">
+                    <table cellpadding="1" width="100%" class="mateTable">
                         <tbody>
                         <tr class="header">
                             <td>
