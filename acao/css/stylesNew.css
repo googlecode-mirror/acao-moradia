@@ -120,18 +120,18 @@ img {
 	/* ---------- cadastro  ---------- */	
 	.wrap .content .menu_cadastros				{ width:230px; float:left; font-weight: bold; font-size: 15px; color:#4A4C50; font-family: "Trebuchet MS", Arial, Verdana, Helvetica, sans-serif; margin-top:-10px; }
 	.wrap .content .menu_cadastros	.tit			{ width:230px; float:left; text-align:left; font-weight: bold; font-size: 25px; color:#4A4C50; font-family: "Trebuchet MS", Arial, Verdana, Helvetica, sans-serif; }
-	.wrap .content .menu_cadastros	.bts			{ width:224px; height:39px; float:left; font-weight: bold; margin-bottom:5px; font-size: 18px; background-image:url('../imagens/bg_itens_submenu.png') }
-	.wrap .content .menu_cadastros	.bts ul  			{color:#4A4C50;   font-family: "Trebuchet MS", Arial, Verdana, Helvetica, sans-serif;  }	
+	.wrap .content .menu_cadastros	.bts			{ width:224px; height:39px; float:left; font-weight: bold; margin-bottom:35px; font-size: 18px;  } /* background-image:url('../imagens/bg_itens_submenu.png'); */
+	.wrap .content .menu_cadastros	.bts ul  			{color:#4A4C50;   font-family: "Trebuchet MS", Arial, Verdana, Helvetica, sans-serif; }	
 	.wrap .content .menu_cadastros .bts ul li 			{ margin-top:8px; text-align:left; margin-left:20px; }		
-	.wrap .content .menu_cadastros .bts ul li a 			{ text-decoration:none;color:#4A4C50; font-family: "Trebuchet MS", Arial, Verdana, Helvetica, sans-serif;  }	
-	.wrap .content .menu_cadastros .bts ul li a:hover 			{ text-decoration:none; text-decoration:none;color:#206DA6; font-family: "Trebuchet MS", Arial, Verdana, Helvetica, sans-serif;  }	
+	.wrap .content .menu_cadastros .bts ul li a 			{ text-decoration:none;color:#4A4C50; font-family: "Trebuchet MS", Arial, Verdana, Helvetica, sans-serif; }	
+	.wrap .content .menu_cadastros .bts ul li a:hover 			{text-decoration:none; text-decoration:none;color:#206DA6; font-family: "Trebuchet MS", Arial, Verdana, Helvetica, sans-serif; }	
 	
 
 	
 	/* ---------- relatorio  ---------- */	
 	.wrap .content .menu_relatorios				{ width:230px; float:left; font-weight: bold; font-size: 15px; margin-top:-10px; color:#4A4C50; font-family: "Trebuchet MS", Arial, Verdana, Helvetica, sans-serif; }
 	.wrap .content .menu_relatorios .tit			{ width:230px; float:left; text-align:left; font-weight: bold; font-size: 25px; color:#4A4C50; font-family: "Trebuchet MS", Arial, Verdana, Helvetica, sans-serif; }
-	.wrap .content  .menu_relatorios .bts			{ width:224px; height:39px; margin-bottom:5px; float:left; font-weight: bold; font-size: 18px; background-image:url('../imagens/bg_itens_submenu.png') }
+	.wrap .content  .menu_relatorios .bts			{ width:224px; height:39px; margin-bottom:35px; float:left; font-weight: bold; font-size: 18px; }
 	.wrap .content  .menu_relatorios .bts ul  			{color:#4A4C50;   font-family: "Trebuchet MS", Arial, Verdana, Helvetica, sans-serif;  }	
 	.wrap .content .menu_relatorios .bts ul li 			{ margin-top:8px; text-align:left; margin-left:20px; }		
 	.wrap .content .menu_relatorios .bts ul li a 			{ text-decoration:none;color:#4A4C50; font-family: "Trebuchet MS", Arial, Verdana, Helvetica, sans-serif;  }	
