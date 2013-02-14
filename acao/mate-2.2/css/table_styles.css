@@ -29,8 +29,7 @@
 table.mateTable {
     font-family: "Lucinda Sans Unicode", "Lucinda Grande", sans-serif;
     font-size: 12px;
-    margin: 45px;
-    width: 480px;
+    margin: 10px;
     text-align: left;
     border-collapse: collapse;
            /* -moz-border-radius: 8px;
@@ -71,8 +70,7 @@ table.mateTable tr.header td {
 }
 
 table.mateTable td {
-	padding: 8px;
-        background: #e8edff;
+	padding: 8px;        
         border-bottom: 1px solid #fff;
         color: #669;
         border-top: 1px solid transparent;

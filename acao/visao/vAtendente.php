@@ -19,7 +19,7 @@
             ?>
 
             <div class="content">
-                <div style="margin-top:50px; margin-left:400px;">
+                <div style="margin-top:50px; margin-left:30%; ">
                     <div class="menu_cadastros">
                         <div class="tit">Cadastros</div>
                         <div class="bts">

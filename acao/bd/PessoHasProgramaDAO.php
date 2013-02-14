@@ -26,9 +26,10 @@
         
         public function IsPessoaInPrograma($id_pessoa, $id_programa){
             $select= "SELECT * FROM pessoa_has_programa WHERE id_pessoa= $id_pessoa AND id_programa= $id_programa";
+            //echo $select;
             $res= mysql_query($select);
             if($res === FALSE){
-                echo "familia não encontrada";
+                echo "Erro";
                 return null;
             }else{
                 //$arrived= mysql_fetch_assoc($res);

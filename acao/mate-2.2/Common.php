@@ -54,16 +54,16 @@ class Common
 		"http://www.w3.org/TR/html4/loose.dtd">
 		<html>
 		<head>	
-                <title>Ação Moradia</title>
-                        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">                        
+                <title>Ação Moradia</title>                        
+                        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">                                                
                         <link rel="shortcut icon" href="../imagens/favicon.ico" />
                         <link href="../css/stylesNew.css" rel="stylesheet" type="text/css" />
                         <link href="../css/button.css" rel="stylesheet" type="text/css" />                                                                        
                         
 			<link href="../mate-2.2/css/table_styles.css" rel="stylesheet" type="text/css" />
 			<link href="../mate-2.2/css/icon_styles.css" rel="stylesheet" type="text/css" />
-			
-			<script type="text/javascript" src="../mate-2.2/js/prototype.js"></script>
+						                                                
+                        <script type="text/javascript" src="../mate-2.2/js/prototype.js"></script>
 			<script type="text/javascript" src="../mate-2.2/js/scriptaculous-js/scriptaculous.js"></script>
 			<script type="text/javascript" src="../mate-2.2/js/lang/lang_vars-en.js"></script>
 			<script type="text/javascript" src="../mate-2.2/js/ajax_table_editor.js"></script>
@@ -73,7 +73,9 @@ class Common
 			<script type="text/javascript" src="../mate-2.2/js/jscalendar/calendar.js"></script>
 			<script type="text/javascript" src="../mate-2.2/js/jscalendar/lang/calendar-en.js"></script>
 			<script type="text/javascript" src="../mate-2.2/js/jscalendar/calendar-setup.js"></script>
-
+                        
+            
+                                                                                                                                                                                                                     
 		</head>	
 		<body>                
     
@@ -104,7 +106,7 @@ class Common
                         <div id="information">
                         </div>
 
-                        <div id="titleLayer" style="padding: 2px; font-weight: bold; font-size: 18px; text-align: center; color: blue; font-family: serif">
+                        <div id="titleLayer" style="font-weight: bold; font-size: 25px; text-align: center; color: blue; font-family: serif">
                         </div>
 
                         <div id="tableLayer" align="center">
@@ -194,8 +196,9 @@ class Common
             header('Content-Type: text/csv');
             header('Content-Disposition: attachment; filename="' . $this->Editor->tableName . '.csv"');
             exit();
-        } else {
-            $this->displayHeaderHtml();
+        } else {            
+            
+            $this->displayHeaderHtml();            
             $this->displayHtml();
             $this->displayFooterHtml();
         }    

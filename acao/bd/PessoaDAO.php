@@ -48,6 +48,17 @@
             } 
         }
         
+        public function buscaPessoaById($id){
+            $this->_sel.= " WHERE id_pessoa= $id";
+            $res= mysql_query($this->_sel) OR die(mysql_error());
+            if($res === FALSE){
+                echo "pessoa não encontrada";
+                return null;
+            }else{                
+                return $res;
+            } 
+        }
+        
         public function buscaPessoabyFamilia2($id){
             
             $teste = "SELECT * FROM pessoa WHERE id_familia= '".$id."' AND grau_parentesco= 'TITULAR'";        

@@ -39,10 +39,10 @@
         } 
         
         public function buscaCidadebyCod($cod){
-            $select= "SELECT * FROM cidade WHERE cod_cidade= $cod";
+            $select = "select * from cidade WHERE cod_cidade= $cod";
             $res= mysql_query($select);
             if($res === FALSE){
-                echo "falha na consulta";
+                echo "falha na consulta query=".$select;
                 return null;
             }else{
                 //$arrived= mysql_fetch_assoc($res);
@@ -55,6 +55,17 @@
             $_res= mysql_query($this->rem);
             this.testeInsert($_res);
         }   
+        
+        public function buscaCidadesByEstado($cod_estado){
+            $select = "select * from cidade WHERE cod_estado= $cod_estado";
+            $res= mysql_query($select);
+            if($res === FALSE){
+                echo "falha na consulta query=".$select;
+                return null;
+            }else{                
+                return $res;
+            }
+        }
     }
 ?>
 
