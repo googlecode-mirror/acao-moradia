@@ -21,7 +21,7 @@
             $select= "SELECT * FROM estado WHERE cod_estado = $cod";
             $res= mysql_query($select);
             if($res === FALSE){
-                echo "familia não encontrada";
+                echo "Estado não encontrado query=".$select;
                 return null;
             }else{
                 //$arrived= mysql_fetch_assoc($res);

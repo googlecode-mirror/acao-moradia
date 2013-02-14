@@ -70,14 +70,13 @@
         }
     }                     
                         
-    $etapa_concluida = $_POST['et'];
-    //echo $etapa_concluida ;
+    $proxima_etapa = $_POST['et'];
     
-    if($etapa_concluida == "2"){//o usuario quer incluir outras pessoas
+    if($proxima_etapa == "2"){//o usuario quer incluir outras pessoas
         $familiaDAO = new FamiliaDAO();
-        header("Location: ../visao/vCadastroPessoa.php?et=".$etapa_concluida."&family=".$familia->getIdFamilia()."&titular=".$familiaDAO->getNomeTitularFamiliaByIdFamilia($familia->getIdFamilia()));                        
+        header("Location: ../visao/vCadastroPessoa.php?et=".$proxima_etapa."&family=".$familia->getIdFamilia()."&titular=".$familiaDAO->getNomeTitularFamiliaByIdFamilia($familia->getIdFamilia()));                        
     }else{
-        if($etapa_concluida == "3"){//o usuario vai para etapa de pesquisa                                            
+        if($proxima_etapa == "3"){//o usuario vai para etapa de pesquisa                                            
             header("Location: ../visao/vPesquisaSocioEconomica.php");
         }
     }

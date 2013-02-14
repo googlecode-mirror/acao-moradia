@@ -22,11 +22,11 @@
                 ?>   
                 <div class="bloco" style="border: #b1b1b1 solid 2px;">
                     <h4>Dados da Família:</h4>
-                    <table cellpadding="1" width="100%" class="mateTable">
+                    <table cellpadding="1" width="90%" class="mateTable">
                         <tbody>
                         <tr class="header" style="background: #009900;">
                             <td>
-                                ID Família
+                                ID
                             </td>
                             <td>
                                 CEP
@@ -45,7 +45,10 @@
                             </td>
                             <td>
                                 Telefone
-                            </td>                            
+                            </td>    
+                            <td>
+                                Ações
+                            </td>    
                         </tr>
                         <?php 
                             $id_familia = $_GET['id_familia'];                        
@@ -66,14 +69,20 @@
                                 while($telefone= mysql_fetch_assoc($telefones)){
                                     echo $telefone['telefone']." ";
                                 }
-                                echo "</td>";                                
+                                echo "</td>";          
+                                echo "<td>";
+                                echo '<ul class="actions" style="width: 78px;">
+                                      <li class="edit"> 
+                                      <a href="EditaFamilia.php?id_familia='.$id_familia.'"></a>
+                                      </li></ul>';
+                                echo "</td>";                                          
                                 echo '</tr>';
                             }                            
                         ?>
                     </table>
-                    <br />
+                    <br />                    
                     <h4>Dados dos integrantes da família:</h4>
-                    <table cellpadding="1" width="100%" class="mateTable">
+                    <table cellpadding="1" width="90%" class="mateTable">
                         <tbody>
                         <tr class="header">
                             <td>
@@ -102,7 +111,7 @@
                                 echo "</td>";
                                 echo "<td nowrap='nowrap'>";
                                 echo "<ul class='actions' style='width: 78px;'>";
-                                echo "<li class='edit'> <a href='vEditaFamilia.php?id_pessoa=$row[id_pessoa]' title='Editar'></a></li>";                                
+                                echo "<li class='edit'> <a href='vEditaPessoa.php?id_pessoa=$row[id_pessoa]' title='Editar'></a></li>";                                
                                 echo "<li class='viewFull'> <a href='vPreCadastroNew.php?id_pessoa=$row[id_pessoa]' title='Visualização completa'></a></li>";
                                 echo "</ul>";
                                 echo '</tr>';

@@ -57,9 +57,16 @@ class VLogin extends Common {
         $this->Editor->setConfig('editRowTitle', 'Editar login');
         $this->Editor->setConfig('removeIcons', 'C');
         $this->Editor->setConfig('modifyRowSets', array(&$this, 'changeBgColor'));
+        //$this->Editor->setConfig('editFun',array(&$this,'addConfirmPassword'));
+        //$this->Editor->setConfig('addFun',array(&$this,'addConfirmPassword'));
         $this->setConfig();
     }
 
+//    function addConfirmPassword()
+//    {
+//        
+//    }
+   
     //colocando o campo password
     function formatPassword($col, $val, $row) {
         return '<input type="password" id="' . $col . '" value="' . $val . '" />';

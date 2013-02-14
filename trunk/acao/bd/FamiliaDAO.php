@@ -198,6 +198,19 @@
             return $res;
         }                
         
+        public function buscaTitularByIdFamilia($id_familia){
+            $query = "select p.* 
+                      from pessoa p, familia f 
+                      where p.id_familia = $id_familia and 
+                      p.grau_parentesco = 'TITULAR' and 
+                      p.id_familia = f.id_familia";
+            $res = mysql_query($query);            
+            if(!$res){
+                echo "Erro ".$query;
+                return NULL;
+            }
+            return $res;
+        }
         
     }
 ?>

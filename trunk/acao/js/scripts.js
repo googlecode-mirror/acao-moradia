@@ -8,6 +8,15 @@
   Exemplo: <input maxlength="16" name="datahora" onKeyPress="DataHora(event, this)">
 -----------------------------------------------------------------------*/
 
+jQuery(function(){
+    jQuery("#cpf").mask("999.999.999-99");
+    jQuery("#cep").mask("99999-999");
+    jQuery("#telefone").mask("(99) 9999-9999?9");
+    jQuery("#telefone_residencial").mask("(99) 9999-9999?9");
+    jQuery("#dataNascimento").mask("99/99/9999");
+    jQuery("#numero").mask("9?99999");
+});
+
 function validaData(campo,valor) {
     var date=valor;
     var ardt=new Array;
@@ -148,7 +157,7 @@ function controla(){
     //alert(document.getElementById("et").value);
     //alert($("#et").val());    
     switch($("#et").val()){
-        case "1":                       
+        case "1":
             if(valida_etapa_1()==true){                                                
                 if(confirm(msg_confirm))
                 {
@@ -156,7 +165,7 @@ function controla(){
                     //vai persistir no banco os dados e passa para a pesquisa socio-economica                    
                 }else{
                     document.getElementById("et").value='3';//alterar o valor do campo hidden com id #et para 3                    
-                    //vai para a pesquisa socioeconomica
+                    //vai para a pesquisa socioeconomica da família!
                 }
                 //alert(document.getElementById("et").value);
                 return true;                
@@ -266,5 +275,13 @@ function valida_cadastro_funcionario_login(){
         return false;
     }    
     return true;
+}
+
+function valida_dados_individualmente(){
+    if(valida_etapa_1()==true){                                                                
+        return true;                
+    }else{                
+        return false;
+    }
 }
 

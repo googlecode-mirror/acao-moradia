@@ -20,7 +20,7 @@ require_once('../mate-2.2/php/AjaxTableEditor.php');
 class VFamilia extends Common {
     
     function initiateEditor() {        
-        $tableColumns['id_familia'] = array('display_text' => 'ID Família', 'perms' => 'VTXQSHOM');
+        $tableColumns['id_familia'] = array('display_text' => 'ID', 'perms' => 'VTXQSHOM');
         $userColumns[] = array('call_back_fun' => array(&$this,'getTitular'), 'title' => 'Titular');
         $tableColumns['cep'] = array('display_text' => 'CEP', 'perms' => 'VTXQSHOM');
         $tableColumns['logradouro'] = array('display_text' => 'Logradouro', 'perms' => 'VTXQSHOM');
@@ -44,7 +44,7 @@ class VFamilia extends Common {
         $permissions = 'VIDXSQHO';
 
         $this->Editor = new AjaxTableEditor($tableName, $primaryCol, $errorFun, $permissions, $tableColumns);
-        $this->Editor->setConfig('tableInfo', 'cellpadding="1" width="100%" class="mateTable"');
+        $this->Editor->setConfig('tableInfo', 'cellpadding="1" width="800" class="mateTable"');
         $this->Editor->setConfig('orderByColumn', 'id_familia');        
         $this->Editor->setConfig('removeIcons', 'CD');        
         $this->Editor->setConfig('modifyRowSets', array(&$this, 'changeBgColor'));
@@ -62,7 +62,7 @@ class VFamilia extends Common {
             'format_fun' => array(&$this,'viewFull')            
         ); 
         $this->Editor->setConfig('userIcons',$userIcons); 
-        
+        $this->Editor->setConfig('displayNum','8'); 
         $this->setConfig();
     }     
     
@@ -70,7 +70,9 @@ class VFamilia extends Common {
     { 
         $iconHtml = '';
         $numIcons = 0;
-        $iconHtml .= '<li class="viewFull"><a href="javascript: void(0);" onclick="window.location=\'vFamiliaInteira.php?id_familia='.$info['id_familia'].'\';" title="Visualisação completa"></a></li>';
+        //$iconHtml .= '<li class="viewFull"><a href="javascript: void(0);" onclick="window.location=\'vFamiliaInteira.php?id_familia='.$info['id_familia'].'\';" title="Visualisação completa"></a></li>';        
+        $iconHtml .= '<li class="viewFull"><a href="vFamiliaInteira.php?id_familia='.$info['id_familia'].'" title="Visualisação completa"></a></li>';
+        
         $numIcons++;      
         return array('icon_html' => $iconHtml, 'num_icons' => $numIcons);
     } 
@@ -107,9 +109,9 @@ class VFamilia extends Common {
     }        
 
     //todo construtor que utiliza o plugin mate-2.2 deverá chamar o $this->display();
-    function VFamilia() {        
-        $_SESSION['botao'] = 'cadastrar_familia';
-        $this->display();
+    function VFamilia() {                
+        $_SESSION['botao'] = 'cadastrar_familia';        
+        $this->display();        
     }
 
 }

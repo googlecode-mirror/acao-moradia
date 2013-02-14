@@ -66,6 +66,7 @@ class VPessoa extends Common {
         $this->Editor->setConfig('tableInfo', 'cellpadding="3" width="1200" class="mateTable"');
         $this->Editor->setConfig('orderByColumn', 'id_pessoa');
         $this->Editor->setConfig('modifyRowSets', array(&$this, 'changeBgColor'));
+        $this->Editor->setConfig('displayNum','10'); 
         /*
         $userIcons[] = array( 
            'icon_html' => '<a onclick="iconAction()"; class="full-person" title="icon-title"></a>'
