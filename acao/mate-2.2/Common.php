@@ -159,7 +159,6 @@ class Common
     function display()
     {                
         if (isset($_POST['json'])) {
-            session_start();            
             if(!isset($_SESSION['nivel'])){
                 header('Location: ../visao/vLogin.php');            
             }
@@ -202,8 +201,7 @@ class Common
             header('Content-Type: text/csv');
             header('Content-Disposition: attachment; filename="' . $this->Editor->tableName . '.csv"');
             exit();
-        } else {            
-            session_start();
+        } else {
             if(!isset($_SESSION['nivel'])){
                 header('Location: ../visao/vLogin.php');            
             }

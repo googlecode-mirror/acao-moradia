@@ -109,9 +109,11 @@ class VFamilia extends Common {
     }        
 
     //todo construtor que utiliza o plugin mate-2.2 deverá chamar o $this->display();
-    function VFamilia() {                
+    function VFamilia() { 
+        session_start();
         $_SESSION['botao'] = 'cadastrar_familia';        
-        $this->display();        
+        $this->display();  
+        $_SESSION['botao'] ='';
     }
 
 }

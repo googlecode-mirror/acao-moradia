@@ -21,7 +21,7 @@ img {
 }
 	article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; }
 	blockquote:before, blockquote:after, q:before, q:after 	{ content: ''; content: none; }
-	body			{ margin:0 auto; background-color:#FFFFFF; background-image:url('../imagens/bg2_NEW.jpg'); background-position:center top; background-repeat:repeat-x; font-family:"Trebuchet MS", Arial, Verdana, Helvetica, sans-serif; font-weight:normal; font-size:12px; line-height: 1.3; 
+	body			{ margin:0 auto; background-color:#FFFFFF; background-image:url('../imagens/bg2_NEW.jpg'); background-position:center top; background-repeat:repeat-x; font-family:"Trebuchet MS", Arial, Verdana, Helvetica, sans-serif; font-weight:normal; font-size:16px; /*line-height: 1.3; */
 					}
 	ol, ul 			{ list-style: none; }
 	table 			{ border-collapse: collapse;	border-spacing: 6px; }
@@ -85,7 +85,7 @@ img {
 	
 /* ---------- bloco_internas  ---------- */
 	.wrap .content .navegador				{ width:660px; float:left; margin-left:15px; font-weight: bold; font-size: 12px; margin-top:20px; color:#4A4C50; font-family: "Trebuchet MS", Arial, Verdana, Helvetica, sans-serif; text-align:right; }
-	.wrap .content .bloco				{ /*width:1050px;*/ padding:20px; min-height:250px; background-color:#F2F2F2; border: #b1b1b1 solid 2px; }
+	.wrap .content .bloco				{ /*width:1050px;*/ padding:20px; min-height:350px; background-color:#F2F2F2; border: #b1b1b1 solid 2px; }
         .wrap .content .bloco .cabecalho                {margin: 10px; border: #b1b1b1 solid 2px;}
         .wrap .content .bloco .cabecalho .dados_pessoais{margin: 25px; float:left;}
         .wrap .content .bloco .dados_familia            {margin: 78px;}
