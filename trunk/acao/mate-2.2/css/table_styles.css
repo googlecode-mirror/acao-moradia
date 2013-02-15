@@ -32,9 +32,8 @@ table.mateTable {
     margin: 10px;
     text-align: left;
     border-collapse: collapse;
-           /* -moz-border-radius: 8px;
--webkit-border-radius: 8px;
-border-radius: 8px; */
+
+
 
     
 }
@@ -50,14 +49,16 @@ table.mateTable tr.header {
         border-bottom: 1px solid #fff;
         color: #039;
         height: auto;
+          
+
+
         
 }
 
 table.mateTable tr.header a {
 	font-weight: bold;
 	color: #039;
- 
-        
+   
 }
 
 table.mateTable tr.header td {
@@ -65,12 +66,12 @@ table.mateTable tr.header td {
             font-weight: bold;
             color: #039;
 	white-space: nowrap;  
-        
+
 
 }
 
 table.mateTable td {
-	padding: 8px;        
+	padding: 8px;
         border-bottom: 1px solid #fff;
         color: #669;
         border-top: 1px solid transparent;
