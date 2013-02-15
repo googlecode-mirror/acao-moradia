@@ -157,9 +157,12 @@ class Common
     }	
     
     function display()
-    {
+    {                
         if (isset($_POST['json'])) {
-            session_start();
+            session_start();            
+            if(!isset($_SESSION['nivel'])){
+                header('Location: ../visao/vLogin.php');            
+            }
             // Initiating lang vars here is only necessary for the logError, and mysqlConnect functions in Common.php. 
             // If you are not using Common.php or you are using your own functions you can remove the following line of code.
             $this->langVars = new LangVars();
@@ -186,6 +189,9 @@ class Common
             }
         } else if (isset($_GET['export'])) {
             session_start();
+            if(!isset($_SESSION['nivel'])){
+                header('Location: ../visao/vLogin.php');            
+            }
             ob_start();
             $this->mysqlConnect();
             $this->initiateEditor();
@@ -197,7 +203,10 @@ class Common
             header('Content-Disposition: attachment; filename="' . $this->Editor->tableName . '.csv"');
             exit();
         } else {            
-            
+            session_start();
+            if(!isset($_SESSION['nivel'])){
+                header('Location: ../visao/vLogin.php');            
+            }
             $this->displayHeaderHtml();            
             $this->displayHtml();
             $this->displayFooterHtml();

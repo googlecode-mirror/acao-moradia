@@ -2,7 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <?php
-        require("vLayoutHead.php");
+            session_start();
+            if(!isset($_SESSION['nivel'])){
+                header('Location: ../visao/vLogin.php');            
+            }
+            require("vLayoutHead.php");
         ?>
         <script type="text/javascript" src="../js/jquery-1.8.3.js"></script>    
         <script type="text/javascript" src="../js/jquery.maskedinput.js"></script>               

@@ -60,6 +60,7 @@
                         
                         <div class="dados_pessoais">                            
                             <a href="javascript:window.history.go(-1)" class="button blue"><< Voltar</a>
+                            <input type="submit" class="button blue" value="Salvar Alterações >>" onclick="return valida_dados_individualmente();"/>
                             <p>&nbsp;</p>
                             <h3>Dados pessoais</h3>
                             <p>&nbsp;</p>
@@ -182,6 +183,11 @@
                     </div>
                     <br/>                                        
                     <div class="dados_familia">
+                        <p>&nbsp;</p>
+                        <p>Situação:</p>
+                        Ativo:<input type="radio" title="Ativo" name="ativo" id="ativo" <?php if($pessoa['ativo']=="1")echo "checked";?>/>
+                        Inativo:<input type="radio" title="Inativo" name="ativo" id="ativo" <?php if($pessoa['ativo']=="0")echo "checked";?>/>
+                        <p>&nbsp;</p>
                         <?php
                         $titulares = $fD->buscaTitularByIdFamilia($pessoa['id_familia']);
                         $titular = mysql_fetch_assoc($titulares);                                                                            
@@ -289,7 +295,7 @@
                     <center>
                         <p>
                             <a href="javascript:window.history.go(-1)" class="button blue"><< Voltar</a>
-                            <input type="submit" class="button blue" value="Próximo >>" onclick="return valida_dados_individualmente();"/>
+                            <input type="submit" class="button blue" value="Salvar Alterações >>" onclick="return valida_dados_individualmente();"/>
                         </p>
                     </center>
                     </form>                
