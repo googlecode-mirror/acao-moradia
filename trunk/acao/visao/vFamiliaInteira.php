@@ -2,6 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <?php
+        session_start();
+        if(!isset($_SESSION['nivel'])){
+        header('Location: ../visao/vLogin.php');            
+        }
         require("vLayoutHead.php");
         require("../bd/PessoaDAO.php");
         require("../bd/FamiliaDAO.php");

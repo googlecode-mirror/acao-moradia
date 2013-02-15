@@ -2,9 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <?php
-                require("vLayoutHead.php");
-//                session_start();
-//                $_SESSION['botao'] = 'cadastrar_curso';
+            session_start();
+            if(!isset($_SESSION['nivel'])){
+                header('Location: ../visao/vLogin.php');            
+            }
+            require("vLayoutHead.php");            
         ?>
 
         <?php
@@ -35,7 +37,7 @@
         <script>
             $(function() {
                 var pessoas = <?php
-        $result = mysql_query("SELECT p.nome,p.id_pessoa, f.logradouro, f.numero FROM pessoa p, familia f where p.id_familia = f.id_familia");
+        $result = mysql_query("SELECT p.nome,p.id_pessoa, f.logradouro, f.numero FROM pessoa p, familia f where p.id_familia = f.id_familia and p.ativo=1");
         $count = mysql_num_rows($result);
         echo '[';
         if ($count > 0) {
@@ -151,9 +153,10 @@
                     <br/>
                     </form>                                    
                 </div>
-                
-            </div>
-        </div>
+                <br>
+                <p style="font-weight: bold; color: red;">OBS.: Pessoas Inativas NÃO podem realizar cursos.</p>
+            </div>            
+        </div>        
     </body>
     <footer>
         <?php
