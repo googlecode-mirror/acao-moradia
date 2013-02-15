@@ -112,7 +112,7 @@
                         </center>                          
                         <div style="margin: 25px; float:left; ">
                             <p>Entre com o nome da pessoa a ser inclusa no curso:</p>
-                            <input id="pessoa" name="pessoa" size="50" required="required" autofocus="autofocus" /><a href="vCadastroPessoa.php"><img src="../imagens/bt_nao_encontrou_pessoa.png" style="margin-top: -20px; margin-bottom: -15px; margin-left: 25px;"></img></a>
+                            <input id="pessoa" name="pessoa" size="50" required="required" autofocus="autofocus" /><a href="vCadastroPessoa.php"><img src="../imagens/bt_nao_encontrou_pessoa.png" style="margin-top: -20px; margin-bottom: -15px; margin-left: 30px;"></img></a>
                             <input type="hidden" id="idPessoa" name="idPessoa"/>
                             <p id="descricao"></p>
 
@@ -142,9 +142,13 @@
 
                             <input type="hidden" id="et" name="et" value="1"/>
                             <p>&nbsp;</p>
+                            <?php                                                         
+//                            if($_SESSION['nivel'] == 'ADMINISTRADOR')
+//                            echo'?>
                             <p>
                                 <input type="image" src="../imagens/bt_incluir_novo.png"/>
-                            </p>                            
+                            </p>
+                            
                             <p>&nbsp;</p>                            
                             <a href="vCadastroCursoNew.php"><img src="../imagens/bt_exibir_cursos.png"></img></a>
                             

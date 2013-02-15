@@ -28,10 +28,10 @@ class VLogin extends Common {
         $primaryCol = 'usuario';
         $errorFun = array(&$this, 'logError');        
         
-        if($_SESSION['nivel'] == 'ATENDENTE'){
-            $permissions = 'VIXSQHO';
-        }else{
+        if($_SESSION['nivel'] == 'ADMINISTRADOR'){
             $permissions = 'EACVIDXSQHO';
+        }else{
+            $permissions = 'VIXSQHO';
         }        
 
         $this->Editor = new AjaxTableEditor($tableName, $primaryCol, $errorFun, $permissions, $tableColumns);
@@ -67,6 +67,10 @@ class VLogin extends Common {
 
     //todo construtor que utiliza o plugin mate-2.2 deverá chamar o $this->display();
     function VLogin() {
+        session_start();
+        if(!isset($_SESSION['nivel'])){
+            header('Location: ../visao/vLogin.php');
+        }
         $this->display();
     }
 

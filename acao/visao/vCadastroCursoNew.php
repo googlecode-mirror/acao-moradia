@@ -45,8 +45,13 @@ class VCurso extends Common {
         $tableName = 'curso';
         $primaryCol = 'id_curso';
         $errorFun = array(&$this, 'logError');
-        $permissions = 'EAVIDXSQHO';
-
+        
+        if($_SESSION['nivel'] == 'ADMINISTRADOR'){
+            $permissions = 'EAVIDXSQHO';
+        }else{
+            $permissions = 'VIXSQHO';
+        }
+        
         $this->Editor = new AjaxTableEditor($tableName, $primaryCol, $errorFun, $permissions, $tableColumns);
         $this->Editor->setConfig('tableInfo', 'cellpadding="1" width="780" class="mateTable"');
         $this->Editor->setConfig('orderByColumn', 'nome');
@@ -73,6 +78,11 @@ class VCurso extends Common {
 
     //todo construtor que utiliza o plugin mate-2.2 deverá chamar o $this->display();
     function VCurso() {
+        if(!isset($_SESSION))
+            session_start();
+        if(!isset($_SESSION['nivel'])){
+            header("Location: vLogin.php");
+        }
         $this->display();
     }
 

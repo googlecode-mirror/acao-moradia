@@ -1,4 +1,13 @@
 <?php
+    if(!isset($_SESSION))
+    {
+        session_start();
+        if(!isset($_SESSION['nivel'])){
+            header("Location: vLogin.php");
+        }
+    }
+
+
     include_once '../bd/PessoaDAO.php';    
     include_once '../bd/FamiliaDAO.php';
     include_once '../bd/CidadeDAO.php';
@@ -190,7 +199,7 @@
                         <p>&nbsp;</p>
                         <?php
                         $titulares = $fD->buscaTitularByIdFamilia($pessoa['id_familia']);
-                        $titular = mysql_fetch_assoc($titulares);                                                                            
+                        $titular = mysql_fetch_assoc($titulares);
                         echo "<p>Grau de parentesco desta pessoa em relação a(ao) " . $titular['nome'] . ":<br>"
                         . "<select name='grauParentesco'>";
                         if($pessoa['grau_parentesco'] == "AGREGADO"){echo "<option selected>AGREGADO(A)</option>";}else{echo"<option>AGREGADO(A)</option>";}
@@ -211,7 +220,7 @@
                         if($pessoa['grau_parentesco'] == "PRIMO(A)"){echo "<option selected>PRIMO(A)</option>";}else{echo"<option>PRIMO(A)</option>";}
                         if($pessoa['grau_parentesco'] == "SOBRINHO(A)"){echo "<option selected>SOBRINHO(A)</option>";}else{echo"<option>SOBRINHO(A)</option>";}
                         if($pessoa['grau_parentesco'] == "SOGRO(A)"){echo "<option selected>SOGRO(A)</option>";}else{echo"<option>SOGRO(A)</option>";}
-                        if($pessoa['grau_parentesco'] == "TIO(A)"){echo "<option selected>TIO(A)</option>";}else{echo"<option>TIO(A)</option>";}                        
+                        if($pessoa['grau_parentesco'] == "TIO(A)"){echo "<option selected>TIO(A)</option>";}else{echo"<option>TIO(A)</option>";}
                         if($pessoa['grau_parentesco'] == "TITULAR"){echo "<option selected>TITULAR</option>";}else{echo"<option>TITULAR</option>";}
                         echo "</select></p>";
                         ?>
