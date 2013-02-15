@@ -55,6 +55,7 @@ class VPessoa extends Common {
         $tableColumns['cpf'] = array('display_text' => 'CPF', 'perms' => 'TVQXSHOMI');
         $tableColumns['rg'] = array('display_text' => 'RG', 'perms' => 'TVQXSHOMI');
         $tableColumns['sexo'] = array('display_text' => 'Sexo', 'perms' => 'TVQXSHOMI');
+        $userColumns[] = array('call_back_fun' => array(&$this,'getProgramas'), 'title' => 'Programas');         
         //$tableColumns['cidade_natal'] = array('display_text' => 'Sexo', 'perms' => 'TVQXSHOMI');
         
         $tableName = 'pessoa';
@@ -67,6 +68,7 @@ class VPessoa extends Common {
         $this->Editor->setConfig('orderByColumn', 'id_pessoa');
         $this->Editor->setConfig('modifyRowSets', array(&$this, 'changeBgColor'));
         $this->Editor->setConfig('displayNum','10'); 
+        $this->Editor->setConfig('userColumns',$userColumns); 
         /*
         $userIcons[] = array( 
            'icon_html' => '<a onclick="iconAction()"; class="full-person" title="icon-title"></a>'
@@ -74,9 +76,23 @@ class VPessoa extends Common {
         $this->Editor->setConfig('userIcons',$userIcons); 
         */
         if($this->id_pessoa != '-1')
-            $this->Editor->setConfig('sqlFilters',"id_pessoa = '$this->id_pessoa'"); 
+            $this->Editor->setConfig('sqlFilters',"id_pessoa = '$this->id_pessoa'");         
         $this->setConfig();
     }
+    
+    function getProgramas($row) 
+    {          
+        require_once '../bd/PessoHasProgramaDAO.php';
+        $p = new PessoaHasProgramaDAO();
+        $res = $p->buscaProgramasById($row['id_pessoa']);
+        $programas = '';
+        while($programa = mysql_fetch_assoc($res)){
+            $programas.=$programa['nome']."<br>";
+        }
+        $html = '<td>'.$programas.'</td>'; 
+        return $html; 
+    }
+    
     private $cor1 = '#ffffff';  //branco
     private $cor2 = '#E8E7E7';  //cinza
     private $ultimo_id = -1;

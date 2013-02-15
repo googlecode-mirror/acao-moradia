@@ -46,7 +46,11 @@ class VCadastroPrograma extends Common {
         $tableName = 'programa';
         $primaryCol = 'id_programa';
         $errorFun = array(&$this, 'logError');
-        $permissions = 'EAVIDQCSXHO';
+        if($_SESSION['nivel'] == 'ADMINISTRADOR'){
+            $permissions = 'EAVIDXSQHO';
+        }else{
+            $permissions = 'VIXSQHO';
+        }        
 
         $this->Editor = new AjaxTableEditor($tableName, $primaryCol, $errorFun, $permissions, $tableColumns);
         $this->Editor->setConfig('tableInfo', 'cellpadding="1" width="700" class="mateTable"');
@@ -63,6 +67,11 @@ class VCadastroPrograma extends Common {
 
     //todo construtor que utiliza o plugin mate-2.2 deverá chamar o $this->display();
     function VCadastroPrograma() {
+        if(!isset($_SESSION))
+            session_start();
+        if(!isset($_SESSION['nivel'])){
+            header("Location: vLogin.php");
+        }
         $this->display();
     }
 }

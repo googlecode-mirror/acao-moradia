@@ -13,10 +13,12 @@
         session_start();
         $_SESSION['nivel']= $lTemp->getNivel();
         $_SESSION['usuario']= $lTemp->getUser();
+        require_once '../bd/Debug.php';
+        Debug::gravaEmArquivo($_SESSION['nivel']);
         
         if($lTemp->getNivel() === "ATENDENTE")
             header("Location: ../visao/vAtendente.php");
-        elseif ($lTemp->getNivel() === "ADMIN") {
+        elseif ($lTemp->getNivel() === "ADMINISTRADOR") {
             header("Location: ../visao/vAtendente.php");
             //header("Location: ../visao/vAdmin.php");
         }

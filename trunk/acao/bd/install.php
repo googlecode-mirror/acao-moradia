@@ -130,7 +130,7 @@
       `id_familia` INT NOT NULL ,
       `cidade_natal` INT(11) ,
       `nome` VARCHAR(100) NOT NULL ,		#upper
-      `cpf` VARCHAR(14) NULL ,
+      `cpf` VARCHAR(14) NULL UNIQUE,
       `rg` VARCHAR(45) NULL ,
       `sexo` CHAR CHECK(`sexo`IN('M','F')),	#upper
       `data_nascimento` DATE NULL ,
