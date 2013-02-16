@@ -15,12 +15,17 @@
         
          public function cadastraPessoa(
             $id_familia, $cod_cidade_Natal, $nome, $cpf, $rg, $sexo, $dataNascimento, $telefone, $grauParentesco, $estadoCivil, $raca, $religiao, 
-                $carteiraProfissional, $tituloEleitor, $certidaoNascimento){
-            
+                $carteiraProfissional, $tituloEleitor, $certidaoNascimento){            
             $dataNascimentoMySQL = Funcoes::toMySqlDate($dataNascimento);
             //$nome= strtolower($nome);
-            echo $selec= "INSERT INTO `pessoa`(`id_familia`, `cidade_natal`, `nome`, `cpf`, `rg`, `sexo`, `data_nascimento`, `data_saida`, `telefone`, `grau_parentesco`, `estado_civil`, `raca`, `religiao`, `carteira_profissional`, `titulo_eleitor`, `certidao_nascimento`) VALUES ($id_familia, $cod_cidade_Natal, '$nome', '$cpf', '$rg', '$sexo', '$dataNascimentoMySQL', null, '$telefone', '$grauParentesco', '$estadoCivil', '$raca', '$religiao',
+            if($cpf==''){
+                $selec= "INSERT INTO `pessoa`(`id_familia`, `cidade_natal`, `nome`, `cpf`, `rg`, `sexo`, `data_nascimento`, `data_saida`, `telefone`, `grau_parentesco`, `estado_civil`, `raca`, `religiao`, `carteira_profissional`, `titulo_eleitor`, `certidao_nascimento`) VALUES ($id_familia, $cod_cidade_Natal, '$nome', NULL, '$rg', '$sexo', '$dataNascimentoMySQL', null, '$telefone', '$grauParentesco', '$estadoCivil', '$raca', '$religiao',
                 '$carteiraProfissional', '$tituloEleitor', '$certidaoNascimento')";
+            }else{
+                $selec= "INSERT INTO `pessoa`(`id_familia`, `cidade_natal`, `nome`, `cpf`, `rg`, `sexo`, `data_nascimento`, `data_saida`, `telefone`, `grau_parentesco`, `estado_civil`, `raca`, `religiao`, `carteira_profissional`, `titulo_eleitor`, `certidao_nascimento`) VALUES ($id_familia, $cod_cidade_Natal, '$nome', '$cpf', '$rg', '$sexo', '$dataNascimentoMySQL', null, '$telefone', '$grauParentesco', '$estadoCivil', '$raca', '$religiao',
+                '$carteiraProfissional', '$tituloEleitor', '$certidaoNascimento')";
+            }
+            
             //TO_DATE($dataNascimento,'DD/MM/YYYY')
             
                         

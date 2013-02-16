@@ -2,11 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <?php
-            session_start();
-            if(!isset($_SESSION['nivel'])){
-                header('Location: ../visao/vLogin.php');            
-            }
-            require("vLayoutHead.php");            
+        session_start();
+        if (!isset($_SESSION['nivel'])) {
+            header('Location: ../visao/vLogin.php');
+        }
+        require("vLayoutHead.php");
         ?>
 
         <?php
@@ -14,83 +14,36 @@
         DataBase::createConection();
         ?>
 
-        <link href="../css/button.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" href="../css/jquery-ui-1.9.2.css" />
-        <script src="../js/jquery-1.8.3.js"></script>
-        <script src="../js/jquery-ui-1.9.2.js"></script>
-        <style>
-            #project-label {
-                display: block;
-                font-weight: bold;
-                margin-bottom: 1em;
-            }
-            #project-icon {
-                float: left;
-                height: 32px;
-                width: 32px;
-            }
-            #project-description {
-                margin: 0;
-                padding: 0;
-            }
-        </style>
-        <script>
-            $(function() {
-                var pessoas = <?php
-        $result = mysql_query("SELECT p.nome,p.id_pessoa, f.logradouro, f.numero FROM pessoa p, familia f where p.id_familia = f.id_familia and p.ativo=1");
-        $count = mysql_num_rows($result);
-        echo '[';
-        if ($count > 0) {
-            for ($i = 0; $i < $count - 1; $i++) {
-                echo '{';
-                $row = mysql_fetch_row($result);
-                //echo '"', $row[1], ' ', $row[0], '"', ',';
-                //echo '"',$row[0], '"', ',';
-                //$idPessoa = $row[1];
-                //$nome = $row[0];
-                //$logradouro = $row[2];
-                //$numero = $row[3];
+        <link href="../css/button.css" rel="stylesheet" type="text/css" />                
+        <script type="text/javascript" src="../js/jquery-1.2.1.pack.js"></script>                        
+        <script type="text/javascript">
+            //auto complete
+            function lookup(pessoa) {
+                if(pessoa.length == 0) {
+                    // Hide the suggestion box.
+                    $('#suggestions').hide();
+                } else {
+                    $.post("vAutoCompletePessoas.php", {queryString: ""+pessoa+""}, function(data){
+                        if(data.length >0) {
+                            $('#suggestions').show();
+                            $('#autoSuggestionsList').html(data);
+                        }
+                    });
+                }
+            } // lookup
 
-                echo 'value: "', $row[1], '",';
-                echo 'label: "', $row[0], '",';
-                echo 'desc: "Endereço: ', $row[2], ', ', $row[3], '"},';
+            function fill(thisValue) {
+                $('#pessoa').val(thisValue);                                
             }
-            $row = mysql_fetch_row($result);
-            //echo '"', $row[1], ' ',$row[0], '"';
-            //echo '"',$row[0], '"';
-            echo '{';
-            echo 'value: "', $row[1], '",';
-            echo 'label: "', $row[0], '",';
-            echo 'desc: "Endereço: ', $row[2], ', ', $row[3], '"}';
-            echo ']';
-        }
-        ?>;
-                //$( "#nome" ).autocomplete({
-                //    source: pessoas
-                //});
-                
-                $( "#pessoa" ).autocomplete({
-                    minLength: 2,
-                    source: pessoas,
-                    focus: function( event, ui ) {
-                        $( "#pessoa" ).val( ui.item.label );
-                        return false;
-                    },
-                    select: function( event, ui ) {
-                        $( "#pessoa" ).val( ui.item.label );
-                        $( "#idPessoa" ).val( ui.item.value );
-                        $( "#descricao" ).html( ui.item.desc );
-
-                        return false;
-                    }
-                })
-                .data( "autocomplete" )._renderItem = function( ul, item ) {
-                    return $( "<li>" )
-                    .data( "item.autocomplete", item )
-                    .append( "<a>" + item.label + "<br>" + item.desc + "</a>" )
-                    .appendTo( ul );
-                };
-            });
+            
+            function fill2(thisValue) {                
+                $('#idPessoa').val(thisValue);                
+            }
+            
+            function fill3(thisValue) {                
+                $( "#descricao" ).html( thisValue );
+                setTimeout("$('#suggestions').hide();", 200);
+            }
         </script>
     </head>
     <body>  
@@ -112,7 +65,13 @@
                         </center>                          
                         <div style="margin: 25px; float:left; ">
                             <p>Entre com o nome da pessoa a ser inclusa no curso:</p>
-                            <input id="pessoa" name="pessoa" size="50" required="required" autofocus="autofocus" /><a href="vCadastroPessoa.php"><img src="../imagens/bt_nao_encontrou_pessoa.png" style="margin-top: -20px; margin-bottom: -15px; margin-left: 30px;"></img></a>
+                            <input id="pessoa" name="pessoa" size="50" required="required" onkeyup="lookup(this.value);" onblur="fill();" autofocus="autofocus" autocomplete="off"/><a href="vCadastroPessoa.php"><img src="../imagens/bt_nao_encontrou_pessoa.png" style="margin-top: -20px; margin-bottom: -15px; margin-left: 30px;"></img></a>
+                            <div class="suggestionsBox" id="suggestions" style="display: none;">
+                                <img src="../imagens/upArrow.png" style="position: relative; top: -12px; left: 30px;" alt="upArrow" />
+                                <div class="suggestionList" id="autoSuggestionsList">
+                                    &nbsp;
+                                </div>
+                            </div>
                             <input type="hidden" id="idPessoa" name="idPessoa"/>
                             <p id="descricao"></p>
 
@@ -126,14 +85,14 @@
                             $cursos = mysql_query("SELECT `id_curso`,`nome`,`vagas` FROM `curso`") or die(mysql_error());
 
                             while ($curso = mysql_fetch_array($cursos)) {
-                                $res = mysql_fetch_assoc(mysql_query("select count(*) as ocupadas from curso_has_pessoa where id_curso=".$curso['id_curso']));
-                                $vagas = $curso['vagas']-$res['ocupadas'];
-    
-                                if($vagas > 0){
+                                $res = mysql_fetch_assoc(mysql_query("select count(*) as ocupadas from curso_has_pessoa where id_curso=" . $curso['id_curso']));
+                                $vagas = $curso['vagas'] - $res['ocupadas'];
+
+                                if ($vagas > 0) {
                                     $idCurso = $curso['id_curso'];
                                     $nomeCurso = $curso['nome'];
                                     $curso_block .= '<OPTION value="' . $idCurso . '">' . $nomeCurso . '</OPTION>';
-                                }else{
+                                } else {
                                     $curso_block .= '<OPTION> NÃO HÁ VAGAS DISPONÍVEIS PARA NENHUM CURSO</OPTION>';
                                 }
                             }
@@ -142,23 +101,24 @@
 
                             <input type="hidden" id="et" name="et" value="1"/>
                             <p>&nbsp;</p>
-                            <?php                                                         
+                            <?php
 //                            if($_SESSION['nivel'] == 'ADMINISTRADOR')
-//                            echo'?>
+//                            echo'
+                            ?>
                             <p>
                                 <input type="image" src="../imagens/bt_incluir_novo.png"/>
                             </p>
-                            
+
                             <p>&nbsp;</p>                            
                             <a href="vCadastroCursoNew.php"><img src="../imagens/bt_exibir_cursos.png"></img></a>
-                            
+
                         </div>                        
                     </div>                    
                     <br/>
                     </form>                                    
                 </div>
                 <br>
-                <p style="font-weight: bold; color: red;">OBS.: Pessoas Inativas NÃO podem realizar cursos.</p>
+                    <p style="font-weight: bold; color: red;">OBS.: Pessoas Inativas NÃO podem realizar cursos.</p>
             </div>            
         </div>        
     </body>

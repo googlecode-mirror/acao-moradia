@@ -3,11 +3,31 @@
  * and open the template in the editor.
  */         
 
+////usada em vIncluirPessoaCurso para autocomplete
+//function lookup(pessoa) {
+//        if(pessoa.length == 0) {
+//                // Hide the suggestion box.
+//                $('#suggestions').hide();
+//        } else {
+//                $.post("pessoas.php", {queryString: ""+pessoa+""}, function(data){
+//                        if(data.length >0) {
+//                                $('#suggestions').show();
+//                                $('#autoSuggestionsList').html(data);
+//                        }
+//                });
+//        }
+//} // lookup
+//
+////usada em vIncluirPessoaCurso para autocomplete
+//function fill(thisValue) {
+//        $('#pessoa').val(thisValue);
+//        setTimeout("$('#suggestions').hide();", 200);
+//}
+
 /*-----------------------------------------------------------------------
   Máscara para o campo data dd/mm/aaaa hh:mm:ss
   Exemplo: <input maxlength="16" name="datahora" onKeyPress="DataHora(event, this)">
 -----------------------------------------------------------------------*/
-
 jQuery(function(){
     jQuery("#cpf").mask("999.999.999-99");
     jQuery("#cep").mask("99999-999");

@@ -99,7 +99,7 @@ img {
 	
 	.wrap .content .bloco form fieldset	{border:none;}	
 	
-	.wrap .content .bloco form fieldset label		{   color:#4A4C50; float:left; width:320px; display:block; margin-top:6px;  margin-left:2px; font-size:13px; font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;}
+	.wrap .content .bloco form fieldset label		{   color:#4A4C50; float:left; width:320px; /*display:block;*/ margin-top:6px;  margin-left:2px; font-size:13px; font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;}
 	
 	.wrap .content .bloco form fieldset input,select	{
 	width: auto;
@@ -176,4 +176,31 @@ img {
 	.wrap .footer .foot .copyright a { font-family:"Trebuchet MS", Arial, Verdana, Helvetica, sans-serif; color:#999;}
 
 
+/*-----------  Auto Complete em vIncluirPessoaCurso.php*/
+        .suggestionsBox {
+		position: relative;
+		left: 30px;
+		margin: 10px 0px 0px 0px;
+		width: 400px;
+		background-color: #FFF;
+		-moz-border-radius: 7px;
+		-webkit-border-radius: 7px;
+		border: 2px solid #000;	
+		color: #000;
+	}
+	
+	.suggestionList {
+		margin: 0px;
+		padding: 0px;
+	}
+	
+	.suggestionList li {
 		
+		margin: 0px 0px 3px 0px;
+		padding: 3px;
+		cursor: pointer;
+	}
+	
+	.suggestionList li:hover {
+		background-color: #659CD8;
+	}
