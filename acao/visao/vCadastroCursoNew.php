@@ -28,7 +28,7 @@ class VCurso extends Common {
         $tableColumns['data_inicio'] = array('display_text' => 'Data de início', 'perms' => 'EVTAXQSHOM', 'req' => true, 'display_mask' => 'date_format(date(`data_inicio`),"%d/%m/%Y")', 'calendar' => array('format' => '%d/%m/%Y', 'reset' => true));
         $tableColumns['data_termino'] = array('display_text' => 'Data de término', 'perms' => 'EVTAXQSHOM', 'req' => true, 'display_mask' => 'date_format(date(`data_termino`),"%d/%m/%Y")', 'calendar' => array('format' => '%d/%m/%Y', 'reset' => true));
 
-        $tableColumns['carga_horaria'] = array('display_text' => 'Carga horária', 'perms' => 'EVTAXQSHOM');
+        $tableColumns['carga_horaria'] = array('display_text' => 'Carga<br> horária', 'perms' => 'EVTAXQSHOM');
         $tableColumns['pre_requisitos'] = array('display_text' => 'Pré-requisitos', 'perms' => 'EVTAXQSHOM');
 
         $tableColumns['seg'] = array('display_text' => 'Seg', 'perms' => 'EVTAXQSHOM', 'checkbox' => array('checked_value' => '1', 'un_checked_value' => '0'), 'display_mask' => "IF(seg = '0','','<center>X</center>')");
@@ -40,8 +40,9 @@ class VCurso extends Common {
         $tableColumns['dom'] = array('display_text' => 'Dom', 'perms' => 'EVTAXQSHOM', 'checkbox' => array('checked_value' => '1', 'un_checked_value' => '0'), 'display_mask' => "IF(dom = '0','','<center>X</center>')");
         //$tableColumns['dom'] = array('display_text' => 'Dom', 'perms' => 'EVTAXQSHOM', 'checkbox' => array('checked_value' => '1','un_chec
         //ked_value' => '0'), 'display_mask' => "IF(dom = '0','','<style type=\"text/css\"><!--p {font-weight: bold;font-size:1.4em}--></style><p>S</p>')");
-        $tableColumns['vagas'] = array('display_text' => 'Total de Vagas', 'perms' => 'EVTAXQSHOM', 'req' => true, 'val_fun' => array(&$this, 'valVagas'));
-        $userColumns[] = array('call_back_fun' => array(&$this,'valVagasDisp'), 'title' => 'Vagas Disponíveis');                         
+        $tableColumns['vagas'] = array('display_text' => 'Total de <br>Vagas', 'perms' => 'EVTAXQSHOM', 'req' => true, 'val_fun' => array(&$this, 'valVagas'));
+        $userColumns[] = array('call_back_fun' => array(&$this,'valVagasDisp'), 'title' => 'Vagas<br>Disponíveis');
+        $userColumns[] = array('call_back_fun' => array(&$this,'valListaEspera'), 'title' => 'Lista de <br>espera');
         $tableName = 'curso';
         $primaryCol = 'id_curso';
         $errorFun = array(&$this, 'logError');
@@ -70,8 +71,16 @@ class VCurso extends Common {
     }
     
     function valVagasDisp($row) {         
-         $res = mysql_fetch_assoc(mysql_query("select count(*) as ocupadas from curso_has_pessoa where id_curso=".$row['id_curso']));
-         $html = '<td>'.($row['vagas']-$res['ocupadas']).'</td>'; 
+         $res = mysql_fetch_assoc(mysql_query("select count(*) as ocupadas from curso_has_pessoa where situacao_matricula='MATRICULADO' and id_curso=".$row['id_curso']));
+         //$html = '<td>'.($row['vagas']-$res['ocupadas']).'</td>'; 
+         $html = '<td>'.($res['ocupadas']).'</td>';          
+         return $html; 
+        //return mysql_query("select count(*) from curso_has_pessoa where id_curso=".$info['id_curso']);
+    }
+    
+    function valListaEspera($row) {         
+         $res = mysql_fetch_assoc(mysql_query("select count(*) as ocupadas from curso_has_pessoa where situacao_matricula='LISTA ESPERA'"));         
+         $html = '<td>'.($res['ocupadas']).'</td>';          
          return $html; 
         //return mysql_query("select count(*) from curso_has_pessoa where id_curso=".$info['id_curso']);
     }

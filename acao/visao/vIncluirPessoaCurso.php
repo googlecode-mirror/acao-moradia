@@ -7,6 +7,7 @@
             header('Location: ../visao/vLogin.php');
         }
         require("vLayoutHead.php");
+        require_once '../controle/cFuncoes.php';
         ?>
 
         <?php
@@ -44,6 +45,21 @@
                 $( "#descricao" ).html( thisValue );
                 setTimeout("$('#suggestions').hide();", 200);
             }
+            
+            function tratarTecla(tecla, evento){
+                if(evento.keyCode == "27" || evento.keyCode == "8"){
+                    $('#suggestions').hide();                    
+                }
+            }
+            function valida_aluno(){
+                if($('#idPessoa').val() == '-1'){
+                    alert("Você deve selecionar uma pessoa que está na lista de sugestão.");
+                    $("#pessoa").val('');
+                    $("#pessoa").focus();
+                    return false;
+                }
+                return true;              
+            }            
         </script>
     </head>
     <body>  
@@ -56,7 +72,7 @@
                 require("vLayoutMargin.php");
                 ?>              
 
-                <div class="bloco" style="border: #b1b1b1 solid 2px;">
+                <div class="bloco" style="border: #b1b1b1 solid 2px; min-height: 500px">
 
                     <form action="../controle/cIncluirPessoaCurso.php" method="post"/>
                     <div style="margin: 10px; border: #b1b1b1 solid 2px;">                         
@@ -65,14 +81,14 @@
                         </center>                          
                         <div style="margin: 25px; float:left; ">
                             <p>Entre com o nome da pessoa a ser inclusa no curso:</p>
-                            <input id="pessoa" name="pessoa" size="50" required="required" onkeyup="lookup(this.value);" onblur="fill();" autofocus="autofocus" autocomplete="off"/><a href="vCadastroPessoa.php"><img src="../imagens/bt_nao_encontrou_pessoa.png" style="margin-top: -20px; margin-bottom: -15px; margin-left: 30px;"></img></a>
+                            <input id="pessoa" name="pessoa" size="50" required="required" onkeyup="tratarTecla(this,event);" onkeypress="lookup(this.value);" onblur="fill();" autofocus="autofocus" autocomplete="off"/><a href="vCadastroPessoa.php"><img src="../imagens/bt_nao_encontrou_pessoa.png" style="margin-top: -20px; margin-bottom: -15px; margin-left: 30px;"></img></a>
                             <div class="suggestionsBox" id="suggestions" style="display: none;">
                                 <img src="../imagens/upArrow.png" style="position: relative; top: -12px; left: 30px;" alt="upArrow" />
                                 <div class="suggestionList" id="autoSuggestionsList">
                                     &nbsp;
                                 </div>
                             </div>
-                            <input type="hidden" id="idPessoa" name="idPessoa"/>
+                            <input type="hidden" id="idPessoa" name="idPessoa" value="-1"/>
                             <p id="descricao"></p>
 
 
@@ -82,19 +98,19 @@
                             //error_reporting(E_ALL & ~ E_NOTICE);
 
                             $curso_block = "";
-                            $cursos = mysql_query("SELECT `id_curso`,`nome`,`vagas` FROM `curso`") or die(mysql_error());
+                            $cursos = mysql_query("SELECT `id_curso`,`nome`,`vagas`, `data_inicio` FROM `curso`") or die(mysql_error());
 
                             while ($curso = mysql_fetch_array($cursos)) {
-                                $res = mysql_fetch_assoc(mysql_query("select count(*) as ocupadas from curso_has_pessoa where id_curso=" . $curso['id_curso']));
-                                $vagas = $curso['vagas'] - $res['ocupadas'];
+                                //$res = mysql_fetch_assoc(mysql_query("select count(*) as ocupadas from curso_has_pessoa where id_curso=" . $curso['id_curso']));
+                                //$vagas = $curso['vagas'] - $res['ocupadas'];
 
-                                if ($vagas > 0) {
+                                //if ($vagas > 0) {
                                     $idCurso = $curso['id_curso'];
                                     $nomeCurso = $curso['nome'];
-                                    $curso_block .= '<OPTION value="' . $idCurso . '">' . $nomeCurso . '</OPTION>';
-                                } else {
-                                    $curso_block .= '<OPTION> NÃO HÁ VAGAS DISPONÍVEIS PARA NENHUM CURSO</OPTION>';
-                                }
+                                    $curso_block .= '<OPTION value="' . $idCurso . '">' . $nomeCurso . ' - '.  Funcoes::toUserDate($curso['data_inicio']).  '</OPTION>';
+                                //} else {
+                                    //$curso_block .= '<OPTION> NÃO HÁ VAGAS DISPONÍVEIS PARA NENHUM CURSO</OPTION>';
+                                //}
                             }
                             ?>
                             <select id="idCurso" name="idCurso"><?php echo $curso_block; ?></select>
@@ -106,7 +122,7 @@
 //                            echo'
                             ?>
                             <p>
-                                <input type="image" src="../imagens/bt_incluir_novo.png"/>
+                                <input type="image" src="../imagens/bt_incluir_novo.png" onclick="return valida_aluno();"/>
                             </p>
 
                             <p>&nbsp;</p>                            

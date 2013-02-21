@@ -31,16 +31,16 @@ class VPessoa extends Common {
 //        $tableColumns['id_familia'] = array('display_text' => 'Id família', 'perms' => 'TVQXSHOMI');        
         $tableColumns['data_cadastro'] = array('display_text' => 'Data Cad.', 'perms' => 'TVQXSHOMI', 'display_mask' => 'date_format(date(`data_cadastro`),"%d/%m/%Y")');
         $tableColumns['last_modified'] = array('display_text' => 'Última modificação', 'perms' => 'TVQXSHOMI', 'display_mask' => 'date_format(`last_modified`,"%d/%m/%Y %H:%i:%s")');
-        $tableColumns['data_nascimento'] = array('display_text' => 'Data Nasc.', 'perms' => 'TVQXSHOMI', 'display_mask' => 'date_format(date(`data_nascimento`),"%d/%m/%Y")');        
+        $tableColumns['data_nascimento'] = array('display_text' => 'Data Nasc.', 'perms' => 'TVQXSHOMI', 'display_mask' => 'IF(date_format(date(`data_nascimento`),"%d/%m/%Y")="00/00/0000","",date_format(date(`data_nascimento`),"%d/%m/%Y"))');
         $tableColumns['telefone'] = array('display_text' => 'Telefone', 'perms' => 'TVQXSHOMI');
             //'col_header_info' =>'style="text-align:center;font-weight:bold;"');
         $tableColumns['estado_civil'] = array('display_text' => 'Estado Civil', 'perms' => 'TVQXSHOMI');
         $tableColumns['raca'] = array('display_text' => 'Raça', 'perms' => 'TVQXSHOMI');
         $tableColumns['religiao'] = array('display_text' => 'Religião', 'perms' => 'TVQXSHOMI');
-        $tableColumns['carteira_profissional'] = array('display_text' => 'Carteira Profissional', 'perms' => 'TVQXSHOMI');
+        $tableColumns['carteira_profissional'] = array('display_text' => 'Carteira<br> Profissional', 'perms' => 'TVQXSHOMI');
         $tableColumns['titulo_eleitor'] = array('display_text' => 'Título de eleitor', 'perms' => 'TVQXSHOMI');
-        $tableColumns['certidao_nascimento'] = array('display_text' => 'Certidão de Nasc.', 'perms' => 'TVQXSHOMI');
-        $tableColumns['data_saida'] = array('display_text' => 'Data da inatividade', 'perms' => 'TVQXSHOMI');
+        $tableColumns['certidao_nascimento'] = array('display_text' => 'Certidão <br>de Nasc.', 'perms' => 'TVQXSHOMI');
+        $tableColumns['data_saida'] = array('display_text' => 'Data <br>da inatividade', 'perms' => 'TVQXSHOMI');
         
         $tableColumns['id_familia'] = array( 
             'display_text' => 'ID Familia, Logradouro, Nº', 
