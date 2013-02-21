@@ -194,7 +194,7 @@
       CONSTRAINT `fk_Curso_has_Pessoa_Curso1`
         FOREIGN KEY (`id_curso` )
         REFERENCES `curso` (`id_curso` )
-        ON DELETE NO ACTION
+        ON DELETE CASCADE
         ON UPDATE NO ACTION,
       CONSTRAINT `fk_Curso_has_Pessoa_Pessoa1`
         FOREIGN KEY (`id_pessoa` )
@@ -497,9 +497,9 @@
         DECLARE qtd_vagas_ocupadas, qtd_vagas_curso INT;
 
         SELECT COUNT(*) FROM curso_has_pessoa WHERE id_curso = NEW.id_curso INTO qtd_vagas_ocupadas;
-        SELECT COUNT(*) FROM curso WHERE id_curso = NEW.id_curso INTO qtd_vagas_curso;
+        SELECT vagas FROM curso WHERE id_curso = NEW.id_curso INTO qtd_vagas_curso;
 
-        IF(qtd_vagas_curso >= qtd_vagas_ocupadas) THEN
+        IF(qtd_vagas_curso > qtd_vagas_ocupadas) THEN
              set NEW.situacao_matricula = 'MATRICULADO';
         ELSE
              set NEW.situacao_matricula = 'LISTA DE ESPERA';

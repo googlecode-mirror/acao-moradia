@@ -47,7 +47,7 @@
                     <div class="menu_relatorios" style="margin-left:30px;">
                         <div class="tit">Relatórios</div>
                         <div class="bts">
-                            <ul><li><a href="vCadastroCursoNew.php" target="_parent"><img src="../imagens/bt_curso_novo.png"</a></li></ul>
+                            <ul><li><a href="vRelatorioCurso.php" target="_parent"><img src="../imagens/bt_curso_novo.png"</a></li></ul>
                         </div>                
                         <div class="bts">
                             <ul><li><a href="" target="_parent"><s><img src="../imagens/bt_pessoa_novo.png"</a></s></li></ul>

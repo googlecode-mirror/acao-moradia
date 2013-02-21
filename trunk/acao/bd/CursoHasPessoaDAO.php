@@ -13,12 +13,26 @@ class CursoHasPessoaDAO {
 
     public function cadastraCursoHasPessoa($idPessoa, $idCurso) {
         $this->_ins.= " ($idPessoa,$idCurso)";
-        $_res = mysql_query($this->_ins);
+        $res = mysql_query($this->_ins);
 
-        if ($_res != TRUE)
+        if ($res != TRUE)
             echo 'falha na operação';
         else {
             echo 'Pessoa inserida com sucesso';
+        }
+    }
+    
+    public function buscaAlunosDoCurso($idCurso){
+        $select = "SELECT c.situacao_matricula, DATE_FORMAT(c.data_inscricao, '%d/%m/%Y %h:%i:%s') as data_inscricao, p.*
+           FROM curso_has_pessoa c, pessoa p 
+           WHERE c.id_curso=$idCurso and p.id_pessoa = c.id_pessoa
+           ORDER BY c.data_inscricao";
+        
+        $res = mysql_query($select);
+        if ($res != TRUE)
+            echo 'falha na operação';
+        else {
+            return $res;
         }
     }
 
