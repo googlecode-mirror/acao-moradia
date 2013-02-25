@@ -186,7 +186,7 @@
     CREATE  TABLE IF NOT EXISTS `curso_has_pessoa` (
       `id_curso` INT NOT NULL ,
       `id_pessoa` INT NOT NULL ,
-      `data_inscricao` TIMESTAMP NOT NULL ,      
+      `data_inscricao` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
       `situacao_matricula` TINYTEXT NOT NULL CHECK(`situacao_matricula` IN('MATRICULADO', 'LISTA DE ESPERA', 'CONCLUÍDO', 'DESISTIU')),		#upper
       PRIMARY KEY (`id_curso`, `id_pessoa`) ,
       INDEX `fk_Curso_has_Pessoa_Pessoa1_idx` (`id_pessoa` ASC) ,
@@ -454,8 +454,7 @@
     CREATE TRIGGER atualiza_pessoa BEFORE UPDATE ON pessoa
       FOR EACH ROW BEGIN    
             set NEW.nome = upper(NEW.nome);	
-            set NEW.sexo = upper(NEW.sexo);
-            set NEW.data_cadastro = date(now());	
+            set NEW.sexo = upper(NEW.sexo);            
             set NEW.last_modified = now();            
             set NEW.grau_parentesco = upper(NEW.grau_parentesco);	
             set NEW.estado_civil = upper(NEW.estado_civil);	
@@ -512,8 +511,8 @@
     ") or die(mysql_error());
 
     echo "Trigger para definir situação_matricula em curso_has_pessoa Instalada com sucesso<br>";
-
-
+    
+    
     #-----------LETRAS Maiúsculas em `CURSO_HAS_PESSOA` ------------
     #UPDATE
     mysql_query("
@@ -554,7 +553,7 @@
     echo "Tabela curso populada com sucesso<br>";
 
     #PROGRAMA
-    mysql_query("insert into programa(nome) values ('criança feliz'),('formação infantil')") or die(mysql_error());
+    mysql_query("insert into programa(nome) values ('criança feliz'),('formação infantil'),('fábrica de tijolos')") or die(mysql_error());
     echo "Tabela programa populada com sucesso<br>";
 
     #BAIRRO

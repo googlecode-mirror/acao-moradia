@@ -5,15 +5,14 @@
         private $_alt= "UPDATE pessoa_has_programa set";
         private $_sel= "SELECT * FROM pessoa_has_programa";                 
         
-        public function cadastraPessoaHasPrograma($idPessoa, $idPrograma){
-            $this->_ins.= " ('$idPessoa','$idPrograma')";
-            $_res= mysql_query($this->_ins);
+        public function cadastraPessoaHasPrograma($idPessoa, $idPrograma){            
+            $_res= mysql_query($this->_ins." ($idPessoa,$idPrograma)");
             if($_res != TRUE)
-                echo 'falha na operação';             
+                echo 'falha na operação '.$this->_ins."<br>";             
         }
         
         public function buscaProgramasById($id_pessoa){
-            $select= "SELECT p.nome FROM pessoa_has_programa php, programa p WHERE php.id_pessoa= $id_pessoa and php.id_programa = p.id_programa";
+            $select= "SELECT p.nome, php.id_programa FROM pessoa_has_programa php, programa p WHERE php.id_pessoa= $id_pessoa and php.id_programa = p.id_programa";
             $res= mysql_query($select);
             
             if($res === FALSE){
@@ -48,7 +47,40 @@
                 //$arrived= mysql_fetch_assoc($res);
                 return $res;
             }            
-        }    
+        } 
+        
+        public function remove($id_pessoa, $id_programa){
+            $select= "DELETE FROM pessoa_has_programa WHERE id_pessoa= $id_pessoa and id_programa = $id_programa";
+            $res= mysql_query($select);            
+            if($res === FALSE){
+                echo "Erro: ".$select;
+                return null;
+            }else{                
+                return $res;
+            }    
+        }
+        
+        public function removeTodosProgramas($id_pessoa){
+            $select= "DELETE FROM pessoa_has_programa WHERE id_pessoa= $id_pessoa";
+            $res= mysql_query($select);            
+            if($res === FALSE){
+                echo "Erro: ".$select;
+                return null;
+            }else{                
+                return $res;
+            }    
+        }
+        
+        public function remove_2($id_pessoa){
+            $select= "DELETE FROM pessoa_has_programa WHERE id_pessoa= $id_pessoa";
+            $res= mysql_query($select);            
+            if($res === FALSE){
+                echo "Erro: ".$select;
+                return null;
+            }else{                
+                return $res;
+            }    
+        }
         
     }
 

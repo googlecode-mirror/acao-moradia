@@ -72,8 +72,8 @@ class VCurso extends Common {
     
     function valVagasDisp($row) {         
          $res = mysql_fetch_assoc(mysql_query("select count(*) as ocupadas from curso_has_pessoa where situacao_matricula='MATRICULADO' and id_curso=".$row['id_curso']));
-         //$html = '<td>'.($row['vagas']-$res['ocupadas']).'</td>'; 
-         $html = '<td>'.($res['ocupadas']).'</td>';          
+         $html = '<td>'.($row['vagas']-$res['ocupadas']).'</td>'; 
+         //$html = '<td>'.($res['ocupadas']).'</td>';          
          return $html; 
         //return mysql_query("select count(*) from curso_has_pessoa where id_curso=".$info['id_curso']);
     }

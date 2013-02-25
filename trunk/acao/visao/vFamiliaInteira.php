@@ -55,11 +55,11 @@
                             </td>    
                         </tr>
                         <?php 
-                            $id_familia = $_GET['id_familia'];                        
+                            $id_familia = $_GET['id_familia'];
                             $familiaDAO = new FamiliaDAO();
                             $familias = $familiaDAO->buscaTodosDadosFamilia($id_familia);
                             $telefones = $familiaDAO->buscaTelefone($id_familia);
-
+                            $titular = mysql_fetch_assoc($familiaDAO->buscaTitularByIdFamilia($id_familia));
                             while($familia = mysql_fetch_assoc($familias)){
                                 echo '<tr>';
                                 echo "<td> $id_familia </td>";
@@ -74,11 +74,15 @@
                                     echo $telefone['telefone']." ";
                                 }
                                 echo "</td>";          
-                                echo "<td>";
+                                echo "<td>";                                
                                 echo '<ul class="actions" style="width: 78px;">
                                       <li class="edit"> 
-                                      <a href="EditaFamilia.php?id_familia='.$id_familia.'"></a>
-                                      </li></ul>';
+                                      <a title="Editar Família" href="vEditaFamilia.php?id_familia='.$id_familia.'"></a>
+                                      </li>
+                                      <li class="addperson"> 
+                                      <a title="Adicionar Pessoa a Família" href="vCadastroPessoa.php?et=2&family='.$id_familia.'&titular='.$titular['nome'].'"></a>
+                                      </li>
+                                      </ul>';
                                 echo "</td>";                                          
                                 echo '</tr>';
                             }                            
@@ -115,7 +119,7 @@
                                 echo "</td>";
                                 echo "<td nowrap='nowrap'>";
                                 echo "<ul class='actions' style='width: 78px;'>";
-                                echo "<li class='edit'> <a href='vEditaPessoa.php?id_pessoa=$row[id_pessoa]' title='Editar'></a></li>";                                
+                                echo "<li class='edit'> <a href='vEditaPessoa.php?id_pessoa=$row[id_pessoa]' title='Editar'></a></li>";
                                 echo "<li class='viewFull'> <a href='vPreCadastroNew.php?id_pessoa=$row[id_pessoa]' title='Visualização completa'></a></li>";
                                 echo "</ul>";
                                 echo '</tr>';

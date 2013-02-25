@@ -29,9 +29,9 @@ mysql_query("INSERT INTO `estado` (`cod_estado`, `sigla`, `nome`) VALUES (24, 'T
 mysql_query("INSERT INTO `estado` (`cod_estado`, `sigla`, `nome`) VALUES (25, 'SC', 'SANTA CATARINA');") or die(mysql_error());
 mysql_query("INSERT INTO `estado` (`cod_estado`, `sigla`, `nome`) VALUES (26, 'SP', 'SÃO PAULO');") or die(mysql_error());
 mysql_query("INSERT INTO `estado` (`cod_estado`, `sigla`, `nome`) VALUES (27, 'SE', 'SERGIPE');") or die(mysql_error());
-/*
+
 mysql_query("INSERT INTO `cidade` (`cod_estado`, `cod_cidade`, `nome`, `cep`) VALUES (1, 1, 'ACRELÂNDIA', NULL)") or die(mysql_error());
-mysql_query("INSERT INTO `cidade` (`cod_estado`, `cod_cidade`, `nome`, `cep`) VALUES (1, 2, 'ASSIS BRASIL', '69935000')") or die(mysql_error());
+/*mysql_query("INSERT INTO `cidade` (`cod_estado`, `cod_cidade`, `nome`, `cep`) VALUES (1, 2, 'ASSIS BRASIL', '69935000')") or die(mysql_error());
 mysql_query("INSERT INTO `cidade` (`cod_estado`, `cod_cidade`, `nome`, `cep`) VALUES (1, 3, 'BRASILÉIA', '69932000');") or die(mysql_error());
 mysql_query("INSERT INTO `cidade` (`cod_estado`, `cod_cidade`, `nome`, `cep`) VALUES (1, 4, 'BUJARI', '69923000');") or die(mysql_error());
 mysql_query("INSERT INTO `cidade` (`cod_estado`, `cod_cidade`, `nome`, `cep`) VALUES (1, 5, 'CAPIXABA', '69922000');") or die(mysql_error());

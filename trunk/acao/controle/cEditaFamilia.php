@@ -1,82 +1,28 @@
 <?php
     echo "<pre>";
     print_r($_POST);
-    echo "</pre>";
-    require_once '../bd/PessoaHasProgramaDAO.php';
+    echo "</pre>";        
+    
     require_once '../bd/PessoaDAO.php';
     require_once '../bd/FamiliaDAO.php';
     require_once '../bd/BairroDAO.php';
     require_once '../bd/TelefoneDAO.php';
-    require_once '../modelo/Modelo.php';
-    require_once '../controle/cFuncoes.php';
+    require_once '../modelo/Modelo.php';        
+        
+    $pessoa_grau_parentesco = $_POST['grauParentesco'];
     
-    $ativo                  = $_POST['ativo'];    
-    $id_pessoa              = $_POST['idPessoa'];
-    $nome                   = $_POST['nome'];
-    $cpf                    = $_POST['cpf'];
-    $rg                     = $_POST['rg'];
-    $sexo                   = $_POST['sexo'];    
-    $telefone               = $_POST['telefone'];
-    $dataNascimento         = Funcoes::toMySqlDate($_POST['dataNascimento']);
-    //$estadoNatal            = $_POST['estadoNatal'];
-    $cidadeNatal            = $_POST['cidadeNatal'];
-    $estadoCivil            = $_POST['estadoCivil'];
-    $raca                   = $_POST['raca'];
-    $religiao               = $_POST['religiao'];
-    $carteiraProfissional   = $_POST['carteiraProfissional'];    
-    $certidaoNascimento     = $_POST['certidaoNascimento'];    
-    $tituloEleitor          = $_POST['tituloEleitor'];
-    $grauParentesco         = $_POST['grauParentesco'];
+    $id_familia             = $_POST['idFamilia'];    
     $cep                    = $_POST['cep'];
     $logradouro             = $_POST['logradouro'];
-    $numero                 = $_POST['numero'];
-    //$estado                 = $_POST['estado'];
+    $numero                 = $_POST['numero'];    
     $cidade                 = $_POST['cidade'];
     $bairro                 = $_POST['bairro'];
-    $telefone_residencial   = $_POST['telefone_residencial'];
-    $id_familia             = $_POST['idFamilia'];            
-    
-    $pessoaHasProgramaDAO   = new PessoaHasProgramaDAO();
+    $telefone_residencial   = $_POST['telefone_residencial'];    
+        
     $pessoaDAO              = new PessoaDAO();
     $familiaDAO             = new FamiliaDAO();
     $bairroDAO              = new BairroDAO();    
-    
-    //pegar todos os programas que a pessoa possui
-    $programas_pessoas = $pessoaHasProgramaDAO->buscaProgramasById($id_pessoa);
-    $programas_antigos = array();//programas antigos
-    while($aux = mysql_fetch_assoc($programas_pessoas)){
-        $programas_antigos[$aux['id_programa']] = $aux['id_programa'];
-    }    
-    //pega a lista de programas
-    //
-    //programas novos que nao estao em programas antigos são inseridos
-    //
-    //programas novos que estão em programs antigos não faz nada
-    //
-    //programas antigos que nao estao em novos sao removidos    
-    //pega a lista de programas da pessoa
-    if(isset($_POST['programa'])){//se existem programas
-        $programas_novos = $_POST['programa'];//pega a lista de programas novos
-        foreach ($programas_novos as $programa){
-            if(!in_array($programa, $programas_antigos)){//se o programa novo não está na lista de programas antigos add
-               $pessoaHasProgramaDAO->cadastraPessoaHasPrograma($id_pessoa, $programa);
-               echo "O programa antigo não está na lista de programas novos<br>";
-               echo "o programa novo não está na lista de programas antigos add<br>";
-               
-            }
-        }    
-        foreach ($programas_antigos as $programa){            
-            if(!in_array($programa, $programas_novos)){//se o programa antigo não está na lista de programas novo rem
-                $pessoaHasProgramaDAO->remove($id_pessoa, $programa);
-                echo "O programa novo $programa não está na lista de programas antigos vamos inseri-lo";
-                echo "o programa antigo não está na lista de programas novo rem<br>";
-            }
-        }
-    }else{
-        $pessoaHasProgramaDAO->removeTodosProgramas($id_pessoa);//remove todos os programas
-        echo "DEletando tudo";
-    }      
-            
+                        
     $bairroDAO->cadastraBairro($bairro);
     
     $familia = new Familia($cep,$logradouro,$numero,$bairro,$cidade);
@@ -102,23 +48,11 @@
         }
     }
     
-    $familiaDAO->alteraDadosFamilia($familia);
-    
-    
-    //cadastra a pessoa
-    $pessoa = new Pessoa(
-            $id_familia, $cidadeNatal, $nome, $cpf, 
-            $rg, $sexo, $dataNascimento, $telefone, $grauParentesco,
-            $estadoCivil,$raca,$religiao, $carteiraProfissional,
-            $tituloEleitor, $certidaoNascimento);
-    $pessoa->setIdPessoa($id_pessoa);  
-    $pessoa->setAtivo($ativo);
-  
-    $res = $pessoaDAO->alteraDadosPessoa($pessoa);
-
-    if($res === FALSE){
-        echo "Erro ao cadastrar";
-        exit();
+    $familiaDAO->alteraDadosFamilia($familia);    
+    $pessoaDAO->alteraGrauParentesco(key($pessoa_grau_parentesco), current($pessoa_grau_parentesco));       
+        
+    while(next($pessoa_grau_parentesco)){
+       $pessoaDAO->alteraGrauParentesco(key($pessoa_grau_parentesco), current($pessoa_grau_parentesco));       
     }
     
     /*

@@ -23,7 +23,7 @@ class CursoHasPessoaDAO {
     }
     
     public function buscaAlunosDoCurso($idCurso){
-        $select = "SELECT c.situacao_matricula, DATE_FORMAT(c.data_inscricao, '%d/%m/%Y %h:%i:%s') as data_inscricao, p.*
+        $select = "SELECT c.situacao_matricula, DATE_FORMAT(c.data_inscricao, '%d/%m/%Y %H:%i:%s') as data_inscricao, p.*
            FROM curso_has_pessoa c, pessoa p 
            WHERE c.id_curso=$idCurso and p.id_pessoa = c.id_pessoa
            ORDER BY c.data_inscricao";
@@ -33,6 +33,26 @@ class CursoHasPessoaDAO {
             echo 'falha na operação';
         else {
             return $res;
+        }
+    }
+    
+    public function remove($id_pessoa,$id_curso){
+        $select = "DELETE FROM curso_has_pessoa WHERE id_pessoa = $id_pessoa and id_curso = $id_curso";        
+        $res = mysql_query($select) or die(mysql_error().$select);
+        if ($res != TRUE)
+            echo 'falha na operação '.$select;
+        else {
+            return $res;
+        }
+    } 
+    
+    public function isMatriculado($id_pessoa,$id_curso){
+        $select = "SELECT * FROM curso_has_pessoa WHERE id_pessoa = $id_pessoa and id_curso = $id_curso and situacao_matricula = 'MATRICULADO'";
+        $res = mysql_query($select) or die(mysql_error().$select);
+        if ($res != TRUE)
+            echo 'falha na operação '.$select;
+        else {
+            return mysql_numrows($res);
         }
     }
 

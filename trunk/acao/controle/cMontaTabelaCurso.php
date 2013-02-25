@@ -16,11 +16,12 @@
 <html>
     <head>
         <link href="../mate-2.2/css/table_styles.css" rel="stylesheet" type="text/css" />
+        <link href="../mate-2.2/css/icon_styles.css" rel="stylesheet" type="text/css" />
     </head>
     <br><br>
     <body>
         Dados do Curso:        
-        <table cellpadding="1" width="90%" class="mateTable">
+        <table cellpadding="1" width="120%" class="mateTable">
             <tbody>
             <tr class="header" style="background: #009900;">
                 <td>
@@ -54,8 +55,7 @@
                 }else{
                     $lista_espera = 0;
                 }
-                $cor_verde = "";
-                $cor_amarela = "";
+                
                 echo '<tr>';
                 echo "<td> $dados_curso[nome] </td>";
                 echo "<td> $dados_curso[vagas] </td>";                
@@ -69,7 +69,7 @@
         </table> 
         <br><br>
         Situação das pessoas matriculadas:
-        <table cellpadding="1" width="90%" class="mateTable">
+        <table cellpadding="1" width="120%" class="mateTable">
             <tbody>
             <tr class="header" style="background: #009900;">
                 <td>
@@ -81,17 +81,31 @@
                 <td>
                     Data Inscrição
                 </td>                
+                <?php 
+                    //session_start();
+                    //if($_SESSION['nivel'] == 'ADMINISTRADOR'){
+                        echo "<td>Remover</td>";
+                    //}
+                ?>
             </tr>
             <?php                
                 while($aluno=  mysql_fetch_assoc($alunos)){
+                    echo "<tr style='background-color:";
                     if($aluno['situacao_matricula'] == 'LISTA DE ESPERA'){
-                        echo "<tr style='background-color:#ffffaa;'>";
+                        echo "#ffffaa;";
                     }else{
-                        echo "<tr style='background-color:#aaffba;'>";
+                        echo "#aaffba;";
                     }
+                    if($aluno['id_pessoa'] == $_POST['idPessoa']){
+                        echo "font-weight:bold;font-size:1.5em";
+                    }
+                    echo "'>";                    
                     echo "<td> $aluno[nome] </td>";                                            
                     echo "<td> $aluno[situacao_matricula] </td>";                                                        
                     echo "<td> $aluno[data_inscricao]</td>";                    
+                    //if($_SESSION['nivel'] == 'ADMINISTRADOR'){
+                        echo "<td><a class='delete' href='../controle/cRemoverPessoaCurso.php?id_pessoa=$aluno[id_pessoa]&id_curso=$idCurso' onclick='return confirma();'><img src='../mate-2.2/images/icons/remove.png'/></a></td>";
+                    //}
                     echo '</tr>';                
                 }
             ?>                        

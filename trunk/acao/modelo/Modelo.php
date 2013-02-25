@@ -62,6 +62,7 @@
         private $carteiraProfissional;
         private $tituloEleitor;
         private $certidaoNascimento;                  
+        private $ativo;
         
         function __construct(
                 $idFamilia, $cidadeNatal, $nome, $cpf, $rg, $sexo, $dataNascimento, 
@@ -84,6 +85,13 @@
             $this->certidaoNascimento = $certidaoNascimento;
         }
 
+        public function getAtivo() {
+            return $this->ativo;
+        }
+
+        public function setAtivo($ativo) {
+            $this->ativo = $ativo;
+        }
         
         public function getIdPessoa() {
             return $this->idPessoa;
@@ -205,7 +213,7 @@
             $this->religiao = $religiao;
         }
 
-        public function getCarteiraProfissional() {
+        public function getCarteiraProfissional() {            
             return $this->carteiraProfissional;
         }
 
@@ -317,13 +325,52 @@
         }
     }
     
+    class Telefone{
+        
+        private $id_familia;
+        private $numero;
+        private $falar_com;
+        
+        function __construct($id_familia, $numero, $falar_com) {
+            $this->id_familia = $id_familia;
+            $this->numero = $numero;
+            $this->falar_com = $falar_com;
+        }
+        
+        public function getIdFamilia() {
+            return $this->id_familia;
+        }
+
+        public function setIdFamilia($id_familia) {
+            $this->idPessoa = $id_familia;
+        }
+
+        public function getNumero() {
+            return $this->numero;
+        }
+
+        public function setNumero($numero) {
+            $this->numero = $numero;                    
+        }
+
+        public function getFalarCom() {
+            return $this->falar_com;
+        }
+
+        public function setFalarCom($nome) {
+            $this->falar_com = $nome;                    
+        }
+        
+        
+    }    
+    
     class Familia{
         private $idFamilia;
         private $cep;
         private $logradouro;
         private $numero;
         private $bairro;
-        private $cod_cidade;   
+        private $cod_cidade;           
         public static $id_familia;
         
         function __construct($cep, $logradouro, $numero, $bairro, $cod_cidade) {            
@@ -331,7 +378,7 @@
             $this->logradouro = $logradouro;
             $this->numero = $numero;
             $this->bairro = $bairro;
-            $this->cod_cidade = $cod_cidade;            
+            $this->cod_cidade = $cod_cidade;                        
         }
         
         public function getIdFamilia() {
@@ -381,7 +428,7 @@
         public function setCodCidade($cod_cidade) {
             $this->cod_cidade = $cod_cidade;
         }
-        
+                        
     }
     
     class Bairro{
@@ -429,32 +476,6 @@
 
     }
     
-    class Telefone{
-        
-        private $idPessoa;
-        private $numero;
-        
-        function __construct($idPessoa, $numero) {
-            $this->idPessoa = $idPessoa;
-            $this->numero = $numero;
-        }
-        
-        public function getIdPessoa() {
-            return $this->idPessoa;
-        }
-
-        public function setIdPessoa($idPessoa) {
-            $this->idPessoa = $idPessoa;
-        }
-
-        public function getNumero() {
-            return $this->numero;
-        }
-
-        public function setNumero($numero) {
-            $this->numero = $numero;
-        }
-    }
     
     class Programa{
         

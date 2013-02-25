@@ -82,7 +82,7 @@ class VPessoa extends Common {
     
     function getProgramas($row) 
     {          
-        require_once '../bd/PessoHasProgramaDAO.php';
+        require_once '../bd/PessoaHasProgramaDAO.php';
         $p = new PessoaHasProgramaDAO();
         $res = $p->buscaProgramasById($row['id_pessoa']);
         $programas = '';
