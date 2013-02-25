@@ -132,7 +132,7 @@ function valida_nome(){
 /*----------------------------------------------------------------------------
  função que valida a primeira etapa de cadastrar os dados da familia.
 -----------------------------------------------------------------------------*/
-function valida_etapa_1(){        
+function valida_etapa_1(){            
     valida_nome();
         
     if($("#cep").val()==""){
@@ -154,12 +154,12 @@ function valida_etapa_1(){
         alert("Preencha o campo estado e cidade.");        
         document.cadastro.estado.focus();
         return false;
-    }
+    }    
     if($("#bairro").val()==""){
         alert("Preencha o campo bairro.");        
         document.cadastro.bairro.focus();
         return false;
-    }        
+    }     
     return true;
 }
 
@@ -260,8 +260,8 @@ function getEndereco() {
                         // troca o valor dos elementos
                         $("#logradouro").val(unescape(resultadoCEP["tipo_logradouro"])+": "+unescape(resultadoCEP["logradouro"]));
                         $("#bairro").val(unescape(resultadoCEP["bairro"]));
-                        $("#estado").val(unescape(resultadoCEP["uf"]));                        
-                        $("#cidade").val(unescape(resultadoCEP["cidade"]));                                                                        
+                        //$("#estado").val(unescape(resultadoCEP["uf"]));                        
+                        //$("#cidade").val(unescape(resultadoCEP["cidade"]));                                                                        
                         
                 }else{
                         alert("Endereço não encontrado");
@@ -305,3 +305,40 @@ function valida_dados_individualmente(){
     }
 }
 
+function altera_titular(){          
+    if($("#titularAntigo").val()!=$("#titular").val()){//se mudou o titular
+        $("#pessoas").load("../controle/cMontaPessoasFamilia.php", {id_familia:$("#idFamilia").val()});
+    }    
+}
+
+function valida_titular(){
+    //alert($("#grauParentesco[]").val());
+    var e= document.cadastro.elements.length;
+    var cnt=0;
+    var titulares = 0;
+
+    for(cnt=0;cnt<e;cnt++)
+    {             
+       if(document.cadastro.elements[cnt].value == 'TITULAR'){
+           titulares += 1;           
+       }
+    }
+    if(titulares == 0){
+        alert("ERRO.: uma família tem que ter um TITULAR cadastrado");
+        return false;
+    }else{
+        if(titulares > 1){
+            alert("ERRO.: uma família não pode ter mais de um TITULAR cadastrado");
+            return false;
+        }
+    }
+    return true;
+}
+
+function valida_edita_familia(){
+    if(valida_etapa_1()){
+        return true;
+    }
+            //&& verifica_existencia_titular()==true){    
+    return false;           
+}

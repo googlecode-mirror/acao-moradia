@@ -63,7 +63,7 @@ img {
 
 
 /* ----------  MENU  ---------- */
-	.wrap .header .menu					{ width:570px; height:70px; margin-top:20px; float:left; background:url('../imagens/bg_menu.jpg'); background-repeat:repeat-x;  }
+	.wrap .header .menu					{ width:570px; height:70px; margin-top:20px; float:left; background:url('../imagens/bg_menu.png'); background-repeat:repeat-x;  }
 	.wrap .header .menu .tit_login		{ width:176px; height:40px; float:left; margin-top:-18px; position:absolute; background-image:url('../imagens/img_login.png'); background-repeat:no-repeat; }
 	.wrap .header .menu .mn				{ width:590px; height:73px; float:left;  margin-top:-12px;background-image:url('../imagens/bg_menu.png'); }
 	.wrap .header .menu .mn .menu_bts			{ width:475px; height:73px; float:left; margin-left:70px;   }

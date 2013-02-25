@@ -1,68 +1,43 @@
+<?php
+if (!isset($_SESSION)) {
+    session_start();
+    if (!isset($_SESSION['nivel'])) {
+        header("Location: vLogin.php");
+    }
+}
+
+include_once '../bd/PessoaDAO.php';
+include_once '../bd/FamiliaDAO.php';
+include_once '../bd/CidadeDAO.php';
+include_once '../bd/EstadoDAO.php';
+include_once '../modelo/Modelo.php';
+include_once '../bd/TelefoneDAO.php';
+
+$id_familia = $_GET['id_familia'];
+
+$fD = new FamiliaDAO();
+$cD = new CidadeDAO();
+$eD = new EstadoDAO();
+$pD = new PessoaDAO();
+$telD = new TelefoneDAO();
+
+$familia = mysql_fetch_assoc($fD->buscaFamiliaById($id_familia));
+$cidade = mysql_fetch_assoc($cD->buscaCidadebyCod($familia['cod_cidade']));
+$estado = mysql_fetch_assoc($eD->buscaEstadobyCod($cidade['cod_estado']));
+$telefone_residencial = mysql_fetch_assoc($telD->buscaTelefoneByIdFamilia($id_familia));
+?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <?php
         require("vLayoutHead.php");
-            include_once '../bd/DBConnection.php';
-            include_once '../bd/PessoaDAO.php';
-            include_once '../bd/FamiliaDAO.php';
-            include_once '../bd/CidadeDAO.php';
-            include_once '../bd/EstadoDAO.php';
-            include_once '../bd/PessoaDAO.php';
-            include_once '../modelo/Modelo.php';
-            include_once '../controle/cFuncoes.php';
-            include_once '../bd/PessoHasProgramaDAO.php';
-            include_once '../bd/ProgramaDAO.php';
-            include_once '../bd/TelefoneDAO.php';
-            
-            session_start();
-            $id_familia= $_SESSION['id_familia'];
-            
-            $fD= new FamiliaDAO();
-            $cD= new CidadeDAO;
-            $eD= new EstadoDAO();
-            $pD= new PessoaDAO();
-            $pHpD= new PessoaHasProgramaDAO();
-            $progD= new ProgramaDAO();
-            $telD = new TelefoneDAO();
-            
-            //$resltTitular= $pD->buscaPessoabyFamilia2($id_familia);
-            $a  = mysql_fetch_assoc($pD->buscaPessoabyFamilia2($id_familia));
-            //print_r($a);
-            echo $a['telefone'];
-            $result= mysql_fetch_assoc($fD->buscaFamiliaById($id_familia));
-            $resCidadeNatal= mysql_fetch_assoc($cD->buscaCidadebyCod($a['cidade_natal']));
-            $resEstadoNaltal= mysql_fetch_assoc($eD->buscaEstadobyCod($resCidadeNatal['cod_estado']));
-            //echo $resEstadoNaltal['sigla'];
-            $resCidade= mysql_fetch_assoc($cD->buscaCidadebyCod($result['cod_cidade']));
-            $resEstado= mysql_fetch_assoc($eD->buscaEstadobyCod($resCidade['cod_estado']));
-            echo $a['religiao'];
-            $telefone_residencial = mysql_fetch_assoc($telD->buscaTelefoneByIdFamilia($id_familia));
         ?>
-        <link href="../css/button.css" rel="stylesheet" type="text/css" />
-
         <script type="text/javascript" src="../js/jquery-1.8.3.js"></script>    
-        <script type="text/javascript" src="../js/jquery.maskedinput.js"></script>               
-        <script type="text/javascript" src="../js/scripts.js" ></script>        
-        <script>
-            /*
-            <!--
-              javascript:window.history.forward(1);//não deixa voltar
-            //-->*/
-            <!--
-                $("#estado").select(0);
-            //-->
-            jQuery(function(){
-                jQuery("#cpf").mask("999.999.999-99");
-                jQuery("#cep").mask("99999-999");
-                jQuery("#telefone").mask("(99) 9999-999?9");
-                jQuery("#dataNascimento").mask("99/99/9999");
-                jQuery("#numero").mask("9?99999");
-                jQuery("#telefone_residencial").mask("(99) 9999-999?9");
-            });
-        </script>                     
+        <script type="text/javascript" src="../js/jquery.maskedinput.js"></script>
+        <script type="text/javascript" src="../js/scripts.js" ></script>               
     </head>
-    <body onload="verifica_etapa();" >  
+    <body>  
         <div class="wrap">
             <?php
             require("vLayoutBody.php");
@@ -72,223 +47,155 @@
                 <?php
                 require("vLayoutMargin.php");
                 ?>   
-                
-                <div class="bloco" style="border: #b1b1b1 solid 2px;">
-
-                    <form name="cadastro" action="../controle/cCadastraPessoa.php" method="post"/>
-                    <div style="margin: 10px; border: #b1b1b1 solid 2px;">                         
+                <div class="txt">Os campos com * são obrigatórios</div>
+                <div class="bloco">
+                    <form name="cadastro" action="../controle/cEditaFamilia.php" method="post" onSubmit="return valida_titular();"/>
+                    <input type="hidden" id="idFamilia" name="idFamilia" value="<?php echo $id_familia; ?>"/>
+                    <div class="cabecalho">                        
                         <center>
-                            <h2 id='etapa'>Editar dados de Família</h2>
-                                   
-                        </center>                          
-                        <div style="margin: 25px; float:left; ">
-                            <h3>&nbsp;</h3>
-                            <h4>Dados do titular e residenciais</h4>
-                            <p>&nbsp;</p>
-                            <?php $nomef=  $a['nome']; ?>
-                            <p>Nome do titular: (*)</p>
-                            <p><input type="text" name="nome" size="30"           value= "<?php echo $nomef; ?>"/></p>
-                            <p><br />CPF:</p>
-                            <p><input type="text" name="cpf" id="cpf" size="12" value=<?php echo $a['cpf']; ?> maxlength="14" /></p>
-                            <p>&nbsp;</p>
-                            <p>RG:</p>
-                            <p><input type="text" name="rg"value=<?php echo $a['rg']; ?> size="14" maxlength="45" /></p>
-                            <p>&nbsp;</p>
-                            Sexo: 
-                            <select name="sexo">                                
-                                <option <?php if($a['sexo'] === 'M') echo 'selected'; ?>>M</option>
-                                <option <?php if($a['sexo'] === 'F') echo 'selected'; ?> >F</option>
-                            </select>
-                            <p>&nbsp;</p>
-
-                            <p>Telefone:</p>                            
-                            <p>
-                                <input maxlength="15" name="telefone" value="<?php echo $a['telefone']; ?>" id="telefone" size="15" />
-                            </p>
-                            <p>&nbsp;</p>
-                            <p>Data de nascimento:</p>
-                            <p><input maxlength="10" id="dataNascimento" name="dataNascimento" value=<?php echo Funcoes::toUserDate($a['data_nascimento']); ?> size="9" onblur="validaData(this,this.value)" /></p>
-
-                            <p>&nbsp;</p>
-                            <p>Naturalidade:</p>
-
-                            <p>                                 
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <select name="estadoNatal" id="estadoNatal">
-                                                <?php
-                                                include_once '../bd/EstadoDAO.php';
-                                                $estadoDAO = new EstadoDAO();
-                                                $estados = $estadoDAO->buscaEstados();                                                
-                                                while ($row = mysql_fetch_assoc($estados)) {
-                                                    $if='';
-                                                    if($resCidadeNatal['cod_estado'] === $row['cod_estado']){
-                                                        $if=  'selected';
-                                                    }
-                                                    echo '<option '.$if.'  value="' . $row['cod_estado'] . '" >' . $row['sigla'] . '</option>';
-                                                }
-                                                ?>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <select name="cidadeNatal" id="cidadeNatal">
-                                                <option value="null"><?php echo $resCidadeNatal['nome']?></option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </p>                            
-                            <p>&nbsp;</p>
-
-                            <p>Estado Civil:</p>                            
-                            <select name="estadoCivil">                                                                
-                                <option <?php if($a['estado_civil'] === 'CASADO(A)') echo 'selected'; ?>>CASADO(A)</option>
-                                <option <?php if($a['estado_civil'] === 'DIVORCIADO(A)') echo 'selected'; ?>>DIVORCIADO(A)</option>                                
-                                <option <?php if($a['estado_civil'] === 'SEPARADO(A)') echo 'selected'; ?>>SEPARADO(A)</option>  
-                                <option <?php if($a['estado_civil'] === 'SOLTEIRO(A)') echo 'selected'; ?>>SOLTEIRO(A)</option>
-                                <option <?php if($a['estado_civil'] === 'VIÚVO(A)') echo 'selected'; ?>>VIÚVO(A)</option>
-                            </select>
-                            <p>&nbsp;</p>
-
-                            <p>Raça:</p>
-                            <select name="raca">                                
-                                <option <?php if($a['raca'] === 'NÃO DECLARADA') echo 'selected'; ?>>NÃO DECLARADA</option>
-                                <option <?php if($a['raca'] === 'AMARELA') echo 'selected'; ?>>AMARELA</option>
-                                <option <?php if($a['raca'] === 'BRANCA') echo 'selected'; ?>>BRANCA</option>
-                                <option <?php if($a['raca'] === 'CABOCLO)') echo 'selected'; ?>>CABOCLO</option>
-                                <option <?php if($a['raca'] === 'CABRA') echo 'selected'; ?>>CABRA</option>
-                                <option <?php if($a['raca'] === 'INDÍGENA') echo 'selected'; ?>>INDÍGENA</option>
-                                <option <?php if($a['raca'] === 'NEGRA') echo 'selected'; ?>>NEGRA</option>                                                                
-                                <option <?php if($a['raca'] === 'MULATA') echo 'selected'; ?>>MULATA</option>                               
-                                <option <?php if($a['raca'] === 'PARDA') echo 'selected'; ?>>PARDA</option>
-                            </select>                                  
-                            <p>&nbsp;</p>
-
-                            <p>Religião:</p>
-                            <input type="text" name="religiao" maxlength="45" value=<?php echo $a['religiao']; ?> size="20"/>
-                            <p>&nbsp;</p>
-
-                            <p>Carteira Profissional:</p>
-                            <input type="radio" name="carteiraProfissional" value="sim" <?php if($a['carteira_profissional'] === 'S') echo 'checked'; ?>/>Sim
-                            <input type="radio" name="carteiraProfissional" value="nao" <?php if($a['carteira_profissional'] === 'N') echo 'checked'; ?>/>Não
-                            <p>&nbsp;</p>
-
-                            <p>Certidão de Nascimento:</p>
-                            <input type="radio" name="certidaoNascimento" value="sim"<?php if($a['certidao_nascimento'] === 'S') echo 'checked'; ?> />Sim
-                            <input type="radio" name="certidaoNascimento" value="nao" <?php if($a['certidao_nascimento'] === 'N') echo 'checked'; ?>/>Não
-                            <p>&nbsp;</p>
-
-
-                            <p>Título de Eleitor(somente números):</p>
-                            <input type="text" name="tituloEleitor" value=<?php echo $a['titulo_eleitor'] ?> size="12" maxlength="12"/>
-                            <p>&nbsp;</p>
-
-                            <p>Programas inseridos na instituição:</p>                            
-                            <?php
-                            //pegando do banco os programas
-                            include_once '../controle/cListaProgramas.php';
-                            $CPrograma = new CPrograma();
-                            $programas = $CPrograma->buscaTodosProgramas();
-
-                            while ($programa = mysql_fetch_array($programas)) {
-                                 //session_start();
-                                $if='';
-                                    $_SESSION['if']='';
-                                $resultProg= mysql_fetch_assoc($pHpD->IsPessoaInPrograma($a['id_pessoa'], $a['id_familia']));
-                                $cod= $resultProg['id_programa'];
-                                $resProg2= mysql_fetch_assoc($progD->buscaProgramaById($cod));
-                                //echo $resProg2['nome'];
-                                if($programa['nome'] === $resProg2['nome']){
-                                    //session_start();
-                                    $_SESSION['if']= $_SESSION['if'].'checked';
-                                    $if= $_SESSION['if'];                                    
-                                }
-                                //echo $if;
-                                $strs= "<input type='checkbox' ".$if." value='$programa[id_programa]' name='programa[]'/>" . $programa['nome'] . "<br/>";
-                                echo $strs;
-                                $_SESSION['if']='';
-                                
-                            }
-                            ?>                            
-                        </div>
+                            <h2> Atualização de dados pessoais</h2>
+                        </center>
                     </div>
-                    <br/>                    
-                    <div style="margin: 10px;">                                            
-                        <div style="margin: 20px;"> 
-                            <p>&nbsp;</p>
-                            <p>&nbsp;</p>
-                            <p>&nbsp;</p>                            
-                            <p>&nbsp;</p>
-                           
-                                <p>&nbsp;</p>
-                                <p>&nbsp;</p>
-                                <p>ID da família<br/>
-                                    <input type="text" name="id_familia" value="<?php echo $a['id_familia'];?>"  disabled size="14" onBlur="getEndereco();" /><br/>
-                                    <input type="hidden" name="id_familia" value="<?php echo $a['id_familia'];?>"/>
-                                </p><br/>
-                                <p>CEP:(*)<br/>
-                                    <input type="text" id="cep" name="cep" value="<?php echo $result['cep']; ?>" size="14" onBlur="getEndereco();" />
-                                </p>
-                                <p>&nbsp;</p>
-                                <p>Logradouro:(*) <br/>
-                                    <input type="text" id="logradouro" name="logradouro" size="30" value="<?php echo $result['logradouro']; ?>" />
-                                </p>                            
-                                <p>&nbsp;</p>
-                                <p>Número:(*)<br/>
-                                    <input type="text" id="numero" name="numero" size="12" value="<?php echo $result['numero']; ?>" />
-                                </p>
-                                <p>&nbsp;</p>
-                                <p>Cidade/estado:(*)</p> 
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <select name="estado" id="estadoNatal">
-                                                <?php
-                                                include_once '../bd/EstadoDAO.php';
-                                                $estadoDAO = new EstadoDAO();
-                                                $estados = $estadoDAO->buscaEstados();                                                
-                                                while ($row = mysql_fetch_assoc($estados)) {
-                                                    $if='';
-                                                    if($resCidade['cod_estado'] === $row['cod_estado']){
-                                                        $if=  'selected';
-                                                    }
-                                                    echo '<option '.$if.'  value="' . $row['cod_estado'] . '" >' . $row['sigla'] . '</option>';
+
+                    <div class="dados_familia">                            
+                        <a href="javascript:window.history.go(-1)" class="button blue"><< Voltar</a>
+                        <input type="submit" class="button blue" value="Salvar Alterações >>" onclick="return valida_etapa_1();"/>
+                        <p>&nbsp;</p>
+<!--                                <p>Situação:</p>
+                            Ativo:<input type="radio" title="Ativo" name="ativo" id="ativo" value="1" <?php /* if($pessoa['ativo']=="1")echo "checked"; */ ?>/>
+                            Inativo:<input type="radio" title="Inativo" name="ativo" id="ativo" value="0" <?php /* if($pessoa['ativo']=="0")echo "checked"; */ ?>/>
+                            <p>&nbsp;</p>-->
+                        <p>Membros da família (Nome e Grau de parentesco com o Titular) <br /><br />
+                            <?php
+                            
+                            /*
+                            $pessoas = $pD->buscaPessoabyIdFamilia($id_familia);
+                            echo "<select id='titular' name='titular' onchange='altera_titular()'>";
+                            while ($pessoa = mysql_fetch_array($pessoas)) {
+                                if ($pessoa['grau_parentesco'] == "TITULAR") {
+                                    echo "<option selected value='" . $pessoa['id_pessoa'] . "'>" . $pessoa['nome'] . "</option>";                                   
+                                } else {
+                                    echo"<option value='" . $pessoa['id_pessoa'] . "'>" . $pessoa['nome'] . "</option>";
+                                }                                
+                            }*/
+                            
+                            $pessoas = $pD->buscaPessoabyIdFamilia($id_familia);                            
+                            while ($pessoa = mysql_fetch_array($pessoas)) {                                
+                                echo $pessoa['nome'].":&nbsp;&nbsp;";
+                                echo "<select name='grauParentesco[$pessoa[id_pessoa]]'>";
+                                    if($pessoa['grau_parentesco'] == "AGREGADO"){echo "<option selected>AGREGADO(A)</option>";}else{echo"<option>AGREGADO(A)</option>";}
+                                    if($pessoa['grau_parentesco'] == "AVÔ(Ó)"){echo "<option selected>AVÔ(Ó)</option>";}else{echo"<option>AVÔ(Ó)</option>";}
+                                    if($pessoa['grau_parentesco'] == "COMPANHEIRO(A)"){echo "<option selected>COMPANHEIRO(A)</option>";}else{echo"<option>COMPANHEIRO(A)</option>";}
+                                    if($pessoa['grau_parentesco'] == "CÔNJUGE(MARIDO OU ESPOSA)"){echo "<option selected>CÔNJUGE(MARIDO OU ESPOSA)</option>";}else{echo"<option>CÔNJUGE(MARIDO OU ESPOSA)</option>";}
+                                    if($pessoa['grau_parentesco'] == "CUNHADO(A)"){echo "<option selected>CUNHADO(A)(A)</option>";}else{echo"<option>CUNHADO(A)</option>";}
+                                    if($pessoa['grau_parentesco'] == "ENTEADO(A)"){echo "<option selected>ENTEADO(A)</option>";}else{echo"<option>ENTEADO(A)</option>";}
+                                    if($pessoa['grau_parentesco'] == "EX-COMPANHEIRO(A)"){echo "<option selected>EX-COMPANHEIRO(A)</option>";}else{echo"<option>EX-COMPANHEIRO(A)</option>";}
+                                    if($pessoa['grau_parentesco'] == "EX-MARIDO/EX-ESPOSA"){echo "<option selected>EX-MARIDO/EX-ESPOSA</option>";}else{echo"<option>EX-MARIDO/EX-ESPOSA</option>";}
+                                    if($pessoa['grau_parentesco'] == "FILHO(A)"){echo "<option selected>FILHO(A)</option>";}else{echo"<option>FILHO(A)</option>";}
+                                    if($pessoa['grau_parentesco'] == "GENRO/NORA"){echo "<option selected>GENRO/NORA</option>";}else{echo"<option>GENRO/NORA</option>";}
+                                    if($pessoa['grau_parentesco'] == "IRMÃ(O)"){echo "<option selected>IRMÃ(O)</option>";}else{echo"<option>IRMÃ(O)</option>";}
+                                    if($pessoa['grau_parentesco'] == "NETO(A)"){echo "<option selected>NETO(A)</option>";}else{echo"<option>NETO(A)</option>";}
+                                    if($pessoa['grau_parentesco'] == "PADRASTO/MADRASTA"){echo "<option selected>PADRASTO/MADRASTA</option>";}else{echo"<option>PADRASTO/MADRASTA</option>";}
+                                    if($pessoa['grau_parentesco'] == "NETO(A)"){echo "<option selected>NETO(A)</option>";}else{echo"<option>NETO(A)</option>";}
+                                    if($pessoa['grau_parentesco'] == "PAI/MÃE"){echo "<option selected>PAI/MÃE</option>";}else{echo"<option>PAI/MÃE</option>";}
+                                    if($pessoa['grau_parentesco'] == "PRIMO(A)"){echo "<option selected>PRIMO(A)</option>";}else{echo"<option>PRIMO(A)</option>";}
+                                    if($pessoa['grau_parentesco'] == "SOBRINHO(A)"){echo "<option selected>SOBRINHO(A)</option>";}else{echo"<option>SOBRINHO(A)</option>";}
+                                    if($pessoa['grau_parentesco'] == "SOGRO(A)"){echo "<option selected>SOGRO(A)</option>";}else{echo"<option>SOGRO(A)</option>";}
+                                    if($pessoa['grau_parentesco'] == "TIO(A)"){echo "<option selected>TIO(A)</option>";}else{echo"<option>TIO(A)</option>";}
+                                    if($pessoa['grau_parentesco'] == "TITULAR"){echo "<option selected>TITULAR</option>";}else{echo"<option>TITULAR</option>";}
+                                    echo "</select><br />";
+                            }
+                            
+                            $titular = mysql_fetch_assoc($fD->buscaTitularByIdFamilia($id_familia));
+                            echo "<input type='hidden' id='titularAntigo' name='titularAntigo' value='$titular[id_pessoa]' />";
+                            echo "<div id='pessoas'></div>";
+                            echo "</select></p>";
+                            ?>                                
+                            <p>&nbsp;</p>                        
+                            <p>ID da família</br>
+                                <input type="text" name="id_familia" value="<?php echo $id_familia; ?>" size="14" disabled/>
+                            </p>
+                            <br/>                       
+                            <p>CEP:(*)<br/>
+                                <input type="text" id="cep" name="cep" value="<?php echo $familia['cep'] ?>" size="14" onBlur="getEndereco();"/>
+                                <a href="http://www.buscacep.correios.com.br" target="_blank"/>Buscar CEP</a>
+                            </p>
+                        </p>
+                        <p>&nbsp;</p>
+                        <p>Logradouro:(*) <br/>
+                            <input type="text" id="logradouro" name="logradouro" size="30" value="<?php echo $familia['logradouro']; ?>" />
+                        </p>                            
+                        <p>&nbsp;</p>
+                        <p>Número:(*)<br/>
+                            <input type="text" id="numero" name="numero" size="12" value="<?php echo $familia['numero']; ?>" />
+                        </p>
+                        <p>&nbsp;</p>
+                        <p>Cidade/estado:(*)</p>   
+<!--                        <input type="text" id="cidade" name="cidade" size="16" value="<?php //echo $cidade['nome'];     ?>" />
+                        <input type="text" id="estado" name="estado" size="8" value="<?php //echo $estado['sigla'];     ?>" />-->
+                        <p>                           
+                            <table>
+                                <tr>                                    
+                                    <td>
+                                        <select id="estado" name="estado" >
+                                            <?php
+                                            $est = $eD->buscaEstados();
+                                            while ($row = mysql_fetch_assoc($est)) {
+                                                $selected = '';
+                                                if ($row['cod_estado'] == $estado['cod_estado']) {
+                                                    $selected = "selected";
                                                 }
-                                                ?>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <select name="cidade" id="cidadeNatal">
-                                                <option value="null"><?php echo $resCidade['nome']?></option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                </table>
-                                 <!--<input type="text" id="cidade" name="cidade" size="16" value="<?php echo $resCidade['nome']; ?>" />
-                                 <input type="text" id="estado" name="estado" size="8" value="<?php echo $resEstado['sigla']; ?>" />-->
-                                <p>&nbsp;</p>
-                                <p>Bairro:(*) <br/>
-                                    <input type="text" id="bairro" name="bairro" value="<?php echo $result['bairro']; ?>" size="14" />                                                        
-                                </p> 
-                                <p>&nbsp;</p>
-                                <p>Telefone Residencial:</p>                            
-                                <p>
-                                    <input maxlength="15" name="telefone_residencial" id="telefone_residencial" size="15" value="<?php echo $telefone_residencial['telefone']; ?>" />
-                                </p>
-                        </div>                                            
-                    </div>       
-                    <?php if(isset($_GET["family"])) echo "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>"; ?>
+                                                echo '<option ' . $selected . ' value="' . $row['cod_estado'] . '">' . $row['sigla'] . '</option>';
+                                            }
+                                            ?>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select name="cidade" id="cidade">
+                                            <!--                                                <option value="null">Escolha um estado</option>-->
+                                            <?php
+                                            $cidades = $cD->buscaCidadesByEstado($estado['cod_estado']);
+                                            while ($row = mysql_fetch_assoc($cidades)) {
+                                                $selected = '';
+                                                if ($row['cod_cidade'] == $cidade['cod_cidade']) {
+                                                    $selected = "selected";
+                                                }
+                                                echo '<option ' . $selected . ' value="' . $row['cod_cidade'] . '">' . $row['nome'] . '</option>';
+                                            }
+                                            ?>                                                                                        
+                                        </select>                                        
+                                    </td>                            
+                                </tr>
+                            </table>
+                        </p>
+                        <p>&nbsp;</p>
+                        <p>Bairro:(*) <br/>
+                            <input type="text" id="bairro" name="bairro" value="<?php echo $familia['bairro']; ?>" size="14" />
+                        </p>                                
+                        <p>&nbsp;</p>
+                        <p>&nbsp;</p>
+                        <p>Telefone Residencial:</p>                            
+                        <p>
+                            <input maxlength="15" name="telefone_residencial" id="telefone_residencial" size="15" value="<?php echo $telefone_residencial['telefone']; ?>"/>
+                        </p>                                                            
+                        <p>&nbsp;</p>                                                                                                                                   
+                    </div>
+
+                    <div style="margin-left: 30px;">
+                        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+                        <hr/>
+                        <h3>Pesquisa socioeconômica(Pessoal)</h3>
+                    </div>
+                    <br /><br /><br />
                     <center>
                         <p>
-                            <input type="submit" class="button blue" value="Próximo >>" onclick="return controla();"/>
+                            <a href="javascript:window.history.go(-1)" class="button blue"><< Voltar</a>
+                            <input type="submit" class="button blue" value="Salvar Alterações >>" onclick="return valida_edita_familia();"/>
                         </p>
                     </center>
-                    </form>                
-                </div>                                                                                                                                                                                                                                             
-                <div class="txt">Os campos com * são obrigatórios</div>   
+                    </form>                                   
+                </div>
             </div>
-        </div>
 
     </body>
     <footer>

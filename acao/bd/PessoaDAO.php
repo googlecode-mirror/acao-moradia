@@ -64,18 +64,14 @@
             } 
         }
         
-        public function buscaPessoabyFamilia2($id){
-            
-            $teste = "SELECT * FROM pessoa WHERE id_familia= '".$id."' AND grau_parentesco= 'TITULAR'";        
-                       
-            $res= mysql_query($teste)or die(mysql_error());
-            //$a  = mysql_fetch_assoc($res);
+        public function buscaPessoabyIdFamilia($id_familia){            
+            $teste = "SELECT * FROM pessoa WHERE id_familia=$id_familia";                       
+            $res= mysql_query($teste)or die(mysql_error());            
             
             if($res === FALSE){
-                echo "pessoa não encontrada";
+                echo "Erro: ".$teste;
                 return null;
-            }else{
-                //$arived= mysql_fetch_row($res);               
+            }else{                
                 return $res;
             } 
         }
@@ -165,6 +161,52 @@
         
         public function excluiPessoaById($idPessoa){
             return mysql_query($this->_rem.=' id_pessoa = '.$idPessoa) or die(mysql_error());
+        }
+        
+        public function alteraDadosPessoa($pessoa){
+            $this->_alt .= " `id_familia` = ".$pessoa->getIdFamilia().
+                              ", cidade_natal = ".$pessoa->getCidadeNatal().
+                              ", nome = '".$pessoa->getNome().
+                              "', cpf = '".$pessoa->getCpf().
+                              "', rg = '".$pessoa->getRg().
+                              "', sexo = '".$pessoa->getSexo().
+                              "', data_nascimento='".$pessoa->getDataNascimento().
+                              "', telefone='".$pessoa->getTelefone().
+                              "', grau_parentesco='".$pessoa->getGrauParentesco().
+                              "', estado_civil='".$pessoa->getEstadoCivil().
+                              "', raca='".$pessoa->getRaca().
+                              "', religiao='".$pessoa->getReligiao().
+                              "', carteira_profissional='".$pessoa->getCarteiraProfissional().
+                              "', titulo_eleitor='".$pessoa->getTituloEleitor().
+                              "', certidao_nascimento='".$pessoa->getCertidaoNascimento().
+                              "', ativo=".$pessoa->getAtivo().
+                              " WHERE id_pessoa = ".$pessoa->getIdPessoa();
+            $res= mysql_query($this->_alt);
+            if(!$res){
+                echo "Erro ".$this->_alt;
+                return NULL;
+            }
+            return $res;
+        }
+        
+        public function alteraTitular($id_titular){
+            $this->_alt .= " grau_parentesco='TITULAR' WHERE id_pessoa = ".$id_titular;
+            $res= mysql_query($this->_alt);
+            if(!$res){
+                echo "Erro ".$this->_alt;
+                return NULL;
+            }
+            return $res;
+        }
+        
+        public function alteraGrauParentesco($id_pessoa, $grauParentesco){
+            $select = "UPDATE pessoa SET grau_parentesco='$grauParentesco' WHERE id_pessoa = ".$id_pessoa;
+            $res= mysql_query($select);
+            if(!$res){
+                echo "Erro ".$select;
+                return NULL;
+            }
+            return $res;
         }
         
     }

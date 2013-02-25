@@ -11,5 +11,5 @@ $idCurso = $_POST['idCurso'];
 
 $cursoHasPessoaDAO = new CursoHasPessoaDAO();
 $cursoHasPessoaDAO->cadastraCursoHasPessoa($idPessoa, $idCurso);
-header("Location: ../visao/vRelatorioCurso.php?id_curso=$idCurso");
+header("Location: ../visao/vRelatorioCurso.php?id_curso=$idCurso&id_pessoa=$idPessoa");
 ?>

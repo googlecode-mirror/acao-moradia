@@ -5,10 +5,9 @@
     include_once '../bd/DBConnection.php';
     include_once '../bd/FamiliaDAO.php';
     include_once '../bd/PessoaDAO.php';
-    include_once '../bd/PessoHasProgramaDAO.php';
+    include_once '../bd/PessoaHasProgramaDAO.php';
     include_once '../controle/cListaProgramas.php';
-    include_once '../modelo/Modelo.php';
-    include_once '../bd/PessoHasProgramaDAO.php';
+    include_once '../modelo/Modelo.php';    
     
     
     DataBase::createConection();    

@@ -130,6 +130,6 @@
                 $pessoa->setIdPessoa($this->sel_max_id());
             }
             return $res;
-        }
+        }                
     }
 ?>

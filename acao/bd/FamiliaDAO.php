@@ -212,6 +212,17 @@
             return $res;
         }
         
+        public function alteraDadosFamilia($familia){
+            //print_r($familia);            
+            $this->_alt .= " cep = '".$familia->getCep()."', logradouro = '".$familia->getLogradouro()."', numero=".$familia->getNumero().", bairro='".$familia->getBairro()."', cod_cidade=".$familia->getCodCidade()." WHERE id_familia=".$familia->getIdFamilia();
+            $res = mysql_query($this->_alt);            
+            if(!$res){
+                echo "Erro ".$this->_alt;
+                return NULL;
+            }
+            return $res;
+        }
+        
     }
 ?>
 

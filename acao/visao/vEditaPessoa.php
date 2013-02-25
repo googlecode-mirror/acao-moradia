@@ -14,7 +14,7 @@
     include_once '../bd/EstadoDAO.php';    
     //include_once '../modelo/Modelo.php';
     include_once '../controle/cFuncoes.php';
-    include_once '../bd/PessoHasProgramaDAO.php';
+    include_once '../bd/PessoaHasProgramaDAO.php';
     include_once '../bd/ProgramaDAO.php';
     include_once '../bd/TelefoneDAO.php';
 
@@ -25,8 +25,7 @@
     $eD= new EstadoDAO();
     $pD= new PessoaDAO();
     
-    $pHpD= new PessoaHasProgramaDAO();
-    $progD= new ProgramaDAO();
+    $pHpD= new PessoaHasProgramaDAO();    
     $telD = new TelefoneDAO();
     
     $pessoa                 = mysql_fetch_assoc($pD->buscaPessoaById($id_pessoa));
@@ -61,8 +60,10 @@
                 ?>   
                 <div class="txt">Os campos com * são obrigatórios</div>
                 <div class="bloco">
-                    <form name="cadastro" action="../controle/cEditaPessoa.php" method="post"/>
+                    <form name="cadastro" action="../controle/cEditaPessoa.php" method="post"/>                    
+                    <input type="hidden" id="idFamilia" name="idFamilia" value="<?php echo $pessoa['id_familia'];?>"/>
                     <div class="cabecalho">
+                        <input type="hidden" id="idPessoa" name="idPessoa" value="<?php echo $id_pessoa;?>"/>
                         <center>
                             <h2> Atualização de dados pessoais</h2>
                         </center>
@@ -158,13 +159,13 @@
                             <p>&nbsp;</p>
 
                             <p>Carteira Profissional:</p>
-                            <input type="radio" name="carteiraProfissional" value="sim" <?php if($pessoa['carteira_profissional'] === 'S') echo 'checked'; ?>/>Sim
-                            <input type="radio" name="carteiraProfissional" value="nao" <?php if($pessoa['carteira_profissional'] === 'N') echo 'checked'; ?>/>Não
+                            <input type="radio" name="carteiraProfissional" value="S" <?php if($pessoa['carteira_profissional'] === 'S') echo 'checked'; ?>/>Sim
+                            <input type="radio" name="carteiraProfissional" value="N" <?php if($pessoa['carteira_profissional'] === 'N') echo 'checked'; ?>/>Não
                             <p>&nbsp;</p>
 
                             <p>Certidão de Nascimento:</p>
-                            <input type="radio" name="certidaoNascimento" value="sim"<?php if($pessoa['certidao_nascimento'] === 'S') echo 'checked'; ?> />Sim
-                            <input type="radio" name="certidaoNascimento" value="nao" <?php if($pessoa['certidao_nascimento'] === 'N') echo 'checked'; ?>/>Não
+                            <input type="radio" name="certidaoNascimento" value="S"<?php if($pessoa['certidao_nascimento'] === 'S') echo 'checked'; ?> />Sim
+                            <input type="radio" name="certidaoNascimento" value="N" <?php if($pessoa['certidao_nascimento'] === 'N') echo 'checked'; ?>/>Não
                             <p>&nbsp;</p>
 
                             <p>Título de Eleitor(somente números):</p>
@@ -194,37 +195,41 @@
                     <div class="dados_familia">
                         <p>&nbsp;</p>
                         <p>Situação:</p>
-                        Ativo:<input type="radio" title="Ativo" name="ativo" id="ativo" <?php if($pessoa['ativo']=="1")echo "checked";?>/>
-                        Inativo:<input type="radio" title="Inativo" name="ativo" id="ativo" <?php if($pessoa['ativo']=="0")echo "checked";?>/>
+                        Ativo:<input type="radio" title="Ativo" name="ativo" id="ativo" value="1" <?php if($pessoa['ativo']=="1")echo "checked";?>/>
+                        Inativo:<input type="radio" title="Inativo" name="ativo" id="ativo" value="0" <?php if($pessoa['ativo']=="0")echo "checked";?>/>
                         <p>&nbsp;</p>
                         <?php
                         $titulares = $fD->buscaTitularByIdFamilia($pessoa['id_familia']);
                         $titular = mysql_fetch_assoc($titulares);
-                        echo "<p>Grau de parentesco desta pessoa em relação a(ao) " . $titular['nome'] . ":<br>"
-                        . "<select name='grauParentesco'>";
-                        if($pessoa['grau_parentesco'] == "AGREGADO"){echo "<option selected>AGREGADO(A)</option>";}else{echo"<option>AGREGADO(A)</option>";}
-                        if($pessoa['grau_parentesco'] == "AVÔ(Ó)"){echo "<option selected>AVÔ(Ó)</option>";}else{echo"<option>AVÔ(Ó)</option>";}
-                        if($pessoa['grau_parentesco'] == "COMPANHEIRO(A)"){echo "<option selected>COMPANHEIRO(A)</option>";}else{echo"<option>COMPANHEIRO(A)</option>";}
-                        if($pessoa['grau_parentesco'] == "CÔNJUGE(MARIDO OU ESPOSA)"){echo "<option selected>CÔNJUGE(MARIDO OU ESPOSA)</option>";}else{echo"<option>CÔNJUGE(MARIDO OU ESPOSA)</option>";}
-                        if($pessoa['grau_parentesco'] == "CUNHADO(A)"){echo "<option selected>CUNHADO(A)(A)</option>";}else{echo"<option>CUNHADO(A)</option>";}
-                        if($pessoa['grau_parentesco'] == "ENTEADO(A)"){echo "<option selected>ENTEADO(A)</option>";}else{echo"<option>ENTEADO(A)</option>";}
-                        if($pessoa['grau_parentesco'] == "EX-COMPANHEIRO(A)"){echo "<option selected>EX-COMPANHEIRO(A)</option>";}else{echo"<option>EX-COMPANHEIRO(A)</option>";}
-                        if($pessoa['grau_parentesco'] == "EX-MARIDO/EX-ESPOSA"){echo "<option selected>EX-MARIDO/EX-ESPOSA</option>";}else{echo"<option>EX-MARIDO/EX-ESPOSA</option>";}
-                        if($pessoa['grau_parentesco'] == "FILHO(A)"){echo "<option selected>FILHO(A)</option>";}else{echo"<option>FILHO(A)</option>";}
-                        if($pessoa['grau_parentesco'] == "GENRO/NORA"){echo "<option selected>GENRO/NORA</option>";}else{echo"<option>GENRO/NORA</option>";}
-                        if($pessoa['grau_parentesco'] == "IRMÃ(O)"){echo "<option selected>IRMÃ(O)</option>";}else{echo"<option>IRMÃ(O)</option>";}
-                        if($pessoa['grau_parentesco'] == "NETO(A)"){echo "<option selected>NETO(A)</option>";}else{echo"<option>NETO(A)</option>";}
-                        if($pessoa['grau_parentesco'] == "PADRASTO/MADRASTA"){echo "<option selected>PADRASTO/MADRASTA</option>";}else{echo"<option>PADRASTO/MADRASTA</option>";}
-                        if($pessoa['grau_parentesco'] == "NETO(A)"){echo "<option selected>NETO(A)</option>";}else{echo"<option>NETO(A)</option>";}
-                        if($pessoa['grau_parentesco'] == "PAI/MÃE"){echo "<option selected>PAI/MÃE</option>";}else{echo"<option>PAI/MÃE</option>";}
-                        if($pessoa['grau_parentesco'] == "PRIMO(A)"){echo "<option selected>PRIMO(A)</option>";}else{echo"<option>PRIMO(A)</option>";}
-                        if($pessoa['grau_parentesco'] == "SOBRINHO(A)"){echo "<option selected>SOBRINHO(A)</option>";}else{echo"<option>SOBRINHO(A)</option>";}
-                        if($pessoa['grau_parentesco'] == "SOGRO(A)"){echo "<option selected>SOGRO(A)</option>";}else{echo"<option>SOGRO(A)</option>";}
-                        if($pessoa['grau_parentesco'] == "TIO(A)"){echo "<option selected>TIO(A)</option>";}else{echo"<option>TIO(A)</option>";}
-                        if($pessoa['grau_parentesco'] == "TITULAR"){echo "<option selected>TITULAR</option>";}else{echo"<option>TITULAR</option>";}
-                        echo "</select></p>";
-                        ?>
-                        <p>&nbsp;</p>
+                        if($titular['id_pessoa'] == $pessoa['id_pessoa']){
+                            echo "<h4>TITULAR</h4>";
+                            echo "<input type='hidden' name='grauParentesco' value='TITULAR' />";                            
+                        }else{
+                            echo "<p>Grau de parentesco desta pessoa em relação a(ao) " . $titular['nome'] . ":<br>"
+                            . "<select name='grauParentesco'>";
+                            if($pessoa['grau_parentesco'] == "AGREGADO"){echo "<option selected>AGREGADO(A)</option>";}else{echo"<option>AGREGADO(A)</option>";}
+                            if($pessoa['grau_parentesco'] == "AVÔ(Ó)"){echo "<option selected>AVÔ(Ó)</option>";}else{echo"<option>AVÔ(Ó)</option>";}
+                            if($pessoa['grau_parentesco'] == "COMPANHEIRO(A)"){echo "<option selected>COMPANHEIRO(A)</option>";}else{echo"<option>COMPANHEIRO(A)</option>";}
+                            if($pessoa['grau_parentesco'] == "CÔNJUGE(MARIDO OU ESPOSA)"){echo "<option selected>CÔNJUGE(MARIDO OU ESPOSA)</option>";}else{echo"<option>CÔNJUGE(MARIDO OU ESPOSA)</option>";}
+                            if($pessoa['grau_parentesco'] == "CUNHADO(A)"){echo "<option selected>CUNHADO(A)(A)</option>";}else{echo"<option>CUNHADO(A)</option>";}
+                            if($pessoa['grau_parentesco'] == "ENTEADO(A)"){echo "<option selected>ENTEADO(A)</option>";}else{echo"<option>ENTEADO(A)</option>";}
+                            if($pessoa['grau_parentesco'] == "EX-COMPANHEIRO(A)"){echo "<option selected>EX-COMPANHEIRO(A)</option>";}else{echo"<option>EX-COMPANHEIRO(A)</option>";}
+                            if($pessoa['grau_parentesco'] == "EX-MARIDO/EX-ESPOSA"){echo "<option selected>EX-MARIDO/EX-ESPOSA</option>";}else{echo"<option>EX-MARIDO/EX-ESPOSA</option>";}
+                            if($pessoa['grau_parentesco'] == "FILHO(A)"){echo "<option selected>FILHO(A)</option>";}else{echo"<option>FILHO(A)</option>";}
+                            if($pessoa['grau_parentesco'] == "GENRO/NORA"){echo "<option selected>GENRO/NORA</option>";}else{echo"<option>GENRO/NORA</option>";}
+                            if($pessoa['grau_parentesco'] == "IRMÃ(O)"){echo "<option selected>IRMÃ(O)</option>";}else{echo"<option>IRMÃ(O)</option>";}
+                            if($pessoa['grau_parentesco'] == "NETO(A)"){echo "<option selected>NETO(A)</option>";}else{echo"<option>NETO(A)</option>";}
+                            if($pessoa['grau_parentesco'] == "PADRASTO/MADRASTA"){echo "<option selected>PADRASTO/MADRASTA</option>";}else{echo"<option>PADRASTO/MADRASTA</option>";}
+                            if($pessoa['grau_parentesco'] == "NETO(A)"){echo "<option selected>NETO(A)</option>";}else{echo"<option>NETO(A)</option>";}
+                            if($pessoa['grau_parentesco'] == "PAI/MÃE"){echo "<option selected>PAI/MÃE</option>";}else{echo"<option>PAI/MÃE</option>";}
+                            if($pessoa['grau_parentesco'] == "PRIMO(A)"){echo "<option selected>PRIMO(A)</option>";}else{echo"<option>PRIMO(A)</option>";}
+                            if($pessoa['grau_parentesco'] == "SOBRINHO(A)"){echo "<option selected>SOBRINHO(A)</option>";}else{echo"<option>SOBRINHO(A)</option>";}
+                            if($pessoa['grau_parentesco'] == "SOGRO(A)"){echo "<option selected>SOGRO(A)</option>";}else{echo"<option>SOGRO(A)</option>";}
+                            if($pessoa['grau_parentesco'] == "TIO(A)"){echo "<option selected>TIO(A)</option>";}else{echo"<option>TIO(A)</option>";}
+                            //if($pessoa['grau_parentesco'] == "TITULAR"){echo "<option selected>TITULAR</option>";}else{echo"<option>TITULAR</option>";}
+                            echo "</select></p><p>&nbsp;</p>";
+                        }
+                        ?>                        
                         <p>&nbsp;</p>                        
                         <p>ID da família</br>
                         <input type="text" name="id_familia" value="<?php echo $pessoa['id_familia'] ?>" size="14" disabled/>

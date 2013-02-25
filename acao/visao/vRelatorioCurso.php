@@ -18,11 +18,18 @@
         <link href="../css/button.css" rel="stylesheet" type="text/css" />                        
         <script type="text/javascript" src="../js/jquery-1.8.3.js"></script>
         <script>            
+            function confirma(){
+                if(confirm("Você realmente deseja retirar esta pessoa deste curso?")){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
             function updateTable(){                
                 $.ajax({
                     type      : 'post', 
                     url       : '../controle/cMontaTabelaCurso.php', 
-                    data      : 'idCurso='+ $('#idCurso').val(), 
+                    data      : 'idCurso='+ $('#idCurso').val()+'&idPessoa='+ $('#idPessoa').val(), 
                     dataType  : 'html', 
                     success : function(txt){
                         $('#showtable').html(txt);
@@ -41,9 +48,9 @@
                 require("vLayoutMargin.php");
                 ?>              
 
-                <div class="bloco" style="border: #b1b1b1 solid 2px; min-height:5000px;">
-
+                <div class="bloco" style="border: #b1b1b1 solid 2px; min-height:5000px;">                    
                     <form action="../controle/cIncluirPessoaCurso.php" method="post"/>
+                    <input type="hidden" name="idPessoa" id="idPessoa" value="<?php if(isset($_GET['id_pessoa']))echo $_GET['id_pessoa']; else echo '-1'; ?>"/>
                     <div style="margin: 10px; border: #b1b1b1 solid 2px;">                         
                         <center>                            
                             <h2>Inclusão de pessoa em curso</h2>
@@ -56,7 +63,7 @@
                             $cursos = mysql_query("SELECT `id_curso`,`nome`,`vagas`, `data_inicio` FROM `curso`") or die(mysql_error());
 
                             if(isset($_GET['id_curso'])){                                                            
-                                while ($curso = mysql_fetch_array($cursos)) {
+                                  while ($curso = mysql_fetch_array($cursos)) {
                                     //$vagas = $curso['vagas'] - $res['ocupadas'];                                
                                     $idCurso = $curso['id_curso'];
                                     $nomeCurso = $curso['nome'];
