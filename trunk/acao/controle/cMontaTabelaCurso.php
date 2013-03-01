@@ -104,7 +104,7 @@
                     echo "<td> $aluno[situacao_matricula] </td>";                                                        
                     echo "<td> $aluno[data_inscricao]</td>";                    
                     //if($_SESSION['nivel'] == 'ADMINISTRADOR'){
-                        echo "<td><a class='delete' href='../controle/cRemoverPessoaCurso.php?id_pessoa=$aluno[id_pessoa]&id_curso=$idCurso' onclick='return confirma();'><img src='../mate-2.2/images/icons/remove.png'/></a></td>";
+                        echo "<td><a class='delete' href='../controle/cRemoverPessoaCurso.php?id_pessoa=$aluno[id_pessoa]&id_curso=$idCurso' onclick='return confirmaExclusaoPessoaCurso();'><img src='../mate-2.2/images/icons/remove.png'/></a></td>";
                     //}
                     echo '</tr>';                
                 }

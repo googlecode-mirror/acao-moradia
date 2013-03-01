@@ -1,66 +1,23 @@
+<?php
+/**
+ * vIncluirPessoaCurso.php - Inclui pessoa em curso
+ */
+session_start();
+if (!isset($_SESSION['nivel'])) {
+    header('Location: ../visao/vLogin.php');
+}
+require("vLayoutHead.php");
+require_once '../controle/cFuncoes.php';
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <?php
-        session_start();
-        if (!isset($_SESSION['nivel'])) {
-            header('Location: ../visao/vLogin.php');
-        }
-        require("vLayoutHead.php");
-        require_once '../controle/cFuncoes.php';
-        ?>
 
         <?php
         include_once '../bd/DBConnection.php';
         DataBase::createConection();
-        ?>
-
-        <link href="../css/button.css" rel="stylesheet" type="text/css" />                
-        <script type="text/javascript" src="../js/jquery-1.2.1.pack.js"></script>                        
-        <script type="text/javascript">
-            //auto complete
-            function lookup(pessoa) {
-                if(pessoa.length == 0) {
-                    // Hide the suggestion box.
-                    $('#suggestions').hide();
-                } else {
-                    $.post("vAutoCompletePessoas.php", {queryString: ""+pessoa+""}, function(data){
-                        if(data.length >0) {
-                            $('#suggestions').show();
-                            $('#autoSuggestionsList').html(data);
-                        }
-                    });
-                }
-            } // lookup
-
-            function fill(thisValue) {
-                $('#pessoa').val(thisValue);                                
-            }
-            
-            function fill2(thisValue) {                
-                $('#idPessoa').val(thisValue);                
-            }
-            
-            function fill3(thisValue) {                
-                $( "#descricao" ).html( thisValue );
-                setTimeout("$('#suggestions').hide();", 200);
-            }
-            
-            function tratarTecla(tecla, evento){
-                if(evento.keyCode == "27" || evento.keyCode == "8"){
-                    $('#suggestions').hide();                    
-                }
-            }
-            function valida_aluno(){
-                if($('#idPessoa').val() == '-1'){
-                    alert("Você deve selecionar uma pessoa que está na lista de sugestão.");
-                    $("#pessoa").val('');
-                    $("#pessoa").focus();
-                    return false;
-                }
-                return true;              
-            }            
-        </script>
+        ?>        
+        <script type="text/javascript" src="../js/scripts.js"></script>
     </head>
     <body>  
         <div class="wrap">
@@ -81,7 +38,7 @@
                         </center>                          
                         <div style="margin: 25px; float:left; ">
                             <p>Entre com o nome da pessoa a ser inclusa no curso:</p>
-                            <input id="pessoa" name="pessoa" size="50" required="required" onkeyup="tratarTecla(this,event);" onkeypress="lookup(this.value);" onblur="fill();" autofocus="autofocus" autocomplete="off"/><a href="vCadastroPessoa.php"><img src="../imagens/bt_nao_encontrou_pessoa.png" style="margin-top: -20px; margin-bottom: -15px; margin-left: 30px;"></img></a>
+                            <input id="pessoa" name="pessoa" size="50" required="required" onkeyup="tratarTecla(this,event);" onkeypress="lookupperson(this.value);" onblur="fill();" autofocus="autofocus" autocomplete="off"/><a href="vCadastroPessoa.php"><img src="../imagens/bt_nao_encontrou_pessoa.png" style="margin-top: -20px; margin-bottom: -15px; margin-left: 30px;"></img></a>
                             <div class="suggestionsBox" id="suggestions" style="display: none;">
                                 <img src="../imagens/upArrow.png" style="position: relative; top: -12px; left: 30px;" alt="upArrow" />
                                 <div class="suggestionList" id="autoSuggestionsList">

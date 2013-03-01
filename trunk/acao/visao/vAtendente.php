@@ -1,19 +1,27 @@
+<?php
+/**
+ * VAtendente.php
+ * Arquivo principal do Site. 
+ * Através dele, podemos acessar as principais funcionalidades do sistema.
+ */
+
+//Verifica se o usuário está logado no sistema 
+if(!isset($_SESSION))
+    session_start();
+if (!isset($_SESSION['nivel'])) {
+    header("Location: vLogin.php");
+}
+
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <?php
-        require("vLayoutHead.php");
+            require("vLayoutHead.php");
         ?>
     </head>
 
-    <body>
-        <?php
-        if(!isset($_SESSION))
-            session_start();
-        if (!isset($_SESSION['nivel'])) {
-            header("Location: vLogin.php");
-        }
-        ?>
+    <body>        
         <div class="wrap">
             <?php
             require("vLayoutBody.php");
@@ -24,11 +32,11 @@
                     <div class="menu_cadastros">
                         <div class="tit">Cadastros</div>
                         <div class="bts">
-                            <ul><li><a href="vCadastroFuncionarioNew.php"><img src="../imagens/bt_login_novo.png" ></img></a></li></ul>
+                            <ul><li><a href="vCadastroLogin.php"><img src="../imagens/bt_login_novo.png" ></img></a></li></ul>
                         </div>
 
                         <div class="bts">
-                            <ul><li><a href="vPreCadastroNew.php"><img src="../imagens/bt_pessoa_novo.png"></img></a></li></ul>
+                            <ul><li><a href="vPessoa.php"><img src="../imagens/bt_pessoa_novo.png"></img></a></li></ul>
                         </div>
 
                         <div class="bts">
@@ -37,8 +45,7 @@
 
                         <div class="bts">
                             <ul><li><a href="vCadastroPrograma.php"><img src="../imagens/bt_programa_novo.png"</img></a></li></ul>
-                        </div>
-                        
+                        </div>                        
                         <div class="bts">
                             <ul><li><a href="vEditOrDeleteFamiliaNew.php"><img src="../imagens/bt_familia_novo.png"</img></a></li></ul>
                         </div>

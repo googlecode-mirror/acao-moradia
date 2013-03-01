@@ -1,6 +1,8 @@
 <?php
-    class Login{
-        
+    /**
+     * Classes de modelo - apenas construtores, gets e sets.
+     */
+    class Login{        
         private $usuario= "";
         private $senha= "";
         private $nivel= "";

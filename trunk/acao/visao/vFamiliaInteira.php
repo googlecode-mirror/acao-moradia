@@ -1,16 +1,19 @@
+<?php
+/**
+ * Arquivo Uutilizado por visualizar familias inteiras.
+ */
+
+session_start();
+if(!isset($_SESSION['nivel'])){
+header('Location: ../visao/vLogin.php');            
+}
+require("vLayoutHead.php");
+require("../bd/PessoaDAO.php");
+require("../bd/FamiliaDAO.php");
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <?php
-        session_start();
-        if(!isset($_SESSION['nivel'])){
-        header('Location: ../visao/vLogin.php');            
-        }
-        require("vLayoutHead.php");
-        require("../bd/PessoaDAO.php");
-        require("../bd/FamiliaDAO.php");
-        ?>
-        <link href="../css/button.css" rel="stylesheet" type="text/css" />
+    <head>        
         <link href="../mate-2.2/css/table_styles.css" rel="stylesheet" type="text/css" />
         <link href="../mate-2.2/css/icon_styles.css" rel="stylesheet" type="text/css" />
     </head>
@@ -120,7 +123,7 @@
                                 echo "<td nowrap='nowrap'>";
                                 echo "<ul class='actions' style='width: 78px;'>";
                                 echo "<li class='edit'> <a href='vEditaPessoa.php?id_pessoa=$row[id_pessoa]' title='Editar'></a></li>";
-                                echo "<li class='viewFull'> <a href='vPreCadastroNew.php?id_pessoa=$row[id_pessoa]' title='Visualização completa'></a></li>";
+                                echo "<li class='viewFull'> <a href='vPessoa.php?id_pessoa=$row[id_pessoa]' title='Visualização completa'></a></li>";
                                 echo "</ul>";
                                 echo '</tr>';
                             }                            

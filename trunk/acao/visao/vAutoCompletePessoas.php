@@ -1,4 +1,9 @@
 <?php
+    /**
+     * vAutoCompletePessoas.php
+     * Arquivo utilizado para auxiliar o processo de autocompletar com a pessoa que deseja 
+     * matricular em um curso
+     */
     include_once '../bd/DBConnection.php';
     DataBase::createConection();
 

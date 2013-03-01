@@ -200,6 +200,16 @@ class Common
             $this->displayFooterHtml();
         }    
     }
+    
+    /**
+     * Verifica se o usuário está logado no sistema
+     */
+    function is_logado(){
+        session_start();
+        if(!isset($_SESSION['nivel'])){
+            header('Location: ../visao/vLogin.php');
+        }
+    }
 
 }
 ?>

@@ -1,6 +1,9 @@
 
 <?php
-
+/**
+ * Arquivo Utilizado por realizar CRUD(Create, Read, Update, Delete) em Login.
+ * Foi utilizado o plugin MySQL Ajax Table Editor para agilizar o desenvolvimento.
+ */
 /*
  * Mysql Ajax Table Editor
  *
@@ -67,10 +70,7 @@ class VLogin extends Common {
 
     //todo construtor que utiliza o plugin mate-2.2 deverá chamar o $this->display();
     function VLogin() {
-        session_start();
-        if(!isset($_SESSION['nivel'])){
-            header('Location: ../visao/vLogin.php');
-        }
+        $this->is_logado();
         $this->display();
     }
 

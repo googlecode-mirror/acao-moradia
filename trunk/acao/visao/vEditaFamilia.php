@@ -1,4 +1,7 @@
 <?php
+/**
+ * vEditaFamilia.php altera dados de uma familia
+ */
 if (!isset($_SESSION)) {
     session_start();
     if (!isset($_SESSION['nivel'])) {

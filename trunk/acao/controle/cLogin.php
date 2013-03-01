@@ -12,9 +12,7 @@
         $lTemp= new Login($vet['usuario'], $vet['senha'], $vet['nivel']);
         session_start();
         $_SESSION['nivel']= $lTemp->getNivel();
-        $_SESSION['usuario']= $lTemp->getUser();
-        require_once '../bd/Debug.php';
-        Debug::gravaEmArquivo($_SESSION['nivel']);
+        $_SESSION['usuario']= $lTemp->getUser();              
         
         if($lTemp->getNivel() === "ATENDENTE")
             header("Location: ../visao/vAtendente.php");

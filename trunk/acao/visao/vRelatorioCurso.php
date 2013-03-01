@@ -1,42 +1,22 @@
+<?php
+/**
+* vRelatorioCurso.php - o usuário poderá visualizar em cada curso cadastrado, 
+* a situação de cada pessoa inscrita no curso.
+*/
+session_start();
+if (!isset($_SESSION['nivel'])) {
+    header('Location: ../visao/vLogin.php');
+}
+require("vLayoutHead.php");
+include_once '../controle/cFuncoes.php';
+include_once '../bd/DBConnection.php';
+DataBase::createConection();
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <?php
-        session_start();
-        if (!isset($_SESSION['nivel'])) {
-            header('Location: ../visao/vLogin.php');
-        }
-        require("vLayoutHead.php");
-        ?>
-
-        <?php
-        include_once '../controle/cFuncoes.php';
-        include_once '../bd/DBConnection.php';
-        DataBase::createConection();
-        ?>
-
-        <link href="../css/button.css" rel="stylesheet" type="text/css" />                        
+    <head>        
         <script type="text/javascript" src="../js/jquery-1.8.3.js"></script>
-        <script>            
-            function confirma(){
-                if(confirm("Você realmente deseja retirar esta pessoa deste curso?")){
-                    return true;
-                }else{
-                    return false;
-                }
-            }
-            function updateTable(){                
-                $.ajax({
-                    type      : 'post', 
-                    url       : '../controle/cMontaTabelaCurso.php', 
-                    data      : 'idCurso='+ $('#idCurso').val()+'&idPessoa='+ $('#idPessoa').val(), 
-                    dataType  : 'html', 
-                    success : function(txt){
-                        $('#showtable').html(txt);
-                    }                    
-                });                     
-            }
-        </script>
+        <script type="text/javascript" src="../js/scripts.js"></script>
     </head>
     <body onload="updateTable();">  
         <div class="wrap">
@@ -81,7 +61,6 @@
                                     $curso_block .= '<OPTION value="' . $idCurso . '">' . $nomeCurso . ' - '.  Funcoes::toUserDate($curso['data_inicio']). '</OPTION>';
                                 }
                             }
-                            //$curso_block .= '<OPTION value="1">Leonardo</OPTION>';
                             ?>
 
                             <select id="idCurso" name="idCurso" onchange="updateTable()"><?php echo $curso_block; ?></select>
