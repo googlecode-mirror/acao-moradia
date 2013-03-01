@@ -2,9 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <?php
+        /**
+        * VLogin.php
+        * Arquivo inicial do Site. 
+        * Através dele o usuário fará login.
+        */
         require("vLayoutHead.php");
-        ?>
-        <link href="../css/button.css" rel="stylesheet" type="text/css" />
+        ?>        
     </head>
     <body onLoad="document.logar.login.focus();">
         <?php
@@ -38,9 +42,9 @@
                 </div>
             </div>  
             <div class="content">
-                <div class="home">
-                    <!--<div class="txt">Digite seu usuário e senha nos campos acima para acessar o sistema</div>-->
-                </div>
+<!--                <div class="home">
+                    <div class="txt">Digite seu usuário e senha nos campos acima para acessar o sistema</div>
+                </div>-->
             </div>
 
         </div>

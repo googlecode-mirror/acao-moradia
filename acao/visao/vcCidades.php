@@ -1,4 +1,7 @@
 <?php
+    /**
+     * Este arquivo é utilizado para buscar cidades e preencher 
+     */
     $idestado = $_GET['estado'];
 
     include_once '../bd/DBConnection.php';

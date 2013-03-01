@@ -1,5 +1,7 @@
-
 <?php
+/**
+* VPessoa.php - o usuário(atendente e admin) poderá visualizar todas as pessoa cadastradas no sistema
+*/
 /*
  * Mysql Ajax Table Editor
  *
@@ -118,13 +120,12 @@ class VPessoa extends Common {
 
     private $id_pessoa = '-1';
     //todo construtor que utiliza o plugin mate-2.2 deverá chamar o $this->display();
-    function VPessoa() {        
+    function VPessoa() {
+        $this->is_logado();
         $this->display();
     }
    
 }
-//require_once '../bd/Debug.php';
-//Debug::alert($_GET['id_pessoa']);
 
 $x = new VPessoa();
 ?>

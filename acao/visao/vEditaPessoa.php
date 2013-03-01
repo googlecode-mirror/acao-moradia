@@ -1,4 +1,8 @@
 <?php
+    /**
+     * vEditaPessoa.php - altera dados de uma pessoa
+     */
+
     if(!isset($_SESSION))
     {
         session_start();
@@ -11,8 +15,7 @@
     include_once '../bd/PessoaDAO.php';    
     include_once '../bd/FamiliaDAO.php';
     include_once '../bd/CidadeDAO.php';
-    include_once '../bd/EstadoDAO.php';    
-    //include_once '../modelo/Modelo.php';
+    include_once '../bd/EstadoDAO.php';       
     include_once '../controle/cFuncoes.php';
     include_once '../bd/PessoaHasProgramaDAO.php';
     include_once '../bd/ProgramaDAO.php';

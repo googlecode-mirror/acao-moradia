@@ -1,5 +1,9 @@
 
 <?php
+/**
+ * Arquivo Utilizado por realizar CRUD(Create, Read, Update, Delete) em Familia.
+ * Foi utilizado o plugin MySQL Ajax Table Editor para agilizar o desenvolvimento.
+ */
 
 /*
  * Mysql Ajax Table Editor
@@ -110,11 +114,7 @@ class VFamilia extends Common {
 
     //todo construtor que utiliza o plugin mate-2.2 deverá chamar o $this->display();
     function VFamilia() { 
-        if(!isset($_SESSION))
-            session_start();
-        if(!isset($_SESSION['nivel'])){
-            header("Location: vLogin.php");
-        }
+        $this->is_logado();
         $_SESSION['botao'] = 'cadastrar_familia';        
         $this->display();  
         $_SESSION['botao'] ='';

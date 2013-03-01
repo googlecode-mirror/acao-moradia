@@ -1,5 +1,10 @@
 
 <?php
+/**
+ * Arquivo Utilizado por realizar CRUD(Create, Read, Update, Delete) em Programa.
+ * Foi utilizado o plugin MySQL Ajax Table Editor para agilizar o desenvolvimento.
+ */
+
 /*
  * Mysql Ajax Table Editor
  *
