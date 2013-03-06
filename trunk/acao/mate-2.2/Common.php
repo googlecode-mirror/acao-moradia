@@ -10,6 +10,7 @@
  * Download the latest version from
  * http://www.mysqlajaxtableeditor.com
  */
+require_once '../bd/bd.php';
 class Common
 {		
 	// Mysql Variables
@@ -24,7 +25,9 @@ class Common
         var $Editor;
         
 	function mysqlConnect()
-	{				
+	{	
+                $senha = new Senha();
+                $this->mysqlDbPass = $senha->getSenha();
 		if($this->dbc = mysql_connect($this->mysqlHost, $this->mysqlUser, $this->mysqlDbPass)) 
 		{				
 			mysql_query("SET NAMES 'utf8' COLLATE 'utf8_unicode_ci'");			
@@ -156,8 +159,8 @@ class Common
             <?php
     }	
     
-    function display()
-    {                
+    function display()    
+    {                        
         if (isset($_POST['json'])) {            
             // Initiating lang vars here is only necessary for the logError, and mysqlConnect functions in Common.php. 
             // If you are not using Common.php or you are using your own functions you can remove the following line of code.

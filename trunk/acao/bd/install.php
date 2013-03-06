@@ -2,14 +2,15 @@
     /*################################
      *### INSTALA O BANCO DE DADOS ###
      *################################*/
-     
+    require_once 'bd.php';
+    $senha = new Senha();
     echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">";
     
     ########DADOS PARA CONEXÃO COM O MYSQL
     $server = "localhost";
     $database = "acao_moradia";
     $username = "root";		#alterar conforme seu usuário do banco de dados mysql()
-    $password = "";		#alterar conforme a senha de seu usuário do banco de dados mysql()
+    $password = $senha->getSenha();		#alterar conforme a senha de seu usuário do banco de dados mysql()
 
     $SQL = mysql_connect($server, $username, $password) or trigger_error(mysql_error(),E_USER_ERROR);	#se nao conectar, escreve uma msg de erro
     mysql_select_db($database, $SQL);	#seleciona o banco de dados para uso posterior
@@ -250,6 +251,11 @@
     ENGINE = InnoDB;
     ") or die(mysql_error());
     #--------------------------------------------------------TRIGGERS-------------------------------------------------------
+	#Tratamento de erros
+	#http://www.devshed.com/c/a/MySQL/Error-Handling/
+	#http://dev.mysql.com/doc/refman/5.6/en/get-diagnostics.html
+	#http://dev.mysql.com/doc/refman/5.0/en/declare-handler.html
+
 
     #------------LETRAS Maiúsculas em `curso` -------------
     echo "<br>";

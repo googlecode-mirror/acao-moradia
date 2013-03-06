@@ -1,10 +1,12 @@
 <?php
+    require_once 'bd.php';
     class DataBase{
         
-        private static $_con;
+        private static $_con;        
         
-        public static function createConection(){
-            $_con= @mysql_connect("localhost", "root", "");
+        public static function createConection(){            
+            $senha = new Senha();
+            $_con= @mysql_connect("localhost", "root", $senha->getSenha());
             mysql_set_charset('utf8');
             mysql_query("SET NAMES 'utf8'");	/*PARA TRABALHAR COM ACENTOS SEM PROBLEMAS*/
             mysql_query("SET character_set_connection=utf8");
