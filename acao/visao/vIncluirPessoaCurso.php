@@ -16,7 +16,9 @@ require_once '../controle/cFuncoes.php';
         <?php
         include_once '../bd/DBConnection.php';
         DataBase::createConection();
-        ?>        
+        ?>                
+        <script type="text/javascript" src="../js/jquery-1.8.3.js"></script>
+        <script type="text/javascript" src="../js/jquery.maskedinput.js"></script>
         <script type="text/javascript" src="../js/scripts.js"></script>
     </head>
     <body>  
