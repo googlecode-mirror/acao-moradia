@@ -21,15 +21,10 @@
                 <div style="font-size: 13px;margin-left: 700px;margin-top: -91px;">
                     <a href="http://www.petsi.facom.ufu.br" target="_blank">
                     PET-Sistemas de Informação:
-                    <br />
-                    Av. João Naves de Ávila, nº2121, Santa Mônica | Uberlândia - MG                                                 
-                    <br />
-                    CEP 38408-100  Brasil
-                    <br />
-                    Email: petsi-ufu@googlegroups.com                        
+                    <br />                    
+                    Email: petsi-ufu@googlegroups.com
                     </a>
                 </div>
-
             </div>            
         </div>
     </a>    
