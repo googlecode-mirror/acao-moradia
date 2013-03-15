@@ -6,7 +6,7 @@
                 <br />
                 
                 <div style="font-size: 13px;">
-                    <a href="http://http://acaomoradia.org.br/" target="_blank">
+                    <a href="http://acaomoradia.org.br/" target="_blank">
                     Ação Moradia:
                     <br />
                     Rua Canoas nº181, Morumbi | Uberlândia - MG 
