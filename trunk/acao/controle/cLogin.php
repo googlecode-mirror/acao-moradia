@@ -14,12 +14,12 @@
         $_SESSION['nivel']= $lTemp->getNivel();
         $_SESSION['usuario']= $lTemp->getUser();              
         
-        if($lTemp->getNivel() === "ATENDENTE")
+        //if($lTemp->getNivel() === "ATENDENTE")
             header("Location: ../visao/vAtendente.php");
-        elseif ($lTemp->getNivel() === "ADMINISTRADOR") {
-            header("Location: ../visao/vAtendente.php");
+        //elseif ($lTemp->getNivel() === "ADMINISTRADOR") {
+            //header("Location: ../visao/vAtendente.php");
             //header("Location: ../visao/vAdmin.php");
-        }
+        //}
     }elseif(sizeof($vet)<2){            
        header("Location: ../visao/vLogin.php?mess= login ou senha incorreta");//resultado vazio de consulta
        echo 'nao encontrado';           
