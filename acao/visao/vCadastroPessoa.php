@@ -44,12 +44,12 @@
                             //EDITAR: EDITAR PESSOA                                                        
                             if (isset($_GET['et']) && $_GET['et'] == "2") {
                                 $et = "2";
-                                echo "<h2 id='etapa'>Etapa 2/3: Cadastro de Outros familiares</h2>";
+                                echo "<h2 id='etapa'>Etapa 2/2: Cadastro de Outros familiares</h2>";
                                 echo "<input type='hidden' id='et' name='et' value='2'/>";
                                 echo "<input type='hidden' name='idFamilia' value='" . $_GET['family'] . "'/>";
                             } else {
                                 $et = "1";
-                                echo "<h2 id='etapa'>Etapa 1/3: Cadastro de Titular</h2>";
+                                echo "<h2 id='etapa'>Etapa 1/2: Cadastro de Titular</h2>";
                                 echo "<input type='hidden' id='et' name='et' value='1'/>";
                             }
                             ?>
@@ -290,11 +290,12 @@
                     </div>
                                         
                     <div>
-                        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                            
                         <hr/>
-                        <h3>Pesquisa socioeconômica(Pessoal)</h3>
+<!--                        <h3>Pesquisa socioeconômica(Pessoal)</h3>-->
                     </div>
-                    <br><br><br>
+<!--                    <br><br><br>-->
                     <center>
                         <p>
                             <input type="submit" class="button blue" value="Próximo >>" onclick="return controla();"/>

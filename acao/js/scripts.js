@@ -120,10 +120,9 @@ function controla(){
             if(valida_etapa_2()==true){
                 if(!confirm(msg_confirm))
                 {                                    
-                    document.getElementById("et").value='3';//alterar o valor do campo hidden com id #et para 3                    
-                    //vai para a pesquisa socioeconomica
-                }
-                return true;
+                    document.getElementById("et").value='3';//alterar o valor do campo hidden com id #et para 3                                        
+                    //window.location("../visao/vFamiliaInteira.php?id_familia="+$("idFamilia").val());
+                }//               return true;
             }else{                
                 return false;
             }        

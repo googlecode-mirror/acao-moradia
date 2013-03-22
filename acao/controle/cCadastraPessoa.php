@@ -77,7 +77,8 @@
         header("Location: ../visao/vCadastroPessoa.php?et=".$proxima_etapa."&family=".$familia->getIdFamilia()."&titular=".$familiaDAO->getNomeTitularFamiliaByIdFamilia($familia->getIdFamilia()));                        
     }else{
         if($proxima_etapa == "3"){//o usuario vai para etapa de pesquisa                                            
-            header("Location: ../visao/vPesquisaSocioEconomica.php");
+            //header("Location: ../visao/vPesquisaSocioEconomica.php");
+            header("Location: ../visao/vFamiliaInteira.php?id_familia=".$familia->getIdFamilia());
         }
     }
     
