@@ -55,25 +55,28 @@ class VPessoa extends Common {
             ) 
         );        
         
+//        $tableColumns['cidade_natal'] = array( 
+//            'display_text' => 'Cidade Natal', 
+//            'perms' => 'EVCTAXQ', 
+//            'join' => array( 
+//                 'table' => 'cidade', 
+//                 'column' => 'cod_cidade', 
+//                 'display_mask' => "concat(cidade.nome)", 
+//                 'type' => 'left',
+//                 'alias' => 'cidade' 
+//            ) 
+//        );
         $tableColumns['cidade_natal'] = array( 
-            'display_text' => 'Cidade Natal', 
-            'perms' => 'EVCTAXQ', 
-            'join' => array( 
-                 'table' => 'cidade', 
-                 'column' => 'cod_cidade', 
-                 'display_mask' => "concat(cidade.nome)", 
-                 'type' => 'left',
-                 'alias' => 'cidade' 
-            ) 
+            'perms' => 'EVCAXQ'              
         );
         
-        //$userColumns['estado_natal'] = array('call_back_fun' => array(&$this,'getEstados'), 'title' => 'Estadao Natal');
+        $userColumns['estado_natal'] = array('call_back_fun' => array(&$this,'getEstados'), 'title' => 'Cidade-Estado<br />Natal');
         
         $tableColumns['cpf'] = array('display_text' => 'CPF', 'perms' => 'TVQXSHOMI',  'col_header_info' => 'style="width: 90px;"');
         $tableColumns['rg'] = array('display_text' => 'RG', 'perms' => 'TVQXSHOMI',  'col_header_info' => 'style="width: 105px;"');
         $tableColumns['sexo'] = array('display_text' => 'Sexo', 'perms' => 'TVQXSHOMI',  'col_header_info' => 'style="width: 30px;"');
         
-        $userColumns[] = array('call_back_fun' => array(&$this,'getProgramas'), 'title' => 'Programas Sociais');         
+        $userColumns['programas'] = array('call_back_fun' => array(&$this,'getProgramas'), 'title' => 'Programas Sociais');         
         //$tableColumns['cidade_natal'] = array('display_text' => 'Sexo', 'perms' => 'TVQXSHOMI');
         
         $tableName = 'pessoa';
@@ -127,22 +130,21 @@ class VPessoa extends Common {
         return $html; 
     }
     
-//    function getEstados($row) 
-//    {          
-//        require_once '../bd/CidadeDAO.php';
-////        require_once '../bd/EstadoDAO.php';
-//        $c = new CidadeDAO();
-////        $p = new EstadoDAO();
-//        //$cidade = mysql_fetch_array($c->buscaCidadebyCod($row['cidade_natal']));
-//        
-//        
-////        $estado = $p->buscaEstadobyCod($cidade['cod_estado']);        
-////        
-////        $html = '<td>'.$estado['sigla'].'</td>'; 
-//        $html = '<td>'.print_r($row).'</td>'; 
-//        
-//        return $html; 
-//    }
+    function getEstados($row) 
+    {   
+        $linha="";
+        if($row['cidade_natal'] != ""){
+            require_once '../bd/CidadeDAO.php';
+            require_once '../bd/EstadoDAO.php';
+            $c = new CidadeDAO();
+            $e = new EstadoDAO();
+
+            $cidade = mysql_fetch_array($c->buscaCidadebyCod($row['cidade_natal']));
+            $estado = mysql_fetch_array($e->buscaEstadobyCod($cidade['cod_estado']));
+            $linha .= $cidade['nome'].'-'.$estado['sigla'];                                 
+        }
+        return '<td>'.$linha.'</td>';         ; 
+    }
     
     private $cor1 = '#ffffff';  //branco
     private $cor2 = '#E8E7E7';  //cinza
