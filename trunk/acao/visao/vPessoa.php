@@ -25,52 +25,73 @@ class VPessoa extends Common {
             $this->id_pessoa = $_GET['id_pessoa'];
         }
         //nome,vagas,data_inicio,carga_horaria,pre_requisitos,ter,qui,data_termino
-        $tableColumns['id_pessoa'] = array('display_text' => 'Id pessoa', 'perms' => 'QXSHOMI', 'style' => 'text-align:center;font-weight:bold;font-size:16px;white-space:normal;');
-        $tableColumns['nome'] = array('display_text' => 'Nome', 'perms' => 'TVQXSHOMI');        
+        $tableColumns['id_pessoa'] = array('display_text' => 'Id pessoa', 'perms' => 'QXSHOMI', 'style' => 'text-align:center;font-weight:bold;font-size:16px;white-space:normal;');        
+        $tableColumns['nome'] = array('display_text' => 'Nome Completo', 'perms' => 'TVQXSHOMI');
         $tableColumns['grau_parentesco'] = array('display_text' => 'Tipo', 'perms' => 'TVQXSHOMI');
         $tableColumns['ativo'] = array('display_text' => 'Ativo', 'perms' => 'TVQXSHOMI',
-        'display_mask' => "IF(ativo = '1','Sim','Não')");
+        'display_mask' => "IF(ativo = '1','Sim','Não')",  'col_header_info' => 'style="width: 30px;"');
 //        $tableColumns['id_familia'] = array('display_text' => 'Id família', 'perms' => 'TVQXSHOMI');        
-        $tableColumns['data_cadastro'] = array('display_text' => 'Data Cad.', 'perms' => 'TVQXSHOMI', 'display_mask' => 'date_format(date(`data_cadastro`),"%d/%m/%Y")');
-        $tableColumns['last_modified'] = array('display_text' => 'Última modificação', 'perms' => 'TVQXSHOMI', 'display_mask' => 'date_format(`last_modified`,"%d/%m/%Y %H:%i:%s")');
-        $tableColumns['data_nascimento'] = array('display_text' => 'Data Nasc.', 'perms' => 'TVQXSHOMI', 'display_mask' => 'IF(date_format(date(`data_nascimento`),"%d/%m/%Y")="00/00/0000","",date_format(date(`data_nascimento`),"%d/%m/%Y"))');
-        $tableColumns['telefone'] = array('display_text' => 'Telefone', 'perms' => 'TVQXSHOMI');
+        $tableColumns['data_cadastro'] = array('display_text' => 'Data Cad.', 'perms' => 'TVQXSHOMI', 'display_mask' => 'date_format(date(`data_cadastro`),"%d/%m/%Y"   )',  'col_header_info' => 'style="width: 50px;"');
+        $tableColumns['last_modified'] = array('display_text' => 'Última modificação', 'perms' => 'TVQXSHOMI', 'display_mask' => 'date_format(`last_modified`,"%d/%m/%Y %H:%i:%s")',  'col_header_info' => 'style="width: 90px;"');
+        $tableColumns['data_nascimento'] = array('display_text' => 'Data Nasc.', 'perms' => 'TVQXSHOMI', 'display_mask' => 'IF(date_format(date(`data_nascimento`),"%d/%m/%Y")="00/00/0000","",date_format(date(`data_nascimento`),"%d/%m/%Y"))',  'col_header_info' => 'style="width: 50px;"');
+        $tableColumns['telefone'] = array('display_text' => 'Telefone', 'perms' => 'TVQXSHOMI',  'col_header_info' => 'style="width: 95px;"');
             //'col_header_info' =>'style="text-align:center;font-weight:bold;"');
         $tableColumns['estado_civil'] = array('display_text' => 'Estado Civil', 'perms' => 'TVQXSHOMI');
-        $tableColumns['raca'] = array('display_text' => 'Raça', 'perms' => 'TVQXSHOMI');
+        $tableColumns['raca'] = array('display_text' => 'Raça', 'perms' => 'TVQXSHOMI',  'col_header_info' => 'style="width: 60px;"');
         $tableColumns['religiao'] = array('display_text' => 'Religião', 'perms' => 'TVQXSHOMI');
-        $tableColumns['carteira_profissional'] = array('display_text' => 'Carteira<br> Profissional', 'perms' => 'TVQXSHOMI');
-        $tableColumns['titulo_eleitor'] = array('display_text' => 'Título de eleitor', 'perms' => 'TVQXSHOMI');
-        $tableColumns['certidao_nascimento'] = array('display_text' => 'Certidão <br>de Nasc.', 'perms' => 'TVQXSHOMI');
-        $tableColumns['data_saida'] = array('display_text' => 'Data <br>da inatividade', 'perms' => 'TVQXSHOMI');
+        $tableColumns['carteira_profissional'] = array('display_text' => 'Carteira<br> Profissão', 'perms' => 'TVQXSHOMI',  'col_header_info' => 'style="width: 60px;"');
+        $tableColumns['titulo_eleitor'] = array('display_text' => 'Título de eleitor', 'perms' => 'TVQXSHOMI',  'col_header_info' => 'style="width: 90px;"');
+        $tableColumns['certidao_nascimento'] = array('display_text' => 'Certidão <br>de Nasc.', 'perms' => 'TVQXSHOMI',  'col_header_info' => 'style="width: 50px;"');
+        $tableColumns['data_saida'] = array('display_text' => 'Data da <br>inatividade', 'perms' => 'TVQXSHOMI', 'display_mask' => 'date_format(`data_saida`,"%d/%m/%Y %H:%i:%s")',  'col_header_info' => 'style="width: 90px;"');
         
         $tableColumns['id_familia'] = array( 
-            'display_text' => 'ID Familia, Logradouro, Nº', 
+            'display_text' => 'ID Familia, Logradouro, Nº, Bairro', 
             'perms' => 'EVCTAXQ', 
             'join' => array( 
                  'table' => 'familia', 
                  'column' => 'id_familia', 
-                 'display_mask' => "concat(familia.id_familia,' ', familia.logradouro,', ',familia.numero)", 
+                 'display_mask' => "concat(familia.id_familia,' ', familia.logradouro,', ',familia.numero,', ',familia.bairro)", 
                  'type' => 'left' 
             ) 
+        );        
+        
+        $tableColumns['cidade_natal'] = array( 
+            'display_text' => 'Cidade Natal', 
+            'perms' => 'EVCTAXQ', 
+            'join' => array( 
+                 'table' => 'cidade', 
+                 'column' => 'cod_cidade', 
+                 'display_mask' => "concat(cidade.nome)", 
+                 'type' => 'left',
+                 'alias' => 'cidade' 
+            ) 
         );
-        $tableColumns['cpf'] = array('display_text' => 'CPF', 'perms' => 'TVQXSHOMI');
-        $tableColumns['rg'] = array('display_text' => 'RG', 'perms' => 'TVQXSHOMI');
-        $tableColumns['sexo'] = array('display_text' => 'Sexo', 'perms' => 'TVQXSHOMI');
-        $userColumns[] = array('call_back_fun' => array(&$this,'getProgramas'), 'title' => 'Programas');         
+        
+        //$userColumns['estado_natal'] = array('call_back_fun' => array(&$this,'getEstados'), 'title' => 'Estadao Natal');
+        
+        $tableColumns['cpf'] = array('display_text' => 'CPF', 'perms' => 'TVQXSHOMI',  'col_header_info' => 'style="width: 90px;"');
+        $tableColumns['rg'] = array('display_text' => 'RG', 'perms' => 'TVQXSHOMI',  'col_header_info' => 'style="width: 105px;"');
+        $tableColumns['sexo'] = array('display_text' => 'Sexo', 'perms' => 'TVQXSHOMI',  'col_header_info' => 'style="width: 30px;"');
+        
+        $userColumns[] = array('call_back_fun' => array(&$this,'getProgramas'), 'title' => 'Programas Sociais');         
         //$tableColumns['cidade_natal'] = array('display_text' => 'Sexo', 'perms' => 'TVQXSHOMI');
         
         $tableName = 'pessoa';
         $primaryCol = 'id_pessoa';
         $errorFun = array(&$this, 'logError');
-        $permissions = 'XSQHO';
+        $permissions = 'IXSQHOV';        
 
         $this->Editor = new AjaxTableEditor($tableName, $primaryCol, $errorFun, $permissions, $tableColumns);
-        $this->Editor->setConfig('tableInfo', 'cellpadding="3" width="1200" class="mateTable"');
+        $this->Editor->setConfig('tableInfo', 'cellpadding="3" width="2500" class="mateTable"');
         $this->Editor->setConfig('orderByColumn', 'id_pessoa');
         $this->Editor->setConfig('modifyRowSets', array(&$this, 'changeBgColor'));
         $this->Editor->setConfig('displayNum','10'); 
         $this->Editor->setConfig('userColumns',$userColumns); 
+        $this->Editor->setConfig('tableTitle', 'Listagem de Pessoas');
+        $userIcons[] = array( 
+            'format_fun' => array(&$this,'edit')            
+        ); 
+        $this->Editor->setConfig('userIcons',$userIcons); 
         /*
         $userIcons[] = array( 
            'icon_html' => '<a onclick="iconAction()"; class="full-person" title="icon-title"></a>'
@@ -82,18 +103,46 @@ class VPessoa extends Common {
         $this->setConfig();
     }
     
+    function edit($info) 
+    { 
+        $iconHtml = '';
+        $numIcons = 0;
+        //$iconHtml .= '<li class="viewFull"><a href="javascript: void(0);" onclick="window.location=\'vFamiliaInteira.php?id_familia='.$info['id_familia'].'\';" title="Visualisação completa"></a></li>';        
+        $iconHtml .= '<li class="edit"><a href="vEditaPessoa.php?id_pessoa='.$info['id_pessoa'].'" title="Editar Pessoa"></a></li>';
+        
+        $numIcons++;      
+        return array('icon_html' => $iconHtml, 'num_icons' => $numIcons);
+    }
+    
     function getProgramas($row) 
     {          
         require_once '../bd/PessoaHasProgramaDAO.php';
         $p = new PessoaHasProgramaDAO();
         $res = $p->buscaProgramasById($row['id_pessoa']);
         $programas = '';
-        while($programa = mysql_fetch_assoc($res)){
-            $programas.=$programa['nome']."<br>";
+        while($programa = mysql_fetch_assoc($res)){            
+            $programas.="<li>".$programa['nome']."</li>";
         }
         $html = '<td>'.$programas.'</td>'; 
         return $html; 
     }
+    
+//    function getEstados($row) 
+//    {          
+//        require_once '../bd/CidadeDAO.php';
+////        require_once '../bd/EstadoDAO.php';
+//        $c = new CidadeDAO();
+////        $p = new EstadoDAO();
+//        //$cidade = mysql_fetch_array($c->buscaCidadebyCod($row['cidade_natal']));
+//        
+//        
+////        $estado = $p->buscaEstadobyCod($cidade['cod_estado']);        
+////        
+////        $html = '<td>'.$estado['sigla'].'</td>'; 
+//        $html = '<td>'.print_r($row).'</td>'; 
+//        
+//        return $html; 
+//    }
     
     private $cor1 = '#ffffff';  //branco
     private $cor2 = '#E8E7E7';  //cinza
@@ -122,6 +171,7 @@ class VPessoa extends Common {
     //todo construtor que utiliza o plugin mate-2.2 deverá chamar o $this->display();
     function VPessoa() {
         $this->is_logado();
+        $this->isVpessoa = TRUE;
         $this->display();
     }
    

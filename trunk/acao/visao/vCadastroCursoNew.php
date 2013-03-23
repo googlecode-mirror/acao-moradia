@@ -63,6 +63,8 @@ class VCurso extends Common {
         $this->Editor->setConfig('editRowTitle', 'Editar curso');
         $this->Editor->setConfig('defaultJsCalFormat', '%B %d, %Y');        
         $this->Editor->setConfig('userColumns',$userColumns); 
+        $this->Editor->setConfig('displayNum','20');
+        $this->Editor->setConfig('tableTitle', 'Cadastro de Curso');
         $this->setConfig();       
     }
 

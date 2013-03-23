@@ -31,7 +31,7 @@ mysql_query("INSERT INTO `estado` (`cod_estado`, `sigla`, `nome`) VALUES (26, 'S
 mysql_query("INSERT INTO `estado` (`cod_estado`, `sigla`, `nome`) VALUES (27, 'SE', 'SERGIPE');") or die(mysql_error());
 
 mysql_query("INSERT INTO `cidade` (`cod_estado`, `cod_cidade`, `nome`, `cep`) VALUES (1, 1, 'ACRELÂNDIA', NULL)") or die(mysql_error());
-/*mysql_query("INSERT INTO `cidade` (`cod_estado`, `cod_cidade`, `nome`, `cep`) VALUES (1, 2, 'ASSIS BRASIL', '69935000')") or die(mysql_error());
+mysql_query("INSERT INTO `cidade` (`cod_estado`, `cod_cidade`, `nome`, `cep`) VALUES (1, 2, 'ASSIS BRASIL', '69935000')") or die(mysql_error());
 mysql_query("INSERT INTO `cidade` (`cod_estado`, `cod_cidade`, `nome`, `cep`) VALUES (1, 3, 'BRASILÉIA', '69932000');") or die(mysql_error());
 mysql_query("INSERT INTO `cidade` (`cod_estado`, `cod_cidade`, `nome`, `cep`) VALUES (1, 4, 'BUJARI', '69923000');") or die(mysql_error());
 mysql_query("INSERT INTO `cidade` (`cod_estado`, `cod_cidade`, `nome`, `cep`) VALUES (1, 5, 'CAPIXABA', '69922000');") or die(mysql_error());
@@ -4565,11 +4565,11 @@ mysql_query("INSERT INTO `cidade` (`cod_estado`, `cod_cidade`, `nome`, `cep`) VA
 mysql_query("INSERT INTO `cidade` (`cod_estado`, `cod_cidade`, `nome`, `cep`) VALUES (14, 4043, 'UBÁ', '36500000');") or die(mysql_error());
 mysql_query("INSERT INTO `cidade` (`cod_estado`, `cod_cidade`, `nome`, `cep`) VALUES (14, 4044, 'UBAÍ', '39320000');") or die(mysql_error());
 mysql_query("INSERT INTO `cidade` (`cod_estado`, `cod_cidade`, `nome`, `cep`) VALUES (14, 4045, 'UBAPORANGA', '35338000');") or die(mysql_error());
-mysql_query("INSERT INTO `cidade` (`cod_estado`, `cod_cidade`, `nome`, `cep`) VALUES (14, 4046, 'UBARI', '36508000');") or die(mysql_error());
+mysql_query("INSERT INTO `cidade` (`cod_estado`, `cod_cidade`, `nome`, `cep`) VALUES (14, 4046, 'UBARI', '36508000');") or die(mysql_error()); 
 mysql_query("INSERT INTO `cidade` (`cod_estado`, `cod_cidade`, `nome`, `cep`) VALUES (14, 4047, 'UBERABA', '00000000');") or die(mysql_error()); 
- */
+
 mysql_query("INSERT INTO `cidade` (`cod_estado`, `cod_cidade`, `nome`, `cep`) VALUES (14, 4048, 'UBERLÂNDIA', '00000000');") or die(mysql_error());
-/*
+
 mysql_query("INSERT INTO `cidade` (`cod_estado`, `cod_cidade`, `nome`, `cep`) VALUES (14, 4049, 'UMBURATIBA', '39878000');") or die(mysql_error());
 mysql_query("INSERT INTO `cidade` (`cod_estado`, `cod_cidade`, `nome`, `cep`) VALUES (14, 4050, 'UMBUZEIRO', '39439000');") or die(mysql_error());
 mysql_query("INSERT INTO `cidade` (`cod_estado`, `cod_cidade`, `nome`, `cep`) VALUES (14, 4051, 'UNAÍ', '38610000');") or die(mysql_error());
@@ -4626,7 +4626,7 @@ mysql_query("INSERT INTO `cidade` (`cod_estado`, `cod_cidade`, `nome`, `cep`) VA
 mysql_query("INSERT INTO `cidade` (`cod_estado`, `cod_cidade`, `nome`, `cep`) VALUES (14, 10117, 'SUCANGA', '39828000');") or die(mysql_error());
 mysql_query("INSERT INTO `cidade` (`cod_estado`, `cod_cidade`, `nome`, `cep`) VALUES (14, 10205, 'CHONIN DE BAIXO', '35109500');") or die(mysql_error());
 mysql_query("INSERT INTO `cidade` (`cod_estado`, `cod_cidade`, `nome`, `cep`) VALUES (14, 10236, 'TAQUARAL DE GUANHÃES', '39743000');") or die(mysql_error());
-/*mysql_query("INSERT INTO `cidade` (`cod_estado`, `cod_cidade`, `nome`, `cep`) VALUES (15, 4522, 'ABAETETUBA', '68440000');") or die(mysql_error());
+mysql_query("INSERT INTO `cidade` (`cod_estado`, `cod_cidade`, `nome`, `cep`) VALUES (15, 4522, 'ABAETETUBA', '68440000');") or die(mysql_error());
 mysql_query("INSERT INTO `cidade` (`cod_estado`, `cod_cidade`, `nome`, `cep`) VALUES (15, 4523, 'ABEL FIGUEIREDO', '68527000');") or die(mysql_error());
 mysql_query("INSERT INTO `cidade` (`cod_estado`, `cod_cidade`, `nome`, `cep`) VALUES (15, 4524, 'ACARÁ', '68690000');") or die(mysql_error());
 mysql_query("INSERT INTO `cidade` (`cod_estado`, `cod_cidade`, `nome`, `cep`) VALUES (15, 4525, 'AFUÁ', '68890000');") or die(mysql_error());
@@ -10054,7 +10054,6 @@ mysql_query("INSERT INTO `cidade` (`cod_estado`, `cod_cidade`, `nome`, `cep`) VA
 mysql_query("INSERT INTO `cidade` (`cod_estado`, `cod_cidade`, `nome`, `cep`) VALUES (27, 8850, 'TOBIAS BARRETO', '49300000');") or die(mysql_error());
 mysql_query("INSERT INTO `cidade` (`cod_estado`, `cod_cidade`, `nome`, `cep`) VALUES (27, 8851, 'TOMAR DO GERU', '49280000');") or die(mysql_error());
 mysql_query("INSERT INTO `cidade` (`cod_estado`, `cod_cidade`, `nome`, `cep`) VALUES (27, 8852, 'UMBAÚBA', '49260000');") or die(mysql_error());
-*/
 mysql_query("alter table cidade drop column cep;") or die(mysql_error());
 mysql_query("ALTER TABLE cidade MODIFY cod_cidade INT(11) AUTO_INCREMENT") or die(mysql_error());
 ?>

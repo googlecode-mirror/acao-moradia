@@ -98,7 +98,8 @@ function valida_etapa_2(){
 /**
  *  Controla a validação das etapas do cadastro de famílias.
  */
-var msg_confirm = "Clique em OK para incluir outras pessoas.\n\nClique em Cancelar ou em Fechar(X) para ir ao cadastro socioeconômico"
+//var msg_confirm = "Clique em OK para incluir outras pessoas.\n\nClique em Cancelar ou em Fechar(X) para ir ao cadastro socioeconômico"
+var msg_confirm = "Clique em OK para INCLUIR outras pessoas.\n\nClique em Cancelar ou em Fechar(X) para TERMINAR O CADASTRO";
 function controla(){                  
     switch($("#et").val()){
         case "1":

@@ -119,6 +119,8 @@
     if($res === FALSE){
         echo "Erro ao cadastrar";
         exit();
+    }else{
+        header("Location: ../visao/vPessoa.php");
     }
     
     /*

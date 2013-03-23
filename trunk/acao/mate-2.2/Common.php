@@ -21,7 +21,7 @@ class Common
 	
 	var $langVars;
 	var $dbc;
-	
+	var $isVpessoa = false;
         var $Editor;
         
 	function mysqlConnect()
@@ -59,7 +59,7 @@ class Common
 		<head>	
                 <title>Ação Moradia</title>                        
                         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">                                                
-                        <link rel="shortcut icon" href="../imagens/favicon.ico" />
+                        <link rel="shortcut icon" href="../imagens/favicon.ico" />                        
                         <link href="../css/stylesNew.css" rel="stylesheet" type="text/css" />
                         <link href="../css/button.css" rel="stylesheet" type="text/css" />                                                                        
                         
@@ -99,7 +99,11 @@ class Common
                 require("../visao/vLayoutMargin.php");
                 ?>              
 				<br /><br /><br />
+                <?php if($this->isVpessoa == TRUE){?>
+                <div class="bloco" style="border: #b1b1b1 solid 2px; width: 2530px;">
+                        <?php }else{?>                            
                 <div class="bloco" style="border: #b1b1b1 solid 2px;">
+                        <?php }?>
                     <div align="left" style="position: relative;"><div id="ajaxLoader1"><img src="../mate-2.2/images/ajax_loader.gif" alt="Loading..." /></div></div>
                     
                     <div id="historyButtonsLayer" align="left">

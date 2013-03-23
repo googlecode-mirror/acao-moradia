@@ -236,6 +236,7 @@
                             <p>
                                 <input maxlength="15" name="telefone_residencial" id="telefone_residencial" size="15" value="<?php echo $resTelefone['telefone']; ?>" disabled/>
                             </p>                                
+                            <p>&nbsp;</p>
                             <?php
                         } else {
                             //printar os dados do endereco da familia                                
@@ -250,7 +251,7 @@
                             </p>                            
                             <p>&nbsp;</p>
                             <p>Número:(*)<br/>
-                                <input required="required" type="text" id="numero" name="numero" size="12" value="11" />
+                                <input required="required" type="text" id="numero" name="numero" size="12" value="62" />
                             </p>
                             <p>&nbsp;</p>
                             <p>Cidade/estado:(*)</p>   
@@ -262,14 +263,31 @@
                                                 <?php
                                                 $estados = $estadoDAO->buscaEstados();
                                                 while ($row = mysql_fetch_assoc($estados)) {
-                                                    echo '<option value="' . $row['cod_estado'] . '">' . $row['sigla'] . '</option>';
+                                                    if($row['cod_estado'] == 14){
+                                                        echo '<option selected value="' . $row['cod_estado'] . '">' . $row['sigla'] . '</option>';
+                                                    }else{
+                                                        echo '<option value="' . $row['cod_estado'] . '">' . $row['sigla'] . '</option>';
+                                                    }
                                                 }
                                                 ?>
                                             </select>
                                         </td>
-                                        <td>                                        
+                                        <td>
+                                            
                                             <select name="cidade" id="cidade">
-                                                <option value="null">Escolha um estado</option>
+<!--                                                <option value="null">Escolha um estado</option>-->
+                                                    <?php
+                                                include_once '../bd/CidadeDAO.php';
+                                                $cidadeDAO = new CidadeDAO();
+                                                $cidades= $cidadeDAO->buscaCidadesByEstado(14);//14 = mg
+                                                while ($row = mysql_fetch_assoc($cidades)) {
+                                                    if($row['cod_cidade'] == 4048){//4048 = uberlandia
+                                                        echo '<option selected value="' . $row['cod_cidade'] . '">' . $row['nome'] . '</option>';
+                                                    }else{
+                                                        echo '<option value="' . $row['cod_cidade'] . '">' . $row['nome'] . '</option>';
+                                                    }
+                                                }
+                                                ?>
                                             </select>                                        
                                         </td>                            
                                     </tr>
@@ -277,7 +295,7 @@
                             </p>
                             <p>&nbsp;</p>
                             <p>Bairro:(*) <br/>
-                                <input type="text" id="bairro" name="bairro" value="Taiaman" size="14" />                                                        
+                                <input type="text" id="bairro" name="bairro" value="TAIAMAN" size="14" />
                             </p>    
                             <p>&nbsp;</p>
                             <p>&nbsp;</p>
@@ -298,6 +316,7 @@
 <!--                    <br><br><br>-->
                     <center>
                         <p>
+                            <input type="button" class="button red" value="Cancelar <<" onclick="javascript:window.history.go(-1);"/>
                             <input type="submit" class="button blue" value="Próximo >>" onclick="return controla();"/>
                         </p>
                     </center>
