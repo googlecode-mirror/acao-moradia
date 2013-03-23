@@ -24,11 +24,35 @@ require_once('../mate-2.2/php/AjaxTableEditor.php');
 class VFamilia extends Common {
     
     function initiateEditor() {        
-        $tableColumns['id_familia'] = array('display_text' => 'ID', 'perms' => 'VTXQSHOM');
-        $userColumns[] = array('call_back_fun' => array(&$this,'getTitular'), 'title' => 'Titular');
+        $tableColumns['id_familia'] = array('display_text' => 'ID', 'perms' => 'VTXQSHOM');        
+        //$userColumns['titular'] = array('call_back_fun' => array(&$this,'getTitular'), 'title' => 'Titular');
+        
+        
+        $tableColumns['nome'] = array(
+            'display_text' => 'Nome do Titular', 
+            'perms' => 'VTXQS', 
+            'join' => array(
+                 'table' => 'pessoa',
+                 'column' => 'id_familia',
+                 'display_mask' => 'concat(aux_familia.nome)',
+                 'type' => 'right',
+                 'alias' => 'aux_familia',
+                 'real_column' => 'id_familia'
+            )
+        );
+        //select p.nome 
+        //from pessoa p, familia f 
+        //where p.id_familia = f.id_familia and p.grau_parentesco = 'TITULAR'
+//        $tableColumns['family'] = array( 
+//          'display_text' => 'ID - Titular', 
+//          'perms' => 'VTXQ', 
+//          'display_mask' => "concat(id_familia,' ',titular)" 
+//        );        
+        
         $tableColumns['cep'] = array('display_text' => 'CEP', 'perms' => 'VTXQSHOM');
         $tableColumns['logradouro'] = array('display_text' => 'Logradouro', 'perms' => 'VTXQSHOM');
         $tableColumns['numero'] = array('display_text' => 'Nº', 'perms' => 'VTXQSHOM');
+        $tableColumns['bairro'] = array('display_text' => 'Bairro', 'perms' => 'VTXQSHOM');
         
         $tableColumns['cod_cidade'] = array( 
             'display_text' => 'Cidade',
@@ -52,7 +76,10 @@ class VFamilia extends Common {
         $this->Editor->setConfig('orderByColumn', 'id_familia');        
         $this->Editor->setConfig('removeIcons', 'CD');        
         $this->Editor->setConfig('modifyRowSets', array(&$this, 'changeBgColor'));
-        $this->Editor->setConfig('userColumns',$userColumns); 
+        //$this->Editor->setConfig('userColumns',$userColumns); 
+        $this->Editor->setConfig('tableTitle', 'Cadastro de Famílias');
+        $this->Editor->setConfig('displayNum','10');    
+        $this->Editor->setConfig('sqlFilters','aux_familia.grau_parentesco="TITULAR"');
 //        $userIcons[] = array( 
 //            'icon_html' => 
 //            '<li class="viewFull">

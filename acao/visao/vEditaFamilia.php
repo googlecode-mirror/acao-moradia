@@ -60,7 +60,7 @@ $telefone_residencial = mysql_fetch_assoc($telD->buscaTelefoneByIdFamilia($id_fa
                         </center>
                     </div>
 
-                    <div class="dados_familia">                            
+                    <div class="dados_familia" style="margin-top: 30px;">                            
                         <a href="javascript:window.history.go(-1)" class="button blue"><< Voltar</a>
                         <input type="submit" class="button blue" value="Salvar Alterações >>" onclick="return valida_etapa_1();"/>
                         <p>&nbsp;</p>
@@ -176,21 +176,22 @@ $telefone_residencial = mysql_fetch_assoc($telD->buscaTelefoneByIdFamilia($id_fa
                             <input type="text" id="bairro" name="bairro" value="<?php echo $familia['bairro']; ?>" size="14" />
                         </p>                                
                         <p>&nbsp;</p>
-                        <p>&nbsp;</p>
+<!--                        <p>&nbsp;</p>-->
                         <p>Telefone Residencial:</p>                            
                         <p>
                             <input maxlength="15" name="telefone_residencial" id="telefone_residencial" size="15" value="<?php echo $telefone_residencial['telefone']; ?>"/>
                         </p>                                                            
-                        <p>&nbsp;</p>                                                                                                                                   
+                        <p>&nbsp;</p>
+                        <hr/>
                     </div>
 
-                    <div style="margin-left: 30px;">
+<!--                    <div style="margin-left: 30px;">
                         <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
                         <hr/>
                         <h3>Pesquisa socioeconômica(Pessoal)</h3>
                     </div>
-                    <br /><br /><br />
-                    <center>
+                    <br /><br /><br />-->
+                    <center style="margin-top: -60px;">
                         <p>
                             <a href="javascript:window.history.go(-1)" class="button blue"><< Voltar</a>
                             <input type="submit" class="button blue" value="Salvar Alterações >>" onclick="return valida_edita_familia();"/>

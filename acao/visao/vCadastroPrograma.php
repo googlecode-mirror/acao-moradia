@@ -62,7 +62,8 @@ class VCadastroPrograma extends Common {
         $this->Editor->setConfig('orderByColumn', 'nome');
         $this->Editor->setConfig('addRowTitle', 'Adicionar Programa Social');
         $this->Editor->setConfig('editRowTitle', 'Editar Programa Social');        
-        $this->Editor->setConfig('removeIcons','C');                 
+        $this->Editor->setConfig('removeIcons','C');  
+        $this->Editor->setConfig('tableTitle','Cadastro de Programas Sociais');
     }
 
     //colocando o campo password

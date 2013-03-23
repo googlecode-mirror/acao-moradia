@@ -1,4 +1,5 @@
 <?php 
+    echo "Data de início: " .date("d/m/Y")." ".date("H:i:s")."<br>";
     /*################################
      *### INSTALA O BANCO DE DADOS ###
      *################################*/
@@ -136,7 +137,7 @@
       `sexo` CHAR CHECK(`sexo`IN('M','F')),	#upper
       `data_nascimento` DATE NULL ,
       `data_cadastro` DATE NULL ,
-      `data_saida` DATE NULL ,
+      `data_saida` TIMESTAMP NULL ,
       `last_modified` TIMESTAMP NULL,
       `telefone` VARCHAR(15) NULL ,
       `grau_parentesco` VARCHAR(45) NOT NULL CHECK(`grau_parentesco` IN('TITULAR','CÔNJUGE(MARIDO OU ESPOSA)','COMPANHEIRO(A)','FILHO(A)','IRMÃ(O)','PAI/MÃE','CUNHADO(A)','GENRO/NORA','SOGRO(A)','ENTEADO(A)','NETO(A)','PADRASTO/MADRASTA','AGREGADO(A)','AVÔ(Ó)','EX-COMPANHEIRO(A)','EX-MARIDO/EX-ESPOSA','PRIMO(A)','SOBRINHO(A)','TIO(A)')),	#upper
@@ -459,6 +460,14 @@
     mysql_query("
     CREATE TRIGGER atualiza_pessoa BEFORE UPDATE ON pessoa
       FOR EACH ROW BEGIN    
+            IF (NEW.ativo <> OLD.ativo) THEN
+                IF(NEW.ativo = TRUE) THEN
+                    set NEW.data_saida = NULL;
+                ELSE
+                    set NEW.data_saida = NOW();
+                END IF;
+            END IF;
+        
             set NEW.nome = upper(NEW.nome);	
             set NEW.sexo = upper(NEW.sexo);            
             set NEW.last_modified = now();            
@@ -619,5 +628,6 @@
     ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;") or die(mysql_error());
 
 
-    echo "<br>BANCO INSTALADO COM SUCESSO<br>";
+    echo "<br>BANCO INSTALADO COM SUCESSO<br><br>";    
+    echo "Data de Fim: " .date("d/m/Y")." ".date("H:i:s")."<br><br>";
 ?>
