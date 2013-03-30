@@ -43,9 +43,13 @@ class VPessoa extends Common {
         $tableColumns['titulo_eleitor'] = array('display_text' => 'Título de eleitor', 'perms' => 'TVQXSHOMI',  'col_header_info' => 'style="width: 90px;"');
         $tableColumns['certidao_nascimento'] = array('display_text' => 'Certidão <br>de Nasc.', 'perms' => 'TVQXSHOMI',  'col_header_info' => 'style="width: 50px;"');
         $tableColumns['data_saida'] = array('display_text' => 'Data da <br>inatividade', 'perms' => 'TVQXSHOMI', 'display_mask' => 'date_format(`data_saida`,"%d/%m/%Y %H:%i:%s")',  'col_header_info' => 'style="width: 90px;"');
+        $tableColumns['cpf'] = array('display_text' => 'CPF', 'perms' => 'TVQXSHOMI',  'col_header_info' => 'style="width: 90px;"');
+        $tableColumns['rg'] = array('display_text' => 'RG', 'perms' => 'TVQXSHOMI',  'col_header_info' => 'style="width: 105px;"');
+        $tableColumns['sexo'] = array('display_text' => 'Sexo', 'perms' => 'TVQXSHOMI',  'col_header_info' => 'style="width: 30px;"');
         
         $tableColumns['id_familia'] = array( 
             'display_text' => 'ID Familia, Logradouro, Nº, Bairro', 
+            'col_header_info' => 'style="width: 200px;"',
             'perms' => 'EVCTAXQ', 
             'join' => array( 
                  'table' => 'familia', 
@@ -54,6 +58,8 @@ class VPessoa extends Common {
                  'type' => 'left' 
             ) 
         );        
+        
+        $userColumns['cidade_familia'] = array('call_back_fun' => array(&$this,'getCidadeEstado'), 'title' => 'Cidade-UF');
         
 //        $tableColumns['cidade_natal'] = array( 
 //            'display_text' => 'Cidade Natal', 
@@ -66,17 +72,13 @@ class VPessoa extends Common {
 //                 'alias' => 'cidade' 
 //            ) 
 //        );
+        
+        
+        $userColumns['programas'] = array('call_back_fun' => array(&$this,'getProgramas'), 'title' => 'Programas Sociais');         
         $tableColumns['cidade_natal'] = array( 
             'perms' => 'EVCAXQ'              
         );
-        
-        $userColumns['estado_natal'] = array('call_back_fun' => array(&$this,'getEstados'), 'title' => 'Cidade-Estado<br />Natal');
-        
-        $tableColumns['cpf'] = array('display_text' => 'CPF', 'perms' => 'TVQXSHOMI',  'col_header_info' => 'style="width: 90px;"');
-        $tableColumns['rg'] = array('display_text' => 'RG', 'perms' => 'TVQXSHOMI',  'col_header_info' => 'style="width: 105px;"');
-        $tableColumns['sexo'] = array('display_text' => 'Sexo', 'perms' => 'TVQXSHOMI',  'col_header_info' => 'style="width: 30px;"');
-        
-        $userColumns['programas'] = array('call_back_fun' => array(&$this,'getProgramas'), 'title' => 'Programas Sociais');         
+        $userColumns['estado_natal'] = array('call_back_fun' => array(&$this,'getEstados'), 'title' => 'Originalidade');                
         //$tableColumns['cidade_natal'] = array('display_text' => 'Sexo', 'perms' => 'TVQXSHOMI');
         
         $tableName = 'pessoa';
@@ -113,7 +115,7 @@ class VPessoa extends Common {
         //$iconHtml .= '<li class="viewFull"><a href="javascript: void(0);" onclick="window.location=\'vFamiliaInteira.php?id_familia='.$info['id_familia'].'\';" title="Visualisação completa"></a></li>';        
         $iconHtml .= '<li class="edit"><a href="vEditaPessoa.php?id_pessoa='.$info['id_pessoa'].'" title="Editar Pessoa"></a></li>';
         
-        $numIcons++;      
+            $numIcons++;      
         return array('icon_html' => $iconHtml, 'num_icons' => $numIcons);
     }
     
@@ -145,6 +147,25 @@ class VPessoa extends Common {
         }
         return '<td>'.$linha.'</td>';         ; 
     }
+    
+    function getCidadeEstado($row) 
+    {   
+        $linha="";                
+        require_once '../bd/FamiliaDAO.php';
+        require_once '../bd/CidadeDAO.php';
+        require_once '../bd/EstadoDAO.php';
+        $c = new CidadeDAO();
+        $e = new EstadoDAO();
+        $f = new FamiliaDAO();        
+        $id_familia = substr($row['id_familia'], 0, strpos(" ", $row['id_familia'])+1);
+        $familia = mysql_fetch_array($f->buscaFamiliaById($id_familia));
+        $cidade = mysql_fetch_array($c->buscaCidadebyCod($familia['cod_cidade']));
+        $estado = mysql_fetch_array($e->buscaEstadobyCod($cidade['cod_estado']));
+        
+        $linha .= $cidade['nome'].'-'.$estado['sigla'];
+        return '<td>'.$linha.'</td>';
+    }
+
     
     private $cor1 = '#ffffff';  //branco
     private $cor2 = '#E8E7E7';  //cinza
