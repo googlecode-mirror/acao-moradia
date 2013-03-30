@@ -28,7 +28,7 @@
             $select= "SELECT * FROM familia WHERE id_familia= $idFamilia";
             $res= mysql_query($select);
             if($res === FALSE){
-                echo "familia não encontrada";
+                echo "familia não encontrada ".$idFamilia;
                 return null;
             }else{
                 //$arrived= mysql_fetch_assoc($res);
