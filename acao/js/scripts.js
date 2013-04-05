@@ -44,8 +44,8 @@ function validaData(campo,valor) {
  *  Valida o campo nome: não pode ser vazio.
  */
 function valida_nome(){
-    if($("#nome").val()==""){
-        alert("Preencha o campo nome.");        
+    if($("#nome").val()=="" || $("#nome").val().length < 8){
+        alert("Preencha o campo nome ou o nome tem menos de 8 caracteres.");        
         document.cadastro.nome.focus();
         return false;
     }     
@@ -56,7 +56,9 @@ function valida_nome(){
  *  função que valida a primeira etapa de cadastrar os dados da familia.
  */
 function valida_etapa_1(){            
-    valida_nome();
+    if(valida_nome() == false){
+        return false;
+    }
         
     if($("#cep").val()==""){
         alert("Preencha o campo cep.");        
