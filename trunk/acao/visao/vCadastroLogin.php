@@ -58,9 +58,9 @@ class VLogin extends Common {
 //    }
    
     //colocando o campo password
-    function formatPassword($col, $val, $row) {
+    //function formatPassword($col, $val, $row) {
         //return '<input type="password" name="senha" id="' . $col . '" value="' . $val . '" />';
-    }
+    //}
 
     function changeBgColor($rowSets, $rowInfo, $rowNum) {        
         if ($rowInfo['nivel'] == 'ADMINISTRADOR') {
