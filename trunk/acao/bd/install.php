@@ -141,7 +141,7 @@
       `last_modified` TIMESTAMP NULL,
       `telefone` VARCHAR(15) NULL ,
       `grau_parentesco` VARCHAR(45) NOT NULL CHECK(`grau_parentesco` IN('TITULAR','CÔNJUGE(MARIDO OU ESPOSA)','COMPANHEIRO(A)','FILHO(A)','IRMÃ(O)','PAI/MÃE','CUNHADO(A)','GENRO/NORA','SOGRO(A)','ENTEADO(A)','NETO(A)','PADRASTO/MADRASTA','AGREGADO(A)','AVÔ(Ó)','EX-COMPANHEIRO(A)','EX-MARIDO/EX-ESPOSA','PRIMO(A)','SOBRINHO(A)','TIO(A)')),	#upper
-      `estado_civil` VARCHAR(45) NULL CHECK(`estado_civil` IN('SOLTEIRO(A)','CASADO(A)','SEPARADO(A)','DIVORCIADO(A)','VIÚVO(A)')),		#upper  
+      `estado_civil` VARCHAR(45) NULL CHECK(`estado_civil` IN('SOLTEIRO(A)','CASADO(A)','SEPARADO(A)','DIVORCIADO(A)','VIÚVO(A)','AMASIADO(A)')),		#upper  
       `raca` VARCHAR(45) CHECK(`raca` IN('NÃO DECLARADA','BRANCA','PARDA','NEGRA','AMARELA','INDÍGENA','MULATA','CABOCLO','CABRA')) ,	#upper
       `religiao` VARCHAR(45) NULL,							#upper
       `carteira_profissional` CHAR(1) NOT NULL ,			#upper

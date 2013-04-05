@@ -47,7 +47,7 @@ class VCadastroPrograma extends Common {
 
         $tableColumns['id_programa'] = array('display_text' => 'ID Programa', 'perms' => 'DVTXQSHOM');
         $tableColumns['nome'] = array('display_text' => 'Nome do Programa Social', 'perms' => 'EVTAXQSHOM', 'req' => true, 'input_info' => 'size="40" maxlength="100"');        
-
+        $userColumns[] = array('call_back_fun' => array(&$this,'preencherNroPessoas'), 'title' => 'Nº de pessoas participantes');
         $tableName = 'programa';
         $primaryCol = 'id_programa';
         $errorFun = array(&$this, 'logError');
@@ -64,11 +64,28 @@ class VCadastroPrograma extends Common {
         $this->Editor->setConfig('editRowTitle', 'Editar Programa Social');        
         $this->Editor->setConfig('removeIcons','C');  
         $this->Editor->setConfig('tableTitle','Cadastro de Programas Sociais');
+        $this->Editor->setConfig('userColumns',$userColumns); 
+
     }
 
     //colocando o campo password
     function formatPassword($col, $val, $row) {
         return '<input type="password" id="' . $col . '" value="' . $val . '" />';
+    }
+    
+    function preencherNroPessoas($row) {
+        $res = mysql_fetch_assoc(mysql_query("SELECT COUNT( * ) AS ocupadas
+FROM pessoa_has_programa
+WHERE id_programa =".$row['id_programa'].
+" AND id_pessoa
+IN (
+SELECT id_pessoa
+FROM pessoa
+WHERE ativo = 
+TRUE
+)"));
+        $html = '<td>'.($res['ocupadas']).'</td>';
+        return $html;
     }
 
     //todo construtor que utiliza o plugin mate-2.2 deverá chamar o $this->display();
