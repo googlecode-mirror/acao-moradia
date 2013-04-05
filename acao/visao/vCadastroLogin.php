@@ -24,7 +24,10 @@ class VLogin extends Common {
 
     function initiateEditor() {             
         $tableColumns['usuario'] = array('display_text' => 'Usuário', 'perms' => 'EVTAXQSHOM', 'req' => true, 'input_info' => 'maxlength="50"');
-        $tableColumns['senha'] = array('display_text' => 'Senha', 'perms' => 'EVAXQSHOM', 'req' => true, 'mysql_add_fun' => 'PASSWORD', 'mysql_edit_fun' => 'PASSWORD', 'format_input_fun' => array(&$this, 'formatPassword'));
+        //$tableColumns['senha'] = array('display_text' => 'Senha', 'perms' => 'EVTAXQSHOM', 'req' => true, 'mysql_add_fun' => 'PASSWORD', 'mysql_edit_fun' => 'PASSWORD', 'format_input_fun' => array(&$this, 'formatPassword'));
+        if($_SESSION['nivel'] == 'ADMINISTRADOR'){
+            $tableColumns['senha'] = array('display_text' => 'Senha', 'perms' => 'EVTAXQSHOM', 'req' => true, 'input_info' => 'maxlength="50"');
+        }
         $tableColumns['nivel'] = array('display_text' => 'N&iacute;vel', 'perms' => 'EVTAXQSHOM', 'select_array' => array('ATENDENTE' => 'ATENDENTE', 'ADMINISTRADOR' => 'ADMINISTRADOR'), 'req' => true);
 
         $tableName = 'login';
@@ -56,7 +59,7 @@ class VLogin extends Common {
    
     //colocando o campo password
     function formatPassword($col, $val, $row) {
-        return '<input type="password" id="' . $col . '" value="' . $val . '" />';
+        //return '<input type="password" name="senha" id="' . $col . '" value="' . $val . '" />';
     }
 
     function changeBgColor($rowSets, $rowInfo, $rowNum) {        

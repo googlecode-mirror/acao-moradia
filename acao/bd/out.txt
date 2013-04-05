@@ -1,1 +1,1 @@
-20/02/1992 1
+SELECT * FROM login WHERE usuario= 'a' AND senha= md5('a')

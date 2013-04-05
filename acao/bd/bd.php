@@ -1,6 +1,6 @@
 <?php
     class Senha{
-        private $senha = "wSpKf6v99";
+        private $senha = "";
         
         public function getSenha(){
             return $this->senha;
