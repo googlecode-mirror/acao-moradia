@@ -245,7 +245,7 @@
     -- Table `login`
     -- -----------------------------------------------------
     CREATE  TABLE IF NOT EXISTS `login` (
-      `usuario` VARCHAR(50),
+      `usuario` VARCHAR(50) UNIQUE,
       `senha` VARCHAR(32) NOT NULL ,	
       `nivel` TEXT NOT NULL CHECK(nivel IN ('ATENDENTE','ADMINISTRADOR')),
       PRIMARY KEY (`usuario`))

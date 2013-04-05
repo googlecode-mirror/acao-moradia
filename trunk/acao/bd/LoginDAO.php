@@ -50,7 +50,9 @@
         }
         
         public function buscaLogin($user, $pass){
+            require_once 'Debug.php';
             $this->_sel.= " WHERE usuario= '$user' AND senha= md5('$pass')";
+            Debug::gravaEmArquivo($this->_sel);
             $res= mysql_query($this->_sel);
             if($res === FALSE){
                 echo "falha na consulta";
