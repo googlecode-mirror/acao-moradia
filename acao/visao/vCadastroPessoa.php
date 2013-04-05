@@ -59,7 +59,7 @@
                             <h3>Dados pessoais <?php if (isset($_GET["msg"])) echo $_GET["msg"] ?>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </h3>
                             <p>&nbsp;</p>
                             <p>Nome completo: (*)</p>
-                            <p><input type="text" id="nome" name="nome" size="30" value="<?php echo date("d/m/Y") . " " . date("H:i:s"); ?>" maxlength="100" /></p>
+                            <p><input type="text" id="nome" name="nome" size="30" value="" maxlength="100" /></p>
                             <p><br />CPF:</p>
                             <p><input type="text" name="cpf" id="cpf" size="12" value="" maxlength="14" /></p>
                             <p>&nbsp;</p>
@@ -111,6 +111,7 @@
 
                             <p>Estado Civil:</p>                            
                             <select name="estadoCivil">                                                                
+                                <option>AMASIADO(A)</option>                                
                                 <option>CASADO(A)</option>
                                 <option>DIVORCIADO(A)</option>
                                 <option>SEPARADO(A)</option>  
@@ -242,16 +243,16 @@
                             //printar os dados do endereco da familia                                
                             ?>
                             <p>CEP:(*)<br/>
-                                <input required="required" type="text" id="cep" name="cep" value="38415-129" size="14" onBlur="getEndereco();" />
+                                <input required="required" type="text" id="cep" name="cep" value="" size="14" onBlur="getEndereco();" />
                                 <a href="http://www.buscacep.correios.com.br" target="_blank"/>Buscar CEP</a>
                             </p>
                             <p>&nbsp;</p>
                             <p>Logradouro:(*) <br/>
-                                <input required="required" type="text" id="logradouro" name="logradouro" size="30" value="Rua: das Harpas" />
+                                <input required="required" type="text" id="logradouro" name="logradouro" size="30" value="" />
                             </p>                            
                             <p>&nbsp;</p>
                             <p>Número:(*)<br/>
-                                <input required="required" type="text" id="numero" name="numero" size="12" value="62" />
+                                <input required="required" type="text" id="numero" name="numero" size="12" value="" />
                             </p>
                             <p>&nbsp;</p>
                             <p>Cidade/estado:(*)</p>   
@@ -295,7 +296,7 @@
                             </p>
                             <p>&nbsp;</p>
                             <p>Bairro:(*) <br/>
-                                <input type="text" id="bairro" name="bairro" value="TAIAMAN" size="14" />
+                                <input type="text" id="bairro" name="bairro" value="" size="14" />
                             </p>    
                             <p>&nbsp;</p>
                             <p>&nbsp;</p>
