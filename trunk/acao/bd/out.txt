@@ -1,1 +1,1 @@
-SELECT * FROM login WHERE usuario= 'a' AND senha= md5('a')
+SELECT * FROM login WHERE usuario= 'ADMIN' AND senha= md5('ADMIN')

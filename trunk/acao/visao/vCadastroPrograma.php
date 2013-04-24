@@ -75,15 +75,15 @@ class VCadastroPrograma extends Common {
     
     function preencherNroPessoas($row) {
         $res = mysql_fetch_assoc(mysql_query("SELECT COUNT( * ) AS ocupadas
-FROM pessoa_has_programa
-WHERE id_programa =".$row['id_programa'].
-" AND id_pessoa
-IN (
-SELECT id_pessoa
-FROM pessoa
-WHERE ativo = 
-TRUE
-)"));
+            FROM pessoa_has_programa
+            WHERE id_programa =".$row['id_programa'].
+            " AND id_pessoa
+            IN (
+            SELECT id_pessoa
+            FROM pessoa
+            WHERE ativo = 
+            TRUE
+            )"));
         $html = '<td>'.($res['ocupadas']).'</td>';
         return $html;
     }

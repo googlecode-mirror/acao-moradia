@@ -1,5 +1,6 @@
 <?php 
     include_once 'DBConnection.php';
+    DataBase::createConection();
     class ProgramaDAO{
         
         private $_ins= "INSERT INTO  programa (`nome`) VALUES";
@@ -39,13 +40,13 @@
         
          public function buscaProgramaById($id_programa){
             $select= "SELECT * FROM programa WHERE id_programa= $id_programa";
-            $res= mysql_query($select);
+            $res= mysql_query($select) or die(mysql_error());
             if($res === FALSE){
-                echo "programa desconhecido";
+                echo "programa desconhecido ".$select;
                 return null;
             }else{
                 //$arived= mysql_fetch_assoc($res);
-                return $res;
+                return mysql_fetch_assoc($res);
             }            
         }  
         
