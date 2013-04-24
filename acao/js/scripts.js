@@ -44,21 +44,64 @@ function validaData(campo,valor) {
  *  Valida o campo nome: não pode ser vazio.
  */
 function valida_nome(){
-    if($("#nome").val()=="" || $("#nome").val().length < 8){
-        alert("Preencha o campo nome ou o nome tem menos de 8 caracteres.");        
+    if($("#nome").val()=="" || $("#nome").val().length < 10){
+        alert("Preencha o campo nome ou o nome tem menos de 10 caracteres.");        
         document.cadastro.nome.focus();
         return false;
     }     
     return true;
 }
 
+//http://www.geradorcpf.com/javascript-validar-cpf.htm
+function validarCPF(cpf) {
+    cpf = cpf.replace(/[^\d]+/g,'');
+
+    if(cpf == '') return false;
+
+    // Elimina CPFs invalidos conhecidos
+    if (cpf.length != 11 || 
+        cpf == "00000000000" || 
+        cpf == "11111111111" || 
+        cpf == "22222222222" || 
+        cpf == "33333333333" || 
+        cpf == "44444444444" || 
+        cpf == "55555555555" || 
+        cpf == "66666666666" || 
+        cpf == "77777777777" || 
+        cpf == "88888888888" || 
+        cpf == "99999999999")
+        return false;
+
+    // Valida 1o digito
+    add = 0;
+    for (i=0; i < 9; i ++)
+        add += parseInt(cpf.charAt(i)) * (10 - i);
+    rev = 11 - (add % 11);
+    if (rev == 10 || rev == 11)
+        rev = 0;
+    if (rev != parseInt(cpf.charAt(9)))
+        return false;
+
+    // Valida 2o digito
+    add = 0;
+    for (i = 0; i < 10; i ++)
+        add += parseInt(cpf.charAt(i)) * (11 - i);
+    rev = 11 - (add % 11);
+    if (rev == 10 || rev == 11)
+        rev = 0;
+    if (rev != parseInt(cpf.charAt(10)))
+        return false;
+
+    return true;
+
+}
 /**
  *  função que valida a primeira etapa de cadastrar os dados da familia.
  */
 function valida_etapa_1(){            
     if(valida_nome() == false){
         return false;
-    }
+    }        
         
     if($("#cep").val()==""){
         alert("Preencha o campo cep.");        
@@ -84,16 +127,53 @@ function valida_etapa_1(){
         alert("Preencha o campo bairro.");        
         document.cadastro.bairro.focus();
         return false;
-    }     
+    }            
+    return val_cpf();    
+}
+var ja_cadastrado = false;
+
+function checar_ja_cadastrado(){    
+    if($('#cpf').val()!="___.___.___-__"){
+        $.ajax({
+            type      : 'post', 
+            url       : '../controle/cVerificaCPF.php', 
+            data      : 'cpf='+ $('#cpf').val(), 
+            dataType  : 'html', 
+            success : function(txt){            
+                if(txt != "0"){                    
+                    ja_cadastrado = true;                    
+                    $("#msg_cpf").html("CPF já cadastrado no sistema e a pessoa está ativa");
+                }else{                    
+                    $("#msg_cpf").hide();
+                    ja_cadastrado = false;                    
+                }
+            }
+        });        
+    }
+}
+
+function val_cpf(){
+    if($("#cpf").val()!=""){
+        if(validarCPF($("#cpf").val())==false){
+            document.cadastro.cpf.focus();
+            alert("CPF Inválido");        
+            return false;
+        }
+        if(ja_cadastrado == true){
+            document.cadastro.cpf.focus();
+            alert("CPF Já cadastrado");        
+            return false;        
+        }        
+    }
     return true;
+    
 }
 
 /**
  *  Valida a segunda etapa do cadastro de familia.
  */
-function valida_etapa_2(){        
-    return valida_nome();            
-    
+function valida_etapa_2(){                    
+    return val_cpf() && valida_nome();                
 }
 
 
@@ -102,7 +182,7 @@ function valida_etapa_2(){
  */
 //var msg_confirm = "Clique em OK para incluir outras pessoas.\n\nClique em Cancelar ou em Fechar(X) para ir ao cadastro socioeconômico"
 var msg_confirm = "Clique em OK para INCLUIR outras pessoas.\n\nClique em Cancelar ou em Fechar(X) para TERMINAR O CADASTRO";
-function controla(){                  
+function controla(){                      
     switch($("#et").val()){
         case "1":
             if(valida_etapa_1()==true){                                                
@@ -125,7 +205,8 @@ function controla(){
                 {                                    
                     document.getElementById("et").value='3';//alterar o valor do campo hidden com id #et para 3                                        
                     //window.location("../visao/vFamiliaInteira.php?id_familia="+$("idFamilia").val());
-                }//               return true;
+                }
+                return true;
             }else{                
                 return false;
             }        
@@ -139,9 +220,9 @@ function controla(){
  *  Função responsável por preencher a cidade, o bairro, o estado, o logradouro
  *  quando o cep é fornecido pelo usuário.
  */
-function getEndereco() {
+function getEndereco() {    
     // Se o campo CEP não estiver vazio
-    if($.trim($("#cep").val()) != ""){
+    if($.trim($("#cep").val()) != ""){        
         /* 
                 Para conectar no serviço e executar o json, precisamos usar a função
                 getScript do jQuery, o getScript e o dataType:"jsonp" conseguem fazer o cross-domain, os outros
@@ -162,7 +243,7 @@ function getEndereco() {
                 }else{
                         alert("Endereço não encontrado");
                 }
-        });				
+        });				        
     }			
 }
 
@@ -252,6 +333,17 @@ function confirmaExclusaoPessoaCurso(){
 }
 
 /**
+ *  Exibe uma mensagem de confirmação para desvincular uma pessoa a um programa.
+ */
+function confirmaExclusaoPessoaPrograma(){
+    if(confirm("Você realmente deseja retirar esta pessoa deste programa?")){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+/**
  *  Exibe uma mensagem de confirmação para desvincular uma pessoa a um curso.
  */
 function updateTable(){                
@@ -265,6 +357,19 @@ function updateTable(){
         }                    
     });                     
 }
+
+function updateTablePrograma(){                
+    $.ajax({
+        type      : 'post', 
+        url       : '../controle/cMontaTabelaPrograma.php', 
+        data      : 'idPrograma='+ $('#idPrograma').val()+'&idPessoa='+ $('#idPessoa').val(), 
+        dataType  : 'html', 
+        success : function(txt){
+            $('#showtable').html(txt);
+        }                    
+    });                     
+}
+
 
 //auto complete
 function lookupperson(pessoa) {

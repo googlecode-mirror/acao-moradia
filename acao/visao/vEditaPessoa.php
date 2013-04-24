@@ -210,7 +210,8 @@
                         }else{
                             echo "<p>Grau de parentesco desta pessoa em relação a(ao) " . $titular['nome'] . ":<br>"
                             . "<select name='grauParentesco'>";
-                            if($pessoa['grau_parentesco'] == "AGREGADO"){echo "<option selected>AGREGADO(A)</option>";}else{echo"<option>AGREGADO(A)</option>";}
+                            if($pessoa['grau_parentesco'] == "AGREGADO(A)"){echo "<option selected>AGREGADO(A)</option>";}else{echo"<option>AGREGADO(A)</option>";}
+                            if($pessoa['grau_parentesco'] == "AMASIADO(A)"){echo "<option selected>AMASIADO(A)</option>";}else{echo"<option>AMASIADO(A)</option>";}
                             if($pessoa['grau_parentesco'] == "AVÔ(Ó)"){echo "<option selected>AVÔ(Ó)</option>";}else{echo"<option>AVÔ(Ó)</option>";}
                             if($pessoa['grau_parentesco'] == "COMPANHEIRO(A)"){echo "<option selected>COMPANHEIRO(A)</option>";}else{echo"<option>COMPANHEIRO(A)</option>";}
                             if($pessoa['grau_parentesco'] == "CÔNJUGE(MARIDO OU ESPOSA)"){echo "<option selected>CÔNJUGE(MARIDO OU ESPOSA)</option>";}else{echo"<option>CÔNJUGE(MARIDO OU ESPOSA)</option>";}

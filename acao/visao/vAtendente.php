@@ -56,10 +56,10 @@ if (!isset($_SESSION['nivel'])) {
                         <div class="bts">
                             <ul><li><a href="vRelatorioCurso.php" target="_parent"><img src="../imagens/bt_curso_novo.png"</a></li></ul>
                         </div>                
-<!--                        <div class="bts">
-                            <ul><li><a href="" target="_parent"><s><img src="../imagens/bt_pessoa_novo.png"</a></s></li></ul>
-                        </div>                
                         <div class="bts">
+                            <ul><li><a href="vRelatorioPrograma.php" target="_parent"><s><img src="../imagens/bt_programa_novo.png"</a></s></li></ul>
+                        </div>                
+<!--                        <div class="bts">
                             <ul><li><a href="" target="_parent"><s></a></s></li></ul>
                         </div>                
                         <div class="bts">

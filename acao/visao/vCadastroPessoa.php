@@ -59,9 +59,9 @@
                             <h3>Dados pessoais <?php if (isset($_GET["msg"])) echo $_GET["msg"] ?>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </h3>
                             <p>&nbsp;</p>
                             <p>Nome completo: (*)</p>
-                            <p><input type="text" id="nome" name="nome" size="30" value="" maxlength="100" /></p>
-                            <p><br />CPF:</p>
-                            <p><input type="text" name="cpf" id="cpf" size="12" value="" maxlength="14" /></p>
+                            <p><input type="text" id="nome" name="nome" size="30" value="Leonardo Pimentel Ferreira" maxlength="100" /></p>
+                            <p><br />CPF:</p><div id="msg_cpf"></div>
+                            <p><input type="text" name="cpf" id="cpf" size="12" value="105.264.376-00" maxlength="14" onblur="checar_ja_cadastrado();"/></p>
                             <p>&nbsp;</p>
                             <p>RG:</p>
                             <p><input type="text" name="rg"value="" size="14" maxlength="45" /></p>
@@ -173,6 +173,7 @@
                             echo "<p>Qual é o grau de parentesco desta pessoa em relação a(ao) " . strtoupper($_GET['titular']) . ":<br>"
                             . "<select name='grauParentesco'>"
                             . "<option>AGREGADO(A)</option>"
+                            . "<option>AMASIADO(A)</option>"
                             . "<option>AVÔ(Ó)</option>"
                             . "<option>COMPANHEIRO(A)</option>"
                             . "<option>CÔNJUGE(MARIDO OU ESPOSA)</option>"
@@ -244,7 +245,7 @@
                             ?>
                             <p>CEP:(*)<br/>
                                 <input required="required" type="text" id="cep" name="cep" value="" size="14" onBlur="getEndereco();" />
-                                <a href="http://www.buscacep.correios.com.br" target="_blank"/>Buscar CEP</a>
+                                <a href="http://www.buscacep.correios.com.br" target="_blank"/>Buscar CEP</a>                                
                             </p>
                             <p>&nbsp;</p>
                             <p>Logradouro:(*) <br/>
@@ -252,7 +253,7 @@
                             </p>                            
                             <p>&nbsp;</p>
                             <p>Número:(*)<br/>
-                                <input required="required" type="text" id="numero" name="numero" size="12" value="" />
+                                <input required="required" type="text" id="numero" name="numero" size="12" value="11" />
                             </p>
                             <p>&nbsp;</p>
                             <p>Cidade/estado:(*)</p>   

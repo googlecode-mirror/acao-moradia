@@ -113,7 +113,7 @@
       CONSTRAINT `fk_Endereço_Bairro1`
         FOREIGN KEY (`bairro` )
         REFERENCES `bairro` (`nome` )
-        ON DELETE NO ACTION
+        ON DELETE NO CASCADE
         ON UPDATE NO ACTION,
       CONSTRAINT `fk_Endereço_Cidade1`
         FOREIGN KEY (`cod_cidade` )
@@ -132,7 +132,7 @@
       `id_familia` INT NOT NULL ,
       `cidade_natal` INT(11) ,
       `nome` VARCHAR(100) NOT NULL ,		#upper
-      `cpf` VARCHAR(14) NULL UNIQUE,
+      `cpf` VARCHAR(14) NULL,
       `rg` VARCHAR(45) NULL ,
       `sexo` CHAR CHECK(`sexo`IN('M','F')),	#upper
       `data_nascimento` DATE NULL ,
@@ -140,7 +140,7 @@
       `data_saida` TIMESTAMP NULL ,
       `last_modified` TIMESTAMP NULL,
       `telefone` VARCHAR(15) NULL ,
-      `grau_parentesco` VARCHAR(45) NOT NULL CHECK(`grau_parentesco` IN('TITULAR','CÔNJUGE(MARIDO OU ESPOSA)','COMPANHEIRO(A)','FILHO(A)','IRMÃ(O)','PAI/MÃE','CUNHADO(A)','GENRO/NORA','SOGRO(A)','ENTEADO(A)','NETO(A)','PADRASTO/MADRASTA','AGREGADO(A)','AVÔ(Ó)','EX-COMPANHEIRO(A)','EX-MARIDO/EX-ESPOSA','PRIMO(A)','SOBRINHO(A)','TIO(A)')),	#upper
+      `grau_parentesco` VARCHAR(45) NOT NULL CHECK(`grau_parentesco` IN('TITULAR','CÔNJUGE(MARIDO OU ESPOSA)','COMPANHEIRO(A)','FILHO(A)','IRMÃ(O)','PAI/MÃE','CUNHADO(A)','GENRO/NORA','SOGRO(A)','ENTEADO(A)','NETO(A)','PADRASTO/MADRASTA','AGREGADO(A)','AVÔ(Ó)','EX-COMPANHEIRO(A)','EX-MARIDO/EX-ESPOSA','PRIMO(A)','SOBRINHO(A)','TIO(A)','AMASIADO(A)')),	#upper
       `estado_civil` VARCHAR(45) NULL CHECK(`estado_civil` IN('SOLTEIRO(A)','CASADO(A)','SEPARADO(A)','DIVORCIADO(A)','VIÚVO(A)','AMASIADO(A)')),		#upper  
       `raca` VARCHAR(45) CHECK(`raca` IN('NÃO DECLARADA','BRANCA','PARDA','NEGRA','AMARELA','INDÍGENA','MULATA','CABOCLO','CABRA')) ,	#upper
       `religiao` VARCHAR(45) NULL,							#upper
@@ -235,7 +235,7 @@
       CONSTRAINT `fk_Pessoa_has_Programa_Programa1`
         FOREIGN KEY (`id_programa` )
         REFERENCES `programa` (`id_programa` )
-        ON DELETE NO ACTION
+        ON DELETE CASCADE
         ON UPDATE NO ACTION)
     ENGINE = InnoDB;
     ") or die(mysql_error());
@@ -441,6 +441,11 @@
     mysql_query("
     CREATE TRIGGER insere_pessoa BEFORE INSERT ON pessoa
       FOR EACH ROW BEGIN    
+            declare msg varchar(255);
+            IF (length(NEW.nome) < 10) THEN
+                set msg = \"Erro: o nome tem que ter um tamanho mínimo de 10 caracteres\";
+                SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = msg;
+            END IF;            
             set NEW.nome = upper(NEW.nome);	
             set NEW.sexo = upper(NEW.sexo);
             set NEW.data_cadastro = date(now());	
@@ -460,6 +465,11 @@
     mysql_query("
     CREATE TRIGGER atualiza_pessoa BEFORE UPDATE ON pessoa
       FOR EACH ROW BEGIN    
+            declare msg varchar(255);
+            IF (length(NEW.nome) < 10) THEN
+                set msg = \"Erro: o nome tem que ter um tamanho mínimo de 10 caracteres\";
+                SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = msg;
+            END IF;            
             IF (NEW.ativo <> OLD.ativo) THEN
                 IF(NEW.ativo = TRUE) THEN
                     set NEW.data_saida = NULL;
@@ -554,11 +564,26 @@
     #UPDATE
     mysql_query("
     CREATE TRIGGER altera_login BEFORE UPDATE ON login
-      FOR EACH ROW BEGIN    
-            set NEW.senha = md5(NEW.senha);
+      FOR EACH ROW BEGIN                
+            IF(NEW.senha <> OLD.senha) THEN
+                set NEW.senha = md5(NEW.senha);
+            END IF;                       
       END;
     ") or die(mysql_error());
 
+    #DELETE
+    mysql_query("
+    CREATE TRIGGER deleta_login BEFORE DELETE ON login
+      FOR EACH ROW BEGIN
+            declare msg varchar(255);                                            
+            DECLARE qtd_adms INTEGER;
+            SELECT COUNT(*) FROM login WHERE nivel = 'ADMINISTRADOR' INTO qtd_adms;            
+            IF OLD.nivel = 'ADMINISTRADOR' AND qtd_adms = 1 THEN
+                set msg = \"Erro: O sistema não pode ficar sem usuários ADMINISTRADORES\";
+                SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = msg;
+            END IF;            
+      END;
+    ") or die(mysql_error());
 
     #---------------------------------------------------POPULAR O BANCO-------------------------------------------------------
     echo "<br>";

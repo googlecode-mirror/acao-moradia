@@ -64,6 +64,26 @@
             } 
         }
         
+        public function buscaPessoaByCPF($cpf){
+            $query = "select * from pessoa WHERE cpf='$cpf'";
+            $res= mysql_query($query) ;
+            if($res === FALSE){                
+                return null;
+            }else{                
+                return $res;
+            } 
+        }
+        
+        public function buscaPessoaAtivaByCPF($cpf){
+            $query = "select * from pessoa WHERE cpf='$cpf' and ativo=true";
+            $res= mysql_query($query) ;
+            if($res === FALSE){                
+                return null;
+            }else{                
+                return $res;
+            } 
+        }
+        
         public function buscaPessoabyIdFamilia($id_familia){            
             $teste = "SELECT * FROM pessoa WHERE id_familia=$id_familia";                       
             $res= mysql_query($teste)or die(mysql_error());            
