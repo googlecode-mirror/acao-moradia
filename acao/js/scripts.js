@@ -140,7 +140,8 @@ function checar_ja_cadastrado(){
             data      : 'cpf='+ $('#cpf').val(), 
             dataType  : 'html', 
             success : function(txt){            
-                if(txt != "0" || txt != 0){
+                //alert(txt);
+                if(txt != 0){
                     ja_cadastrado = true;
                     $("#msg_cpf").html("CPF já cadastrado no sistema e a pessoa está ativa");
                     
