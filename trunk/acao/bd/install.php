@@ -113,7 +113,7 @@
       CONSTRAINT `fk_Endereço_Bairro1`
         FOREIGN KEY (`bairro` )
         REFERENCES `bairro` (`nome` )
-        ON DELETE NO CASCADE
+        ON DELETE CASCADE
         ON UPDATE NO ACTION,
       CONSTRAINT `fk_Endereço_Cidade1`
         FOREIGN KEY (`cod_cidade` )
