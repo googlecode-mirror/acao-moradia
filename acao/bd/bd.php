@@ -1,6 +1,6 @@
 <?php
     class Senha{
-        private $senha = "CutSzm|a";
+        private $senha = "";
         
         public function getSenha(){
             return $this->senha;
