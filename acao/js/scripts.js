@@ -144,6 +144,7 @@ function checar_ja_cadastrado(){
                 if(txt != 0){
                     ja_cadastrado = true;
                     $("#msg_cpf").html("CPF já cadastrado no sistema e a pessoa está ativa");
+                    $("#msg_cpf").show();
                     
                 }else{                    
                     $("#msg_cpf").hide();
