@@ -64,11 +64,10 @@ DataBase::createConection();
                             }
                             ?>
 
-<!--                            <select id="idPrograma" name="idPrograma" onchange="updateTable()"><?php echo $programa_block; ?></select>-->
                             <select id="idPrograma" name="idPrograma" onchange="updateTablePrograma();"><?php echo $programa_block; ?></select>
                             
                             <p>&nbsp;</p>
-<!--                            <a href="vCadastroCursoNew.php" title="Visualizar todos os cursos"><img src="../imagens/bt_programa_novo.png"></img></a>-->
+                            <a href="vCadastroPrograma.php" title="Visualizar todos os programas"><img src="../imagens/bt_exibir_programas.png"></img></a>
                             <a href="vIncluirPessoaPrograma.php" title="Inclua uma pessoa em um programa"><img src="../imagens/bt_incluir_novo.png"></img></a>
                             <div id="showtable"></div>
 

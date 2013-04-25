@@ -59,9 +59,9 @@
                             <h3>Dados pessoais <?php if (isset($_GET["msg"])) echo $_GET["msg"] ?>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </h3>
                             <p>&nbsp;</p>
                             <p>Nome completo: (*)</p>
-                            <p><input type="text" id="nome" name="nome" size="30" value="Leonardo Pimentel Ferreira" maxlength="100" /></p>
+                            <p><input type="text" id="nome" name="nome" size="30" value="" maxlength="100" /></p>
                             <p><br />CPF:</p><div id="msg_cpf"></div>
-                            <p><input type="text" name="cpf" id="cpf" size="12" value="105.264.376-00" maxlength="14" onblur="checar_ja_cadastrado();"/></p>
+                            <p><input type="text" name="cpf" id="cpf" size="12" value="" maxlength="14" onblur="checar_ja_cadastrado();"/></p>
                             <p>&nbsp;</p>
                             <p>RG:</p>
                             <p><input type="text" name="rg"value="" size="14" maxlength="45" /></p>
@@ -213,7 +213,7 @@
                                 <input type="text" name="id_familia" value="<?php echo $_GET["family"] ?>" size="14" disabled/><br/>
                             </p><br/>
                             <p>CEP:(*)<br/>
-                                <input type="text" id="cep" name="cep" value="<?php echo $result['cep']; ?>" size="14" onBlur="getEndereco();" disabled/>                                                                        
+                                <input type="text" id="cep" name="cep" value="<?php echo $result['cep']; ?>" size="14" onBlur="getEndereco();" disabled/>
                             </p>
                             </p>
                             <p>&nbsp;</p>
@@ -253,7 +253,7 @@
                             </p>                            
                             <p>&nbsp;</p>
                             <p>Número:(*)<br/>
-                                <input required="required" type="text" id="numero" name="numero" size="12" value="11" />
+                                <input required="required" type="text" id="numero" name="numero" size="12" value="" />
                             </p>
                             <p>&nbsp;</p>
                             <p>Cidade/estado:(*)</p>   
