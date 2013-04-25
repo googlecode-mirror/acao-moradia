@@ -1,6 +1,6 @@
 <?php
     class Senha{
-        private $senha = "\$MySQL_Acao+2013";
+        private $senha = "CutSzm|a";
         
         public function getSenha(){
             return $this->senha;

@@ -307,7 +307,7 @@
                     <div style="margin-left: 30px;">
                         <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
                         <hr/>
-                        <h3>Pesquisa socioeconômica(Pessoal)</h3>
+<!--                        <h3>Pesquisa socioeconômica(Pessoal)</h3>-->
                     </div>
                     <br><br><br>
                     <center>
