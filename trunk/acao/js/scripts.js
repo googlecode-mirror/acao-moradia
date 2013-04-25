@@ -140,9 +140,10 @@ function checar_ja_cadastrado(){
             data      : 'cpf='+ $('#cpf').val(), 
             dataType  : 'html', 
             success : function(txt){            
-                if(txt != "0"){                    
-                    ja_cadastrado = true;                    
+                if(txt != "0" || txt != 0){
+                    ja_cadastrado = true;
                     $("#msg_cpf").html("CPF já cadastrado no sistema e a pessoa está ativa");
+                    
                 }else{                    
                     $("#msg_cpf").hide();
                     ja_cadastrado = false;                    
@@ -158,13 +159,14 @@ function val_cpf(){
             document.cadastro.cpf.focus();
             alert("CPF Inválido");        
             return false;
-        }
+        }        
+        /*
         checar_ja_cadastrado();
         if(ja_cadastrado == true){
             document.cadastro.cpf.focus();
             alert("CPF Já cadastrado");        
             return false;        
-        }        
+        }*/
     }
     return true;
     
