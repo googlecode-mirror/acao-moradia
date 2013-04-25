@@ -318,7 +318,7 @@
 <!--                    <br><br><br>-->
                     <center>
                         <p>
-                            <input type="button" class="button red" value="Cancelar <<" onclick="javascript:window.history.go(-1);"/>
+                            <input type="button" class="button red" value="Cancelar <<" onclick='if(confirm("Deseja realmente cancelar o cadastro?")) window.location = "vEditOrDeleteFamiliaNew.php";'/>
                             <input type="submit" class="button blue" value="Próximo >>" onclick="return controla();"/>
                         </p>
                     </center>
