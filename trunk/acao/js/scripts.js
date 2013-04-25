@@ -159,6 +159,7 @@ function val_cpf(){
             alert("CPF Inválido");        
             return false;
         }
+        checar_ja_cadastrado();
         if(ja_cadastrado == true){
             document.cadastro.cpf.focus();
             alert("CPF Já cadastrado");        
