@@ -45,17 +45,18 @@
     }else{
         $grauParentesco = "TITULAR";
     }
-        
+            
     //cadastra a pessoa
     $pessoa = new Pessoa(
             $familia->getIdFamilia(), $_POST['cidadeNatal'],$_POST['nome'], $_POST['cpf'], 
             $_POST['rg'], $_POST['sexo'], $_POST['dataNascimento'], $_POST['telefone'], $grauParentesco,
             $_POST['estadoCivil'],$_POST['raca'],$_POST['religiao'], $_POST['carteiraProfissional'],
-            $_POST['tituloEleitor'],$_POST['certidaoNascimento']);
-
+            $_POST['tituloEleitor'],$_POST['certidaoNascimento'], $_POST['nis']);
+    
     $pessoaDAO = new PessoaDAO();
-    $res = $pessoaDAO->cadastraPessoa_2($pessoa);
-
+    
+    $res = $pessoaDAO->cadastraPessoa_2($pessoa);    
+    
     if($res === FALSE){
         echo "Erro ao cadastrar";
         exit();
