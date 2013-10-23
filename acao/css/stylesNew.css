@@ -63,8 +63,7 @@ img {
 
 
 /* ----------  MENU  ---------- */
-		.wrap .header .menu					{ width:570px; height:70px; margin-top:20px; float:left; }
-x;  }
+        .wrap .header .menu					{ width:570px; height:70px; margin-top:20px; float:left; }
 	.wrap .header .menu .tit_login		{ width:176px; height:40px; float:left; margin-top:-18px; position:absolute; background-image:url('../imagens/img_login.png'); background-repeat:no-repeat; }
 	.wrap .header .menu .mn				{ width:590px; height:73px; float:left;  margin-top:-12px;background-image:url('../imagens/bg_menu.png'); }
 	.wrap .header .menu .mn .menu_bts			{ width:475px; height:73px; float:left; margin-left:70px;   }
@@ -88,8 +87,8 @@ x;  }
 	.wrap .content .navegador				{ width:660px; float:left; margin-left:15px; font-weight: bold; font-size: 12px; margin-top:20px; color:#4A4C50; font-family: "Trebuchet MS", Arial, Verdana, Helvetica, sans-serif; text-align:right; }
 	.wrap .content .bloco				{ /*width:1050px;*/ padding:20px; min-height:350px; background-color:#F2F2F2; border: #b1b1b1 solid 2px; }
         .wrap .content .bloco .cabecalho                {margin: 10px; border: #b1b1b1 solid 2px;}
-        .wrap .content .bloco .cabecalho .dados_pessoais{margin: 25px; float:left;}
-        .wrap .content .bloco .dados_familia            {margin: 78px;}
+        /*.wrap .content .bloco .cabecalho .dados_pessoais{margin: 25px;}*/
+/*        .wrap .content .bloco .dados_familia            {margin: 78px;}*/
 	.wrap .content  .tit_sub_cat			{ width:600px; margin-left: 20px; float:left; font-family:"Trebuchet MS", Arial, Helvetica, sans-serif; font-size:18px; height:35px; display:block;  }
 
 
@@ -204,4 +203,4 @@ x;  }
 	
 	.suggestionList li:hover {
 		background-color: #659CD8;
-	}
+	}       
