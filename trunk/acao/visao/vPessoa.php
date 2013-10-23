@@ -45,6 +45,7 @@ class VPessoa extends Common {
         $tableColumns['data_saida'] = array('display_text' => 'Data da <br>inatividade', 'perms' => 'TVQXSHOMI', 'display_mask' => 'date_format(`data_saida`,"%d/%m/%Y %H:%i:%s")',  'col_header_info' => 'style="width: 90px;"');
         $tableColumns['cpf'] = array('display_text' => 'CPF', 'perms' => 'TVQXSHOMI',  'col_header_info' => 'style="width: 90px;"');
         $tableColumns['rg'] = array('display_text' => 'RG', 'perms' => 'TVQXSHOMI',  'col_header_info' => 'style="width: 105px;"');
+        $tableColumns['nis'] = array('display_text' => 'NIS', 'perms' => 'TVQXSHOMI',  'col_header_info' => 'style="width: 40px;"');
         $tableColumns['sexo'] = array('display_text' => 'Sexo', 'perms' => 'TVQXSHOMI',  'col_header_info' => 'style="width: 30px;"');
         
         $tableColumns['id_familia'] = array( 
@@ -72,7 +73,6 @@ class VPessoa extends Common {
 //                 'alias' => 'cidade' 
 //            ) 
 //        );
-        
         
         $userColumns['programas'] = array('call_back_fun' => array(&$this,'getProgramas'), 'title' => 'Programas Sociais');         
         $tableColumns['cidade_natal'] = array( 

@@ -148,6 +148,7 @@
       `titulo_eleitor` VARCHAR(12) NULL ,
       `certidao_nascimento` CHAR(1) NOT NULL ,				#upper      
       `ativo` BOOL NOT NULL DEFAULT TRUE,
+      `nis` VARCHAR(15) DEFAULT NULL,
       PRIMARY KEY (`id_pessoa`), 
       INDEX `fk_Pessoa_familia1_idx` (`id_familia` ASC) ,      
       CONSTRAINT `fk_Pessoa_familia1`

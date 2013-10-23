@@ -151,8 +151,12 @@
                             <p>Título de Eleitor(somente números):</p>
                             <input type="text" name="tituloEleitor" size="12" maxlength="12"/>
                             <p>&nbsp;</p>
+                            
+                            <p>NIS:</p>
+                            <input type="text" id="nis" name="nis" size="15" maxlength="15"/>
+                            <p>&nbsp;</p>                                                        
 
-                            <p>Programas inseridos na instituição:</p>                            
+                            <p>Programas inseridos na instituição:</p>
                             <?php
                             //pegando do banco os programas
                             include_once '../controle/cListaProgramas.php';
@@ -303,7 +307,7 @@
                             <p>&nbsp;</p>
                             <p>Telefone Residencial:</p>                            
                             <p>
-                                <input maxlength="15" name="telefone_residencial" id="telefone_residencial" size="15" value="(34) "/>                                    
+                                <input maxlength="15" name="telefone_residencial" id="telefone_residencial" size="15" value="(34) "/>
                             </p><br><br><br><br><br><br><br><br><br>                            
                    <?php } ?>
                         <p>&nbsp;</p>                                                                                                                                   

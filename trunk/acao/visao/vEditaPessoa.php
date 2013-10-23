@@ -175,6 +175,10 @@
                             <input type="text" name="tituloEleitor" value="<?php echo $pessoa['titulo_eleitor'] ?>" size="12" maxlength="12"/>
                             <p>&nbsp;</p>
                             
+                            <p>NIS:</p>
+                            <input type="text" id="nis" name="nis" value="<?php echo $pessoa['nis'] ?>"  size="15" maxlength="15"/>
+                            <p>&nbsp;</p>
+                            
                             <p>Programas inseridos na instituição:</p>                            
                             <?php                            
                             //pegando do banco os programas

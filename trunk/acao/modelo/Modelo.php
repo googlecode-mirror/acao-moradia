@@ -65,11 +65,12 @@
         private $tituloEleitor;
         private $certidaoNascimento;                  
         private $ativo;
+        private $nis;
         
         function __construct(
                 $idFamilia, $cidadeNatal, $nome, $cpf, $rg, $sexo, $dataNascimento, 
                 $telefone, $grauParentesco, $estadoCivil, $raca, $religiao, 
-                $carteiraProfissional, $tituloEleitor, $certidaoNascimento) {            
+                $carteiraProfissional, $tituloEleitor, $certidaoNascimento, $nis) {            
             $this->idFamilia = $idFamilia;
             $this->cidadeNatal = $cidadeNatal;            
             $this->nome = $nome;
@@ -85,6 +86,7 @@
             $this->carteiraProfissional = $carteiraProfissional;
             $this->tituloEleitor = $tituloEleitor;
             $this->certidaoNascimento = $certidaoNascimento;
+            $this->nis = $nis;
         }
 
         public function getAtivo() {
@@ -239,6 +241,14 @@
             $this->certidaoNascimento = $certidaoNascimento;
         }
         
+        public function getNIS() {
+            return $this->nis;
+        }
+
+        public function setNIS($nis) {
+            $this->nis = $nis;
+        }
+
     }
     
     class Curso{

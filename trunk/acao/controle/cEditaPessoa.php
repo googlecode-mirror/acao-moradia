@@ -35,6 +35,7 @@
     $bairro                 = $_POST['bairro'];
     $telefone_residencial   = $_POST['telefone_residencial'];
     $id_familia             = $_POST['idFamilia'];            
+    $nis                    = $_POST['nis'];
     
     $pessoaHasProgramaDAO   = new PessoaHasProgramaDAO();
     $pessoaDAO              = new PessoaDAO();
@@ -110,7 +111,7 @@
             $id_familia, $cidadeNatal, $nome, $cpf, 
             $rg, $sexo, $dataNascimento, $telefone, $grauParentesco,
             $estadoCivil,$raca,$religiao, $carteiraProfissional,
-            $tituloEleitor, $certidaoNascimento);
+            $tituloEleitor, $certidaoNascimento, $nis);
     $pessoa->setIdPessoa($id_pessoa);  
     $pessoa->setAtivo($ativo);
   
