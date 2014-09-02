@@ -97,6 +97,10 @@
     ENGINE = InnoDB;
     ") or die(mysql_error());
 
+    #CIDADE
+    include_once 'install_cidades_estados.php';    
+    echo "Tabela cidade e estado populada com sucesso<br>";
+
     mysql_query("
     -- -----------------------------------------------------
     -- Table `familia`
@@ -600,10 +604,6 @@
     #BAIRRO
     mysql_query("insert into bairro(nome) values ('MOrUMBI'),('ACLImAÇÃO'),('santa mônica')") or die(mysql_error());
     echo "Tabela bairro populada com sucesso<br>";
-
-    #CIDADE
-    include_once 'install_cidades_estados.php';    
-    echo "Tabela cidade e estado populada com sucesso<br>";
 
     #FAMILIA
     mysql_query("insert into familia(cep,logradouro,numero,bairro,cod_cidade) values 
