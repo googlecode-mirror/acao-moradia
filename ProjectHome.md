@@ -1,0 +1,1 @@
+Este é um software para cadastro de famílias atendidas pela  ONG "Ação Moradia". O software será desenvolvido pelos alunos do Programa de Educação Tutorial de Sistemas de Informação(PET-SI) da Universidade Federal de Uberlândia(UFU).
